@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/home.PNG</file>
+        <file>images/Rectangle.svg</file>
+        <file>images/RectangleUnclicked.svg</file>
+    </qresource>
+</RCC>
