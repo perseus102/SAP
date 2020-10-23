@@ -1,7 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/home.PNG</file>
-        <file>images/Rectangle.svg</file>
-        <file>images/RectangleUnclicked.svg</file>
+        <file>images/home/home_protected_icon.svg</file>
+        <file>images/home/home_warning_icon.svg</file>
+        <file>images/status/status_protected_icon.svg</file>
+        <file>images/home/home_protected_selected_icon.svg</file>
+        <file>images/home/home_warning_selected_icon.svg</file>
+        <file>images/scan/scan_icon.svg</file>
+        <file>images/manage/manage_icon.svg</file>
+        <file>images/setting/setting_icon.svg</file>
     </qresource>
 </RCC>

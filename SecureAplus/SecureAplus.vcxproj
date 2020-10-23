@@ -75,23 +75,29 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Win32'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>msvc2017_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtInstall>msvc2015_64</QtInstall>
+    <QtModules>core;gui;qml;quick;quickcontrols2;quickwidgets;svg;widgets;xml;xmlpatterns</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>msvc2017_64</QtInstall>
+    <QtInstall>msvc2015_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'" Label="QtSettings">
-    <QtInstall>msvc2017</QtInstall>
+    <QtInstall>msvc2015_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Win32'" Label="QtSettings">
-    <QtInstall>msvc2017</QtInstall>
+    <QtInstall>msvc2015_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
@@ -151,9 +157,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="appsetting.cpp" />
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="homecontent.cpp" />
+    <ClCompile Include="managewidget.cpp" />
+    <ClCompile Include="scanwidget.cpp" />
+    <ClCompile Include="settingwidget.cpp" />
+    <ClCompile Include="statuswidget.cpp" />
+    <ClCompile Include="switch.cpp" />
+    <ClCompile Include="util.cpp" />
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
     <QtUic Include="framelesswindow\framelesswindow.ui" />
+    <QtUic Include="homecontent.ui" />
     <QtUic Include="homewidget.ui" />
     <QtUic Include="mainwindow.ui" />
     <QtMoc Include="mainwindow.h" />
@@ -162,6 +178,10 @@
     <ClCompile Include="homewidget.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="managewidget.ui" />
+    <QtUic Include="scanwidget.ui" />
+    <QtUic Include="settingwidget.ui" />
+    <QtUic Include="statuswidget.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h" />
@@ -171,6 +191,31 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="homewidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="statuswidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="scanwidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="managewidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="settingwidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="appsetting.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="define.h" />
+    <QtMoc Include="homecontent.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="style.h" />
+    <QtMoc Include="switch.h" />
+    <ClInclude Include="util.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SecureAplus.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -22,20 +22,38 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
-    <Filter Include="framelesswindow">
+    <Filter Include="Header Files\framelesswindow">
       <UniqueIdentifier>{658ceab3-12e2-4307-a926-530b9981532d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\framelesswindow">
-      <UniqueIdentifier>{eca0e734-4f2b-4f3a-9d96-b6f909dc0ed5}</UniqueIdentifier>
+    <Filter Include="Source Files\framelesswindow">
+      <UniqueIdentifier>{796905e3-93df-445c-a53e-1ea9e8dcbcf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\navigation">
+      <UniqueIdentifier>{6ab372cd-0eb9-4e63-b980-44158ad9aede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\navigation">
+      <UniqueIdentifier>{3046344a-a67f-49c9-bc7e-b2a85b91d9da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files\navigation">
+      <UniqueIdentifier>{53a15818-37b5-4419-a885-af0bc4d2f9fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\toggle_custom">
+      <UniqueIdentifier>{10aa79f2-f050-4bce-8599-d484af3678e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\toggle_custom">
+      <UniqueIdentifier>{573043de-616a-4bfd-8655-f170dd9fdc78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Home Content">
+      <UniqueIdentifier>{473f8e1c-1d51-4339-b6dd-c4eb698c186f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Home Content">
+      <UniqueIdentifier>{3f47c629-4e95-44e1-9a65-3890fa49a54b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="mainwindow.ui">
-      <Filter>Resource Files</Filter>
-    </QtUic>
     <QtMoc Include="mainwindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -50,33 +68,121 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="framelesswindow\windowdragger.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="framelesswindow\framelesswindow.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\framelesswindow</Filter>
+    </ClCompile>
+    <ClCompile Include="framelesswindow\windowdragger.cpp">
+      <Filter>Source Files\framelesswindow</Filter>
+    </ClCompile>
+    <ClCompile Include="statuswidget.cpp">
+      <Filter>Source Files\navigation</Filter>
     </ClCompile>
     <ClCompile Include="homewidget.cpp">
+      <Filter>Source Files\navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="scanwidget.cpp">
+      <Filter>Source Files\navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="managewidget.cpp">
+      <Filter>Source Files\navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="settingwidget.cpp">
+      <Filter>Source Files\navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="appsetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="switch.cpp">
+      <Filter>Source Files\toggle_custom</Filter>
+    </ClCompile>
+    <ClCompile Include="homecontent.cpp">
+      <Filter>Source Files\Home Content</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
-      <Filter>framelesswindow</Filter>
+      <Filter>Header Files\framelesswindow</Filter>
     </QtMoc>
     <QtMoc Include="framelesswindow\windowdragger.h">
-      <Filter>framelesswindow</Filter>
+      <Filter>Header Files\framelesswindow</Filter>
+    </QtMoc>
+    <QtMoc Include="statuswidget.h">
+      <Filter>Header Files\navigation</Filter>
+    </QtMoc>
+    <QtMoc Include="scanwidget.h">
+      <Filter>Header Files\navigation</Filter>
     </QtMoc>
     <QtMoc Include="homewidget.h">
+      <Filter>Header Files\navigation</Filter>
+    </QtMoc>
+    <QtMoc Include="managewidget.h">
+      <Filter>Header Files\navigation</Filter>
+    </QtMoc>
+    <QtMoc Include="settingwidget.h">
+      <Filter>Header Files\navigation</Filter>
+    </QtMoc>
+    <QtMoc Include="appsetting.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="switch.h">
+      <Filter>Header Files\toggle_custom</Filter>
+    </QtMoc>
+    <QtMoc Include="homecontent.h">
+      <Filter>Header Files\Home Content</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
-      <Filter>Resource Files</Filter>
-    </QtUic>
-    <QtUic Include="homewidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="statuswidget.ui">
+      <Filter>Form Files\navigation</Filter>
+    </QtUic>
+    <QtUic Include="scanwidget.ui">
+      <Filter>Form Files\navigation</Filter>
+    </QtUic>
+    <QtUic Include="managewidget.ui">
+      <Filter>Form Files\navigation</Filter>
+    </QtUic>
+    <QtUic Include="homewidget.ui">
+      <Filter>Form Files\navigation</Filter>
+    </QtUic>
+    <QtUic Include="settingwidget.ui">
+      <Filter>Form Files\navigation</Filter>
+    </QtUic>
+    <QtUic Include="homecontent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="style.h">
+      <Filter>Header Files\toggle_custom</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SecureAplus.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

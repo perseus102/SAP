@@ -4,7 +4,17 @@
 #define FRAMELESSWINDOW_H
 
 #include <QWidget>
-
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QGraphicsDropShadowEffect>
+#include <QScreen>
+#include <QSizeGrip>
+#include "ui_framelesswindow.h"
+#include <qDebug>
+#include <QDesktopServices>
+#include "../util.h"
+#include "../appsetting.h"
+#include "../Config.h"
 namespace Ui {
 class FramelessWindow;
 }
@@ -23,10 +33,10 @@ class FramelessWindow : public QWidget {
   bool topBorderHit(const QPoint &pos);
   bool bottomBorderHit(const QPoint &pos);
   void styleWindow(bool bActive, bool bNoState);
-
- public slots:
+  void setWindowIcon();
   void setWindowTitle(const QString &text);
-  void setWindowIcon(const QIcon &ico);
+  QString getBackroundColor();
+
 
  private slots:
   void on_applicationStateChanged(Qt::ApplicationState state);
@@ -35,6 +45,10 @@ class FramelessWindow : public QWidget {
   void on_maximizeButton_clicked();
   void on_closeButton_clicked();
   void on_windowTitlebar_doubleClicked();
+  void on_helpButton_clicked();
+
+public slots:
+	void changeTheme();
 
  protected:
   virtual void changeEvent(QEvent *event);

@@ -6,14 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>830</width>
-    <height>630</height>
+    <width>790</width>
+    <height>600</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>830</width>
-    <height>630</height>
+    <width>790</width>
+    <height>600</height>
    </size>
   </property>
   <property name="font">
@@ -41,19 +47,28 @@
     <number>0</number>
    </property>
    <property name="leftMargin">
-    <number>5</number>
+    <number>0</number>
    </property>
    <property name="topMargin">
-    <number>5</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>5</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>5</number>
+    <number>0</number>
    </property>
    <item>
     <widget class="QWidget" name="windowFrame" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
      <property name="autoFillBackground">
       <bool>false</bool>
      </property>
@@ -87,8 +102,17 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>40</height>
+          <height>32</height>
          </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
         </property>
         <property name="autoFillBackground">
          <bool>false</bool>
@@ -96,7 +120,7 @@
         <property name="styleSheet">
          <string notr="true"/>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0,0,0">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -113,7 +137,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="spacer">
+          <widget class="QLabel" name="spacerLeft">
            <property name="minimumSize">
             <size>
              <width>4</width>
@@ -135,18 +159,21 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>40</width>
-             <height>40</height>
+             <width>30</width>
+             <height>30</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>40</width>
-             <height>40</height>
+             <width>30</width>
+             <height>30</height>
             </size>
            </property>
            <property name="contextMenuPolicy">
             <enum>Qt::NoContextMenu</enum>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
            </property>
            <property name="styleSheet">
             <string notr="true"/>
@@ -162,14 +189,36 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">  padding-left:5px;
-  color:rgb(153,153,153);</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="helpButton">
+           <property name="minimumSize">
+            <size>
+             <width>40</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">#helpButton{
+  background-color:none;
+  border:none;
+  width:30px;
+  height:30px;
+  padding:4px;
+  image:url(:/images/help.png);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>
@@ -199,12 +248,7 @@
   padding:4px;
   image:url(:/images/icon_window_minimize.png);
 }
-#minimizeButton:hover{
-  background-color:#bfcbe0;
-}
-#minimizeButton:pressed{
-  background-color:#bfcbe0;
-}</string>
+</string>
            </property>
            <property name="text">
             <string/>
@@ -228,12 +272,7 @@
   padding:4px;
   image:url(:/images/icon_window_restore.png);
 }
-#restoreButton:hover{
-  background-color:#bfcbe0;
-}
-#restoreButton:pressed{
-  background-color:#bfcbe0;
-}</string>
+</string>
            </property>
            <property name="text">
             <string/>
@@ -257,12 +296,8 @@
   padding:4px;
   image:url(:/images/icon_window_maximize.png);
 }
-#maximizeButton:hover{
-  background-color:#bfcbe0;
-}
-##maximizeButton:pressed{
-  background-color:#bfcbe0;
-}</string>
+
+</string>
            </property>
            <property name="text">
             <string/>
@@ -286,13 +321,20 @@
   padding:4px;
   image:url(:/images/icon_window_close.png);
   border-top-right-radius: 0px;
-}
-#closeButton:hover{
-  background-color:#bfcbe0;
-}
-##closeButton:pressed{
-  background-color:#bfcbe0;
 }</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="spacerRight">
+           <property name="maximumSize">
+            <size>
+             <width>2</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>
@@ -301,6 +343,12 @@
       </item>
       <item>
        <widget class="QWidget" name="windowContent" native="true">
+        <property name="baseSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="autoFillBackground">
          <bool>false</bool>
         </property>
