@@ -159,17 +159,23 @@
   <ItemGroup>
     <ClCompile Include="appsetting.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="gridwidget.cpp" />
     <ClCompile Include="homecontent.cpp" />
+    <ClCompile Include="homemaincontent.cpp" />
     <ClCompile Include="managewidget.cpp" />
     <ClCompile Include="scanwidget.cpp" />
+    <ClCompile Include="settingscontent.cpp" />
     <ClCompile Include="settingwidget.cpp" />
     <ClCompile Include="statuswidget.cpp" />
     <ClCompile Include="switch.cpp" />
+    <ClCompile Include="topbar.cpp" />
     <ClCompile Include="util.cpp" />
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
     <QtUic Include="framelesswindow\framelesswindow.ui" />
+    <QtUic Include="gridwidget.ui" />
     <QtUic Include="homecontent.ui" />
+    <QtUic Include="homemaincontent.ui" />
     <QtUic Include="homewidget.ui" />
     <QtUic Include="mainwindow.ui" />
     <QtMoc Include="mainwindow.h" />
@@ -180,8 +186,10 @@
     <ClCompile Include="main.cpp" />
     <QtUic Include="managewidget.ui" />
     <QtUic Include="scanwidget.ui" />
+    <QtUic Include="settingscontent.ui" />
     <QtUic Include="settingwidget.ui" />
     <QtUic Include="statuswidget.ui" />
+    <QtUic Include="topbar.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h" />
@@ -209,9 +217,13 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />
+    <QtMoc Include="homemaincontent.h" />
+    <QtMoc Include="gridwidget.h" />
     <ClInclude Include="resource.h" />
+    <QtMoc Include="settingscontent.h" />
     <ClInclude Include="style.h" />
     <QtMoc Include="switch.h" />
+    <QtMoc Include="topbar.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>

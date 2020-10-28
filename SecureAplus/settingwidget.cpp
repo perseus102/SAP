@@ -27,7 +27,7 @@ SettingWidget::SettingWidget(QWidget *parent)
 	setFixedHeight(96);
 	m_Selected = false;
 	changeStatus();
-	setWidgetText("Settings");
+	setWidgetText("Settings"); // Can use get text for multi language
 
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingWidget::changeTheme);
 
@@ -128,18 +128,18 @@ void SettingWidget::setWidgetTextStyle()
 	if (m_Selected)
 	{
 
-		m_settingText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_ACTIVE + "; padding-bottom: 10px;}");
+		m_settingText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_ACTIVE + "; padding-bottom: 18px;}");
 
 	}
 	else
 	{
 		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
 		{
-			m_settingText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_LIGHT_THEME + "; padding-bottom: 10px;}");
+			m_settingText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_LIGHT_THEME + "; padding-bottom: 18px;}");
 		}
 		else if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
 		{
-			m_settingText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_DARK_THEME + "; padding-bottom: 10px;}");
+			m_settingText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_DARK_THEME + "; padding-bottom: 18px;}");
 
 		}
 	}

@@ -1,8 +1,6 @@
 #include "switch.h"
 
-#define CORNER_RADIUS 8.0
-#define THUMB_RADIUS 12
-#define SHADOW_ELEVATION 2.0
+#include <QTimer>
 
 Animator::Animator(QObject* target, QObject* parent) : QVariantAnimation(parent) {
 	setTargetObject(target);
@@ -16,7 +14,7 @@ QObject* Animator::targetObject() const {
 	return target.data();
 }
 
-void Animator::setTargetObject(QObject *_target) {
+void Animator::setTargetObject(QObject* _target) {
 	if (target.data() == _target)
 		return;
 
@@ -64,9 +62,15 @@ void Animator::interpolate(const QVariant& _start, const QVariant& end) {
 	start();
 }
 
+void Animator::setCurrentValue(const QVariant& value) {
+	setStartValue(value);
+	setEndValue(value);
+	updateCurrentValue(currentValue());
+}
 
 
-SelectionControl::SelectionControl(QWidget * parent) :QAbstractButton(parent) {
+
+SelectionControl::SelectionControl(QWidget* parent) : QAbstractButton(parent) {
 	setObjectName("SelectionControl");
 	setCheckable(true);
 }
@@ -86,7 +90,7 @@ Qt::CheckState SelectionControl::checkState() const {
 
 void SelectionControl::checkStateSet() {
 	const auto state = checkState();
-	//emit stateChanged(state);
+	emit stateChanged(state);
 	toggle(state);
 }
 
@@ -118,7 +122,6 @@ void Switch::init() {
 	p.setColor(QPalette::Disabled, QPalette::ButtonText, style.textColor);
 	setPalette(p);
 	setSizePolicy(QSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed));
-
 }
 
 QRect Switch::indicatorRect() {
@@ -148,7 +151,6 @@ Switch::~Switch() {
 
 }
 
-
 QSize Switch::sizeHint() const {
 	auto h = style.height;
 	auto w = style.indicatorMargin.left() + style.height + style.indicatorMargin.right() + fontMetrics().width(text());
@@ -156,7 +158,7 @@ QSize Switch::sizeHint() const {
 	return QSize(w, h);
 }
 
-void Switch::paintEvent(QPaintEvent *) {
+void Switch::paintEvent(QPaintEvent*) {
 	/* for desktop usage we do not need Radial reaction */
 
 	QPainter p(this);
@@ -182,14 +184,17 @@ void Switch::paintEvent(QPaintEvent *) {
 
 		if (!shadowPixmap.isNull())
 			p.drawPixmap(thumbRect.center() - QPointF(THUMB_RADIUS, THUMB_RADIUS - 1.0), shadowPixmap);
+
 		p.setBrush(thumbBrushAnimation->currentValue().value<QColor>());
 		p.setRenderHint(QPainter::Antialiasing, true);
+		//        qDebug() << thumbRect << thumbPosAniamtion->currentValue();
 		p.drawEllipse(thumbRect.center(), THUMB_RADIUS - SHADOW_ELEVATION - 1.0, THUMB_RADIUS - SHADOW_ELEVATION - 1.0);
 		p.setRenderHint(QPainter::Antialiasing, false);
 
 		/* draw text */
 		if (text().isEmpty())
 			return;
+
 		p.setOpacity(1.0);
 		p.setPen(palette().color(QPalette::Active, QPalette::ButtonText));
 		p.setFont(font());
@@ -210,15 +215,19 @@ void Switch::paintEvent(QPaintEvent *) {
 		else
 			trackRect.setX(trackRect.x() + trackMargin.left() + trackMargin.right() + 2);
 		auto thumbRect = trackRect;
+
 		if (!shadowPixmap.isNull())
 			p.drawPixmap(thumbRect.center() - QPointF(THUMB_RADIUS, THUMB_RADIUS - 1.0), shadowPixmap);
+
 		p.setOpacity(1.0);
 		p.setBrush(style.thumbDisabled);
 		p.setRenderHint(QPainter::Antialiasing, true);
 		p.drawEllipse(thumbRect.center(), THUMB_RADIUS - SHADOW_ELEVATION - 1.0, THUMB_RADIUS - SHADOW_ELEVATION - 1.0);
 
+		/* draw text */
 		if (text().isEmpty())
 			return;
+
 		p.setOpacity(style.disabledTextOpacity);
 		p.setPen(palette().color(QPalette::Disabled, QPalette::ButtonText));
 		p.setFont(font());
@@ -233,9 +242,20 @@ void Switch::resizeEvent(QResizeEvent* e) {
 
 void Switch::toggle(Qt::CheckState state) {
 	if (state == Qt::Checked) {
-		thumbPosAniamtion->interpolate(0, (style.indicatorMargin.left() + style.indicatorMargin.right() + 2) * 2);
-		thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity), colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity));
-		trackBrushAnimation->interpolate(colorFromOpacity(style.trackOffBrush, style.trackOffOpacity), colorFromOpacity(style.trackOnBrush, style.trackOnOpacity));
+		const QVariant posEnd = (style.indicatorMargin.left() + style.indicatorMargin.right() + 2) * 2;
+		const QVariant thumbEnd = colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity);
+		const QVariant trackEnd = colorFromOpacity(style.trackOnBrush, style.trackOnOpacity);
+
+		if (isHidden()) {
+			thumbPosAniamtion->setCurrentValue(posEnd);
+			thumbBrushAnimation->setCurrentValue(thumbEnd);
+			trackBrushAnimation->setCurrentValue(trackEnd);
+		}
+		else {
+			thumbPosAniamtion->interpolate(0, posEnd);
+			thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity), thumbEnd);
+			trackBrushAnimation->interpolate(colorFromOpacity(style.trackOffBrush, style.trackOffOpacity), trackEnd);
+		}
 	}
 	else { // Qt::Unchecked
 		thumbPosAniamtion->interpolate(thumbPosAniamtion->currentValue().toInt(), 0);
@@ -243,9 +263,3 @@ void Switch::toggle(Qt::CheckState state) {
 		trackBrushAnimation->interpolate(colorFromOpacity(style.trackOnBrush, style.trackOnOpacity), colorFromOpacity(style.trackOffBrush, style.trackOffOpacity));
 	}
 }
-
-void Switch::mouseReleaseEvent(QMouseEvent * e)
-{
-	QAbstractButton::mouseReleaseEvent(e);
-}
-

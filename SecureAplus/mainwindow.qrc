@@ -3,10 +3,11 @@
         <file>images/home/home_protected_icon.svg</file>
         <file>images/home/home_warning_icon.svg</file>
         <file>images/status/status_protected_icon.svg</file>
-        <file>images/home/home_protected_selected_icon.svg</file>
-        <file>images/home/home_warning_selected_icon.svg</file>
         <file>images/scan/scan_icon.svg</file>
         <file>images/manage/manage_icon.svg</file>
         <file>images/setting/setting_icon.svg</file>
+        <file>images/home/home_main_content_protected_icon.svg</file>
+        <file>images/home/home_main_content_warning_icon.svg</file>
+        <file>images/topbar/navigation_button.svg</file>
     </qresource>
 </RCC>

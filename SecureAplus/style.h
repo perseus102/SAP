@@ -2,9 +2,6 @@
 #define STYLE_H
 
 #include <QtCore/qeasingcurve.h>
-#include <QPainter>
-#include <QtWidgets>
-#include "define.h"
 
 #define cyan500 QColor("#00bcd4")
 #define gray50 QColor("#fafafa")

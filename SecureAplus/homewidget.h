@@ -7,15 +7,15 @@
 #include <qDebug>
 #include <QVBoxLayout>
 #include <QLabel>
-#include "Config.h"
-#include "define.h"
 #include <QIcon>
 #include <QtXml>
 #include <QSvgRenderer>
+#include <QGraphicsOpacityEffect>
 #include "ui_homewidget.h"
+#include "Config.h"
+#include "define.h"
 #include "util.h"
 #include "appsetting.h"
-#include <QGraphicsOpacityEffect>
 
 namespace Ui {	
 	class HomeWidget;

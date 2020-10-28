@@ -2,20 +2,19 @@
 
 #include <QWidget>
 #include <QPropertyAnimation>
-#include <QWidget>
 #include <qDebug>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QIcon>
+#include <QGraphicsOpacityEffect>
+#include <QStackedWidget>
 #include "Config.h"
 #include "define.h"
-#include <QIcon>
-#include <QtXml>
-#include <QSvgRenderer>
 #include "util.h"
 #include "appsetting.h"
-#include <QGraphicsOpacityEffect>
 #include "ui_homecontent.h"
-#include <QStackedWidget>
+#include "homemaincontent.h"
+
 namespace Ui {
 	class HomeContent;
 }
@@ -34,18 +33,15 @@ public slots:
 protected:
 	void showEvent(QShowEvent *);
 	void resizeEvent(QResizeEvent *);
+
 private:
 	Ui::HomeContent *ui;
-	QPropertyAnimation *mpFadeIn;
-	//QPropertyAnimation *mpFadeOut;
-	QGraphicsOpacityEffect *eff;
-	QLabel			*m_homeIcon;
-	QLabel			*m_homeText;
-	QVBoxLayout		*m_homeLayout;
-
-	QWidget *firstPageWidget;
-	QWidget *secondPageWidget;
-	QWidget *thirdPageWidget;
-	QStackedWidget *stackedWidget;
+	QPropertyAnimation		*mpFadeIn;
+	QGraphicsOpacityEffect	*eff;
+	QLabel					*m_homeIcon;
+	QLabel					*m_homeText;
+	QVBoxLayout				*m_homeContentLayout;
+	HomeMainContent			*m_homeMainContent;
+	QStackedWidget			*stackedWidget;
 
 };

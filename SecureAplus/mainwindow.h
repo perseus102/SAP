@@ -14,6 +14,7 @@
 #include <QGraphicsDropShadowEffect>
 #include "appsetting.h"
 #include "homecontent.h"
+#include "settingscontent.h"
 namespace Ui {
 	class MainWindow;
 }
@@ -48,7 +49,8 @@ private:
 	QWidget *firstPageWidget;
 	QWidget *secondPageWidget;
 	QWidget *thirdPageWidget;
-	HomeContent *homeContent;
+	HomeContent *m_homeContent;
+	SettingsContent *m_settingContent;
 	QStackedWidget *stackedWidget;
 	QPropertyAnimation *animation;
 	QGraphicsOpacityEffect *effect;

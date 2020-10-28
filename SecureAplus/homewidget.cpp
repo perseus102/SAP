@@ -28,7 +28,8 @@ HomeWidget::HomeWidget(QWidget *parent)
 	/* init */
 	m_Selected = true;
 	changeStatus();
-	setWidgetText("Home");
+	setWidgetText("Home"); // Can use get text for multi language
+
 	/* Connection */
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &HomeWidget::changeTheme);
 
@@ -84,31 +85,14 @@ void HomeWidget::setIcon()
 	QIcon icon;
 	Status status = AppSetting::getInstance()->getStatus();
 
-	//if (m_Selected)
-	//{
-	//	if (status == Status::Protected_Status)
-	//	{
-	//		icon = util::getInstance()->ChangeSVGColor(HOME_PROTECTED_SELECTED_PATH, TEXT_ICON_COLOR_ACTIVE);
-
-	//	}
-	//	else if (status == Status::Warning_Status)
-	//	{
-	//		icon = util::getInstance()->ChangeSVGColor(HOME_WARNING_SELECTED_PATH, TEXT_ICON_COLOR_ACTIVE);
-
-	//	}
-	//}
-	//else
-	//{
-	//	
-	//}
 	if (status == Status::Protected_Status)
 	{
-		icon = util::getInstance()->ChangeSVGColor(HOME_PROTECTED_UNSELECTED_PATH, HOME_PROTECTED_UNSELETED_COLOR);
+		icon = util::getInstance()->ChangeSVGColor(HOME_PROTECTED_PATH, HOME_PROTECTED_COLOR);
 	}
 	else if (status == Status::Warning_Status)
 	{
 
-		icon = util::getInstance()->ChangeSVGColor(HOME_WARNING_UNSELECTED_PATH, HOME_WARNING_UNSELETED_COLOR);
+		icon = util::getInstance()->ChangeSVGColor(HOME_WARNING_PATH, HOME_WARNING_COLOR);
 	}
 
 	m_homeIcon->setPixmap(icon.pixmap(35, 35));
@@ -139,18 +123,18 @@ void HomeWidget::setWidgetTextStyle()
 	if (m_Selected)
 	{
 		
-		m_homeText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_ACTIVE + "; padding-bottom: 10px;}");
+		m_homeText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_ACTIVE + "; padding-bottom: 18px;}");
 
 	}
 	else
 	{
 		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
 		{
-			m_homeText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_LIGHT_THEME  + "; padding-bottom: 10px;}");
+			m_homeText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_LIGHT_THEME  + "; padding-bottom: 18px;}");
 		}
 		else if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
 		{
-			m_homeText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_DARK_THEME + "; padding-bottom: 10px;}");
+			m_homeText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_DARK_THEME + "; padding-bottom: 18px;}");
 
 		}
 	}

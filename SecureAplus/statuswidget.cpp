@@ -20,9 +20,9 @@ StatusWidget::StatusWidget(QWidget *parent)
 
 	m_statusLayout->addWidget(m_statusIcon);
 
-	/*switch4 = new Switch("Switch");
-	m_statusLayout->addWidget(switch4);*/
-
+	//switch4 = new Switch("Switch");
+	//m_statusLayout->addWidget(switch4);
+	//switch4->setChecked(true);
 	//switch4->setDisabled(false);
 	setFixedWidth(140);
 	setFixedHeight(158);

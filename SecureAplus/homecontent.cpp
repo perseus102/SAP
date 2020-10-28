@@ -1,7 +1,4 @@
 #include "homecontent.h"
-#include <qDebug>
-#include <QtQml/QQmlEngine>
-#include <QtQuick/QQuickView>
 
 HomeContent::HomeContent(QWidget *parent)
 	: QWidget(parent),
@@ -9,22 +6,19 @@ HomeContent::HomeContent(QWidget *parent)
 {
 	ui->setupUi(this);
 
+	m_homeMainContent = new HomeMainContent();
+	stackedWidget = new QStackedWidget();
+	stackedWidget->addWidget(m_homeMainContent);
 
-	/*m_homeIcon = new QLabel();
-	m_homeIcon->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
-	m_homeIcon->setStyleSheet("QLabel { background-color : grey; color : blue; }");
-	m_homeText = new QLabel();
-	m_homeText->setFont(FONT);
-	m_homeText->setAlignment(Qt::AlignCenter);
-	m_homeText->setStyleSheet("QLabel { background-color : blue; color : blue; }");
+	m_homeContentLayout = new QVBoxLayout;
+	m_homeContentLayout->setContentsMargins(0, 0, 0, 0);
+	m_homeContentLayout->setSpacing(0);
+	m_homeContentLayout->addWidget(stackedWidget);
 
-	m_homeLayout = new QVBoxLayout(this);
-	m_homeLayout->setSpacing(0);
-	m_homeLayout->setContentsMargins(0, 0, 0, 0);
-	m_homeLayout->addWidget(m_homeIcon);
-	m_homeLayout->addWidget(m_homeText);
-	setLayout(m_homeLayout);*/
+	setLayout(m_homeContentLayout);
 
+
+	/* Init Fade In*/
 	eff = new QGraphicsOpacityEffect(this);
 	this->setGraphicsEffect(eff);
 	mpFadeIn = new QPropertyAnimation(eff, "opacity");
@@ -33,26 +27,8 @@ HomeContent::HomeContent(QWidget *parent)
 	mpFadeIn->setEndValue(1);
 	connect(mpFadeIn, SIGNAL(finished()), this, SLOT(onFadeInFinished()));
 
-
-
-	firstPageWidget = new QWidget;
-	secondPageWidget = new QWidget;
-	thirdPageWidget = new QWidget;
-
-	firstPageWidget->setStyleSheet("background-color:green");
-	secondPageWidget->setStyleSheet("background-color:black");
-	thirdPageWidget->setStyleSheet("background-color:red");
-
-	stackedWidget = new QStackedWidget;
-	stackedWidget->addWidget(firstPageWidget);
-	stackedWidget->addWidget(secondPageWidget);
-	stackedWidget->addWidget(thirdPageWidget);
-
-	QVBoxLayout *layout = new QVBoxLayout;
-	layout->addWidget(stackedWidget);
-
-	setLayout(layout);
-	stackedWidget->setCurrentWidget(thirdPageWidget);
+	setStyleSheet("#HomeContent{border: 0px none palette(shadow); "
+		"border-top-left-radius:10px;}");
 }
 
 HomeContent::~HomeContent()
@@ -61,19 +37,18 @@ HomeContent::~HomeContent()
 
 void HomeContent::onFadeInFinished()
 {
-	qDebug() << "onFadeInFinished";
 	eff->setEnabled(false);
 }
 
 void HomeContent::fadeIn()
 {
-	eff->setEnabled(true);
-	mpFadeIn->start();
+
 }
 
 void HomeContent::showEvent(QShowEvent *)
 {
-
+	eff->setEnabled(true);
+	mpFadeIn->start();
 }
 
 void HomeContent::resizeEvent(QResizeEvent *)

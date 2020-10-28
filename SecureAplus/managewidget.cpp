@@ -27,7 +27,7 @@ ManageWidget::ManageWidget(QWidget *parent)
 	setFixedHeight(96);
 	m_Selected = false;
 	changeStatus();
-	setWidgetText("Manage");
+	setWidgetText("Manage");// Can use get text for multi language
 
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ManageWidget::changeTheme);
 
@@ -62,18 +62,22 @@ void ManageWidget::changeBackground(ColorType type)
 		break;
 
 	case ColorType::Gradient_Type:
-		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
+		switch (AppSetting::getInstance()->getTheme())
 		{
+		case Theme_Type::Light_Theme:
 			setStyleSheet("background: qlineargradient( x1:0 y1:0, x2:1 y2:0, stop:0 " + GRADIENT_START_LIGHT + ", stop:1 " + GRADIENT_END + ");");
+			break;
 
-		}
-		else if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
-		{
+		case Theme_Type::Dark_Theme:
 			setStyleSheet("background: qlineargradient( x1:0 y1:0, x2:1 y2:0, stop:0 " + GRADIENT_START_DARK + ", stop:1 " + GRADIENT_END + ");");
-
+			break;
+			//MORE THEME
+		default:
+			break;
 		}
 		break;
 
+	//MORE TYPE
 	default:
 		break;
 	}
@@ -89,17 +93,21 @@ void ManageWidget::setIcon()
 	}
 	else
 	{
-		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
+		switch (AppSetting::getInstance()->getTheme())
 		{
+		case Theme_Type::Light_Theme:
 			icon = util::getInstance()->ChangeSVGColor(MANAGE_ICON_PATH, TEXT_ICON_COLOR_LIGHT_THEME);
+			break;
 
-		}
-		else if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
-		{
+		case Theme_Type::Dark_Theme:
 			icon = util::getInstance()->ChangeSVGColor(MANAGE_ICON_PATH, TEXT_ICON_COLOR_DARK_THEME);
+			break;
 
-
+		//MORE THEME
+		default:
+			break;
 		}
+		
 	}
 
 	m_manageIcon->setPixmap(icon.pixmap(35, 35));
@@ -130,19 +138,24 @@ void ManageWidget::setWidgetTextStyle()
 	if (m_Selected)
 	{
 
-		m_manageText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_ACTIVE + "; padding-bottom: 10px;}");
+		m_manageText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_ACTIVE + "; padding-bottom: 18px;}");
 
 	}
 	else
 	{
-		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
+		switch (AppSetting::getInstance()->getTheme())
 		{
-			m_manageText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_LIGHT_THEME + "; padding-bottom: 10px;}");
-		}
-		else if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
-		{
-			m_manageText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_DARK_THEME + "; padding-bottom: 10px;}");
+		case Theme_Type::Light_Theme:
+			m_manageText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_LIGHT_THEME + "; padding-bottom: 18px;}");
+			break;
 
+		case Theme_Type::Dark_Theme:
+			m_manageText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_DARK_THEME + "; padding-bottom: 18px;}");
+			break;
+
+			//MORE THEME
+		default:
+			break;
 		}
 	}
 }
@@ -151,13 +164,19 @@ void ManageWidget::setBackground()
 {
 	if (!m_Selected)
 	{
-		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
+		switch (AppSetting::getInstance()->getTheme())
 		{
+		case Theme_Type::Light_Theme:
 			changeBackground(ColorType::Light_Type);
-		}
-		else if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
-		{
+			break;
+
+		case Theme_Type::Dark_Theme:
 			changeBackground(ColorType::Dark_Type);
+			break;
+
+			//MORE THEME
+		default:
+			break;
 		}
 	}
 	else
