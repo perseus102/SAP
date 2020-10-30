@@ -2,7 +2,7 @@
 #define STYLE_H
 
 #include <QtCore/qeasingcurve.h>
-
+#include "define.h"
 #define cyan500 QColor("#00bcd4")
 #define gray50 QColor("#fafafa")
 #define black QColor("#000000")
@@ -27,7 +27,7 @@ namespace Style {
 	struct Switch {
 		Switch() :
 			height{ 36 },
-			font{ QFont("Roboto medium", 13) },
+			font{ FONT },
 			indicatorMargin{ QMargins(8, 8, 8, 8) },
 			thumbOnBrush{ cyan500 },
 			thumbOnOpacity{ 1 },
@@ -41,7 +41,7 @@ namespace Style {
 			thumbDisabledOpacity{ 1 },
 			trackDisabled{ black },
 			trackDisabledOpacity{ 0.12 },
-			textColor{ black },
+			textColor{ "#8C95A4" },
 			disabledTextOpacity{ 0.26 },
 			thumbBrushAnimation{ Animation(Type::Linear, 150) },
 			trackBrushAnimation{ Animation(Type::Linear, 150) },

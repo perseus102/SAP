@@ -6,27 +6,32 @@ ManageWidget::ManageWidget(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	//Create Home Icon
+	/* init manage icon */
 	m_manageIcon = new QLabel();
 	m_manageIcon->setFixedWidth(140);
 	m_manageIcon->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
 
+	/* init manage title */
 	m_manageText = new QLabel();
 	m_manageText->setFont(FONT);
 	m_manageText->setFixedWidth(140);
 	m_manageText->setAlignment(Qt::AlignCenter);
 
+	/* init manage layout */
 	m_manageLayout = new QVBoxLayout(this);
 	m_manageLayout->setSpacing(0);
 	m_manageLayout->setContentsMargins(0, 0, 0, 0);
 	m_manageLayout->addWidget(m_manageIcon);
 	m_manageLayout->addWidget(m_manageText);
+
+	/* set manage widget layout */
 	setLayout(m_manageLayout);
 
 	setFixedWidth(140);
 	setFixedHeight(96);
+
 	m_Selected = false;
-	changeStatus();
+	setWidgetStyle();
 	setWidgetText("Manage");// Can use get text for multi language
 
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ManageWidget::changeTheme);
@@ -50,7 +55,7 @@ ManageWidget::~ManageWidget()
 
 void ManageWidget::changeBackground(ColorType type)
 {
-
+	/*Change background with color type */
 	switch (type)
 	{
 	case ColorType::Dark_Type:
@@ -85,7 +90,6 @@ void ManageWidget::changeBackground(ColorType type)
 
 void ManageWidget::setIcon()
 {
-	QIcon icon;
 
 	if (m_Selected)
 	{
@@ -125,7 +129,7 @@ void ManageWidget::setSelected(bool isSeletected)
 	m_Selected = isSeletected;
 }
 
-void ManageWidget::changeStatus()
+void ManageWidget::setWidgetStyle()
 {
 	setIcon();
 	setBackground();
@@ -135,11 +139,11 @@ void ManageWidget::changeStatus()
 
 void ManageWidget::setWidgetTextStyle()
 {
+	/* if widget selected */
 	if (m_Selected)
 	{
-
+		/* Set widget title style */
 		m_manageText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_ACTIVE + "; padding-bottom: 18px;}");
-
 	}
 	else
 	{
@@ -164,6 +168,7 @@ void ManageWidget::setBackground()
 {
 	if (!m_Selected)
 	{
+		/* if widget unselected change background with theme color */
 		switch (AppSetting::getInstance()->getTheme())
 		{
 		case Theme_Type::Light_Theme:
@@ -181,6 +186,7 @@ void ManageWidget::setBackground()
 	}
 	else
 	{
+		/* if widget selected change background gradient */
 		changeBackground(ColorType::Gradient_Type);
 	}
 
@@ -193,13 +199,31 @@ void ManageWidget::mousePressEvent(QMouseEvent * event)
 	if (!m_Selected)
 	{
 		m_Selected = !m_Selected;
-		changeStatus();
+		setWidgetStyle();
 		emit setActive();
 	}
 }
 
 void ManageWidget::changeTheme()
 {
-	changeStatus();
-	qDebug() << "ManageWidget Change themee";
+	setWidgetStyle();
+}
+
+
+bool ManageWidget::event(QEvent* e)
+{
+	if (!m_Selected)
+	{
+		/* Hover widget */
+		if (e->type() == QEvent::Enter)
+		{
+			m_manageIcon->setPixmap(icon.pixmap(32, 29));
+		}
+		/* Leave Widget */
+		if (e->type() == QEvent::Leave)
+		{
+			m_manageIcon->setPixmap(icon.pixmap(35, 35));
+		}
+	}
+	return QWidget::event(e);
 }

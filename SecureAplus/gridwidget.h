@@ -30,6 +30,16 @@ public slots:
 private:
 	Ui::GridWidget *ui;
 	QFrame *m_frame;
-	QVBoxLayout *m_gridLayout;
+	QVBoxLayout *m_layout;
+	QVBoxLayout *m_contentLayout;
+	QLabel			*m_gridIcon;
+	QLabel			*m_gridTitle;
+	QLabel			*m_gridSubTitle;
+	QIcon			icon;
+
 	void setBackground();
+	void setIcon();
+	void setTitleText(QString text);
+	void setSubTitleText(QString text);
+	void setTextStyle();
 };

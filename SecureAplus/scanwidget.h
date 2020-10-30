@@ -23,7 +23,7 @@ public:
 	void changeBackground(ColorType type);
 	void setWidgetText(QString text);
 	void setSelected(bool isSeletected);
-	void changeStatus();
+	void setWidgetStyle();
 	void setIcon();
 	void setWidgetTextStyle();
 	void setBackground();
@@ -37,6 +37,8 @@ public slots:
 protected:
 	void mousePressEvent(QMouseEvent *event);
 
+	bool event(QEvent * e);
+
 
 private:
 	Ui::ScanWidget	*ui;
@@ -44,5 +46,6 @@ private:
 	QLabel			*m_scanText;
 	QVBoxLayout		*m_scanLayout;
 	bool			m_Selected;
+	QIcon			icon;
 
 };

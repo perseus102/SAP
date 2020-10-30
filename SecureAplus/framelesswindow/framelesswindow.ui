@@ -211,10 +211,10 @@
             <string notr="true">#helpButton{
   background-color:none;
   border:none;
-  width:30px;
+  width:44px;
   height:30px;
   padding:4px;
-  image:url(:/images/help.png);
+  image:url(:/images/help_icon.svg);
 }</string>
            </property>
            <property name="text">

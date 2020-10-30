@@ -32,7 +32,7 @@ public:
 	void changeBackground(ColorType type);
 	void setWidgetText(QString text);
 	void setSelected(bool isSeletected);
-	void changeStatus();
+	void setWidgetStyle();
 	void setIcon();
 	void setWidgetTextStyle();
 	void setBackground();
@@ -42,17 +42,19 @@ signals:
 
 public slots:
 	void changeTheme();
-
+	void valueAnimation(const QVariant &value);
 protected:
 	void mousePressEvent(QMouseEvent *event);
-
+	void mouseMoveEvent(QMouseEvent *event);
+	bool event(QEvent* e) override;
 private:
 	Ui::HomeWidget	*ui;
 	QLabel			*m_homeIcon;
 	QLabel			*m_homeText;
 	QVBoxLayout		*m_homeLayout;
 	bool			m_Selected;
-
+	QIcon			icon;
+	QVariantAnimation *m_backgroundAnimation;
 
 };
 #endif

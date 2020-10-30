@@ -6,25 +6,17 @@ MainWindow::MainWindow(QWidget *parent)
 	ui(new Ui::MainWindow) {
 	ui->setupUi(this);
 
-	m_statusWidget = new StatusWidget(ui->status_widget);
-	m_homeWidget = new HomeWidget(ui->home_widget);
-	m_scanWidget = new ScanWidget(ui->scan_widget);
-	m_manageWidget = new ManageWidget(ui->manage_widget);
-	m_SettingWidget = new SettingWidget(ui->setting_widget);
+	m_statusWidget		= new StatusWidget(ui->status_widget);
+	m_homeWidget		= new HomeWidget(ui->home_widget);
+	m_scanWidget		= new ScanWidget(ui->scan_widget);
+	m_manageWidget		= new ManageWidget(ui->manage_widget);
+	m_SettingWidget		= new SettingWidget(ui->setting_widget);
 
-	ActiveWidget = m_homeWidget;
-	setConnection();
-	changeBackground();
-
-	m_homeContent = new HomeContent;
-	firstPageWidget = new QWidget;
-	secondPageWidget = new QWidget;
-	thirdPageWidget = new QWidget;
-	m_settingContent = new SettingsContent;
-
-	//firstPageWidget->setStyleSheet("background-color:black");
-	//secondPageWidget->setStyleSheet("background-color:grey");
-	//thirdPageWidget->setStyleSheet("background-color:#38373a");
+	m_homeContent		= new HomeContent;
+	firstPageWidget		= new QWidget;
+	secondPageWidget	= new QWidget;
+	thirdPageWidget		= new QWidget;
+	m_settingContent	= new SettingsContent;
 	
 	stackedWidget = new QStackedWidget;
 	stackedWidget->addWidget(m_homeContent);
@@ -33,6 +25,11 @@ MainWindow::MainWindow(QWidget *parent)
 	stackedWidget->addWidget(secondPageWidget);
 	stackedWidget->addWidget(thirdPageWidget);
 	stackedWidget->addWidget(m_settingContent);
+
+	ActiveWidget = m_homeWidget;
+
+	setConnection();
+	changeBackground();
 
 	QVBoxLayout *layout = new QVBoxLayout;
 	layout->addWidget(stackedWidget);
@@ -98,32 +95,30 @@ void MainWindow::switchActiveWidget()
 	else if (ActiveWidget == m_homeWidget)
 	{
 		m_homeWidget->setSelected(false);
-		m_homeWidget->changeStatus();
+		m_homeWidget->setWidgetStyle();
 
 	}
 	else if (ActiveWidget == m_scanWidget)
 	{
 		m_scanWidget->setSelected(false);
-		m_scanWidget->changeStatus();
+		m_scanWidget->setWidgetStyle();
 
 
 	}
 	else if (ActiveWidget == m_manageWidget)
 	{
 		m_manageWidget->setSelected(false);
-		m_manageWidget->changeStatus();
+		m_manageWidget->setWidgetStyle();
 
 
 	}
 	else if (ActiveWidget == m_SettingWidget)
 	{
 		m_SettingWidget->setSelected(false);
-		m_SettingWidget->changeStatus();
+		m_SettingWidget->setWidgetStyle();
 	}
 
 	ActiveWidget = sender();
-
-
 
 }
 

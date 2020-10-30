@@ -88,8 +88,10 @@ HomeMainContent::HomeMainContent(QWidget *parent)
 	/* spacer bottom */
 	m_vBoxlayout->addWidget(spacer);
 
+	/* Set widget layout */
 	setLayout(m_vBoxlayout);
 
+	/* Test */
 	setStatusText(QString("All's Good. Your PC is Protected"));
 	setLastScanText(QString("Last scan: Septemper 3rd, 2020 at 9:30"));
 	setSecurityFearuteText(QString("All security is running."));

@@ -1,3 +1,19 @@
+/*
+ * This is nearly complete Material design Switch widget implementation in qtwidgets module.
+ * More info: https://material.io/design/components/selection-controls.html#switches
+ * Copyright (C) 2018-2020 Iman Ahmadvand
+ *
+ * This is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * It is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+*/
+
 #ifndef SWITCH_H
 #define SWITCH_H
 
@@ -55,7 +71,7 @@ class Switch final : public SelectionControl {
 	Q_OBJECT
 
 		static constexpr auto CORNER_RADIUS = 8.0;
-	static constexpr auto THUMB_RADIUS = 14.5;
+	static constexpr auto THUMB_RADIUS = 8.0;
 	static constexpr auto SHADOW_ELEVATION = 2.0;
 
 public:

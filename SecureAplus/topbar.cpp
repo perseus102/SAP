@@ -6,6 +6,7 @@ TopBar::TopBar(QWidget *parent)
 {
 	ui->setupUi(this);
 
+	/* Init */
 	m_Directory			= new QLabel();
 	m_naviButton		= new QPushButton();
 	m_topBarLayout		= new QHBoxLayout();
@@ -25,6 +26,7 @@ TopBar::TopBar(QWidget *parent)
 	m_topBarLayout->addWidget(m_naviButton);
 	m_topBarLayout->addWidget(m_Directory);
 
+	/* Set layout */
 	setLayout(m_topBarLayout);
 }
 

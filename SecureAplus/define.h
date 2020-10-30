@@ -38,10 +38,16 @@
 #define GRID_BACKGROUND_LIGHT_THEME			QString("Grid Widget/Grid_Background_Light_Theme")
 #define GRID_BORDER_DARK_THEME				QString("Grid Widget/Grid_Border_Dark_Theme")
 #define GRID_BORDER_LIGHT_THEME				QString("Grid Widget/Grid_Border_Light_Theme")
+#define GRID_RING_DARK_THEME				QString("Grid Widget/Ring_Icon_Dark_Theme")
+#define GRID_RING_LIGHT_THEME				QString("Grid Widget/Ring_Icon_Light_Theme")
+#define GRID_TITLE_DARK_THEME				QString("Grid Widget/Grid_Tittle_Color_Dark_Theme")
+#define GRID_TITLE_LIGHT_THEME				QString("Grid Widget/Grid_Tittle_Color_Light_Theme")
+#define GRID_SUB_TITLE_DARK_THEME			QString("Grid Widget/Grid_Sub_Tittle_Color_Dark_Theme")
+#define GRID_SUB_TITLE_LIGHT_THEME			QString("Grid Widget/Grid_Sub_iTittle_Color_Light_Theme")
 
 /* Define for title bar icon*/
 #define APP_ICON							QString(":/images/icon.png")
-#define HELP_ICON							QString(":/images/help.png")
+#define HELP_ICON							QString(":/images/help_icon.svg")
 #define CLOSE_ICON							QString(":/images/icon_window_close.png")
 #define RESTORE_ICON						QString(":/images/icon_window_restore.png")
 #define MINIMIZE_ICON						QString(":/images/icon_window_minimize.png")
@@ -67,12 +73,16 @@
 /* Define for top bar icon */
 #define TOPBAR_ICON_PATH					QString(":/images/topbar/navigation_button.svg")
 
+/* Define for Grid widget icon */			
+#define GRID_WIDGET_ICON_PATH				QString(":/images/grid widget/grid_ring_icon.svg")
+
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
 
 /* Define font */
 #define FONT								QFont("Lato", 10, QFont::Normal)
 #define HOME_CONTENT_STATUS_FONT			QFont("Lato", 16, QFont::Medium)
+#define GRID_SUB_TITLE_FRONT				QFont("Lato", 8, QFont::Normal)
 
 /* Define for navigation button color */
 #define GRADIENT_START_DARK					Config::getInstance()->getConfigValue(NAVIGATION_BTN_GRADIENT_START_DARK)
@@ -105,6 +115,12 @@
 #define GRID_BACKGROUND_LIGHT_THEME_COLOR	Config::getInstance()->getConfigValue(GRID_BACKGROUND_LIGHT_THEME)
 #define GRID_BORDER_DARK_THEME_COLOR		Config::getInstance()->getConfigValue(GRID_BORDER_DARK_THEME)
 #define GRID_BORDER_LIGHT_THEME_COLOR		Config::getInstance()->getConfigValue(GRID_BORDER_LIGHT_THEME)
+#define GRID_RING_DARK_THEME_COLOR			Config::getInstance()->getConfigValue(GRID_RING_DARK_THEME)
+#define GRID_RING_LIGHT_THEME_COLOR			Config::getInstance()->getConfigValue(GRID_RING_LIGHT_THEME)
+#define GRID_TITLE_DARK_THEME_COLOR			Config::getInstance()->getConfigValue(GRID_TITLE_DARK_THEME)
+#define GRID_TITLE_LIGHT_THEME_COLOR		Config::getInstance()->getConfigValue(GRID_TITLE_LIGHT_THEME)
+#define GRID_SUB_TITLE_DARK_THEME_COLOR		Config::getInstance()->getConfigValue(GRID_SUB_TITLE_DARK_THEME)
+#define GRID_SUB_TITLE_LIGHT_THEME_COLOR	Config::getInstance()->getConfigValue(GRID_SUB_TITLE_LIGHT_THEME)
 
 enum ColorType
 {

@@ -56,8 +56,7 @@ void FramelessWindow::on_restoreButton_clicked() {
 	ui->maximizeButton->setVisible(true);
 
 	setWindowState(Qt::WindowNoState);
-	// on MacOS this hack makes sure the
-	// background window is repaint correctly
+
 	hide();
 	show();
 }
@@ -108,8 +107,9 @@ void FramelessWindow::setWindowIcon() {
 
 void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
 	
+	/* Get background color from file */
 	QString background_color = getBackroundColor();
-
+	/* Active window */
 	if (bActive) {
 		if (bNoState) {
 			layout()->setMargin(15);
@@ -144,6 +144,7 @@ void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
 			ui->windowFrame->setGraphicsEffect(nullptr);
 		}  // if (bNoState) else maximize
 	}
+	/* Unactive window */
 	else {
 		if (bNoState) {
 			layout()->setMargin(15);
@@ -178,6 +179,7 @@ void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
 	}    // if (bActive) { else no focus
 
 
+	/* Set style for title bar button */
 	ui->helpButton->setStyleSheet("#helpButton{background-color:none;"
 		"border:none; width:44px; height:30px; padding:4px;"
 		"image:url("+ HELP_ICON +");}"
@@ -323,7 +325,7 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
 				setGeometry(newg);
 			}
 		}
-
+		// Top border
 		else if (m_bDragTop) {
 			int diff = globalMousePos.y() - m_StartGeometry.y();
 			int newy = m_StartGeometry.y() + diff;
@@ -333,6 +335,7 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
 				//setGeometry(newg);
 			}
 		}
+		// Left border
 		else if (m_bDragLeft) {
 			int diff = globalMousePos.x() - m_StartGeometry.x();
 			int newx = m_StartGeometry.x() + diff;
@@ -342,6 +345,7 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
 				//setGeometry(newg);
 			}
 		}
+		// Right border
 		else if (m_bDragRight) {
 			int diff =
 				globalMousePos.x() - (m_StartGeometry.x() + m_StartGeometry.width());
@@ -353,6 +357,7 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
 				//setGeometry(newg);
 			}
 		}
+		// Right bottom
 		else if (m_bDragBottom) {
 			int diff =
 				globalMousePos.y() - (m_StartGeometry.y() + m_StartGeometry.height());
@@ -414,6 +419,7 @@ bool FramelessWindow::leftBorderHit(const QPoint &pos) {
 	return false;
 }
 
+/* Right border mouse hit */
 bool FramelessWindow::rightBorderHit(const QPoint &pos) {
 	const QRect &rect = this->geometry();
 	int tmp = rect.x() + rect.width();
@@ -423,6 +429,7 @@ bool FramelessWindow::rightBorderHit(const QPoint &pos) {
 	return false;
 }
 
+/* Top border mouse hit */
 bool FramelessWindow::topBorderHit(const QPoint &pos) {
 	const QRect &rect = this->geometry();
 	if (pos.y() >= rect.y() && pos.y() <= rect.y() + CONST_DRAG_BORDER_SIZE) {
@@ -431,6 +438,7 @@ bool FramelessWindow::topBorderHit(const QPoint &pos) {
 	return false;
 }
 
+/* Bottom border mouse hit */
 bool FramelessWindow::bottomBorderHit(const QPoint &pos) {
 	const QRect &rect = this->geometry();
 	int tmp = rect.y() + rect.height();
@@ -450,6 +458,7 @@ void FramelessWindow::mousePressEvent(QMouseEvent *event) {
 
 	QPoint globalMousePos = mapToGlobal(QPoint(event->x(), event->y()));
 
+	/* Set cursor for mouse */
 	if (leftBorderHit(globalMousePos) && topBorderHit(globalMousePos)) {
 		m_bDragTop = true;
 		m_bDragLeft = true;
@@ -557,6 +566,7 @@ QString FramelessWindow::getBackroundColor()
 	return colorCode;
 }
 
+/* Slot when change theme */
 void FramelessWindow::changeTheme()
 {
 	if (windowState().testFlag(Qt::WindowNoState)) {
@@ -565,5 +575,4 @@ void FramelessWindow::changeTheme()
 	else if (windowState().testFlag(Qt::WindowMaximized)) {
 		styleWindow(true, false);
 	}
-	qDebug() << "FramelessWindow::changeTheme";
 }

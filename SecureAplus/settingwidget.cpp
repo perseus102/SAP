@@ -6,27 +6,31 @@ SettingWidget::SettingWidget(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	//Create Home Icon
+	/* Init settings icon */
 	m_settingIcon = new QLabel();
 	m_settingIcon->setFixedWidth(140);
 	m_settingIcon->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
 
+	/* Init settings title */
 	m_settingText = new QLabel();
 	m_settingText->setFont(FONT);
 	m_settingText->setFixedWidth(140);
 	m_settingText->setAlignment(Qt::AlignCenter);
 
+	/* Init settings layout */
 	m_settingLayout = new QVBoxLayout(this);
 	m_settingLayout->setSpacing(0);
 	m_settingLayout->setContentsMargins(0, 0, 0, 0);
 	m_settingLayout->addWidget(m_settingIcon);
 	m_settingLayout->addWidget(m_settingText);
+
+	/* set settings layout */
 	setLayout(m_settingLayout);
 
 	setFixedWidth(140);
 	setFixedHeight(96);
 	m_Selected = false;
-	changeStatus();
+	setWidgetStyle();
 	setWidgetText("Settings"); // Can use get text for multi language
 
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingWidget::changeTheme);
@@ -48,7 +52,7 @@ SettingWidget::~SettingWidget()
 
 void SettingWidget::changeBackground(ColorType type)
 {
-
+	/*Change background with color type */
 	switch (type)
 	{
 	case ColorType::Dark_Type:
@@ -79,8 +83,6 @@ void SettingWidget::changeBackground(ColorType type)
 
 void SettingWidget::setIcon()
 {
-	QIcon icon;
-
 	if (m_Selected)
 	{
 		icon = util::getInstance()->ChangeSVGColor(SETTING_ICON_PATH, TEXT_ICON_COLOR_ACTIVE);
@@ -115,7 +117,7 @@ void SettingWidget::setSelected(bool isSeletected)
 	m_Selected = isSeletected;
 }
 
-void SettingWidget::changeStatus()
+void SettingWidget::setWidgetStyle()
 {
 	setIcon();
 	setBackground();
@@ -125,9 +127,9 @@ void SettingWidget::changeStatus()
 
 void SettingWidget::setWidgetTextStyle()
 {
+	/*Set widget title style */
 	if (m_Selected)
 	{
-
 		m_settingText->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_ACTIVE + "; padding-bottom: 18px;}");
 
 	}
@@ -149,6 +151,7 @@ void SettingWidget::setBackground()
 {
 	if (!m_Selected)
 	{
+		/* if widget selected change background gradient */
 		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
 		{
 			changeBackground(ColorType::Light_Type);
@@ -160,6 +163,7 @@ void SettingWidget::setBackground()
 	}
 	else
 	{
+		/* if widget unselected change background with theme color */
 		changeBackground(ColorType::Gradient_Type);
 	}
 
@@ -172,13 +176,30 @@ void SettingWidget::mousePressEvent(QMouseEvent * event)
 	if (!m_Selected)
 	{
 		m_Selected = !m_Selected;
-		changeStatus();
+		setWidgetStyle();
 		emit setActive();
 	}
 }
 
 void SettingWidget::changeTheme()
 {
-	changeStatus();
-	qDebug() << "SettingWidget Change themee";
+	setWidgetStyle();
+}
+
+bool SettingWidget::event(QEvent* e)
+{
+	if (!m_Selected)
+	{
+		/* Hover widget */
+		if (e->type() == QEvent::Enter)
+		{
+			m_settingIcon->setPixmap(icon.pixmap(29, 29));
+		}
+		/* Leave Widget */
+		if (e->type() == QEvent::Leave)
+		{
+			m_settingIcon->setPixmap(icon.pixmap(35, 35));
+		}
+	}
+	return QWidget::event(e);
 }

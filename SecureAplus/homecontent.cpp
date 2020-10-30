@@ -10,11 +10,13 @@ HomeContent::HomeContent(QWidget *parent)
 	stackedWidget = new QStackedWidget();
 	stackedWidget->addWidget(m_homeMainContent);
 
+	/* Init home content layout */
 	m_homeContentLayout = new QVBoxLayout;
 	m_homeContentLayout->setContentsMargins(0, 0, 0, 0);
 	m_homeContentLayout->setSpacing(0);
 	m_homeContentLayout->addWidget(stackedWidget);
 
+	/* Set widget layout */
 	setLayout(m_homeContentLayout);
 
 
@@ -27,6 +29,7 @@ HomeContent::HomeContent(QWidget *parent)
 	mpFadeIn->setEndValue(1);
 	connect(mpFadeIn, SIGNAL(finished()), this, SLOT(onFadeInFinished()));
 
+	/* Set style for home main widget */
 	setStyleSheet("#HomeContent{border: 0px none palette(shadow); "
 		"border-top-left-radius:10px;}");
 }
@@ -37,6 +40,7 @@ HomeContent::~HomeContent()
 
 void HomeContent::onFadeInFinished()
 {
+	/* Disable effect */
 	eff->setEnabled(false);
 }
 
@@ -47,6 +51,7 @@ void HomeContent::fadeIn()
 
 void HomeContent::showEvent(QShowEvent *)
 {
+	/* When widget paint set eff true and start animation */
 	eff->setEnabled(true);
 	mpFadeIn->start();
 }

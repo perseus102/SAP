@@ -1,7 +1,5 @@
 #include "switch.h"
 
-#include <QTimer>
-
 Animator::Animator(QObject* target, QObject* parent) : QVariantAnimation(parent) {
 	setTargetObject(target);
 }
@@ -246,7 +244,7 @@ void Switch::toggle(Qt::CheckState state) {
 		const QVariant thumbEnd = colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity);
 		const QVariant trackEnd = colorFromOpacity(style.trackOnBrush, style.trackOnOpacity);
 
-		if (isHidden()) {
+		if (!isVisible()) {
 			thumbPosAniamtion->setCurrentValue(posEnd);
 			thumbBrushAnimation->setCurrentValue(thumbEnd);
 			trackBrushAnimation->setCurrentValue(trackEnd);
@@ -258,8 +256,19 @@ void Switch::toggle(Qt::CheckState state) {
 		}
 	}
 	else { // Qt::Unchecked
-		thumbPosAniamtion->interpolate(thumbPosAniamtion->currentValue().toInt(), 0);
-		thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity), colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity));
-		trackBrushAnimation->interpolate(colorFromOpacity(style.trackOnBrush, style.trackOnOpacity), colorFromOpacity(style.trackOffBrush, style.trackOffOpacity));
+		const QVariant posEnd = 0;
+		const QVariant thumbEnd = colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity);
+		const QVariant trackEnd = colorFromOpacity(style.trackOffBrush, style.trackOffOpacity);
+
+		if (!isVisible()) {
+			thumbPosAniamtion->setCurrentValue(posEnd);
+			thumbBrushAnimation->setCurrentValue(thumbEnd);
+			trackBrushAnimation->setCurrentValue(trackEnd);
+		}
+		else {
+			thumbPosAniamtion->interpolate(thumbPosAniamtion->currentValue().toInt(), posEnd);
+			thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity), thumbEnd);
+			trackBrushAnimation->interpolate(colorFromOpacity(style.trackOnBrush, style.trackOnOpacity), trackEnd);
+		}
 	}
 }
