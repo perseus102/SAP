@@ -27,19 +27,16 @@ public:
 	void setWidgetText(QString text);
 	void setSelected(bool isSeletected);
 	void setWidgetStyle();
-	void setIcon();
-	void setWidgetTextStyle();
-	void setBackground();
 
 signals:
 	void setActive();
 
 public slots:
 	void changeTheme();
+	void valueAnimation(const QVariant& value);
 
 protected:
 	void mousePressEvent(QMouseEvent *event);
-
 	bool event(QEvent * e);
 
 private:
@@ -49,5 +46,9 @@ private:
 	QVBoxLayout			*m_manageLayout;
 	bool				m_Selected;
 	QIcon				icon;
+	QVariantAnimation	*m_backgroundAnimation;
 
+	void setIcon();
+	void setWidgetTextStyle();
+	void setBackground();
 };

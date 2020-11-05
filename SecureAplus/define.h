@@ -45,6 +45,10 @@
 #define GRID_SUB_TITLE_DARK_THEME			QString("Grid Widget/Grid_Sub_Tittle_Color_Dark_Theme")
 #define GRID_SUB_TITLE_LIGHT_THEME			QString("Grid Widget/Grid_Sub_iTittle_Color_Light_Theme")
 
+/* Define for Top Bar */
+#define BACK_BUTTON_LIGHT_THEME				QString("Top Bar/Back_Button_Light_Theme")
+#define BACK_BUTTON_DARK_THEME				QString("Top Bar/Back_Button_Dark_Theme")
+
 /* Define for title bar icon*/
 #define APP_ICON							QString(":/images/icon.png")
 #define HELP_ICON							QString(":/images/help_icon.svg")
@@ -75,6 +79,16 @@
 
 /* Define for Grid widget icon */			
 #define GRID_WIDGET_ICON_PATH				QString(":/images/grid widget/grid_ring_icon.svg")
+
+/* Define for Appearance */
+#define APPEAR_DARK_THEME_LIGHT_MODE		QString(":/images/language personal/appear_dark_theme_light_mode.png")
+#define APPEAR_LIGHT_THEME_LIGHT_MODE		QString(":/images/language personal/appear_light_theme_light_mode.png")
+#define APPEAR_DARK_THEME_DARK_MODE			QString(":/images/language personal/appear_dark_theme_dark_mode.png")
+#define APPEAR_LIGHT_THEME_DARK_MODE		QString(":/images/language personal/appear_light_theme_dark_mode.png")
+#define LIGHT_THEME_ICON_SELECTED			QString(":/images/language personal/light_theme_selected.svg")
+#define LIGHT_THEME_ICON_UNSELECTED			QString(":/images/language personal/light_theme_unselected.svg")
+#define DARK_THEME_ICON_SELECTED			QString(":/images/language personal/dark_theme_selected.svg")
+#define DARK_THEME_ICON_UNSELECTED			QString(":/images/language personal/dark_theme_unselected.svg")
 
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
@@ -121,6 +135,10 @@
 #define GRID_TITLE_LIGHT_THEME_COLOR		Config::getInstance()->getConfigValue(GRID_TITLE_LIGHT_THEME)
 #define GRID_SUB_TITLE_DARK_THEME_COLOR		Config::getInstance()->getConfigValue(GRID_SUB_TITLE_DARK_THEME)
 #define GRID_SUB_TITLE_LIGHT_THEME_COLOR	Config::getInstance()->getConfigValue(GRID_SUB_TITLE_LIGHT_THEME)
+
+/* Define for Top Bar Color */
+#define BACK_BUTTON_LIGHT_THEME_COLOR		Config::getInstance()->getConfigValue(BACK_BUTTON_LIGHT_THEME)
+#define BACK_BUTTON_DARK_THEME_COLOR		Config::getInstance()->getConfigValue(BACK_BUTTON_DARK_THEME)
 
 enum ColorType
 {

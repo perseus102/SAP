@@ -1,5 +1,53 @@
 #include "topbar.h"
 
+BackButton::BackButton(QWidget* parent)
+	: QPushButton(parent)
+{
+	setFixedSize(10, 16);
+	setStyleSheet("QPushButton {border: 0px;}");
+	initIcon();
+	/* Connection */
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &BackButton::changeTheme);
+}
+
+BackButton::~BackButton(){};
+
+void BackButton::enterEvent(QEvent*)
+{
+	setIconSize(QSize(9, 14));
+}
+
+void BackButton::leaveEvent(QEvent*)
+{
+	setIconSize(QSize(10, 16));
+}
+
+void BackButton::initIcon()
+{
+	switch (AppSetting::getInstance()->getTheme())
+	{
+	case Theme_Type::Light_Theme:
+		icon = util::getInstance()->ChangeSVGColor(TOPBAR_ICON_PATH, BACK_BUTTON_LIGHT_THEME_COLOR);
+		break;
+
+	case Theme_Type::Dark_Theme:
+		icon = util::getInstance()->ChangeSVGColor(TOPBAR_ICON_PATH, BACK_BUTTON_DARK_THEME_COLOR);
+
+		break;
+
+		//MORE THEME
+	default:
+		break;
+	}
+	setIcon(icon);
+	setIconSize(QSize(10, 16));
+}
+
+void BackButton::changeTheme()
+{
+	initIcon();
+}
+
 TopBar::TopBar(QWidget *parent)
 	: QWidget(parent),
 	ui(new Ui::TopBar)
@@ -8,13 +56,10 @@ TopBar::TopBar(QWidget *parent)
 
 	/* Init */
 	m_Directory			= new QLabel();
-	m_naviButton		= new QPushButton();
+	m_navigationBtn		= new BackButton();
 	m_topBarLayout		= new QHBoxLayout();
 
 	/*Init Button */
-	m_naviButton->setIcon(QIcon(TOPBAR_ICON_PATH));
-	m_naviButton->setIconSize(QSize(10, 16));
-	m_naviButton->setFixedSize(10, 16);
 	m_topBarLayout->setContentsMargins(0, 0, 0, 0);
 	m_topBarLayout->setSpacing(10);
 
@@ -23,11 +68,12 @@ TopBar::TopBar(QWidget *parent)
 	m_Directory->setAlignment(Qt::AlignLeft);
 	m_Directory->setStyleSheet("QLabel { color:" + TEXT_ICON_COLOR_DARK_THEME + ";}");
 
-	m_topBarLayout->addWidget(m_naviButton);
+	m_topBarLayout->addWidget(m_navigationBtn);
 	m_topBarLayout->addWidget(m_Directory);
 
 	/* Set layout */
 	setLayout(m_topBarLayout);
+
 }
 
 TopBar::~TopBar()
@@ -41,5 +87,11 @@ void TopBar::setDirectoryText(QString text)
 
 void TopBar::setVisibleNaviButton(bool visible)
 {
-	m_naviButton->setVisible(visible);
+	m_navigationBtn->setVisible(visible);
 }
+
+QPushButton* TopBar::getButton()
+{
+	return m_navigationBtn;
+}
+

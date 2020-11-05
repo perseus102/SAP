@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{36DD9E82-89E7-4759-BCDB-1B7616427282}</ProjectGuid>
     <Keyword>QtVS_v303</Keyword>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'">10.0.17763.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|Win32'">10.0.17763.0</WindowsTargetPlatformVersion>
@@ -31,19 +31,19 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -159,11 +159,14 @@
   <ItemGroup>
     <ClCompile Include="appsetting.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="flowlayout.cpp" />
     <ClCompile Include="gridwidget.cpp" />
     <ClCompile Include="homecontent.cpp" />
     <ClCompile Include="homemaincontent.cpp" />
+    <ClCompile Include="languagepersonal.cpp" />
     <ClCompile Include="managewidget.cpp" />
     <ClCompile Include="scanwidget.cpp" />
+    <ClCompile Include="settinggridcontent.cpp" />
     <ClCompile Include="settingscontent.cpp" />
     <ClCompile Include="settingwidget.cpp" />
     <ClCompile Include="statuswidget.cpp" />
@@ -177,6 +180,7 @@
     <QtUic Include="homecontent.ui" />
     <QtUic Include="homemaincontent.ui" />
     <QtUic Include="homewidget.ui" />
+    <QtUic Include="languagepersonal.ui" />
     <QtUic Include="mainwindow.ui" />
     <QtMoc Include="mainwindow.h" />
     <ClCompile Include="framelesswindow\framelesswindow.cpp" />
@@ -186,6 +190,7 @@
     <ClCompile Include="main.cpp" />
     <QtUic Include="managewidget.ui" />
     <QtUic Include="scanwidget.ui" />
+    <QtUic Include="settinggridcontent.ui" />
     <QtUic Include="settingscontent.ui" />
     <QtUic Include="settingwidget.ui" />
     <QtUic Include="statuswidget.ui" />
@@ -219,8 +224,11 @@
     <QtMoc Include="homecontent.h" />
     <QtMoc Include="homemaincontent.h" />
     <QtMoc Include="gridwidget.h" />
+    <ClInclude Include="flowlayout.h" />
+    <QtMoc Include="languagepersonal.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="settingscontent.h" />
+    <QtMoc Include="settinggridcontent.h" />
     <ClInclude Include="style.h" />
     <QtMoc Include="switch.h" />
     <QtMoc Include="topbar.h" />

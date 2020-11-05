@@ -33,7 +33,14 @@ SettingWidget::SettingWidget(QWidget *parent)
 	setWidgetStyle();
 	setWidgetText("Settings"); // Can use get text for multi language
 
+	/* Gradient background animation */
+	m_backgroundAnimation = new QVariantAnimation();
+	m_backgroundAnimation->setStartValue(0.00001);
+	m_backgroundAnimation->setEndValue(0.9999);
+	m_backgroundAnimation->setDuration(150);
+
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingWidget::changeTheme);
+	connect(m_backgroundAnimation, &QVariantAnimation::valueChanged, this, &SettingWidget::valueAnimation);
 
 }
 
@@ -64,17 +71,8 @@ void SettingWidget::changeBackground(ColorType type)
 		break;
 
 	case ColorType::Gradient_Type:
-		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
-		{
-			setStyleSheet("background: qlineargradient( x1:0 y1:0, x2:1 y2:0, stop:0 " + GRADIENT_START_LIGHT + ", stop:1 " + GRADIENT_END + ");");
-
-		}
-		else if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
-		{
-			setStyleSheet("background: qlineargradient( x1:0 y1:0, x2:1 y2:0, stop:0 " + GRADIENT_START_DARK + ", stop:1 " + GRADIENT_END + ");");
-
-		}
-		break;
+		m_backgroundAnimation->setDirection(QAbstractAnimation::Backward);
+		m_backgroundAnimation->start();
 
 	default:
 		break;
@@ -202,4 +200,24 @@ bool SettingWidget::event(QEvent* e)
 		}
 	}
 	return QWidget::event(e);
+}
+
+void SettingWidget::valueAnimation(const QVariant& value)
+{
+	/* Gradient animation when widget selected */
+	if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
+	{
+		//setStyleSheet("background: qlineargradient( x1:0 y1:0, x2:1 y2:0, stop:0 " + GRADIENT_START_LIGHT + ", stop:1 " + GRADIENT_END + ");");
+		setStyleSheet("background: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:0, stop:0" + GRADIENT_START_LIGHT + ","
+			"stop:" + value.toString() + " " + GRADIENT_START_LIGHT + ","
+			"stop:1.0" + GRADIENT_END + ");");
+	}
+	else if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
+	{
+		//setStyleSheet("background: qlineargradient( x1:0 y1:0, x2:1 y2:0, stop:0 " + GRADIENT_START_DARK + ", stop:1 " + GRADIENT_END + ");");
+		setStyleSheet("background: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:0, stop:0" + GRADIENT_START_DARK + ","
+			"stop:" + value.toString() + " " + GRADIENT_START_DARK + ","
+			"stop:1.0" + GRADIENT_END + ");");
+	}
+
 }

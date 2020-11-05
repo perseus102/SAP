@@ -47,7 +47,7 @@ signals:
 public slots:
 	void scanButtonClick();
 	void featureDetailsClick();
-
+	void changeTheme();
 
 private:
 	Ui::HomeMainContent *ui;

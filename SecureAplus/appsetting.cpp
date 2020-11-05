@@ -14,7 +14,7 @@ AppSetting * AppSetting::getInstance()
 AppSetting::AppSetting()
 {
 	m_currentStatus = Status::Protected_Status;
-	m_themeType = Theme_Type::Dark_Theme;
+	m_themeType = Theme_Type::Light_Theme;
 }
 
 AppSetting::~AppSetting()

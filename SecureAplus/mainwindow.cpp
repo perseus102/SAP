@@ -84,7 +84,6 @@ void MainWindow::switchActiveWidget()
 	if (sender() == m_SettingWidget)
 	{
 		stackedWidget->setCurrentWidget(m_settingContent);
-
 	}
 
 	/* set change status for current widget */

@@ -24,28 +24,30 @@ public:
 	void setWidgetText(QString text);
 	void setSelected(bool isSeletected);
 	void setWidgetStyle();
-	void setIcon();
-	void setWidgetTextStyle();
-	void setBackground();
 
 signals:
 	void setActive();
 
 public slots:
 	void changeTheme();
+	void valueAnimation(const QVariant& value);
 
 protected:
 	void mousePressEvent(QMouseEvent *event);
-
 	bool event(QEvent * e);
 
 
 private:
-	Ui::ScanWidget	*ui;
-	QLabel			*m_scanIcon;
-	QLabel			*m_scanText;
-	QVBoxLayout		*m_scanLayout;
-	bool			m_Selected;
-	QIcon			icon;
+	Ui::ScanWidget		*ui;
+	QLabel				*m_scanIcon;
+	QLabel				*m_scanText;
+	QVBoxLayout			*m_scanLayout;
+	bool				m_Selected;
+	QIcon				icon;
+	QVariantAnimation	*m_backgroundAnimation;
+
+	void setIcon();
+	void setWidgetTextStyle();
+	void setBackground();
 
 };

@@ -76,6 +76,12 @@
     <Filter Include="Header Files\Component\Top Bar">
       <UniqueIdentifier>{837fdfe7-773c-4455-87b2-c8bc2f3279d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Flow Layout">
+      <UniqueIdentifier>{7ec1c0d3-4bb0-4252-988c-e7b174052d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Flow Layout">
+      <UniqueIdentifier>{1746315e-c4ba-408e-8240-4ff8b5799143}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -143,6 +149,15 @@
     <ClCompile Include="topbar.cpp">
       <Filter>Source Files\Component\Top Bar</Filter>
     </ClCompile>
+    <ClCompile Include="flowlayout.cpp">
+      <Filter>Source Files\Component\Flow Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="settinggridcontent.cpp">
+      <Filter>Source Files\Settings Content</Filter>
+    </ClCompile>
+    <ClCompile Include="languagepersonal.cpp">
+      <Filter>Source Files\Settings Content</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -187,6 +202,12 @@
     <QtMoc Include="topbar.h">
       <Filter>Header Files\Component\Top Bar</Filter>
     </QtMoc>
+    <QtMoc Include="settinggridcontent.h">
+      <Filter>Header Files\Settings Content</Filter>
+    </QtMoc>
+    <QtMoc Include="languagepersonal.h">
+      <Filter>Header Files\Settings Content</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -225,6 +246,12 @@
     <QtUic Include="topbar.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="settinggridcontent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="languagepersonal.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -241,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="style.h">
       <Filter>Header Files\Component\Toggle</Filter>
+    </ClInclude>
+    <ClInclude Include="flowlayout.h">
+      <Filter>Header Files\Component\Flow Layout</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

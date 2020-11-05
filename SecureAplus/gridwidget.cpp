@@ -21,18 +21,19 @@ GridWidget::GridWidget(QWidget *parent)
 
 	/* Init frame content layout */
 	m_contentLayout= new QVBoxLayout;
-	m_contentLayout->setContentsMargins(1, 1, 1, 1);
-	m_contentLayout->setSpacing(0);
+	m_contentLayout->setContentsMargins(1, 15, 1, 15);
+	m_contentLayout->setSpacing(14);
 	m_gridIcon = new QLabel();
 	m_gridIcon->setFixedWidth(170);
-	m_gridIcon->setFixedHeight(50);
-	m_gridIcon->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+	//m_gridIcon->setFixedHeight(50);
+	//m_gridIcon->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+	m_gridIcon->setAlignment(Qt::AlignCenter);
 
 	/* Init grid title */
 	m_gridTitle = new QLabel();
 	m_gridTitle->setFont(FONT);
 	m_gridTitle->setFixedWidth(170);
-	m_gridTitle->setFixedHeight(30);
+	//m_gridTitle->setFixedHeight(30);
 	m_gridTitle->setAlignment(Qt::AlignCenter);
 	m_gridTitle->setWordWrap(true);
 
@@ -40,10 +41,8 @@ GridWidget::GridWidget(QWidget *parent)
 	m_gridSubTitle = new QLabel();
 	m_gridSubTitle->setFont(GRID_SUB_TITLE_FRONT);
 	m_gridSubTitle->setFixedWidth(170);
-	m_gridSubTitle->setFixedHeight(40);
-	m_gridSubTitle->setAlignment(Qt::AlignCenter);
+	m_gridSubTitle->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 	m_gridSubTitle->setWordWrap(true);
-
 	m_contentLayout->addWidget(m_gridIcon);
 	m_contentLayout->addWidget(m_gridTitle);
 	m_contentLayout->addWidget(m_gridSubTitle);
@@ -57,10 +56,6 @@ GridWidget::GridWidget(QWidget *parent)
 
 	/* Connection */
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &GridWidget::changeTheme);
-
-	/*Test */
-	setTitleText("Language & Personalization");
-	setSubTitleText("Digital Signature Advanced, Command Line, Removable Device");
 }
 
 GridWidget::~GridWidget()
@@ -124,6 +119,12 @@ void GridWidget::setTitleText(QString text)
 void GridWidget::setSubTitleText(QString text)
 {
 	m_gridSubTitle->setText(text);
+	qDebug() << "m_gridSubTitle: " << m_gridSubTitle->height();
+}
+
+void GridWidget::mousePressEvent(QMouseEvent* event)
+{
+	emit pressWidget();
 }
 
 void GridWidget::setTextStyle()

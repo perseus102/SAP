@@ -33,9 +33,6 @@ public:
 	void setWidgetText(QString text);
 	void setSelected(bool isSeletected);
 	void setWidgetStyle();
-	void setIcon();
-	void setWidgetTextStyle();
-	void setBackground();
 
 signals:
 	void setActive();
@@ -43,10 +40,12 @@ signals:
 public slots:
 	void changeTheme();
 	void valueAnimation(const QVariant &value);
+
 protected:
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
 	bool event(QEvent* e) override;
+
 private:
 	Ui::HomeWidget	*ui;
 	QLabel			*m_homeIcon;
@@ -56,5 +55,8 @@ private:
 	QIcon			icon;
 	QVariantAnimation *m_backgroundAnimation;
 
+	void setIcon();
+	void setWidgetTextStyle();
+	void setBackground();
 };
 #endif

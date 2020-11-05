@@ -23,9 +23,17 @@ class GridWidget : public QWidget
 public:
 	GridWidget(QWidget *parent = Q_NULLPTR);
 	~GridWidget();
+	void setTitleText(QString text = NULL);
+	void setSubTitleText(QString text = NULL);
+
+signals:
+	void pressWidget();
 
 public slots:
 	void changeTheme();
+
+protected:
+	void mousePressEvent(QMouseEvent* event);
 
 private:
 	Ui::GridWidget *ui;
@@ -39,7 +47,5 @@ private:
 
 	void setBackground();
 	void setIcon();
-	void setTitleText(QString text);
-	void setSubTitleText(QString text);
 	void setTextStyle();
 };

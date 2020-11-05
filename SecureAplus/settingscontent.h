@@ -15,6 +15,9 @@
 #include "ui_settingscontent.h"
 #include "topbar.h"
 #include "gridwidget.h"
+#include "flowlayout.h"
+#include "settinggridcontent.h"
+#include "languagepersonal.h"
 
 namespace Ui {
 	class SettingsContent;
@@ -31,6 +34,8 @@ public:
 
 public slots:
 	void onFadeInFinished();
+	void changeSettingsView(QString widgetName);
+	void backBtnPressed();
 
 protected:
 	void showEvent(QShowEvent *);
@@ -38,12 +43,14 @@ protected:
 private:
 	Ui::SettingsContent *ui;
 
-	QPropertyAnimation *mpFadeIn;
-	QGraphicsOpacityEffect *eff;
-	QLabel			*m_settingIcon;
-	QLabel			*m_settingText;
-	QVBoxLayout		*m_settingLayout;
-	QStackedWidget	*stackedWidget;
-	TopBar			*m_settingTopBar;
+	QPropertyAnimation		*mpFadeIn;
+	QGraphicsOpacityEffect	*eff;
 
+	QLabel				*m_settingIcon;
+	QLabel				*m_settingText;
+	QVBoxLayout			*m_settingLayout;
+	QStackedWidget		*stackedWidget;
+	TopBar				*m_settingTopBar;
+	SettingGridContent	*m_SettingGridContent;
+	LanguagePersonal	* m_languagePersonal;
 };

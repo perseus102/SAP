@@ -318,7 +318,8 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
 			int neww = m_StartGeometry.width() + diff;
 			int newy = m_StartGeometry.y() + diff;
 			int newh = m_StartGeometry.height() + diff;
-			if (newh > 0 && newy > 0) {
+			//if (newh > 0 && newy > 0) 
+			if (newh > 0) {
 				QRect newg = m_StartGeometry;
 				newg.setHeight(newh);
 				newg.setWidth(neww);

@@ -10,5 +10,13 @@
         <file>images/home/home_main_content_warning_icon.svg</file>
         <file>images/topbar/navigation_button.svg</file>
         <file>images/grid widget/grid_ring_icon.svg</file>
+        <file>images/language personal/appear_dark_theme_dark_mode.png</file>
+        <file>images/language personal/appear_dark_theme_light_mode.png</file>
+        <file>images/language personal/appear_light_theme_dark_mode.png</file>
+        <file>images/language personal/appear_light_theme_light_mode.png</file>
+        <file>images/language personal/dark_theme_selected.svg</file>
+        <file>images/language personal/dark_theme_unselected.svg</file>
+        <file>images/language personal/light_theme_selected.svg</file>
+        <file>images/language personal/light_theme_unselected.svg</file>
     </qresource>
 </RCC>

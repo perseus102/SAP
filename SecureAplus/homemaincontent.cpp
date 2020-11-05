@@ -103,6 +103,7 @@ HomeMainContent::HomeMainContent(QWidget *parent)
 
 	connect(m_btn_scanNow, &QPushButton::clicked, this, &HomeMainContent::scanButtonClick);
 	connect(m_featureDetails, &FeatureDetails::clicked, this, &HomeMainContent::featureDetailsClick);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &HomeMainContent::changeTheme);
 }
 
 HomeMainContent::~HomeMainContent()
@@ -211,6 +212,11 @@ void HomeMainContent::scanButtonClick()
 void HomeMainContent::featureDetailsClick()
 {
 	emit featureDetailsClicked();
+}
+
+void HomeMainContent::changeTheme()
+{
+	setStyle();
 }
 
 FeatureDetails::FeatureDetails(QLabel *parent)
