@@ -14,7 +14,8 @@ AppSetting * AppSetting::getInstance()
 AppSetting::AppSetting()
 {
 	m_currentStatus = Status::Protected_Status;
-	m_themeType = Theme_Type::Light_Theme;
+	m_themeType = Theme_Type::Dark_Theme;
+	m_protectionMode = Protection_Modes::Automatic_Mode; //can save and get from ini file
 }
 
 AppSetting::~AppSetting()
@@ -40,4 +41,29 @@ void AppSetting::setTheme(Theme_Type theme)
 Theme_Type AppSetting::getTheme()
 {
 	return m_themeType;
+}
+
+Protection_Modes AppSetting::getProtectionMode()
+{
+	return m_protectionMode;
+}
+
+void AppSetting::setProtectionMode(Protection_Modes mode)
+{
+	m_protectionMode = mode;
+}
+
+void AppSetting::toggleClicked(bool isChecked)
+{
+	if (!isChecked)
+	{
+		m_protectionMode = Protection_Modes::Interactive_Mode;
+	}
+	emit signal_toggleChanged(isChecked);
+}
+
+void AppSetting::changeProtectionMode(Protection_Modes mode)
+{
+	m_protectionMode = mode;
+	emit signal_changeMode(mode);
 }

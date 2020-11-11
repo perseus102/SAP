@@ -82,23 +82,23 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>msvc2017_64</QtInstall>
+    <QtInstall>Qt5.12.9-x64</QtInstall>
     <QtModules>core;gui;qml;quick;quickcontrols2;quickwidgets;svg;widgets;xml;xmlpatterns</QtModules>
-    <QtBuildConfig>debug</QtBuildConfig>
+    <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>msvc2015_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtInstall>Qt5.12.9-x64</QtInstall>
+    <QtModules>core;gui;qml;quick;quickwidgets;svg;widgets;xml;xmlpatterns</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'" Label="QtSettings">
-    <QtInstall>msvc2015_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtInstall>msvc2017_64</QtInstall>
+    <QtModules>core;gui;qml;quick;quickwidgets;svg;widgets;xml;xmlpatterns</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Win32'" Label="QtSettings">
     <QtInstall>msvc2015_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;qml;quick;quickwidgets;svg;widgets;xml;xmlpatterns</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
@@ -165,7 +165,9 @@
     <ClCompile Include="homemaincontent.cpp" />
     <ClCompile Include="languagepersonal.cpp" />
     <ClCompile Include="managewidget.cpp" />
+    <ClCompile Include="protectionmodes.cpp" />
     <ClCompile Include="scanwidget.cpp" />
+    <ClCompile Include="selectwidget.cpp" />
     <ClCompile Include="settinggridcontent.cpp" />
     <ClCompile Include="settingscontent.cpp" />
     <ClCompile Include="settingwidget.cpp" />
@@ -189,7 +191,9 @@
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="main.cpp" />
     <QtUic Include="managewidget.ui" />
+    <QtUic Include="protectionmodes.ui" />
     <QtUic Include="scanwidget.ui" />
+    <QtUic Include="selectwidget.ui" />
     <QtUic Include="settinggridcontent.ui" />
     <QtUic Include="settingscontent.ui" />
     <QtUic Include="settingwidget.ui" />
@@ -226,9 +230,11 @@
     <QtMoc Include="gridwidget.h" />
     <ClInclude Include="flowlayout.h" />
     <QtMoc Include="languagepersonal.h" />
+    <QtMoc Include="protectionmodes.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="settingscontent.h" />
     <QtMoc Include="settinggridcontent.h" />
+    <QtMoc Include="selectwidget.h" />
     <ClInclude Include="style.h" />
     <QtMoc Include="switch.h" />
     <QtMoc Include="topbar.h" />

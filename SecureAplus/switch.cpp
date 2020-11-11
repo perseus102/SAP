@@ -100,6 +100,7 @@ void SelectionControl::nextCheckState() {
 
 
 void Switch::init() {
+	setColorStyle();
 	setFont(style.font);
 	setObjectName("Switch");
 	/* setup animations */
@@ -120,6 +121,8 @@ void Switch::init() {
 	p.setColor(QPalette::Disabled, QPalette::ButtonText, style.textColor);
 	setPalette(p);
 	setSizePolicy(QSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed));
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &Switch::changeTheme);
+
 }
 
 QRect Switch::indicatorRect() {
@@ -271,4 +274,61 @@ void Switch::toggle(Qt::CheckState state) {
 			trackBrushAnimation->interpolate(colorFromOpacity(style.trackOnBrush, style.trackOnOpacity), trackEnd);
 		}
 	}
+}
+
+
+void Switch::setColorStyle()
+{
+	switch (AppSetting::getInstance()->getTheme())
+	{
+	case Theme_Type::Light_Theme:
+		style.trackOnBrush	= QColor(TRACK_CHECKED_LIGHT_THEME_COLOR);
+		style.trackOffBrush = QColor(TRACK_UNCHECKED_LIGHT_THEME_COLOR);
+		style.thumbOnBrush	= QColor(THUMB_CHECKED_LIGHT_THEME_COLOR);
+		style.thumbOffBrush = QColor(THUMB_UNCHECKED_LIGHT_THEME_COLOR);
+		style.textColor		= QColor(TEXT_LIGHT_THEME_COLOR);
+		break;
+
+	case Theme_Type::Dark_Theme:
+		style.trackOnBrush	= QColor(TRACK_CHECKED_DARK_THEME_COLOR);
+		style.trackOffBrush = QColor(TRACK_UNCHECKED_DARK_THEME_COLOR);
+		style.thumbOnBrush	= QColor(THUMB_CHECKED_DARK_THEME_COLOR);
+		style.thumbOffBrush = QColor(THUMB_UNCHECKED_DARK_THEME_COLOR);
+		style.textColor		= QColor(TEXT_DARK_THEME_COLOR);
+		break;
+
+		//MORE THEME
+	default:
+		break;
+	}
+}
+
+void Switch::changeTheme()
+{
+	setColorStyle();
+	auto p = palette();
+	p.setColor(QPalette::Active, QPalette::ButtonText, style.textColor);
+	p.setColor(QPalette::Disabled, QPalette::ButtonText, style.textColor);
+	setPalette(p);
+
+	const auto state = checkState();
+	if (state == Qt::Checked) {
+		const QVariant posEnd = (style.indicatorMargin.left() + style.indicatorMargin.right() + 2) * 2;
+		const QVariant thumbEnd = colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity);
+		const QVariant trackEnd = colorFromOpacity(style.trackOnBrush, style.trackOnOpacity);
+
+		thumbPosAniamtion->interpolate(thumbPosAniamtion->currentValue().toInt(), posEnd);
+		thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity), thumbEnd);
+		trackBrushAnimation->interpolate(colorFromOpacity(style.trackOnBrush, style.trackOnOpacity), trackEnd);
+
+	}
+	else { // Qt::Unchecked
+		const QVariant posEnd = 0;
+		const QVariant thumbEnd = colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity);
+		const QVariant trackEnd = colorFromOpacity(style.trackOffBrush, style.trackOffOpacity);
+
+		thumbPosAniamtion->interpolate(0, posEnd);
+		thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity), thumbEnd);
+		trackBrushAnimation->interpolate(colorFromOpacity(style.trackOffBrush, style.trackOffOpacity), trackEnd);
+}
 }

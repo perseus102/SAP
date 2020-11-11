@@ -39,6 +39,7 @@ void BackButton::initIcon()
 	default:
 		break;
 	}
+
 	setIcon(icon);
 	setIconSize(QSize(10, 16));
 }
@@ -66,14 +67,15 @@ TopBar::TopBar(QWidget *parent)
 	m_Directory->setFixedHeight(16);
 	m_Directory->setFont(FONT);
 	m_Directory->setAlignment(Qt::AlignLeft);
-	m_Directory->setStyleSheet("QLabel { color:" + TEXT_ICON_COLOR_DARK_THEME + ";}");
-
+	setTextStyle();
+	
 	m_topBarLayout->addWidget(m_navigationBtn);
 	m_topBarLayout->addWidget(m_Directory);
 
 	/* Set layout */
 	setLayout(m_topBarLayout);
 
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &TopBar::changeTheme);
 }
 
 TopBar::~TopBar()
@@ -95,3 +97,28 @@ QPushButton* TopBar::getButton()
 	return m_navigationBtn;
 }
 
+void TopBar::setTextStyle()
+{
+	switch (AppSetting::getInstance()->getTheme())
+	{
+	case Theme_Type::Light_Theme:
+		m_Directory->setStyleSheet("QLabel { color:" + TOP_BAR_TEXT_COLOR_LIGHT_THEME + ";}");
+
+		break;
+
+	case Theme_Type::Dark_Theme:
+		m_Directory->setStyleSheet("QLabel { color:" + TOP_BAR_TEXT_COLOR_DARK_THEME + ";}");
+
+
+		break;
+
+		//MORE THEME
+	default:
+		break;
+	}
+}
+
+void TopBar::changeTheme()
+{
+	setTextStyle();
+}

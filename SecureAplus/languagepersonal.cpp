@@ -144,15 +144,15 @@ void LanguagePersonal::setTextStyle()
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		m_appearance->setStyleSheet("QLabel { color:" + TEXT_ICON_COLOR_LIGHT_THEME + ";}");
-		m_appearLightThemeText->setStyleSheet("QLabel { color:" + TEXT_ICON_COLOR_LIGHT_THEME + ";}");
-		m_appearDarkThemeText->setStyleSheet("QLabel { color:" + TEXT_ICON_COLOR_LIGHT_THEME + ";}");
+		m_appearance->setStyleSheet("QLabel { color:" + LANG_PERS_TEXT_COLOR_LIGHT_THEME + ";}");
+		m_appearLightThemeText->setStyleSheet("QLabel { color:" + LANG_PERS_TEXT_COLOR_LIGHT_THEME + ";}");
+		m_appearDarkThemeText->setStyleSheet("QLabel { color:" + LANG_PERS_TEXT_COLOR_LIGHT_THEME + ";}");
 		break;
 
 	case Theme_Type::Dark_Theme:
-		m_appearance->setStyleSheet("QLabel { color:" + TEXT_ICON_COLOR_DARK_THEME + ";}");
-		m_appearLightThemeText->setStyleSheet("QLabel { color:" + TEXT_ICON_COLOR_DARK_THEME + ";}");
-		m_appearDarkThemeText->setStyleSheet("QLabel { color:" + TEXT_ICON_COLOR_DARK_THEME + ";}");
+		m_appearance->setStyleSheet("QLabel { color:" + LANG_PERS_TEXT_COLOR_DARK_THEME + ";}");
+		m_appearLightThemeText->setStyleSheet("QLabel { color:" + LANG_PERS_TEXT_COLOR_DARK_THEME + ";}");
+		m_appearDarkThemeText->setStyleSheet("QLabel { color:" + LANG_PERS_TEXT_COLOR_DARK_THEME + ";}");
 
 		break;
 

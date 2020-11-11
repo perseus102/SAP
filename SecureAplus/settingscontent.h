@@ -18,6 +18,7 @@
 #include "flowlayout.h"
 #include "settinggridcontent.h"
 #include "languagepersonal.h"
+#include "protectionmodes.h"
 
 namespace Ui {
 	class SettingsContent;
@@ -52,5 +53,6 @@ private:
 	QStackedWidget		*stackedWidget;
 	TopBar				*m_settingTopBar;
 	SettingGridContent	*m_SettingGridContent;
-	LanguagePersonal	* m_languagePersonal;
+	LanguagePersonal	*m_languagePersonal;
+	ProtectionModes		*m_protectionModes;
 };

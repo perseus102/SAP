@@ -185,16 +185,16 @@ void HomeMainContent::setStyle()
 	{
 	case Theme_Type::Dark_Theme:
 		m_statusText->setStyleSheet("QLabel {color:" + HOME_STATUS_COLOR_TEXT_DARK_THEME + ";}");
-		m_lastScan->setStyleSheet("QLabel { color:" + TEXT_ICON_COLOR_DARK_THEME + ";}");
-		m_securityFeature->setStyleSheet("QLabel { color:" + TEXT_ICON_COLOR_DARK_THEME + ";}");
-		m_featureDetails->setStyleSheet("QLabel { color:" + FEATURE_DETAILS_TEXT_COLOR + ";}");
+		m_lastScan->setStyleSheet("QLabel { color:" + LAST_SCAN_COLOR_TEXT_DARK_THEME + ";}");
+		m_securityFeature->setStyleSheet("QLabel { color:" + SECURE_FEATURE_COLOR_DARK_THEME + ";}");
+		m_featureDetails->setStyleSheet("QLabel { color:" + DETAILS_TEXT_COLOR_DARK_THEME + ";}");
 		break;
 
 	case Theme_Type::Light_Theme:
 		m_statusText->setStyleSheet("QLabel {  color:" + HOME_STATUS_COLOR_TEXT_LIGHT_THEME + "}");
-		m_lastScan->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_LIGHT_THEME + ";}");
-		m_securityFeature->setStyleSheet("QLabel {  color:" + TEXT_ICON_COLOR_LIGHT_THEME + ";}");
-		m_featureDetails->setStyleSheet("QLabel {  color:" + FEATURE_DETAILS_TEXT_COLOR + ";}");
+		m_lastScan->setStyleSheet("QLabel {  color:" + LAST_SCAN_COLOR_TEXT_LIGHT_THEME + ";}");
+		m_securityFeature->setStyleSheet("QLabel {  color:" + SECURE_FEATURE_COLOR_LIGHT_THEME + ";}");
+		m_featureDetails->setStyleSheet("QLabel {  color:" + DETAILS_TEXT_COLOR_LIGHT_THEME + ";}");
 		break;
 
 		/* MORE THEME */

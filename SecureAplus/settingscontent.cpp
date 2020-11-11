@@ -19,9 +19,11 @@ SettingsContent::SettingsContent(QWidget *parent)
 
 	m_SettingGridContent	= new SettingGridContent();
 	m_languagePersonal		= new LanguagePersonal();
+	m_protectionModes		= new ProtectionModes();
 
 	stackedWidget->addWidget(m_SettingGridContent);
 	stackedWidget->addWidget(m_languagePersonal);
+	stackedWidget->addWidget(m_protectionModes);
 	setLayout(m_settingLayout);
 
 	/* Init Fade In*/
@@ -68,7 +70,9 @@ void SettingsContent::changeSettingsView(QString widgetName)
 	}
 	else if (widgetName == "protectionMode")
 	{
-		//stackedWidget->setCurrentWidget();
+		stackedWidget->setCurrentWidget(m_protectionModes);
+		m_settingTopBar->setDirectoryText("Settings \\ protection Modes");
+
 	}
 	else if (widgetName == "info")
 	{
@@ -77,8 +81,6 @@ void SettingsContent::changeSettingsView(QString widgetName)
 	else if (widgetName == "languagePersonal")
 	{
 		stackedWidget->setCurrentWidget(m_languagePersonal);
-		m_settingTopBar->setVisibleNaviButton(true);
-		m_settingTopBar->setDirectoryText("Settings \\ Language & Personalization");
 	}
 	else if (widgetName == "manageUser")
 	{
@@ -92,6 +94,7 @@ void SettingsContent::changeSettingsView(QString widgetName)
 	{
 		//stackedWidget->setCurrentWidget();
 	}
+	m_settingTopBar->setVisibleNaviButton(true);
 
 	fadeIn();
 }
@@ -107,9 +110,6 @@ void SettingsContent::backBtnPressed()
 
 void SettingsContent::showEvent(QShowEvent *)
 {
-	stackedWidget->setCurrentWidget(m_SettingGridContent);
-	m_settingTopBar->setVisibleNaviButton(false);
-	m_settingTopBar->setDirectoryText("Settings");
 	eff->setEnabled(true);
 	mpFadeIn->start();
 }

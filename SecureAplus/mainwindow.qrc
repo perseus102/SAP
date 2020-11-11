@@ -18,5 +18,11 @@
         <file>images/language personal/dark_theme_unselected.svg</file>
         <file>images/language personal/light_theme_selected.svg</file>
         <file>images/language personal/light_theme_unselected.svg</file>
+        <file>images/protection modes/automatic.svg</file>
+        <file>images/protection modes/interactive.svg</file>
+        <file>images/protection modes/lockdown.svg</file>
+        <file>images/protection modes/observation.svg</file>
+        <file>images/protection modes/trustall.svg</file>
+        <file>images/protection modes/pro_version.svg</file>
     </qresource>
 </RCC>

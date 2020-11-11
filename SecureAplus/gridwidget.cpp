@@ -23,6 +23,7 @@ GridWidget::GridWidget(QWidget *parent)
 	m_contentLayout= new QVBoxLayout;
 	m_contentLayout->setContentsMargins(1, 15, 1, 15);
 	m_contentLayout->setSpacing(14);
+
 	m_gridIcon = new QLabel();
 	m_gridIcon->setFixedWidth(170);
 	//m_gridIcon->setFixedHeight(50);

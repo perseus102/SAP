@@ -2,7 +2,6 @@
 #include <QString>
 #include <QSettings>
 #include <QStringList>
-#include "define.h"
 
 class Config
 {

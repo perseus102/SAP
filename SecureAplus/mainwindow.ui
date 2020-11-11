@@ -51,7 +51,7 @@
        <widget class="QWidget" name="main_widget" native="true">
         <property name="minimumSize">
          <size>
-          <width>0</width>
+          <width>619</width>
           <height>0</height>
          </size>
         </property>
@@ -97,6 +97,12 @@
          <width>140</width>
          <height>96</height>
         </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>140</width>
+         <height>0</height>
+        </size>
        </property>
       </widget>
       <widget class="QWidget" name="scan_widget" native="true">

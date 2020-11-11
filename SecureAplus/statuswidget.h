@@ -8,10 +8,12 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QLabel>
-#include "Config.h"
-#include "define.h"
 #include "ui_statuswidget.h"
 #include "switch.h"
+#include "Config.h"
+#include "define.h"
+#include "util.h"
+#include "appsetting.h"
 
 namespace Ui {
 	class StatusWidget;
@@ -25,19 +27,25 @@ public:
 	StatusWidget(QWidget *parent = Q_NULLPTR);
 	~StatusWidget();
 
-	void setBackground(ColorType type);
-	void setIcon(ColorType type);
 
 signals:
-	void setActive();
+	void toggleChanged(bool isChecked);
+
+public slots:
+	void protectionModeChanged(Protection_Modes mode);
+	void toggleClicked();
+	void changeTheme();
 
 private:
 	Ui::StatusWidget	*ui;
 	QLabel				*m_statusIcon;
 	QLabel				*m_statusText;
 	QVBoxLayout			*m_statusLayout;
-	Switch* switch4;
-
+	Switch				*m_toggle;
+	QWidget				*m_iconWidget;
+	QIcon				m_icon;
+	void setStyle();
+	void setIcon();
 };
 
 #endif

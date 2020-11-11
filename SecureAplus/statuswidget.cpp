@@ -10,23 +10,34 @@ StatusWidget::StatusWidget(QWidget *parent)
 	m_statusLayout->setContentsMargins(0, 0, 0, 0);
 	setLayout(m_statusLayout);
 
+	m_iconWidget = new QWidget();
+	m_iconWidget->setFixedHeight(140);
+
+	QVBoxLayout* boxlayout = new QVBoxLayout();
+	boxlayout->setContentsMargins(25, 0, 0, 0);
+	m_iconWidget->setLayout(boxlayout);
+
 	m_statusIcon = new QLabel();
-	QIcon status_ico(":/images/status/status_protected_icon.svg");
-	m_statusIcon->setPixmap(status_ico.pixmap(90, 90));
 	m_statusIcon->setAlignment(Qt::AlignCenter);
+	m_statusIcon->setFixedSize(90, 90);
 
-	m_statusIcon->setFixedWidth(140);
-	m_statusIcon->setStyleSheet("QLabel { color : #FFFFFF; }");
+	boxlayout->addWidget(m_statusIcon);
+	m_statusLayout->addWidget(m_iconWidget);
 
-	m_statusLayout->addWidget(m_statusIcon);
-
-	switch4 = new Switch("Auto Protect");
-	m_statusLayout->addWidget(switch4);
-	switch4->setChecked(true);
-	//switch4->setDisabled(false);
+	m_toggle = new Switch("Auto Protect");
+	m_statusLayout->addWidget(m_toggle);
+	m_toggle->setChecked(true);
 	setFixedWidth(140);
 	setFixedHeight(158);
-	setIcon(ColorType::Default);
+	
+	setStyle();
+	setIcon();
+
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeMode, this, &StatusWidget::protectionModeChanged);
+	connect(m_toggle, &Switch::released, this, &StatusWidget::toggleClicked);
+	connect(this, &StatusWidget::toggleChanged, AppSetting::getInstance(), &AppSetting::toggleClicked);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &StatusWidget::changeTheme);
+
 }
 
 StatusWidget::~StatusWidget()
@@ -40,20 +51,138 @@ StatusWidget::~StatusWidget()
 	m_statusLayout	= nullptr;
 }
 
-void StatusWidget::setIcon(ColorType type)
+void StatusWidget::toggleClicked()
 {
-	switch (type)
+	bool ischecked = m_toggle->isChecked();
+	emit toggleChanged(ischecked);
+	setIcon();
+
+}
+
+void StatusWidget::changeTheme()
+{
+	setStyle();
+	setIcon();
+}
+
+void StatusWidget::setStyle()
+{
+	switch (AppSetting::getInstance()->getTheme())
 	{
-	case ColorType::Default:
+	case Theme_Type::Light_Theme:
+		
+		m_statusIcon->setStyleSheet("background-color:" + LABEL_ICON_SELECTED_BACKGROUND_COLOR_LT + ";"
+			"border-radius: 45px;");
 		break;
-	case ColorType::Dark_Type:
+
+	case Theme_Type::Dark_Theme:
+		m_statusIcon->setStyleSheet("background-color:" + LABEL_ICON_SELECTED_BACKGROUND_COLOR_DT + ";"
+			"border-radius: 45px;");
 		break;
-	case ColorType::Light_Type:
+
+		//MORE THEME
+	default:
 		break;
-	case ColorType::Gradient_Type:
+	}
+}
+
+void StatusWidget::setIcon()
+{
+	int width = 0;
+	int height = 0;
+	Protection_Modes mode = AppSetting::getInstance()->getProtectionMode();
+	switch (AppSetting::getInstance()->getTheme())
+	{
+	case Theme_Type::Light_Theme:
+		switch (mode)
+		{
+		case Automatic_Mode:
+			m_icon = util::getInstance()->ChangeSVGColor(AUTOMATIC, ICON_SELECTED_COLOR_LT);
+			break;
+		case Interactive_Mode:
+			m_icon = util::getInstance()->ChangeSVGColor(INTERACTIVE, ICON_SELECTED_COLOR_LT);
+			break;
+		case Lockdown_Mode:
+			m_icon = util::getInstance()->ChangeSVGColor(LOCKDOWN, ICON_SELECTED_COLOR_LT);
+			break;
+		case TrustAll_Mode:
+			m_icon = util::getInstance()->ChangeSVGColor(TRUSTALL, ICON_SELECTED_COLOR_LT);
+			break;
+		case Observation_Mode:
+			m_icon = util::getInstance()->ChangeSVGColor(OBSERVATION, ICON_SELECTED_COLOR_LT);
+			break;
+		default:
+			break;
+		}
+
 		break;
+
+	case Theme_Type::Dark_Theme:
+		switch (mode)
+		{
+		case Automatic_Mode:
+			m_icon = util::getInstance()->ChangeSVGColor(AUTOMATIC, ICON_SELECTED_COLOR_DT);
+			break;
+		case Interactive_Mode:
+			m_icon = util::getInstance()->ChangeSVGColor(INTERACTIVE, ICON_SELECTED_COLOR_DT);
+			break;
+		case Lockdown_Mode:
+			m_icon = util::getInstance()->ChangeSVGColor(LOCKDOWN, ICON_SELECTED_COLOR_DT);
+			break;
+		case TrustAll_Mode:
+			m_icon = util::getInstance()->ChangeSVGColor(TRUSTALL, ICON_SELECTED_COLOR_DT);
+			break;
+		case Observation_Mode:
+			m_icon = util::getInstance()->ChangeSVGColor(OBSERVATION, ICON_SELECTED_COLOR_DT);
+			break;
+		default:
+			break;
+		}
+
+		break;
+
+		//MORE THEME
 	default:
 		break;
 	}
 
+	switch (mode)
+	{
+	case Automatic_Mode:
+		width = 50;
+		height = 54;
+		break;
+	case Interactive_Mode:
+		width = 50;
+		height = 54;
+		break;
+	case Lockdown_Mode:
+		width = 47;
+		height = 54;
+		break;
+	case TrustAll_Mode:
+		width = 47;
+		height = 52;
+		break;
+	case Observation_Mode:
+		width = 54;
+		height = 34;
+		break;
+	default:
+		break;
+	}
+	m_statusIcon->setPixmap(m_icon.pixmap(width, height));
+}
+
+void StatusWidget::protectionModeChanged(Protection_Modes mode)
+{
+	if (mode != Automatic_Mode && m_toggle->isChecked())
+	{
+		m_toggle->setChecked(false);
+	}
+	else if(mode == Automatic_Mode)
+	{
+		m_toggle->setChecked(true);
+	}
+	setIcon();
 }

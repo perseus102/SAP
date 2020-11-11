@@ -19,6 +19,7 @@
 
 #include <QtWidgets>
 #include "style.h"
+#include "appsetting.h"
 
 class Animator final : public QVariantAnimation {
 	Q_OBJECT
@@ -82,6 +83,9 @@ public:
 
 	QSize sizeHint() const override final;
 
+public slots:
+	void changeTheme();
+
 protected:
 	void paintEvent(QPaintEvent*) override final;
 	void resizeEvent(QResizeEvent*) override final;
@@ -107,6 +111,6 @@ private:
 	QPointer<Animator> thumbBrushAnimation;
 	QPointer<Animator> trackBrushAnimation;
 	QPointer<Animator> thumbPosAniamtion;
+	void setColorStyle();
 };
-
 #endif // SWITCH_H

@@ -82,6 +82,12 @@
     <Filter Include="Header Files\Component\Flow Layout">
       <UniqueIdentifier>{1746315e-c4ba-408e-8240-4ff8b5799143}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Select Widget">
+      <UniqueIdentifier>{8a3d4049-c943-4cc9-a405-a1adafe5186f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Select Widget">
+      <UniqueIdentifier>{155007cd-2333-46a8-a794-6b905f5bb39f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -158,6 +164,12 @@
     <ClCompile Include="languagepersonal.cpp">
       <Filter>Source Files\Settings Content</Filter>
     </ClCompile>
+    <ClCompile Include="protectionmodes.cpp">
+      <Filter>Source Files\Settings Content</Filter>
+    </ClCompile>
+    <ClCompile Include="selectwidget.cpp">
+      <Filter>Source Files\Component\Select Widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -208,6 +220,12 @@
     <QtMoc Include="languagepersonal.h">
       <Filter>Header Files\Settings Content</Filter>
     </QtMoc>
+    <QtMoc Include="protectionmodes.h">
+      <Filter>Header Files\Settings Content</Filter>
+    </QtMoc>
+    <QtMoc Include="selectwidget.h">
+      <Filter>Header Files\Component\Select Widget</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -250,6 +268,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="languagepersonal.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="protectionmodes.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="selectwidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

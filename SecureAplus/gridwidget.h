@@ -3,7 +3,6 @@
 #include <QWidget>
 #include <QFrame>
 #include <QLabel>
-#include <QPushButton>
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include "Config.h"
@@ -36,10 +35,10 @@ protected:
 	void mousePressEvent(QMouseEvent* event);
 
 private:
-	Ui::GridWidget *ui;
-	QFrame *m_frame;
-	QVBoxLayout *m_layout;
-	QVBoxLayout *m_contentLayout;
+	Ui::GridWidget	*ui;
+	QFrame			*m_frame;
+	QVBoxLayout		*m_layout;
+	QVBoxLayout		*m_contentLayout;
 	QLabel			*m_gridIcon;
 	QLabel			*m_gridTitle;
 	QLabel			*m_gridSubTitle;

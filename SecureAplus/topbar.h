@@ -41,9 +41,15 @@ public:
 	void setDirectoryText(QString text);
 	void setVisibleNaviButton(bool visible);
 	QPushButton* getButton();
+
+public slots:
+	void changeTheme();
+
 private:
 	Ui::TopBar *ui;
 	BackButton		*m_navigationBtn;
 	QLabel			*m_Directory;
 	QHBoxLayout		*m_topBarLayout;
+	
+	void setTextStyle();
 };

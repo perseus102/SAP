@@ -42,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::setConnection()
 {
 	/* Connect for active widget */
-	connect(m_statusWidget, &StatusWidget::setActive, this, &MainWindow::switchActiveWidget);
 	connect(m_homeWidget, &HomeWidget::setActive, this, &MainWindow::switchActiveWidget);
 	connect(m_scanWidget, &ScanWidget::setActive, this, &MainWindow::switchActiveWidget);
 	connect(m_manageWidget, &ManageWidget::setActive, this, &MainWindow::switchActiveWidget);
@@ -128,7 +127,7 @@ void MainWindow::changeBackground()
 		ui->main_widget->setStyleSheet(
 			"#main_widget{border: 0px none palette(shadow); "
 			"border-top-left-radius:10px;"
-			"background-color:" + BTN_BACKGROUND_LIGHT + ";}");
+			"background-color:" + MAIN_BACKGROUND_LIGHT_THEME_COLOR + ";}");
 		
 	}
 	else if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
@@ -136,7 +135,7 @@ void MainWindow::changeBackground()
 		ui->main_widget->setStyleSheet(
 			"#main_widget{border: 0px none palette(shadow); "
 			"border-top-left-radius:10px;"
-			"background-color:" + BTN_BACKGROUND_DARK + ";}");
+			"background-color:" + MAIN_BACKGROUND_DARK_THEME_COLOR + ";}");
 	}
 }
 
