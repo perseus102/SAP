@@ -1,7 +1,4 @@
-
 #include "framelesswindow.h"
-
-
 FramelessWindow::FramelessWindow(QWidget *parent)
 	: QWidget(parent),
 	ui(new Ui::FramelessWindow),
@@ -41,7 +38,7 @@ FramelessWindow::FramelessWindow(QWidget *parent)
 
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &FramelessWindow::changeTheme);
 
-
+	connect(AppSetting::getInstance(), &AppSetting::signal_getAppGeometry, this, &FramelessWindow::setAppGeometry);
 	// important to watch mouse move from all child widgets
 	QApplication::instance()->installEventFilter(this);
 
@@ -244,6 +241,11 @@ void FramelessWindow::on_windowTitlebar_doubleClicked() {
 void FramelessWindow::on_helpButton_clicked()
 {
 	QDesktopServices::openUrl(QUrl(HELP_LINK));
+}
+
+void FramelessWindow::setAppGeometry()
+{
+	AppSetting::getInstance()->setAppGeometry(this->geometry());
 }
 
 void FramelessWindow::mouseDoubleClickEvent(QMouseEvent *event) {
@@ -456,6 +458,7 @@ void FramelessWindow::mousePressEvent(QMouseEvent *event) {
 
 	m_bMousePressed = true;
 	m_StartGeometry = this->geometry();
+	setAppGeometry();
 
 	QPoint globalMousePos = mapToGlobal(QPoint(event->x(), event->y()));
 

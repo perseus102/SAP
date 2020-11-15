@@ -260,6 +260,17 @@
 #define PRO_ICON_SELECTED_COLOR_LT					Config::getInstance()->getConfigValue(PRO_ICON_SELECTED_LT)
 #define PRO_ICON_SELECTED_COLOR_DT					Config::getInstance()->getConfigValue(PRO_ICON_SELECTED_DT)
 
+
+/* Define for Lockdown dialog */
+#define LD_BACKGROUND_DT							Config::getInstance()->getConfigValue("Lockdown Dialog/Background_Dark_Theme")
+#define LD_BACKGROUND_LT							Config::getInstance()->getConfigValue("Lockdown Dialog/Background_Light_Theme")
+#define LD_TITLE_TEXT_DT							Config::getInstance()->getConfigValue("Lockdown Dialog/Text_Dark_Mode")
+#define LD_TITLE_TEXT_LT							Config::getInstance()->getConfigValue("Lockdown Dialog/Text_Light_Mode")
+#define LD_SILENT_DEFAULT_BGROUND_DT				Config::getInstance()->getConfigValue("Lockdown Dialog/Silent_Default_Bground_Dark_Theme")
+#define LD_SILENT_DEFAULT_BGROUND_LT				Config::getInstance()->getConfigValue("Lockdown Dialog/Silent_Default_Bground_Light_Theme")
+#define LD_CANCEL_TEXT_BORDER_DT					Config::getInstance()->getConfigValue("Lockdown Dialog/Cancel_Text_Border_Dark_Theme")
+#define LD_CANCEL_TEXT_BORDER_LT					Config::getInstance()->getConfigValue("Lockdown Dialog/Cancel_Text_Border_Light_Theme")
+
 enum ColorType
 {
 	Default = 0,
@@ -288,4 +299,11 @@ enum Protection_Modes
 	Lockdown_Mode,
 	TrustAll_Mode,
 	Observation_Mode,
+};
+enum LockDown
+{
+	LOCKDOWN_CANCEL = 0,
+	LOCKDOWN_SILENT,
+	LOCKDOWN_DEFAULT,
+
 };

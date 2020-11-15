@@ -57,6 +57,24 @@ SelectWidget::SelectWidget(Protection_Modes mode, bool selected, QWidget* parent
 		observationLayout->addWidget(m_title);
 		observationLayout->addWidget(m_proIconLabel);
 	}
+	else if (m_mode == Lockdown_Mode)
+	{
+		m_title->setFixedHeight(20);
+
+		lockDownMode = new QWidget();
+		lockdownLayout = new QVBoxLayout();
+		lockdownLayout->setContentsMargins(0, 0, 0, 0);
+		lockdownLayout->setSpacing(0);
+		lockDownMode->setLayout(lockdownLayout);
+
+		m_lockdownModeLabel = new QLabel();
+		m_lockdownModeLabel->setFixedSize(66, 20);
+		m_lockdownModeLabel->setAlignment(Qt::AlignCenter);
+		m_lockdownModeLabel->setFont(SMALL_FRONT);
+		lockdownLayout->addWidget(m_title);
+		lockdownLayout->addWidget(m_lockdownModeLabel);
+		m_lockdownModeLabel->setVisible(false);
+	}
 
 	/* Init title */
 	m_description = new QLabel();
@@ -70,6 +88,11 @@ SelectWidget::SelectWidget(Protection_Modes mode, bool selected, QWidget* parent
 	{
 
 		m_contentLayout->addWidget(observationProver);
+	}
+	else if(m_mode == Lockdown_Mode)
+	{
+		m_contentLayout->addWidget(lockDownMode);
+
 	}
 	else
 	{
@@ -103,6 +126,19 @@ void SelectWidget::setSelected(bool selected)
 		observationProver->setVisible(true);
 		m_title->setVisible(true);
 		m_proIconLabel->setVisible(true);
+	}
+}
+
+void SelectWidget::setLockDownText(QString text)
+{
+	if (text == "")
+	{
+		m_lockdownModeLabel->setVisible(false);
+	}
+	else
+	{
+		m_lockdownModeLabel->setText(text);
+		m_lockdownModeLabel->setVisible(true);
 	}
 }
 
@@ -291,6 +327,11 @@ void SelectWidget::setStyle()
 
 			m_title->setStyleSheet("QLabel {  color:" + TITLTE_SELECTED_COLOR_LT + ";border-radius:0px;}");
 			m_description->setStyleSheet("QLabel {  color:" + TITLTE_SELECTED_COLOR_LT + ";border-radius:0px;}");
+			if (m_mode == Lockdown_Mode)
+			{
+				m_lockdownModeLabel->setStyleSheet("QLabel {  color:" + TITLTE_SELECTED_COLOR_LT + "; border-radius:6px;"
+					"border: 1px solid " + GRID_BORDER_LIGHT_THEME_COLOR + ";}");
+			}
 			break;
 
 		case Theme_Type::Dark_Theme:
@@ -306,6 +347,11 @@ void SelectWidget::setStyle()
 			m_title->setStyleSheet("QLabel {color:" + TITLTE_SELECTED_COLOR_DT + ";border-radius:0px;}");
 			m_description->setStyleSheet("QLabel {  color:" + TITLTE_SELECTED_COLOR_DT + ";border-radius:0px;}");
 
+			if (m_mode == Lockdown_Mode)
+			{
+				m_lockdownModeLabel->setStyleSheet("QLabel {  color:#FFFFFF; border-radius:10px;"
+					"border: 1px solid #FFFFFF;}");
+			}
 			break;
 
 			//MORE THEME
@@ -329,6 +375,13 @@ void SelectWidget::setStyle()
 
 			m_title->setStyleSheet("QLabel {  color:" + TITLTE_UNSELECTED_COLOR_LT + ";border-radius:0px;}");
 			m_description->setStyleSheet("QLabel {  color:" + TITLTE_UNSELECTED_COLOR_LT + ";border-radius:0px;}");
+			
+			if (m_mode == Lockdown_Mode)
+			{
+				m_lockdownModeLabel->setStyleSheet("QLabel {  color:" + TITLTE_SELECTED_COLOR_LT + "; border-radius:10px;"
+					"border: 1px solid " + GRID_BORDER_LIGHT_THEME_COLOR + ";}");
+			}
+
 			break;
 
 		case Theme_Type::Dark_Theme:
@@ -343,6 +396,13 @@ void SelectWidget::setStyle()
 
 			m_title->setStyleSheet("QLabel {  color:" + TITLTE_UNSELECTED_COLOR_DT + ";border-radius:0px;}");
 			m_description->setStyleSheet("QLabel {  color:" + TITLTE_UNSELECTED_COLOR_DT + ";border-radius:0px;}");
+
+			if (m_mode == Lockdown_Mode)
+			{
+				m_lockdownModeLabel->setStyleSheet("QLabel {  color:#FFFFFF; border-radius:10px;"
+					"border: 1px solid #FFFFFF;}");
+			}
+
 			break;
 
 			//MORE THEME
@@ -401,6 +461,12 @@ bool SelectWidget::event(QEvent* e)
 				m_title->setVisible(false);
 				m_proIconLabel->setVisible(false);
 			}
+			else if (m_mode == Lockdown_Mode)
+			{
+				lockDownMode->setVisible(false);
+				m_title->setVisible(false);
+				m_lockdownModeLabel->setVisible(false);
+			}
 		}
 		/* Leave Widget */
 		if (e->type() == QEvent::Leave)
@@ -413,6 +479,15 @@ bool SelectWidget::event(QEvent* e)
 				observationProver->setVisible(true);
 				m_title->setVisible(true);
 				m_proIconLabel->setVisible(true);
+			}
+			else if (m_mode == Lockdown_Mode)
+			{
+				lockDownMode->setVisible(true);
+				m_title->setVisible(true);
+				if (m_lockdownModeLabel->text() != "")
+				{
+					m_lockdownModeLabel->setVisible(true);
+				}
 			}
 		}
 	}

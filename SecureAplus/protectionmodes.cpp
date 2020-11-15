@@ -52,6 +52,9 @@ ProtectionModes::ProtectionModes(QWidget *parent)
 	m_trustall = new SelectWidget(Protection_Modes::TrustAll_Mode);
 	m_observation = new SelectWidget(Protection_Modes::Observation_Mode);
 
+	lockdownDialog = new LockDownDialog();
+	//lockdownDialog->hide();
+
 	m_selectLayout->addWidget(m_automatic);
 	m_selectLayout->addWidget(m_interactive);
 	m_selectLayout->addWidget(m_lockdown);
@@ -188,8 +191,29 @@ void ProtectionModes::changeProtectMode()
 	}
 	else if (sender() == m_lockdown)
 	{
+		QRect geometry = AppSetting::getInstance()->getAppGeometry();
+		lockdownDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 220, geometry.y() + 18, 440, 190);
+		lockdownDialog->showDialog();
+		LockDown ld_mode = lockdownDialog->getLockDownMode();
+		switch (ld_mode)
+		{
+		case LOCKDOWN_CANCEL:
+			m_lockdown->setLockDownText("");
+			break;
+		case LOCKDOWN_SILENT:
+			m_lockdown->setLockDownText("Silent");
+			break;
+		case LOCKDOWN_DEFAULT:
+			m_lockdown->setLockDownText("Default");
+
+			break;
+		default:
+			break;
+		}
 		m_lockdown->setSelected(true);
 		mode = Protection_Modes::Lockdown_Mode;
+
+
 
 	}
 	else if (sender() == m_trustall)

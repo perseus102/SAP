@@ -88,6 +88,12 @@
     <Filter Include="Header Files\Component\Select Widget">
       <UniqueIdentifier>{155007cd-2333-46a8-a794-6b905f5bb39f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Dialog">
+      <UniqueIdentifier>{8c0a2584-7878-4514-bde8-3f37f83f4d48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialog">
+      <UniqueIdentifier>{7a6b29d2-b110-4419-a90d-15a939533548}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -170,6 +176,9 @@
     <ClCompile Include="selectwidget.cpp">
       <Filter>Source Files\Component\Select Widget</Filter>
     </ClCompile>
+    <ClCompile Include="lockdowndialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -226,6 +235,9 @@
     <QtMoc Include="selectwidget.h">
       <Filter>Header Files\Component\Select Widget</Filter>
     </QtMoc>
+    <QtMoc Include="lockdowndialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -274,6 +286,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="selectwidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="lockdowndialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

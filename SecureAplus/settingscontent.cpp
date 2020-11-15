@@ -71,7 +71,7 @@ void SettingsContent::changeSettingsView(QString widgetName)
 	else if (widgetName == "protectionMode")
 	{
 		stackedWidget->setCurrentWidget(m_protectionModes);
-		m_settingTopBar->setDirectoryText("Settings \\ protection Modes");
+		m_settingTopBar->setDirectoryText("Settings \\ Protection Modes");
 
 	}
 	else if (widgetName == "info")

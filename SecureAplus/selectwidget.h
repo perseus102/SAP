@@ -20,7 +20,7 @@ public:
 	SelectWidget(Protection_Modes mode, bool selected = false, QWidget* parent = Q_NULLPTR);
 	~SelectWidget();
 	void setSelected(bool selected);
-
+	void setLockDownText(QString text);
 signals:
 	void changeMode();
 public slots:
@@ -32,20 +32,24 @@ protected:
 
 private:
 	Ui::SelectWidget ui;
-	QFrame		* m_frame;
-	QVBoxLayout* m_layout;
-	QVBoxLayout* m_ProVersionLayout;
-	QHBoxLayout* m_contentLayout;
-	QLabel* m_iconLabel;
-	QLabel* m_title;
-	QLabel* m_description;
-	QLabel* m_proIconLabel;
-	QWidget* observationProver;
-	QVBoxLayout* observationLayout;
+	QFrame*			m_frame;
+	QVBoxLayout*	m_layout;
+	QVBoxLayout*	m_ProVersionLayout;
+	QHBoxLayout*	m_contentLayout;
+	QLabel*			m_iconLabel;
+	QLabel*			m_title;
+	QLabel*			m_description;
+	QLabel*			m_proIconLabel;
+	QWidget*		observationProver;
+	QWidget*		lockDownMode;
+	QLabel*			m_lockdownModeLabel;
+	QVBoxLayout*	observationLayout;
+	QVBoxLayout*	lockdownLayout;
 	QIcon			icon;
 	QIcon			m_proIcon;
-	Protection_Modes m_mode;
-	bool		m_selected;
+
+	Protection_Modes	m_mode;
+	bool				m_selected;
 	void setIcon();
 	void setStyle();
 	void setModeText();

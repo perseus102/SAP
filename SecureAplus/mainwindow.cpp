@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
 	ui->main_widget->setLayout(layout);
+
 }
 
 
@@ -67,12 +68,10 @@ void MainWindow::switchActiveWidget()
 		stackedWidget->setCurrentWidget(m_homeContent);
 
 	}
-
+	QRect rect;
 	if (sender() == m_scanWidget)
 	{
-		
 		stackedWidget->setCurrentWidget(secondPageWidget);
-
 	}
 
 	if (sender() == m_manageWidget)

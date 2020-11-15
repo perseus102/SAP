@@ -9,6 +9,8 @@
 #include "util.h"
 #include "appsetting.h"
 #include "flowlayout.h"
+#include "lockdowndialog.h"
+
 class ProtectionModes : public QWidget
 {
 	Q_OBJECT
@@ -39,6 +41,8 @@ private:
 	QLabel* m_title;
 	QLabel* m_modeTitle;
 	QLabel* m_description;
+	LockDownDialog* lockdownDialog;
+
 	void setConnection();
 	void setModeText();
 	void setStyle();

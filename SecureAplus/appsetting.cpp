@@ -53,6 +53,20 @@ void AppSetting::setProtectionMode(Protection_Modes mode)
 	m_protectionMode = mode;
 }
 
+QRect AppSetting::getAppGeometry()
+{
+	emit signal_getAppGeometry();
+
+	return m_appGeometry;
+}
+
+void AppSetting::setAppGeometry(QRect geometry)
+{
+	m_appGeometry = geometry;
+}
+
+
+
 void AppSetting::toggleClicked(bool isChecked)
 {
 	if (!isChecked)

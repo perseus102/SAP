@@ -26,7 +26,6 @@ class FramelessWindow : public QWidget {
   explicit FramelessWindow(QWidget *parent = Q_NULLPTR);
   virtual ~FramelessWindow();
   void setContent(QWidget *w);
-
  private:
   bool leftBorderHit(const QPoint &pos);
   bool rightBorderHit(const QPoint &pos);
@@ -46,9 +45,9 @@ class FramelessWindow : public QWidget {
   void on_closeButton_clicked();
   void on_windowTitlebar_doubleClicked();
   void on_helpButton_clicked();
-
 public slots:
 	void changeTheme();
+	void setAppGeometry();
 
  protected:
   virtual void changeEvent(QEvent *event);
