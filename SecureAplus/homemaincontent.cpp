@@ -101,9 +101,25 @@ HomeMainContent::HomeMainContent(QWidget *parent)
 	setIcon();
 	setStyle();
 
+	//test
+	switch (AppSetting::getInstance()->getStatus())
+	{
+	case Status::Protected_Status:
+		setStatusText(QString("All's Good. Your PC is Protected"));
+		break;
+	case Status::Warning_Status:
+		setStatusText(QString("Your device is at risk"));
+
+		/* MORE STATUS */
+		break;
+	default:
+		break;
+	}
+
 	connect(m_btn_scanNow, &QPushButton::clicked, this, &HomeMainContent::scanButtonClick);
 	connect(m_featureDetails, &FeatureDetails::clicked, this, &HomeMainContent::featureDetailsClick);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &HomeMainContent::changeTheme);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeStatus, this, &HomeMainContent::changeStatus);
 }
 
 HomeMainContent::~HomeMainContent()
@@ -184,14 +200,40 @@ void HomeMainContent::setStyle()
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Dark_Theme:
-		m_statusText->setStyleSheet("QLabel {color:" + HOME_STATUS_COLOR_TEXT_DARK_THEME + ";}");
+		switch (AppSetting::getInstance()->getStatus())
+		{
+		case Status::Protected_Status:
+			m_statusText->setStyleSheet("QLabel {color:" + HOME_PROTECTED_TEXT_COLOR + ";}");
+
+			break;
+		case Status::Warning_Status:
+			m_statusText->setStyleSheet("QLabel {color:" + HOME_AT_RICK_TEXT_COLOR + ";}");
+			/* MORE STATUS */
+			break;
+		default:
+			break;
+		}
+
 		m_lastScan->setStyleSheet("QLabel { color:" + LAST_SCAN_COLOR_TEXT_DARK_THEME + ";}");
 		m_securityFeature->setStyleSheet("QLabel { color:" + SECURE_FEATURE_COLOR_DARK_THEME + ";}");
 		m_featureDetails->setStyleSheet("QLabel { color:" + DETAILS_TEXT_COLOR_DARK_THEME + ";}");
 		break;
 
 	case Theme_Type::Light_Theme:
-		m_statusText->setStyleSheet("QLabel {  color:" + HOME_STATUS_COLOR_TEXT_LIGHT_THEME + "}");
+
+		switch (AppSetting::getInstance()->getStatus())
+		{
+		case Status::Protected_Status:
+			m_statusText->setStyleSheet("QLabel {color:" + HOME_PROTECTED_TEXT_COLOR + ";}");
+
+			break;
+		case Status::Warning_Status:
+			m_statusText->setStyleSheet("QLabel {color:" + HOME_AT_RICK_TEXT_COLOR + ";}");
+			/* MORE STATUS */
+			break;
+		default:
+			break;
+		}
 		m_lastScan->setStyleSheet("QLabel {  color:" + LAST_SCAN_COLOR_TEXT_LIGHT_THEME + ";}");
 		m_securityFeature->setStyleSheet("QLabel {  color:" + SECURE_FEATURE_COLOR_LIGHT_THEME + ";}");
 		m_featureDetails->setStyleSheet("QLabel {  color:" + DETAILS_TEXT_COLOR_LIGHT_THEME + ";}");
@@ -217,6 +259,25 @@ void HomeMainContent::featureDetailsClick()
 void HomeMainContent::changeTheme()
 {
 	setStyle();
+}
+
+void HomeMainContent::changeStatus()
+{
+	setStyle();
+	setIcon();
+	switch (AppSetting::getInstance()->getStatus())
+	{
+	case Status::Protected_Status:
+		setStatusText(QString("All's Good. Your PC is Protected"));
+		break;
+	case Status::Warning_Status:
+		setStatusText(QString("Your device is at risk"));
+
+		/* MORE STATUS */
+		break;
+	default:
+		break;
+	}
 }
 
 FeatureDetails::FeatureDetails(QLabel *parent)

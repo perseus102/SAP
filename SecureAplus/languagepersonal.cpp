@@ -220,6 +220,7 @@ void LanguagePersonal::setButtonStyle()
 
 void LanguagePersonal::radioButtonClicked()
 {
+	//switch theme
 	if (sender() == m_lightThemeBtn)
 	{
 		if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)

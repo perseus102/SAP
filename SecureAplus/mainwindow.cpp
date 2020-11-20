@@ -61,7 +61,7 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
 void MainWindow::switchActiveWidget()
 {
-	/* Test switch widget*/
+	/*switch widget*/
 	if (sender() == m_homeWidget)
 	{
 

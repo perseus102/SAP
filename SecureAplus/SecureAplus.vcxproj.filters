@@ -94,6 +94,18 @@
     <Filter Include="Source Files\Dialog">
       <UniqueIdentifier>{7a6b29d2-b110-4419-a90d-15a939533548}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Widget Transparent">
+      <UniqueIdentifier>{8bf14e76-a578-4e21-aeb8-29baf0d5ec76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Widget Transparent">
+      <UniqueIdentifier>{3597117d-0a2c-4c2c-b843-4ddb8d407c02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Circle Process">
+      <UniqueIdentifier>{d5c93898-dc9b-45f5-a5df-36ed159e5abb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Circle Process">
+      <UniqueIdentifier>{5d568633-95be-4850-af46-e6ccf2762388}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -179,6 +191,18 @@
     <ClCompile Include="lockdowndialog.cpp">
       <Filter>Source Files\Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="trustalldialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="upgradedialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="widgettransparent.cpp">
+      <Filter>Source Files\Component\Widget Transparent</Filter>
+    </ClCompile>
+    <ClCompile Include="circleprocess.cpp">
+      <Filter>Source Files\Component\Circle Process</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -238,6 +262,18 @@
     <QtMoc Include="lockdowndialog.h">
       <Filter>Header Files\Dialog</Filter>
     </QtMoc>
+    <QtMoc Include="upgradedialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="trustalldialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="widgettransparent.h">
+      <Filter>Header Files\Component\Widget Transparent</Filter>
+    </QtMoc>
+    <QtMoc Include="circleprocess.h">
+      <Filter>Header Files\Component\Circle Process</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -289,6 +325,18 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="lockdowndialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="trustalldialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="upgradedialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="widgettransparent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="circleprocess.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

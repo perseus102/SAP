@@ -10,9 +10,6 @@ using namespace std;
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
 
-  // style our application with custom style
-  //a.setStyle(new Style);
-
   // create frameless window (and set windowState or title)
   FramelessWindow framelessWindow;
  

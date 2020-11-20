@@ -43,6 +43,7 @@ FramelessWindow::FramelessWindow(QWidget *parent)
 	QApplication::instance()->installEventFilter(this);
 
 	setWindowIcon();
+
 }
 
 FramelessWindow::~FramelessWindow() { delete ui; }
@@ -53,7 +54,7 @@ void FramelessWindow::on_restoreButton_clicked() {
 	ui->maximizeButton->setVisible(true);
 
 	setWindowState(Qt::WindowNoState);
-
+	AppSetting::getInstance()->setFullScreen(false);
 	hide();
 	show();
 }
@@ -64,6 +65,8 @@ void FramelessWindow::on_maximizeButton_clicked() {
 	this->setWindowState(Qt::WindowMaximized);
 	this->showMaximized();
 	styleWindow(true, false);
+	AppSetting::getInstance()->setFullScreen(true);
+
 }
 
 void FramelessWindow::changeEvent(QEvent *event) {
@@ -318,7 +321,7 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
 			int diff =
 				globalMousePos.y() - (m_StartGeometry.y() + m_StartGeometry.height());
 			int neww = m_StartGeometry.width() + diff;
-			int newy = m_StartGeometry.y() + diff;
+			//int newy = m_StartGeometry.y() + diff;
 			int newh = m_StartGeometry.height() + diff;
 			//if (newh > 0 && newy > 0) 
 			if (newh > 0) {

@@ -1,9 +1,4 @@
 #include "lockdowndialog.h"
-#include <QApplication>
-#include <QDesktopWidget>
-#include <QGraphicsDropShadowEffect>
-#include <QScreen>
-#include <QSizeGrip>
 LockDownDialog::LockDownDialog(QDialog*parent)
 	: QDialog(parent, Qt::FramelessWindowHint)
 {
@@ -25,17 +20,17 @@ LockDownDialog::LockDownDialog(QDialog*parent)
 
 	m_cancelBtn		= new QPushButton();
 	m_cancelBtn->setFixedSize(70, 30);
-	m_cancelBtn->setFont(SMALL_FRONT);
+	m_cancelBtn->setFont(SMALL_FONT);
 	setCancelText("Cancel"); //call function get text multi language
 
 	m_silentBtn		= new QPushButton();
 	m_silentBtn->setFixedSize(92, 30);
-	m_silentBtn->setFont(SMALL_FRONT);
+	m_silentBtn->setFont(SMALL_FONT);
 	setSilentText("Silent");//call function get text multi language
 
 	m_DefaultBtn	= new QPushButton();
 	m_DefaultBtn->setFixedSize(92, 30);
-	m_DefaultBtn->setFont(SMALL_FRONT);
+	m_DefaultBtn->setFont(SMALL_FONT);
 	setDefaultText("Default");//call function get text multi language
 
 	buttonLayout->addWidget(m_cancelBtn);
@@ -54,6 +49,7 @@ LockDownDialog::LockDownDialog(QDialog*parent)
 	connect(m_cancelBtn, &QPushButton::clicked, this, &LockDownDialog::cancelClicked);
 	connect(m_silentBtn, &QPushButton::clicked, this, &LockDownDialog::silentClicked);
 	connect(m_DefaultBtn, &QPushButton::clicked, this, &LockDownDialog::defaultClicked);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &LockDownDialog::changeTheme);
 }
 
 LockDownDialog::~LockDownDialog()
@@ -82,6 +78,7 @@ void LockDownDialog::setDefaultText(QString text)
 
 void LockDownDialog::showDialog()
 {
+	m_lockdownMode = LockDown::LOCKDOWN_CANCEL;
 	activateWindow();
 	raise();
 	exec();
@@ -111,44 +108,49 @@ void LockDownDialog::defaultClicked()
 	this->close();
 }
 
+void LockDownDialog::changeTheme()
+{
+	setStyle();
+}
+
 void LockDownDialog::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Dark_Theme:
 
-		this->setStyleSheet("background-color: " + LD_BACKGROUND_DT + ";");
-		m_titleText->setStyleSheet("color: " + LD_TITLE_TEXT_DT + ";");
+		this->setStyleSheet("background-color: " + DIALOG_BACKGROUND_DT + ";");
+		m_titleText->setStyleSheet("color: " + DIALOG_TITLE_TEXT_DT + ";");
 
-		m_cancelBtn->setStyleSheet("QPushButton {color: " + LD_CANCEL_TEXT_BORDER_DT + ";"
-			"border: 1px solid" + LD_CANCEL_TEXT_BORDER_DT + "; border-radius:4px;}"
-			"QPushButton:hover{border: 2px solid " + LD_CANCEL_TEXT_BORDER_DT + ";}");
+		m_cancelBtn->setStyleSheet("QPushButton {color: " + DIALOG_CANCEL_TEXT_BORDER_DT + ";"
+			"border: 1px solid" + DIALOG_CANCEL_TEXT_BORDER_DT + "; border-radius:4px;}"
+			"QPushButton:hover{border: 2px solid " + DIALOG_CANCEL_TEXT_BORDER_DT + ";}");
 
-		m_silentBtn->setStyleSheet("QPushButton {background-color: " + LD_SILENT_DEFAULT_BGROUND_DT + ";"
-			"color: " + LD_TITLE_TEXT_DT + ";"
+		m_silentBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_DT + ";"
+			"color: " + DIALOG_BUTTON_TEXT_DT + ";"
 			"border-radius:4px;}");
 
-		m_DefaultBtn->setStyleSheet("QPushButton {background-color: " + LD_SILENT_DEFAULT_BGROUND_DT + ";"
-			"color: " + LD_TITLE_TEXT_DT + ";"
+		m_DefaultBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_DT + ";"
+			"color: " + DIALOG_BUTTON_TEXT_DT + ";"
 			"border-radius:4px;}");
 
 		break;
 
 	case Theme_Type::Light_Theme:
-		this->setStyleSheet("background-color: " + LD_BACKGROUND_LT + ";");
-		m_titleText->setStyleSheet("color: " + LD_TITLE_TEXT_LT + ";");
+		this->setStyleSheet("background-color: " + DIALOG_BACKGROUND_LT + ";");
+		m_titleText->setStyleSheet("color: " + DIALOG_TITLE_TEXT_LT + ";");
 
-		m_cancelBtn->setStyleSheet("QPushButton {color: " + LD_CANCEL_TEXT_BORDER_LT + ";"
-			"border: 1px solid" + LD_CANCEL_TEXT_BORDER_LT + "; border-radius:2px;}"
-			"QPushButton:hover{border: 2px solid " + LD_CANCEL_TEXT_BORDER_LT + ";}");
+		m_cancelBtn->setStyleSheet("QPushButton {color: " + DIALOG_CANCEL_TEXT_BORDER_LT + ";"
+			"border: 1px solid" + DIALOG_CANCEL_TEXT_BORDER_LT + "; border-radius:4px;}"
+			"QPushButton:hover{border: 2px solid " + DIALOG_CANCEL_TEXT_BORDER_LT + ";}");
 
-		m_silentBtn->setStyleSheet("QPushButton {background-color: " + LD_SILENT_DEFAULT_BGROUND_LT + ";"
-			"color: " + LD_TITLE_TEXT_LT + ";"
-			"border-radius:2px;}");
+		m_silentBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_LT + ";"
+			"color: " + DIALOG_BUTTON_TEXT_LT + ";"
+			"border-radius:4px;}");
 
-		m_DefaultBtn->setStyleSheet("QPushButton {background-color: " + LD_SILENT_DEFAULT_BGROUND_LT + ";"
-			"color: " + LD_TITLE_TEXT_LT + ";"
-			"border-radius:2px;}");
+		m_DefaultBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_LT + ";"
+			"color: " + DIALOG_BUTTON_TEXT_LT + ";"
+			"border-radius:4px;}");
 
 		break;
 

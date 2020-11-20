@@ -14,7 +14,7 @@
 #include "define.h"
 #include "util.h"
 #include "appsetting.h"
-
+#include "circleprocess.h"
 namespace Ui {
 	class StatusWidget;
 }
@@ -27,6 +27,7 @@ public:
 	StatusWidget(QWidget *parent = Q_NULLPTR);
 	~StatusWidget();
 
+	void setTrustAllText(QString text);
 
 signals:
 	void toggleChanged(bool isChecked);
@@ -35,7 +36,7 @@ public slots:
 	void protectionModeChanged(Protection_Modes mode);
 	void toggleClicked();
 	void changeTheme();
-
+	void countDownFinished();
 private:
 	Ui::StatusWidget	*ui;
 	QLabel				*m_statusIcon;
@@ -44,8 +45,11 @@ private:
 	Switch				*m_toggle;
 	QWidget				*m_iconWidget;
 	QIcon				m_icon;
+	QLabel				*m_trustAllText;
+	CircleProcess		*m_circleProcess;
 	void setStyle();
 	void setIcon();
+	void setTrustAllMode();
 };
 
 #endif

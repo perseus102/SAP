@@ -40,7 +40,7 @@ SelectWidget::SelectWidget(Protection_Modes mode, bool selected, QWidget* parent
 	m_title->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	m_title->setWordWrap(true);
 
-
+	//Init for Observation mode
 	if (m_mode == Observation_Mode)
 	{
 		m_title->setFixedHeight(20);
@@ -57,6 +57,7 @@ SelectWidget::SelectWidget(Protection_Modes mode, bool selected, QWidget* parent
 		observationLayout->addWidget(m_title);
 		observationLayout->addWidget(m_proIconLabel);
 	}
+	//Init for Lockdown mode
 	else if (m_mode == Lockdown_Mode)
 	{
 		m_title->setFixedHeight(20);
@@ -70,7 +71,7 @@ SelectWidget::SelectWidget(Protection_Modes mode, bool selected, QWidget* parent
 		m_lockdownModeLabel = new QLabel();
 		m_lockdownModeLabel->setFixedSize(66, 20);
 		m_lockdownModeLabel->setAlignment(Qt::AlignCenter);
-		m_lockdownModeLabel->setFont(SMALL_FRONT);
+		m_lockdownModeLabel->setFont(SMALL_FONT);
 		lockdownLayout->addWidget(m_title);
 		lockdownLayout->addWidget(m_lockdownModeLabel);
 		m_lockdownModeLabel->setVisible(false);
@@ -78,7 +79,7 @@ SelectWidget::SelectWidget(Protection_Modes mode, bool selected, QWidget* parent
 
 	/* Init title */
 	m_description = new QLabel();
-	m_description->setFont(SMALL_FRONT);
+	m_description->setFont(SMALL_FONT);
 	m_description->setWordWrap(true);
 	m_description->setVisible(false);
 
@@ -86,7 +87,6 @@ SelectWidget::SelectWidget(Protection_Modes mode, bool selected, QWidget* parent
 
 	if (m_mode == Observation_Mode)
 	{
-
 		m_contentLayout->addWidget(observationProver);
 	}
 	else if(m_mode == Lockdown_Mode)
@@ -100,6 +100,7 @@ SelectWidget::SelectWidget(Protection_Modes mode, bool selected, QWidget* parent
 	}
 
 	m_contentLayout->addWidget(m_description);
+
 	/* Set frame layout */
 	m_frame->setLayout(m_contentLayout);
 	setStyle();
@@ -114,23 +115,26 @@ SelectWidget::~SelectWidget()
 
 void SelectWidget::setSelected(bool selected)
 {
+	//Change style
 	m_selected = selected;
 	setStyle();
 	setIcon();
+
 	m_iconLabel->setVisible(true);
 	m_title->setVisible(true);
 	m_description->setVisible(false);
 
-	if (m_mode == Observation_Mode)
+	/*if (m_mode == Observation_Mode)
 	{
 		observationProver->setVisible(true);
 		m_title->setVisible(true);
 		m_proIconLabel->setVisible(true);
-	}
+	}*/
 }
 
 void SelectWidget::setLockDownText(QString text)
 {
+	//set visible lock down icon
 	if (text == "")
 	{
 		m_lockdownModeLabel->setVisible(false);
@@ -311,6 +315,7 @@ void SelectWidget::setIcon()
 
 void SelectWidget::setStyle()
 {
+	//set style with theme and selected or not
 	if (m_selected)
 	{
 		switch (AppSetting::getInstance()->getTheme())
@@ -329,8 +334,8 @@ void SelectWidget::setStyle()
 			m_description->setStyleSheet("QLabel {  color:" + TITLTE_SELECTED_COLOR_LT + ";border-radius:0px;}");
 			if (m_mode == Lockdown_Mode)
 			{
-				m_lockdownModeLabel->setStyleSheet("QLabel {  color:" + TITLTE_SELECTED_COLOR_LT + "; border-radius:6px;"
-					"border: 1px solid " + GRID_BORDER_LIGHT_THEME_COLOR + ";}");
+				m_lockdownModeLabel->setStyleSheet("QLabel {  color: " + LOCKDOWN_ICON_DT_LT + "; border-radius:10px;"
+					"border: 1px solid "+ LOCKDOWN_ICON_DT_LT +";}");
 			}
 			break;
 
@@ -349,8 +354,8 @@ void SelectWidget::setStyle()
 
 			if (m_mode == Lockdown_Mode)
 			{
-				m_lockdownModeLabel->setStyleSheet("QLabel {  color:#FFFFFF; border-radius:10px;"
-					"border: 1px solid #FFFFFF;}");
+				m_lockdownModeLabel->setStyleSheet("QLabel {  color: " + LOCKDOWN_ICON_DT_LT + "; border-radius:10px;"
+					"border: 1px solid " + LOCKDOWN_ICON_DT_LT + ";}");
 			}
 			break;
 
@@ -378,8 +383,8 @@ void SelectWidget::setStyle()
 			
 			if (m_mode == Lockdown_Mode)
 			{
-				m_lockdownModeLabel->setStyleSheet("QLabel {  color:" + TITLTE_SELECTED_COLOR_LT + "; border-radius:10px;"
-					"border: 1px solid " + GRID_BORDER_LIGHT_THEME_COLOR + ";}");
+				m_lockdownModeLabel->setStyleSheet("QLabel {  color: " + LOCKDOWN_ICON_DT_LT + "; border-radius:10px;"
+					"border: 1px solid " + LOCKDOWN_ICON_DT_LT + ";}");
 			}
 
 			break;
@@ -399,8 +404,8 @@ void SelectWidget::setStyle()
 
 			if (m_mode == Lockdown_Mode)
 			{
-				m_lockdownModeLabel->setStyleSheet("QLabel {  color:#FFFFFF; border-radius:10px;"
-					"border: 1px solid #FFFFFF;}");
+				m_lockdownModeLabel->setStyleSheet("QLabel {  color: " + LOCKDOWN_ICON_DT_LT + "; border-radius:10px;"
+					"border: 1px solid " + LOCKDOWN_ICON_DT_LT + ";}");
 			}
 
 			break;
@@ -484,10 +489,7 @@ bool SelectWidget::event(QEvent* e)
 			{
 				lockDownMode->setVisible(true);
 				m_title->setVisible(true);
-				if (m_lockdownModeLabel->text() != "")
-				{
-					m_lockdownModeLabel->setVisible(true);
-				}
+			
 			}
 		}
 	}
@@ -496,6 +498,7 @@ bool SelectWidget::event(QEvent* e)
 
 void SelectWidget::mousePressEvent(QMouseEvent* event)
 {
+	Q_UNUSED(event);
 	if (!m_selected)
 	{
 		emit changeMode();

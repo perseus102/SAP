@@ -44,6 +44,7 @@ HomeWidget::HomeWidget(QWidget *parent)
 	/* Connection */
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &HomeWidget::changeTheme);
 	connect(m_backgroundAnimation, &QVariantAnimation::valueChanged, this, &HomeWidget::valueAnimation);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeStatus, this, &HomeWidget::changeStatus);
 
 }
 
@@ -187,6 +188,11 @@ void HomeWidget::valueAnimation(const QVariant & value)
 	
 }
 
+void HomeWidget::changeStatus()
+{
+	setIcon();
+}
+
 void HomeWidget::mousePressEvent(QMouseEvent * event)
 {
 	Q_UNUSED(event);
@@ -204,11 +210,6 @@ void HomeWidget::changeTheme()
 	setWidgetStyle();
 }
 
-
-void HomeWidget::mouseMoveEvent(QMouseEvent *event)
-{
-	
-}
 
 bool HomeWidget::event(QEvent* e)
 {

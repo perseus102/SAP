@@ -32,6 +32,7 @@ HomeContent::HomeContent(QWidget *parent)
 	/* Set style for home main widget */
 	setStyleSheet("#HomeContent{border: 0px none palette(shadow); "
 		"border-top-left-radius:10px;}");
+
 }
 
 HomeContent::~HomeContent()

@@ -24,5 +24,11 @@
         <file>images/protection modes/observation.svg</file>
         <file>images/protection modes/trustall.svg</file>
         <file>images/protection modes/pro_version.svg</file>
+        <file>images/Rings/dark_theme_selected.svg</file>
+        <file>images/Rings/dark_theme_unselected.svg</file>
+        <file>images/Rings/light_theme_selected.svg</file>
+        <file>images/Rings/light_theme_unselected.svg</file>
+        <file>images/Observation/exit_icon.svg</file>
+        <file>images/Observation/observation_icon.svg</file>
     </qresource>
 </RCC>

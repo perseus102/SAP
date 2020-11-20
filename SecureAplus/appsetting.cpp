@@ -16,6 +16,7 @@ AppSetting::AppSetting()
 	m_currentStatus = Status::Protected_Status;
 	m_themeType = Theme_Type::Dark_Theme;
 	m_protectionMode = Protection_Modes::Automatic_Mode; //can save and get from ini file
+	m_isFullScreen = false;
 }
 
 AppSetting::~AppSetting()
@@ -25,6 +26,7 @@ AppSetting::~AppSetting()
 void AppSetting::setStatus(Status status)
 {
 	m_currentStatus = status;
+	emit signal_changeStatus();
 }
 
 Status AppSetting::getStatus()
@@ -50,6 +52,7 @@ Protection_Modes AppSetting::getProtectionMode()
 
 void AppSetting::setProtectionMode(Protection_Modes mode)
 {
+	m_prevProtectionMode = m_protectionMode;
 	m_protectionMode = mode;
 }
 
@@ -65,6 +68,26 @@ void AppSetting::setAppGeometry(QRect geometry)
 	m_appGeometry = geometry;
 }
 
+void AppSetting::setFullScreen(bool fullScreen)
+{
+	m_isFullScreen = fullScreen;
+}
+
+bool AppSetting::isFullScreen()
+{
+	return m_isFullScreen;
+}
+
+void AppSetting::changePrevMode()
+{
+	emit signal_changeToPrevMode();
+}
+
+Protection_Modes AppSetting::getPrevMode()
+{
+	return m_prevProtectionMode;
+}
+
 
 
 void AppSetting::toggleClicked(bool isChecked)
@@ -73,11 +96,16 @@ void AppSetting::toggleClicked(bool isChecked)
 	{
 		m_protectionMode = Protection_Modes::Interactive_Mode;
 	}
+	else
+	{
+		m_protectionMode = Protection_Modes::Automatic_Mode;
+	}
 	emit signal_toggleChanged(isChecked);
 }
 
 void AppSetting::changeProtectionMode(Protection_Modes mode)
 {
+	m_prevProtectionMode = m_protectionMode;
 	m_protectionMode = mode;
 	emit signal_changeMode(mode);
 }

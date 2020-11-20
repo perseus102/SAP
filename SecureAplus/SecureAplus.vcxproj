@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{36DD9E82-89E7-4759-BCDB-1B7616427282}</ProjectGuid>
     <Keyword>QtVS_v303</Keyword>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'">10.0.17763.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|Win32'">10.0.17763.0</WindowsTargetPlatformVersion>
@@ -31,11 +31,11 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="appsetting.cpp" />
+    <ClCompile Include="circleprocess.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="flowlayout.cpp" />
     <ClCompile Include="gridwidget.cpp" />
@@ -175,9 +176,13 @@
     <ClCompile Include="statuswidget.cpp" />
     <ClCompile Include="switch.cpp" />
     <ClCompile Include="topbar.cpp" />
+    <ClCompile Include="trustalldialog.cpp" />
+    <ClCompile Include="upgradedialog.cpp" />
     <ClCompile Include="util.cpp" />
+    <ClCompile Include="widgettransparent.cpp" />
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
+    <QtUic Include="circleprocess.ui" />
     <QtUic Include="framelesswindow\framelesswindow.ui" />
     <QtUic Include="gridwidget.ui" />
     <QtUic Include="homecontent.ui" />
@@ -201,6 +206,9 @@
     <QtUic Include="settingwidget.ui" />
     <QtUic Include="statuswidget.ui" />
     <QtUic Include="topbar.ui" />
+    <QtUic Include="trustalldialog.ui" />
+    <QtUic Include="upgradedialog.ui" />
+    <QtUic Include="widgettransparent.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h" />
@@ -224,7 +232,9 @@
     <QtMoc Include="settingwidget.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="widgettransparent.h" />
     <QtMoc Include="appsetting.h" />
+    <QtMoc Include="circleprocess.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />
@@ -241,6 +251,8 @@
     <ClInclude Include="style.h" />
     <QtMoc Include="switch.h" />
     <QtMoc Include="topbar.h" />
+    <QtMoc Include="trustalldialog.h" />
+    <QtMoc Include="upgradedialog.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>

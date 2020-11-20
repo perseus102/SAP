@@ -40,10 +40,10 @@ signals:
 public slots:
 	void changeTheme();
 	void valueAnimation(const QVariant &value);
+	void changeStatus();
 
 protected:
 	void mousePressEvent(QMouseEvent *event);
-	void mouseMoveEvent(QMouseEvent *event);
 	bool event(QEvent* e) override;
 
 private:

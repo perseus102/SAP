@@ -48,6 +48,7 @@ public slots:
 	void scanButtonClick();
 	void featureDetailsClick();
 	void changeTheme();
+	void changeStatus();
 
 private:
 	Ui::HomeMainContent *ui;

@@ -32,8 +32,8 @@
 #define MAIN_BACKGROUND_DARK_THEME			QString("Main Content/Background_Dark_Theme")
 
 /* Define Home Main Content */
-#define HOME_STATUS_TEXT_DARK_THEME			QString("Home Content/Status_Text_Color_Dark_Theme")
-#define HOME_STATUS_TEXT_LIGHT_THEME		QString("Home Content/Status_Text_Color_Light_Theme")
+#define HOME_PROTECTED_TEXT					QString("Home Content/Protected_Text_Color")
+#define HOME_AT_RICK_TEXT					QString("Home Content/At_Rick_Text_Color")
 #define LAST_SCAN_TEXT_DARK_THEME			QString("Home Content/Last_Scan_Color_Dark_Theme")
 #define LAST_SCAN_TEXT_LIGHT_THEME			QString("Home Content/Last_Scan_Color_Light_Theme")
 #define SECURE_FEATURE_DARK_THEME			QString("Home Content/Security_Feature_Color_Dark_Theme")
@@ -154,14 +154,22 @@
 #define OBSERVATION							QString(":/images/protection modes/observation.svg")
 #define PRO									QString(":/images/protection modes/pro_version.svg")
 
+/* Define for Rings icon */
+#define RING_SELECTED_LT					QString(":/images/Rings/light_theme_selected.svg")
+#define RING_SELECTED_DT					QString(":/images/Rings/dark_theme_selected.svg")
+#define RING_UNSELECTED_LT					QString(":/images/Rings/light_theme_unselected.svg")
+#define RING_UNSELECTED_DT					QString(":/images/Rings/dark_theme_unselected.svg")
+
+
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
 
 /* Define font */
 #define FONT								QFont("Lato", 10, QFont::Normal)
 #define HOME_CONTENT_STATUS_FONT			QFont("Lato", 16, QFont::Medium)
-#define GRID_SUB_TITLE_FRONT				QFont("Lato", 8, QFont::Normal)
-#define SMALL_FRONT							QFont("Lato", 8, QFont::Normal)
+#define GRID_SUB_TITLE_FONT					QFont("Lato", 8, QFont::Normal)
+#define SMALL_FONT							QFont("Lato", 8, QFont::Normal)
+#define LARGE_FONT							QFont("Lato", 12, QFont::Normal)
 
 /* Define for navigation button color */
 #define GRADIENT_START_DARK					Config::getInstance()->getConfigValue(NAVIGATION_BTN_GRADIENT_START_DARK)
@@ -184,8 +192,8 @@
 #define BACKGROUND_DARK_MODE				Config::getInstance()->getConfigValue(DARK_MODE_BACKGROUND)
 
 /* Define Home Main Content Color */
-#define HOME_STATUS_COLOR_TEXT_DARK_THEME	Config::getInstance()->getConfigValue(HOME_STATUS_TEXT_DARK_THEME)
-#define HOME_STATUS_COLOR_TEXT_LIGHT_THEME	Config::getInstance()->getConfigValue(HOME_STATUS_TEXT_LIGHT_THEME)
+#define HOME_PROTECTED_TEXT_COLOR			Config::getInstance()->getConfigValue(HOME_PROTECTED_TEXT)
+#define HOME_AT_RICK_TEXT_COLOR				Config::getInstance()->getConfigValue(HOME_AT_RICK_TEXT)
 #define LAST_SCAN_COLOR_TEXT_DARK_THEME		Config::getInstance()->getConfigValue(LAST_SCAN_TEXT_DARK_THEME)
 #define LAST_SCAN_COLOR_TEXT_LIGHT_THEME	Config::getInstance()->getConfigValue(LAST_SCAN_TEXT_LIGHT_THEME)
 #define SECURE_FEATURE_COLOR_DARK_THEME		Config::getInstance()->getConfigValue(SECURE_FEATURE_DARK_THEME)
@@ -259,17 +267,44 @@
 #define PRO_ICON_UNSELECTED_COLOR_DT				Config::getInstance()->getConfigValue(PRO_ICON_UNSELECTED_DT)
 #define PRO_ICON_SELECTED_COLOR_LT					Config::getInstance()->getConfigValue(PRO_ICON_SELECTED_LT)
 #define PRO_ICON_SELECTED_COLOR_DT					Config::getInstance()->getConfigValue(PRO_ICON_SELECTED_DT)
+#define LOCKDOWN_ICON_DT_LT							Config::getInstance()->getConfigValue("Protection Modes And Status/Lockdown_Icon_DT_LT")
+
+/*Define for Trust All status */
+#define TRUST_ALL_TEXT_DT							Config::getInstance()->getConfigValue("Protection Modes And Status/Trust_All_Text_Dark_Theme")
+#define TRUST_ALL_TEXT_LT							Config::getInstance()->getConfigValue("Protection Modes And Status/Trust_All_Text_Light_Theme")
+#define TRUST_ALL_NEXT_REBOOT_DT					Config::getInstance()->getConfigValue("Protection Modes And Status/Trust_All_Next_Reboot_Dark_Theme")
+#define TRUST_ALL_NEXT_REBOOT_LT					Config::getInstance()->getConfigValue("Protection Modes And Status/Trust_All_Next_Reboot_Light_Theme")
 
 
-/* Define for Lockdown dialog */
-#define LD_BACKGROUND_DT							Config::getInstance()->getConfigValue("Lockdown Dialog/Background_Dark_Theme")
-#define LD_BACKGROUND_LT							Config::getInstance()->getConfigValue("Lockdown Dialog/Background_Light_Theme")
-#define LD_TITLE_TEXT_DT							Config::getInstance()->getConfigValue("Lockdown Dialog/Text_Dark_Mode")
-#define LD_TITLE_TEXT_LT							Config::getInstance()->getConfigValue("Lockdown Dialog/Text_Light_Mode")
-#define LD_SILENT_DEFAULT_BGROUND_DT				Config::getInstance()->getConfigValue("Lockdown Dialog/Silent_Default_Bground_Dark_Theme")
-#define LD_SILENT_DEFAULT_BGROUND_LT				Config::getInstance()->getConfigValue("Lockdown Dialog/Silent_Default_Bground_Light_Theme")
-#define LD_CANCEL_TEXT_BORDER_DT					Config::getInstance()->getConfigValue("Lockdown Dialog/Cancel_Text_Border_Dark_Theme")
-#define LD_CANCEL_TEXT_BORDER_LT					Config::getInstance()->getConfigValue("Lockdown Dialog/Cancel_Text_Border_Light_Theme")
+/* Define for dialog */
+#define DIALOG_BACKGROUND_DT						Config::getInstance()->getConfigValue("Dialog/Background_Dark_Theme")
+#define DIALOG_BACKGROUND_LT						Config::getInstance()->getConfigValue("Dialog/Background_Light_Theme")
+#define DIALOG_TITLE_TEXT_DT						Config::getInstance()->getConfigValue("Dialog/Text_Dark_Mode")
+#define DIALOG_TITLE_TEXT_LT						Config::getInstance()->getConfigValue("Dialog/Text_Light_Mode")
+#define DIALOG_BUTTON_BGROUND_DT					Config::getInstance()->getConfigValue("Dialog/Button_Bground_Dark_Theme")
+#define DIALOG_BUTTON_BGROUND_LT					Config::getInstance()->getConfigValue("Dialog/Button_Bground_Light_Theme")
+#define DIALOG_CANCEL_TEXT_BORDER_DT				Config::getInstance()->getConfigValue("Dialog/Cancel_Text_Border_Dark_Theme")
+#define DIALOG_CANCEL_TEXT_BORDER_LT				Config::getInstance()->getConfigValue("Dialog/Cancel_Text_Border_Light_Theme")
+#define	DIALOG_BUTTON_TEXT_DT						Config::getInstance()->getConfigValue("Dialog/Button_Text_Dark_Theme")
+#define	DIALOG_BUTTON_TEXT_LT						Config::getInstance()->getConfigValue("Dialog/Button_Text_Light_Theme")
+
+/* Define for widget Transparent */
+#define TRANSPARENT_BACKGROUND_DT					Config::getInstance()->getConfigValue("Transparent/Transparent_Background_Dark_Theme")
+#define TRANSPARENT_BACKGROUND_LT					Config::getInstance()->getConfigValue("Transparent/Transparent_Background_Light_Theme")
+
+/* Define for Observation dialog */
+#define OBSERVATION_BACKGROUND_DT					Config::getInstance()->getConfigValue("Observation/Obs_Background_Dark_Theme")
+#define OBSERVATION_BACKGROUND_LT					Config::getInstance()->getConfigValue("Observation/Obs_Background_Light_Theme")
+#define OBSERVATION_TEXT_DT_LT						Config::getInstance()->getConfigValue("Observation/Obs_Text_DT_LT")
+#define OBSERVATION_BUTTON_BACKGROUND_DT_LT			Config::getInstance()->getConfigValue("Observation/Obs_Button_Background_DT_LT")
+
+/* Define for Circle process */
+#define CIRCLE_COLOR_DT								Config::getInstance()->getConfigValue("Circle Process/Circle_Color_Dark_Theme")
+#define CIRCLE_COLOR_LT								Config::getInstance()->getConfigValue("Circle Process/Circle_Color_Light_Theme")
+#define CIRCLE_BACKGROUND_COLOR_DT					Config::getInstance()->getConfigValue("Circle Process/Circle_Background_Color_Dark_Theme")
+#define CIRCLE_BACKGROUND_COLOR_LT					Config::getInstance()->getConfigValue("Circle Process/Circle_Background_Color_Light_Theme")
+#define CIRCLE_TEXT_COLOR_DT						Config::getInstance()->getConfigValue("Circle Process/Circle_Text_Color_Dark_Theme")
+#define CIRCLE_TEXT_COLOR_LT						Config::getInstance()->getConfigValue("Circle Process/Circle_Text_Color_Light_Theme")
 
 enum ColorType
 {
@@ -298,6 +333,9 @@ enum Protection_Modes
 	Interactive_Mode,
 	Lockdown_Mode,
 	TrustAll_Mode,
+	TrustAll_5Mins,
+	TrustAll_30Mins,
+	TrustAll_NetReboot,
 	Observation_Mode,
 };
 enum LockDown
@@ -306,4 +344,23 @@ enum LockDown
 	LOCKDOWN_SILENT,
 	LOCKDOWN_DEFAULT,
 
+};
+
+enum TrustAll
+{
+	TRUSTALL_CANCEL =0,
+	TRUSTALL_APPLY,
+
+};
+enum TrustAllTime
+{
+	TRUSTALL_5MINS = 0,
+	TRUSTALL_30MINS,
+	TRUSTALL_NEXTREBOOT,
+};
+
+enum Observation
+{
+	Observation_exit = 0,
+	Observation_upgrade,
 };

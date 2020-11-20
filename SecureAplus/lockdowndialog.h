@@ -7,9 +7,6 @@
 #include "util.h"
 #include "appsetting.h"
 #include <QPushButton>
-#include <QGraphicsDropShadowEffect>
-#include <QScreen>
-#include <QSizeGrip>
 #include <QDialog>
 class LockDownDialog : public QDialog
 {
@@ -29,6 +26,7 @@ public slots:
 	void cancelClicked();
 	void silentClicked();
 	void defaultClicked();
+	void changeTheme();
 
 private:
 	Ui::LockDownDialog ui;

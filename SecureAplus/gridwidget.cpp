@@ -40,7 +40,7 @@ GridWidget::GridWidget(QWidget *parent)
 
 	/* Init grid sub title */
 	m_gridSubTitle = new QLabel();
-	m_gridSubTitle->setFont(GRID_SUB_TITLE_FRONT);
+	m_gridSubTitle->setFont(GRID_SUB_TITLE_FONT);
 	m_gridSubTitle->setFixedWidth(170);
 	m_gridSubTitle->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 	m_gridSubTitle->setWordWrap(true);
@@ -125,6 +125,7 @@ void GridWidget::setSubTitleText(QString text)
 
 void GridWidget::mousePressEvent(QMouseEvent* event)
 {
+	Q_UNUSED(event);
 	emit pressWidget();
 }
 
@@ -151,6 +152,7 @@ void GridWidget::setTextStyle()
 
 void GridWidget::changeTheme()
 {
+	//Set style when change theme
 	setBackground();
 	setIcon();
 	setTextStyle();

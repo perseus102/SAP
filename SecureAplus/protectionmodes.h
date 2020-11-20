@@ -10,6 +10,10 @@
 #include "appsetting.h"
 #include "flowlayout.h"
 #include "lockdowndialog.h"
+#include "trustalldialog.h"
+#include "upgradedialog.h"
+#include "widgettransparent.h"
+#include "CircleProcess.h"
 
 class ProtectionModes : public QWidget
 {
@@ -26,6 +30,7 @@ public slots:
 	void changeProtectMode();
 	void changeTheme();
 	void toogleChanged(bool isChecked);
+	void changeToPrevMode();
 
 private:
 	Ui::ProtectionModes ui;
@@ -42,6 +47,9 @@ private:
 	QLabel* m_modeTitle;
 	QLabel* m_description;
 	LockDownDialog* lockdownDialog;
+	TrustAllDialog* trustAllDialog;
+	UpgradeDialog* upgradeDialog;
+	WidgetTransparent *transparent;
 
 	void setConnection();
 	void setModeText();
