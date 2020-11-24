@@ -11,7 +11,7 @@ HomeMainContent::HomeMainContent(QWidget *parent)
 	m_statusText			= new QLabel();
 	m_lastScan				= new QLabel();
 	m_securityFeature		= new QLabel();
-	m_featureDetails		= new FeatureDetails();
+	m_featureDetails		= new FeatureDetailsLabel();
 	m_btn_scanNow			= new QPushButton();
 
 	/* Spacer between last scan and security feature */
@@ -117,7 +117,7 @@ HomeMainContent::HomeMainContent(QWidget *parent)
 	}
 
 	connect(m_btn_scanNow, &QPushButton::clicked, this, &HomeMainContent::scanButtonClick);
-	connect(m_featureDetails, &FeatureDetails::clicked, this, &HomeMainContent::featureDetailsClick);
+	connect(m_featureDetails, &FeatureDetailsLabel::clicked, this, &HomeMainContent::featureDetailsClick);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &HomeMainContent::changeTheme);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeStatus, this, &HomeMainContent::changeStatus);
 }
@@ -280,17 +280,17 @@ void HomeMainContent::changeStatus()
 	}
 }
 
-FeatureDetails::FeatureDetails(QLabel *parent)
+FeatureDetailsLabel::FeatureDetailsLabel(QLabel *parent)
 	: QLabel(parent)
 {
 
 }
 
-FeatureDetails::~FeatureDetails()
+FeatureDetailsLabel::~FeatureDetailsLabel()
 {
 }
 
-void FeatureDetails::mousePressEvent(QMouseEvent * event)
+void FeatureDetailsLabel::mousePressEvent(QMouseEvent * event)
 {
 	Q_UNUSED(event);
 	emit clicked();

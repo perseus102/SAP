@@ -12,12 +12,12 @@
 
 #include "ui_homemaincontent.h"
 
-class FeatureDetails : public QLabel
+class FeatureDetailsLabel : public QLabel
 {
 	Q_OBJECT
 public:
-	FeatureDetails(QLabel *parent = Q_NULLPTR);
-	~FeatureDetails();
+	FeatureDetailsLabel(QLabel *parent = Q_NULLPTR);
+	~FeatureDetailsLabel();
 signals:
 	void clicked();
 protected:
@@ -58,7 +58,7 @@ private:
 	QLabel	*m_securityFeature;
 	QPushButton	*m_btn_scanNow;
 	QGridLayout * m_vBoxlayout;
-	FeatureDetails *m_featureDetails;
+	FeatureDetailsLabel *m_featureDetails;
 	void setIcon();
 	void setStyle();
 

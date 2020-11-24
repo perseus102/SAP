@@ -160,6 +160,8 @@
     <ClCompile Include="appsetting.cpp" />
     <ClCompile Include="circleprocess.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="featuredetails.cpp" />
+    <ClCompile Include="featurestatus.cpp" />
     <ClCompile Include="flowlayout.cpp" />
     <ClCompile Include="gridwidget.cpp" />
     <ClCompile Include="homecontent.cpp" />
@@ -183,6 +185,8 @@
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
     <QtUic Include="circleprocess.ui" />
+    <QtUic Include="featuredetails.ui" />
+    <QtUic Include="featurestatus.ui" />
     <QtUic Include="framelesswindow\framelesswindow.ui" />
     <QtUic Include="gridwidget.ui" />
     <QtUic Include="homecontent.ui" />
@@ -240,6 +244,8 @@
     <QtMoc Include="homecontent.h" />
     <QtMoc Include="homemaincontent.h" />
     <QtMoc Include="gridwidget.h" />
+    <QtMoc Include="featuredetails.h" />
+    <QtMoc Include="featurestatus.h" />
     <ClInclude Include="flowlayout.h" />
     <QtMoc Include="languagepersonal.h" />
     <QtMoc Include="protectionmodes.h" />

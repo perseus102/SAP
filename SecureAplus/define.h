@@ -160,6 +160,9 @@
 #define RING_UNSELECTED_LT					QString(":/images/Rings/light_theme_unselected.svg")
 #define RING_UNSELECTED_DT					QString(":/images/Rings/dark_theme_unselected.svg")
 
+/* Define for Feature Details icon */
+#define DOT_STATUS							QString(":/images/feature details/dot_status.svg")
+#define FEATURE_SETTING						QString(":/images/feature details/setting_icon.svg")
 
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
@@ -306,6 +309,30 @@
 #define CIRCLE_TEXT_COLOR_DT						Config::getInstance()->getConfigValue("Circle Process/Circle_Text_Color_Dark_Theme")
 #define CIRCLE_TEXT_COLOR_LT						Config::getInstance()->getConfigValue("Circle Process/Circle_Text_Color_Light_Theme")
 
+/* Define for Feature States Color */
+#define FEATURE_ACTIVE								Config::getInstance()->getConfigValue("Feature States/Active")
+#define FEATURE_OFF_INTENTIONAL						Config::getInstance()->getConfigValue("Feature States/Off_Intentional")
+#define FEATURE_OFF_NOT_INTENTIONAL					Config::getInstance()->getConfigValue("Feature States/Off_NotIntentional")
+#define FEATURE_EXPIRE_SOON							Config::getInstance()->getConfigValue("Feature States/Expire_Soon")
+#define FEATURE_EXPIRED								Config::getInstance()->getConfigValue("Feature States/Expired")
+#define FEATURE_INVALID								Config::getInstance()->getConfigValue("Feature States/Invalid")
+#define FEATURE_RUNNING								Config::getInstance()->getConfigValue("Feature States/Running")
+#define FEATURE_NOT_RUNNING							Config::getInstance()->getConfigValue("Feature States/Not_Running")
+#define FEATURE_NOT_INSTALLED						Config::getInstance()->getConfigValue("Feature States/Not_Installed")
+#define FEATURE_START_PENDING						Config::getInstance()->getConfigValue("Feature States/Start_Pending")
+#define FEATURE_STOP_PENDING						Config::getInstance()->getConfigValue("Feature States/Stop_Pending")
+#define FEATURE_CONTINUE_PENDING					Config::getInstance()->getConfigValue("Feature States/Continue_Pending")
+#define FEATURE_PAUSE_PENDING						Config::getInstance()->getConfigValue("Feature States/Pause_Pending")
+#define FEATURE_PAUSED								Config::getInstance()->getConfigValue("Feature States/Paused")
+
+/* Define for Feature details widget Color */
+#define FEATURE_BACKGROUND_LT						Config::getInstance()->getConfigValue("Feature Details/Feature_Background_Light_Theme")
+#define FEATURE_BACKGROUND_DT						Config::getInstance()->getConfigValue("Feature Details/Feature_Background_Dark_Theme")
+#define FEATURE_NAME_LT								Config::getInstance()->getConfigValue("Feature Details/Feature_Name_Light_Theme")
+#define FEATURE_NAME_DT								Config::getInstance()->getConfigValue("Feature Details/Feature_Name_Dark_Theme")
+#define FEATURE_SETTING_LT							Config::getInstance()->getConfigValue("Feature Details/Feature_Setting_Light_Theme")
+#define FEATURE_SETTING_DT							Config::getInstance()->getConfigValue("Feature Details/Feature_Setting_DarkTheme_Theme")
+
 enum ColorType
 {
 	Default = 0,
@@ -363,4 +390,34 @@ enum Observation
 {
 	Observation_exit = 0,
 	Observation_upgrade,
+};
+
+enum Feature
+{
+	Lisence = 0,
+	RealTime_Scanning,
+	Universal_AV,
+	WhiteList_Driver,
+	WhiteList_Service,
+	SAP_Service,
+	Antivirus_Driver,
+	Offline_Antivirus_Service,
+};
+
+enum Feature_States
+{
+	Active = 0,
+	Off_Intentional,
+	Off_NotIntentional,
+	Expire_Soon,
+	Expired,
+	Invalid,
+	Running,
+	Not_Running,
+	Not_Installed,
+	Start_Pending,
+	Stop_Pending,
+	Continue_Pending,
+	Pause_Pending,
+	Paused,
 };

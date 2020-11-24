@@ -14,7 +14,7 @@
 #include "appsetting.h"
 #include "ui_homecontent.h"
 #include "homemaincontent.h"
-
+#include "featuredetails.h"
 namespace Ui {
 	class HomeContent;
 }
@@ -29,7 +29,7 @@ public:
 
 public slots:
 	void onFadeInFinished();
-
+	void showDetails();
 protected:
 	void showEvent(QShowEvent *);
 	void resizeEvent(QResizeEvent *);
@@ -43,5 +43,5 @@ private:
 	QVBoxLayout				*m_homeContentLayout;
 	HomeMainContent			*m_homeMainContent;
 	QStackedWidget			*stackedWidget;
-
+	FeatureDetails			*m_featureDetails;
 };

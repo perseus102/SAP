@@ -6,9 +6,12 @@ HomeContent::HomeContent(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	m_homeMainContent = new HomeMainContent();
-	stackedWidget = new QStackedWidget();
+	m_homeMainContent	= new HomeMainContent();
+	m_featureDetails	= new FeatureDetails();
+	stackedWidget		= new QStackedWidget();
+
 	stackedWidget->addWidget(m_homeMainContent);
+	stackedWidget->addWidget(m_featureDetails);
 
 	/* Init home content layout */
 	m_homeContentLayout = new QVBoxLayout;
@@ -33,6 +36,8 @@ HomeContent::HomeContent(QWidget *parent)
 	setStyleSheet("#HomeContent{border: 0px none palette(shadow); "
 		"border-top-left-radius:10px;}");
 
+
+	connect(m_homeMainContent, &HomeMainContent::featureDetailsClicked, this, &HomeContent::showDetails);
 }
 
 HomeContent::~HomeContent()
@@ -48,6 +53,11 @@ void HomeContent::onFadeInFinished()
 void HomeContent::fadeIn()
 {
 
+}
+
+void HomeContent::showDetails()
+{
+	stackedWidget->setCurrentWidget(m_featureDetails);
 }
 
 void HomeContent::showEvent(QShowEvent *)

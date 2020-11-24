@@ -106,6 +106,12 @@
     <Filter Include="Header Files\Component\Circle Process">
       <UniqueIdentifier>{5d568633-95be-4850-af46-e6ccf2762388}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Feature Status">
+      <UniqueIdentifier>{280ac053-6011-4ddd-ad7f-a36601a77f63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Feature Status">
+      <UniqueIdentifier>{cd694b41-7f49-45d7-9903-ae257edd10c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -203,6 +209,12 @@
     <ClCompile Include="circleprocess.cpp">
       <Filter>Source Files\Component\Circle Process</Filter>
     </ClCompile>
+    <ClCompile Include="featuredetails.cpp">
+      <Filter>Source Files\Home Content</Filter>
+    </ClCompile>
+    <ClCompile Include="featurestatus.cpp">
+      <Filter>Source Files\Component\Feature Status</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -274,6 +286,12 @@
     <QtMoc Include="circleprocess.h">
       <Filter>Header Files\Component\Circle Process</Filter>
     </QtMoc>
+    <QtMoc Include="featuredetails.h">
+      <Filter>Header Files\Home Content</Filter>
+    </QtMoc>
+    <QtMoc Include="featurestatus.h">
+      <Filter>Header Files\Component\Feature Status</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -337,6 +355,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="circleprocess.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="featuredetails.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="featurestatus.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -30,5 +30,7 @@
         <file>images/Rings/light_theme_unselected.svg</file>
         <file>images/Observation/exit_icon.svg</file>
         <file>images/Observation/observation_icon.svg</file>
+        <file>images/feature details/dot_status.svg</file>
+        <file>images/feature details/setting_icon.svg</file>
     </qresource>
 </RCC>
