@@ -41,7 +41,6 @@ void WindowDragger::paintEvent(QPaintEvent *event) {
 void WindowDragger::resizeEvent(QResizeEvent *event)
 {
 	Q_UNUSED(event);
-    qDebug() << "Resize function";
 }
 
 void WindowDragger::mouseDoubleClickEvent(QMouseEvent *event) {

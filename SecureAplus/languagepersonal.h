@@ -7,7 +7,7 @@
 #include <QPushButton>
 #include "define.h"
 #include "appsetting.h"
-
+#include "clickablelabel.h"
 class LanguagePersonal : public QWidget
 {
 	Q_OBJECT
@@ -21,6 +21,7 @@ public:
 
 public slots:
 	void radioButtonClicked();
+	void themeTextClicked();
 	void changeTheme();
 private:
 	Ui::LanguagePersonal ui;
@@ -30,10 +31,12 @@ private:
 	QLabel* m_appearDarkTheme;
 	QPushButton *m_lightThemeBtn;
 	QPushButton *m_darkThemeBtn;
-	QLabel* m_appearLightThemeText;
-	QLabel* m_appearDarkThemeText;
+	ClickableLabel* m_appearLightThemeText;
+	ClickableLabel* m_appearDarkThemeText;
+	QLabel* spacerCenter;
 
 	void setTextStyle();
 	void setAppearImage();
 	void setButtonStyle();
+
 };

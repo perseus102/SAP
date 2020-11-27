@@ -30,6 +30,8 @@ public:
 public slots:
 	void onFadeInFinished();
 	void showDetails();
+	void ShowHomeScreen();
+
 protected:
 	void showEvent(QShowEvent *);
 	void resizeEvent(QResizeEvent *);

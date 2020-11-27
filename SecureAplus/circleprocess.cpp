@@ -102,7 +102,6 @@ void CircleProcess::paintEvent(QPaintEvent *)
 	p.setPen(m_textPen);
 	p.setFont(LARGE_FONT);
 	p.drawText(drawingRect, Qt::AlignCenter, m_text);
-
 	//Draw circle
 	int arcLengthApproximation = 80 + 80 / 3;
 	m_circlePen.setCapStyle(Qt::RoundCap);

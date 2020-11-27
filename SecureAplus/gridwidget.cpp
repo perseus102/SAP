@@ -120,7 +120,6 @@ void GridWidget::setTitleText(QString text)
 void GridWidget::setSubTitleText(QString text)
 {
 	m_gridSubTitle->setText(text);
-	qDebug() << "m_gridSubTitle: " << m_gridSubTitle->height();
 }
 
 void GridWidget::mousePressEvent(QMouseEvent* event)

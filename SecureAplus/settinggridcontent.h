@@ -26,6 +26,9 @@ private:
 	GridWidget* m_protectionMode;
 	GridWidget* m_info;
 	GridWidget* m_languagePersonal;
+	GridWidget* m_diagnosis;
+	GridWidget* m_managementServer;
+	GridWidget* m_security;
 	GridWidget* m_manageUser;
 	GridWidget* m_updates;
 	GridWidget* m_others;

@@ -7,7 +7,7 @@ FeatureStatus::FeatureStatus(Feature featureName, Feature_States state, QWidget 
 {
 	ui.setupUi(this);
 	setFixedSize(620, 50);
-	setContentsMargins(27, 0, 27, 0);
+	setContentsMargins(0, 0, 0, 0);
 
 	m_featureWidget = new QWidget();
 	m_featureWidget->setFixedSize(560, 50);
@@ -20,7 +20,6 @@ FeatureStatus::FeatureStatus(Feature featureName, Feature_States state, QWidget 
 	m_layout = new QHBoxLayout();
 	m_layout->setContentsMargins(0, 0, 0, 0);
 	m_layout->setSpacing(0);
-	setLayout(m_layout);
 
 	m_featureWidget->setLayout(m_layout);
 
@@ -30,37 +29,42 @@ FeatureStatus::FeatureStatus(Feature featureName, Feature_States state, QWidget 
 	m_featureNameLabel->setFont(FONT);
 
 	m_statusIcon = new QLabel();
-	//m_statusIcon->setFixedSize(12,12);
 	m_statusIcon->setFixedWidth(12);
 	m_statusIcon->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	m_statusTextLabel = new QLabel();
-	m_statusTextLabel->setFixedWidth(248);
+	m_statusTextLabel->setFixedWidth(264);
 	m_statusTextLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	m_statusTextLabel->setFont(FONT);
-
-	m_settingButton = new QPushButton();
-	m_settingButton->setFixedSize(16,16);
 
 	QLabel *spacerLeft = new QLabel();
 	spacerLeft->setFixedWidth(24);
 
-	QLabel *spacerBottom = new QLabel();
-	spacerBottom->setFixedWidth(10);
-
-	QLabel *spacerRight = new QLabel();
-	spacerRight->setFixedWidth(24);
+	QLabel *spacerCenter = new QLabel();
+	spacerCenter->setFixedWidth(10);
 
 	m_layout->addWidget(spacerLeft);
 	m_layout->addWidget(m_featureNameLabel);
 	m_layout->addWidget(m_statusIcon);
-	m_layout->addWidget(spacerBottom);
+	m_layout->addWidget(spacerCenter);
 	m_layout->addWidget(m_statusTextLabel);
-	m_layout->addWidget(m_settingButton);
+
+	if (m_featureName == Feature::Lisence || m_featureName == Feature::RealTime_Scanning)
+	{
+		m_statusTextLabel->setFixedWidth(248);
+
+		m_settingButton = new QPushButton();
+		m_settingButton->setFixedSize(16, 16);
+		m_layout->addWidget(m_settingButton);
+		setSettingBtnStyle();
+		connect(m_settingButton, &QPushButton::clicked, this, &FeatureStatus::settingBtnClicked);
+
+	}
+
+	QLabel *spacerRight = new QLabel();
+	spacerRight->setFixedWidth(24);
 	m_layout->addWidget(spacerRight);
-	
 	setStyle();
-	setSettingBtnStyle();
 
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &FeatureStatus::changeTheme);
 }
@@ -99,6 +103,12 @@ void FeatureStatus::setFeatureName(Feature featureName)
 Feature FeatureStatus::getFeatureName()
 {
 	return m_featureName;
+}
+
+void FeatureStatus::settingBtnClicked()
+{
+	qDebug() << m_featureNameLabel->text() << " clicked";
+	emit settingFeature();
 }
 
 void FeatureStatus::setStyle()
@@ -161,7 +171,7 @@ void FeatureStatus::setLicenseStyle()
 	switch (m_featureState)
 	{
 	case Active:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_ACTIVE);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_ACTIVE);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_ACTIVE + ";border-radius:0px;}");
 		break;
 	case Off_Intentional:
@@ -169,15 +179,15 @@ void FeatureStatus::setLicenseStyle()
 	case Off_NotIntentional:
 		break;
 	case Expire_Soon:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_EXPIRE_SOON);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_EXPIRE_SOON);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_EXPIRE_SOON + ";border-radius:0px;}");
 		break;
 	case Expired:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_EXPIRED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_EXPIRED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_EXPIRED + ";border-radius:0px;}");
 		break;
 	case Invalid:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_INVALID);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_INVALID);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_INVALID + ";border-radius:0px;}");
 		break;
 	case Running:
@@ -212,11 +222,11 @@ void FeatureStatus::setRTimeScanStyle()
 	case Active:
 		break;
 	case Off_Intentional:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_OFF_INTENTIONAL);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_OFF_INTENTIONAL);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_OFF_INTENTIONAL + ";border-radius:0px;}");
 		break;
 	case Off_NotIntentional:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_OFF_NOT_INTENTIONAL);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_OFF_NOT_INTENTIONAL);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_OFF_NOT_INTENTIONAL + ";border-radius:0px;}");
 		break;
 	case Expire_Soon:
@@ -226,7 +236,7 @@ void FeatureStatus::setRTimeScanStyle()
 	case Invalid:
 		break;
 	case Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Running:
@@ -259,7 +269,7 @@ void FeatureStatus::setUAVServiceStyle()
 	case Active:
 		break;
 	case Off_Intentional:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_OFF_INTENTIONAL);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_OFF_INTENTIONAL);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_OFF_INTENTIONAL + ";border-radius:0px;}");
 		break;
 	case Off_NotIntentional:
@@ -272,35 +282,35 @@ void FeatureStatus::setUAVServiceStyle()
 	case Invalid:
 		break;
 	case Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Installed:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_INSTALLED + ";border-radius:0px;}");
 		break;
 	case Start_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_START_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_START_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_START_PENDING + ";border-radius:0px;}");
 		break;
 	case Stop_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_STOP_PENDING + ";border-radius:0px;}");
 		break;
 	case Continue_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_CONTINUE_PENDING + ";border-radius:0px;}");
 		break;
 	case Pause_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSE_PENDING + ";border-radius:0px;}");
 		break;
 	case Paused:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_PAUSED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSED + ";border-radius:0px;}");
 		break;
 	default:
@@ -329,19 +339,19 @@ void FeatureStatus::setWListDriverStyle()
 	case Invalid:
 		break;
 	case Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Installed:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_INSTALLED + ";border-radius:0px;}");
 		break;
 	case Start_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_START_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_START_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_START_PENDING + ";border-radius:0px;}");
 		break;
 	case Stop_Pending:
@@ -349,7 +359,7 @@ void FeatureStatus::setWListDriverStyle()
 		//m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_STOP_PENDING + ";border-radius:0px;}");
 		break;
 	case Continue_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_CONTINUE_PENDING + ";border-radius:0px;}");
 		break;
 	case Pause_Pending:
@@ -386,35 +396,35 @@ void FeatureStatus::setWListServiceStyle()
 	case Invalid:
 		break;
 	case Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Installed:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_INSTALLED + ";border-radius:0px;}");
 		break;
 	case Start_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_START_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_START_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_START_PENDING + ";border-radius:0px;}");
 		break;
 	case Stop_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_STOP_PENDING + ";border-radius:0px;}");
 		break;
 	case Continue_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_CONTINUE_PENDING + ";border-radius:0px;}");
 		break;
 	case Pause_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSE_PENDING + ";border-radius:0px;}");
 		break;
 	case Paused:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_PAUSED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSED + ";border-radius:0px;}");
 		break;
 	default:
@@ -443,35 +453,35 @@ void FeatureStatus::setSAPServiceStyle()
 	case Invalid:
 		break;
 	case Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Installed:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_INSTALLED + ";border-radius:0px;}");
 		break;
 	case Start_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_START_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_START_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_START_PENDING + ";border-radius:0px;}");
 		break;
 	case Stop_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_STOP_PENDING + ";border-radius:0px;}");
 		break;
 	case Continue_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_CONTINUE_PENDING + ";border-radius:0px;}");
 		break;
 	case Pause_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSE_PENDING + ";border-radius:0px;}");
 		break;
 	case Paused:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_PAUSED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSED + ";border-radius:0px;}");
 		break;
 	default:
@@ -490,7 +500,7 @@ void FeatureStatus::setAntivDrivereStyle()
 	case Active:
 		break;
 	case Off_Intentional:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_OFF_INTENTIONAL);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_OFF_INTENTIONAL);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_OFF_INTENTIONAL + ";border-radius:0px;}");
 		break;
 	case Off_NotIntentional:
@@ -502,35 +512,35 @@ void FeatureStatus::setAntivDrivereStyle()
 	case Invalid:
 		break;
 	case Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Installed:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_INSTALLED + ";border-radius:0px;}");
 		break;
 	case Start_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_START_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_START_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_START_PENDING + ";border-radius:0px;}");
 		break;
 	case Stop_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_STOP_PENDING + ";border-radius:0px;}");
 		break;
 	case Continue_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_CONTINUE_PENDING + ";border-radius:0px;}");
 		break;
 	case Pause_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSE_PENDING + ";border-radius:0px;}");
 		break;
 	case Paused:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_PAUSED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSED + ";border-radius:0px;}");
 		break;
 	default:
@@ -548,7 +558,7 @@ void FeatureStatus::setOffAntivServiceStyle()
 	case Active:
 		break;
 	case Off_Intentional:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_OFF_INTENTIONAL);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_OFF_INTENTIONAL);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_OFF_INTENTIONAL + "; border-radius:0px;}");
 		break;
 	case Off_NotIntentional:
@@ -560,35 +570,35 @@ void FeatureStatus::setOffAntivServiceStyle()
 	case Invalid:
 		break;
 	case Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Running:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_RUNNING + ";border-radius:0px;}");
 		break;
 	case Not_Installed:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_INSTALLED + ";border-radius:0px;}");
 		break;
 	case Start_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_START_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_START_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_START_PENDING + ";border-radius:0px;}");
 		break;
 	case Stop_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_STOP_PENDING + ";border-radius:0px;}");
 		break;
 	case Continue_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_CONTINUE_PENDING + ";border-radius:0px;}");
 		break;
 	case Pause_Pending:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSE_PENDING + ";border-radius:0px;}");
 		break;
 	case Paused:
-		dotStatusIcon = util::getInstance()->ChangeSVGColor(DOT_STATUS, FEATURE_PAUSED);
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSED);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSED + ";border-radius:0px;}");
 		break;
 	default:
@@ -625,5 +635,8 @@ void FeatureStatus::setSettingBtnStyle()
 void FeatureStatus::changeTheme()
 {
 	setStyle();
-	setSettingBtnStyle();
+	if (m_featureName == Feature::Lisence || m_featureName == Feature::RealTime_Scanning)
+	{
+		setSettingBtnStyle();
+	}
 }

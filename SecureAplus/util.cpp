@@ -64,3 +64,28 @@ void util::SetAttrRecur(QDomElement elem, QString strtagname, QString strattr, Q
 	}
 }
 
+QIcon util::ChangeCircleSVGColor(QString svgPath, QString Color)
+{
+	// open svg resource load contents to qbytearray
+	QFile file(svgPath);
+	file.open(QIODevice::ReadOnly);
+	QByteArray baData = file.readAll();
+	// load svg contents to xml document and edit contents
+	QDomDocument doc;
+	doc.setContent(baData);
+	// recurivelly change color
+	SetAttrRecur(doc.documentElement(), "circle", "fill", Color);
+	// create svg renderer with edited contents
+	QSvgRenderer svgRenderer(doc.toByteArray());
+	// create pixmap target (could be a QImage)
+	QPixmap pix(svgRenderer.defaultSize());
+	pix.fill(Qt::transparent);
+	// create painter to act over pixmap
+	QPainter pixPainter(&pix);
+	// use renderer to render over painter which paints on pixmap
+	svgRenderer.render(&pixPainter);
+	QIcon icon(pix);
+
+	return icon;
+}
+

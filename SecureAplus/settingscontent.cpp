@@ -55,7 +55,6 @@ void SettingsContent::fadeIn()
 
 void SettingsContent::changeSettingsView(QString widgetName)
 {
-	qDebug() << widgetName;
 	if (widgetName == "scanning")
 	{
 		//stackedWidget->setCurrentWidget();

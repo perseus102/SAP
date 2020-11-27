@@ -112,6 +112,12 @@
     <Filter Include="Header Files\Component\Feature Status">
       <UniqueIdentifier>{cd694b41-7f49-45d7-9903-ae257edd10c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Component\Clickable Label">
+      <UniqueIdentifier>{142266d3-2251-45ec-886e-e402ca73d157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Clickable Label">
+      <UniqueIdentifier>{aaca2d04-69ab-4252-aea8-7a40d2d44134}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -215,6 +221,9 @@
     <ClCompile Include="featurestatus.cpp">
       <Filter>Source Files\Component\Feature Status</Filter>
     </ClCompile>
+    <ClCompile Include="clickablelabel.cpp">
+      <Filter>Source Files\Component\Clickable Label</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -292,6 +301,9 @@
     <QtMoc Include="featurestatus.h">
       <Filter>Header Files\Component\Feature Status</Filter>
     </QtMoc>
+    <QtMoc Include="clickablelabel.h">
+      <Filter>Header Files\Component\Clickable Label</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -361,6 +373,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="featurestatus.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="clickablelabel.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

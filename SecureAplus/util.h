@@ -17,6 +17,7 @@ public:
 	~util();
 
 	QIcon ChangeSVGColor(QString  svgPath, QString Color);
+	QIcon ChangeCircleSVGColor(QString  svgPath, QString Color);
 
 	void SetAttrRecur(QDomElement  elem, QString strtagname, QString strattr, QString strattrval);
 

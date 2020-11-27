@@ -42,18 +42,18 @@ LanguagePersonal::LanguagePersonal(QWidget *parent)
 	m_darkThemeBtn = new QPushButton();
 	m_darkThemeBtn->setFixedSize(20, 20);
 
-	m_appearLightThemeText = new QLabel();
+	m_appearLightThemeText = new ClickableLabel();
 	m_appearLightThemeText->setFont(FONT);
 	m_appearLightThemeText->setFixedSize(80, 20);
 	m_appearLightThemeText->setAlignment(Qt::AlignCenter);
 
-	m_appearDarkThemeText = new QLabel();
+	m_appearDarkThemeText = new ClickableLabel();
 	m_appearDarkThemeText->setFont(FONT);
 	m_appearDarkThemeText->setFixedSize(80,20);
 	m_appearDarkThemeText->setAlignment(Qt::AlignCenter);
 
 	QLabel* radioBtnSpacerRight = new QLabel();
-	QLabel* spacerCenter = new QLabel();
+	spacerCenter = new QLabel();
 	spacerCenter->setFixedWidth(10);
 
 	QWidget* appear_button_Widget = new QWidget();
@@ -106,6 +106,8 @@ LanguagePersonal::LanguagePersonal(QWidget *parent)
 	connect(m_lightThemeBtn, &QPushButton::clicked, this, &LanguagePersonal::radioButtonClicked);
 	connect(m_darkThemeBtn, &QPushButton::clicked, this, &LanguagePersonal::radioButtonClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &LanguagePersonal::changeTheme);
+	connect(m_appearLightThemeText, &ClickableLabel::clicked, this, &LanguagePersonal::themeTextClicked);
+	connect(m_appearDarkThemeText, &ClickableLabel::clicked, this, &LanguagePersonal::themeTextClicked);
 }
 
 LanguagePersonal::~LanguagePersonal()
@@ -123,11 +125,23 @@ void LanguagePersonal::setAppearanceText(QString text)
 
 void LanguagePersonal::setAppearLightThemeText(QString text)
 {
+	QFontMetrics fm(FONT);
+	int pixelsHigh = fm.height();
+	int width = fm.width(text);
+	m_appearLightThemeText->setFixedWidth(width);
+	m_appearLightThemeText->setFixedHeight(pixelsHigh);
 	m_appearLightThemeText->setText(text);
+
+	spacerCenter->setFixedWidth(80- width + 10);
 }
 
 void LanguagePersonal::setAppearDarkThemeText(QString text)
 {
+	QFontMetrics fm(FONT);
+	int pixelsHigh = fm.height();
+	int width = fm.width(text);
+	m_appearDarkThemeText->setFixedWidth(width);
+	m_appearDarkThemeText->setFixedHeight(pixelsHigh);
 	m_appearDarkThemeText->setText(text);
 
 }
@@ -230,6 +244,26 @@ void LanguagePersonal::radioButtonClicked()
 
 	}
 	else if (sender() == m_darkThemeBtn)
+	{
+		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
+		{
+			AppSetting::getInstance()->setTheme(Theme_Type::Dark_Theme);
+		}
+	}
+}
+
+
+void LanguagePersonal::themeTextClicked()
+{
+	if (sender() == m_appearLightThemeText)
+	{
+		if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
+		{
+			AppSetting::getInstance()->setTheme(Theme_Type::Light_Theme);
+		}
+
+	}
+	else if (sender() == m_appearDarkThemeText)
 	{
 		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
 		{

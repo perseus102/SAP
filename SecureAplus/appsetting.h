@@ -32,6 +32,8 @@ public:
 	bool isFullScreen();
 	void changePrevMode();
 	Protection_Modes getPrevMode();
+	License getLicense();
+	void setLicense(License license);
 
 public slots:
 	void changeProtectionMode(Protection_Modes mode);
@@ -54,4 +56,5 @@ private:
 	Protection_Modes m_prevProtectionMode;
 	QRect m_appGeometry;
 	bool m_isFullScreen;
+	License m_appLicense;
 };

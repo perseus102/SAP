@@ -17,6 +17,7 @@ AppSetting::AppSetting()
 	m_themeType = Theme_Type::Dark_Theme;
 	m_protectionMode = Protection_Modes::Automatic_Mode; //can save and get from ini file
 	m_isFullScreen = false;
+	m_appLicense = License::License_Expire_Soon;
 }
 
 AppSetting::~AppSetting()
@@ -88,7 +89,15 @@ Protection_Modes AppSetting::getPrevMode()
 	return m_prevProtectionMode;
 }
 
+License AppSetting::getLicense()
+{
+	return m_appLicense;
+}
 
+void AppSetting::setLicense(License license)
+{
+	m_appLicense = license;
+}
 
 void AppSetting::toggleClicked(bool isChecked)
 {

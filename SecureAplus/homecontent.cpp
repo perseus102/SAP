@@ -38,6 +38,7 @@ HomeContent::HomeContent(QWidget *parent)
 
 
 	connect(m_homeMainContent, &HomeMainContent::featureDetailsClicked, this, &HomeContent::showDetails);
+	connect(m_featureDetails, &FeatureDetails::backToHome, this, &HomeContent::ShowHomeScreen);
 }
 
 HomeContent::~HomeContent()
@@ -52,12 +53,20 @@ void HomeContent::onFadeInFinished()
 
 void HomeContent::fadeIn()
 {
-
+	eff->setEnabled(true);
+	mpFadeIn->start();
 }
 
 void HomeContent::showDetails()
 {
 	stackedWidget->setCurrentWidget(m_featureDetails);
+	fadeIn();
+}
+
+void HomeContent::ShowHomeScreen()
+{
+	stackedWidget->setCurrentWidget(m_homeMainContent);
+	fadeIn();
 }
 
 void HomeContent::showEvent(QShowEvent *)

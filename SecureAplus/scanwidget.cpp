@@ -205,7 +205,6 @@ void ScanWidget::mousePressEvent(QMouseEvent * event)
 void ScanWidget::changeTheme()
 {
 	setWidgetStyle();
-	qDebug() << "ScanWidget Change themee";
 }
 
 bool ScanWidget::event(QEvent* e)

@@ -1,0 +1,23 @@
+<UI version="4.0" >
+ <class>ClickableLabel</class>
+ <widget class="QLabel" name="ClickableLabel" >
+  <property name="objectName" >
+   <string notr="true">ClickableLabel</string>
+  </property>
+  <property name="geometry" >
+   <rect>
+	<x>0</x>
+	<y>0</y>
+	<width>400</width>
+	<height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>ClickableLabel</string>
+  </property>
+ </widget>
+ <layoutDefault spacing="6" margin="11" />
+ <pixmapfunction></pixmapfunction>
+ <resources/>
+ <connections/>
+</UI>

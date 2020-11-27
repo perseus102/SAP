@@ -8,6 +8,7 @@
 #include "appsetting.h"
 #include <QPushButton>
 #include <QDialog>
+#include "clickablelabel.h"
 class TrustAllDialog : public QDialog
 {
 	Q_OBJECT
@@ -28,11 +29,10 @@ public:
 private slots:
 	void cancelBtnClicked();
 	void applyBtnClicked();
-	void fiveMinsBtnClicked();
-	void thirtyMinsBtnClicked();
-	void nextRebootBtnClicked();
+	void fiveMinsClicked();
+	void thirtyMinsClicked();
+	void nextRebootClicked();
 	void changeTheme();
-
 private:
 	Ui::TrustAllDialog ui;
 	void setStyle();
@@ -43,10 +43,12 @@ private:
 	QPushButton *	m_5minsRadioBtn;
 	QPushButton *	m_30minsRadioBtn;
 	QPushButton *	m_nextRebootRadioBtn;
-	QLabel*			m_5minsText;
-	QLabel*			m_30minsText;
-	QLabel*			m_nextRebootText;
-
+	ClickableLabel*	m_5minsText;
+	ClickableLabel*	m_30minsText;
+	ClickableLabel*	m_nextRebootText;
+	QLabel*			spacerRadio5MinsText;
+	QLabel*			spacerRadio30MinsText;
+	QLabel*			spacerRadioNextReboot;
 	QVBoxLayout*	layout;
 	TrustAll		m_trustAll;
 	TrustAllTime	m_trustAllTime;

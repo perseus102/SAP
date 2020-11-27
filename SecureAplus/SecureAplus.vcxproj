@@ -159,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="appsetting.cpp" />
     <ClCompile Include="circleprocess.cpp" />
+    <ClCompile Include="clickablelabel.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="featuredetails.cpp" />
     <ClCompile Include="featurestatus.cpp" />
@@ -185,6 +186,7 @@
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
     <QtUic Include="circleprocess.ui" />
+    <QtUic Include="clickablelabel.ui" />
     <QtUic Include="featuredetails.ui" />
     <QtUic Include="featurestatus.ui" />
     <QtUic Include="framelesswindow\framelesswindow.ui" />
@@ -239,6 +241,7 @@
     <QtMoc Include="widgettransparent.h" />
     <QtMoc Include="appsetting.h" />
     <QtMoc Include="circleprocess.h" />
+    <QtMoc Include="clickablelabel.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />

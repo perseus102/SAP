@@ -54,6 +54,7 @@ TopBar::TopBar(QWidget *parent)
 	ui(new Ui::TopBar)
 {
 	ui->setupUi(this);
+	setFixedHeight(16);
 
 	/* Init */
 	m_Directory			= new QLabel();

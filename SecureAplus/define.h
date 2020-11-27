@@ -421,3 +421,10 @@ enum Feature_States
 	Pause_Pending,
 	Paused,
 };
+
+enum License
+{
+	License_Active = 0,
+	License_Expire_Soon,
+	License_Expired,
+};

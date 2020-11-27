@@ -33,27 +33,24 @@ TrustAllDialog::TrustAllDialog(QDialog *parent)
 	m_nextRebootRadioBtn = new QPushButton();
 	m_nextRebootRadioBtn->setFixedSize(20, 20);
 
-	m_5minsText = new QLabel();
+	m_5minsText = new ClickableLabel();
 	m_5minsText->setFixedSize(57, 20);
 	m_5minsText->setFont(SMALL_FONT);
 	m_5minsText->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	setFiveMinsText("5 minutes"); //call function get text multi language
 
-	m_30minsText = new QLabel();
+	m_30minsText = new ClickableLabel();
 	m_30minsText->setFixedSize(57, 20);
 	m_30minsText->setFont(SMALL_FONT);
 	m_30minsText->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	setThirtyMinsText("30 minutes"); //call function get text multi language
 
-	m_nextRebootText = new QLabel();
+	m_nextRebootText = new ClickableLabel();
 	m_nextRebootText->setFixedSize(97, 20);
 	m_nextRebootText->setFont(SMALL_FONT);
 	m_nextRebootText->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	setNextRebootMinsText("Until next reboot"); //call function get text multi language
 
 	QLabel* spacerRadio5Mins = new QLabel;
 	spacerRadio5Mins->setFixedWidth(10);
-	QLabel* spacerRadio5MinsText = new QLabel;
+	spacerRadio5MinsText = new QLabel;
 	spacerRadio5MinsText->setFixedWidth(36);
 
 	radioButtonLayout->addWidget(m_5minsRadioBtn);
@@ -63,7 +60,7 @@ TrustAllDialog::TrustAllDialog(QDialog *parent)
 
 	QLabel* spacerRadio30Mins = new QLabel;
 	spacerRadio30Mins->setFixedWidth(10);
-	QLabel* spacerRadio30MinsText = new QLabel;
+	spacerRadio30MinsText = new QLabel;
 	spacerRadio30MinsText->setFixedWidth(36);
 
 	radioButtonLayout->addWidget(m_30minsRadioBtn);
@@ -71,13 +68,12 @@ TrustAllDialog::TrustAllDialog(QDialog *parent)
 	radioButtonLayout->addWidget(m_30minsText);
 	radioButtonLayout->addWidget(spacerRadio30MinsText);
 
-	QLabel* spacerRadioNextReboot = new QLabel;
+	spacerRadioNextReboot = new QLabel;
 	spacerRadioNextReboot->setFixedWidth(10);
 
 	radioButtonLayout->addWidget(m_nextRebootRadioBtn);
 	radioButtonLayout->addWidget(spacerRadioNextReboot);
 	radioButtonLayout->addWidget(m_nextRebootText);
-
 
 	/* Init Dialog Button */
 	QHBoxLayout* buttonLayout = new QHBoxLayout();
@@ -90,16 +86,13 @@ TrustAllDialog::TrustAllDialog(QDialog *parent)
 	m_cancelButton = new QPushButton();
 	m_cancelButton->setFixedSize(70, 30);
 	m_cancelButton->setFont(SMALL_FONT);
-	setCancelText("Cancel"); //call function get text multi language
 
 	m_applyButton = new QPushButton();
 	m_applyButton->setFont(SMALL_FONT);
 	m_applyButton->setFixedSize(70, 30);
-	setApplyText("Apply"); //call function get text multi language
 	buttonLayout->addWidget(m_cancelButton);
 	buttonLayout->addWidget(m_applyButton);
 	buttonLayout->insertSpacing(0, 200);
-
 
 	layout->addWidget(m_titleText);
 	QLabel* spacerRadioTop = new QLabel;
@@ -119,13 +112,22 @@ TrustAllDialog::TrustAllDialog(QDialog *parent)
 	setStyle();
 	setButtonStyle();
 
+	setFiveMinsText("5 minutes"); //call function get text multi language
+	setThirtyMinsText("30 minutes"); //call function get text multi language
+	setNextRebootMinsText("Until next reboot"); //call function get text multi language
+	setCancelText("Cancel"); //call function get text multi language
+	setApplyText("Apply"); //call function get text multi language
+
 	connect(m_cancelButton, &QPushButton::clicked, this, &TrustAllDialog::cancelBtnClicked);
 	connect(m_cancelButton, &QPushButton::clicked, this, &TrustAllDialog::cancelBtnClicked);
 	connect(m_applyButton, &QPushButton::clicked, this, &TrustAllDialog::applyBtnClicked);
-	connect(m_5minsRadioBtn, &QPushButton::clicked, this, &TrustAllDialog::fiveMinsBtnClicked);
-	connect(m_30minsRadioBtn, &QPushButton::clicked, this, &TrustAllDialog::thirtyMinsBtnClicked);
-	connect(m_nextRebootRadioBtn, &QPushButton::clicked, this, &TrustAllDialog::nextRebootBtnClicked);
+	connect(m_5minsRadioBtn, &QPushButton::clicked, this, &TrustAllDialog::fiveMinsClicked);
+	connect(m_30minsRadioBtn, &QPushButton::clicked, this, &TrustAllDialog::thirtyMinsClicked);
+	connect(m_nextRebootRadioBtn, &QPushButton::clicked, this, &TrustAllDialog::nextRebootClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &TrustAllDialog::changeTheme);
+	connect(m_5minsText, &ClickableLabel::clicked, this, &TrustAllDialog::fiveMinsClicked);
+	connect(m_30minsText, &ClickableLabel::clicked, this, &TrustAllDialog::thirtyMinsClicked);
+	connect(m_nextRebootText, &ClickableLabel::clicked, this, &TrustAllDialog::nextRebootClicked);
 }
 
 TrustAllDialog::~TrustAllDialog()
@@ -139,16 +141,34 @@ void TrustAllDialog::setTitleText(QString text)
 
 void TrustAllDialog::setFiveMinsText(QString text)
 {
+	QFontMetrics fm(SMALL_FONT);
+	int pixelsHigh = fm.height();
+	int width = fm.width(text);
+	m_5minsText->setFixedWidth(width);
+	m_5minsText->setFixedHeight(pixelsHigh);
 	m_5minsText->setText(text);
+	spacerRadio5MinsText->setFixedWidth(57 - width + 36);
 }
 
 void TrustAllDialog::setThirtyMinsText(QString text)
 {
+	QFontMetrics fm(SMALL_FONT);
+	int pixelsHigh = fm.height();
+	int width = fm.width(text);
+	m_30minsText->setFixedWidth(width);
+	m_30minsText->setFixedHeight(pixelsHigh);
 	m_30minsText->setText(text);
+	spacerRadio30MinsText->setFixedWidth(57 - width + 36);
+
 }
 
 void TrustAllDialog::setNextRebootMinsText(QString text)
 {
+	QFontMetrics fm(SMALL_FONT);
+	int pixelsHigh = fm.height();
+	int width = fm.width(text);
+	m_nextRebootText->setFixedWidth(width);
+	m_nextRebootText->setFixedHeight(pixelsHigh);
 	m_nextRebootText->setText(text);
 }
 
@@ -173,19 +193,19 @@ void TrustAllDialog::applyBtnClicked()
 	this->close();
 }
 
-void TrustAllDialog::fiveMinsBtnClicked()
+void TrustAllDialog::fiveMinsClicked()
 {
 	m_trustAllTime = TrustAllTime::TRUSTALL_5MINS;
 	setButtonStyle();
 }
 
-void TrustAllDialog::thirtyMinsBtnClicked()
+void TrustAllDialog::thirtyMinsClicked()
 {
 	m_trustAllTime = TrustAllTime::TRUSTALL_30MINS;
 	setButtonStyle();
 }
 
-void TrustAllDialog::nextRebootBtnClicked()
+void TrustAllDialog::nextRebootClicked()
 {
 	m_trustAllTime = TrustAllTime::TRUSTALL_NEXTREBOOT;
 	setButtonStyle();

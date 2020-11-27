@@ -26,7 +26,10 @@ public:
 
 public slots:
 	void changeTheme();
+	void settingBtnClicked();
 
+signals:
+	void settingFeature();
 private:
 	Ui::FeatureStatus ui;
 	QLabel *m_featureNameLabel;
