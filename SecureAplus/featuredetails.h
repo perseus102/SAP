@@ -15,6 +15,7 @@ public:
 
 public slots:
 	void backBtnCliked();
+	void backToHomeClick(Directory dir);
 
 signals:
 	void backToHome();
@@ -33,5 +34,4 @@ private:
 	FeatureStatus	*m_OffAntivServiceFeature;
 
 	void checkFeatureLicense();
-
 };

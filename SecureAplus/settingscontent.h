@@ -37,7 +37,7 @@ public slots:
 	void onFadeInFinished();
 	void changeSettingsView(QString widgetName);
 	void backBtnPressed();
-
+	void directoryClicked(Directory dir);
 protected:
 	void showEvent(QShowEvent *);
 
@@ -55,4 +55,5 @@ private:
 	SettingGridContent	*m_SettingGridContent;
 	LanguagePersonal	*m_languagePersonal;
 	ProtectionModes		*m_protectionModes;
+	Directory			m_curSettingDir;
 };

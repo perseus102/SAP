@@ -10,7 +10,7 @@ FeatureDetails::FeatureDetails(QWidget *parent)
 
 	m_FeatureTopBar = new TopBar();
 	m_FeatureTopBar->setVisibleNaviButton(true);
-	m_FeatureTopBar->setDirectoryText("Back to Home"); //Can use for multi language
+	m_FeatureTopBar->addDir("Back to Home", Directory::Home); //Can use for multi language
 	
 	QLabel *spacerTopBar = new QLabel();
 	spacerTopBar->setFixedHeight(20);
@@ -64,6 +64,7 @@ FeatureDetails::FeatureDetails(QWidget *parent)
 	setLayout(m_layout);
 	checkFeatureLicense();
 	connect(m_FeatureTopBar->getButton(), &QPushButton::clicked, this, &FeatureDetails::backBtnCliked);
+	connect(m_FeatureTopBar, &TopBar::labelDirClicked, this, &FeatureDetails::backToHomeClick);
 
 }
 
@@ -96,6 +97,11 @@ void FeatureDetails::checkFeatureLicense()
 }
 
 void FeatureDetails::backBtnCliked()
+{
+	emit backToHome();
+}
+
+void FeatureDetails::backToHomeClick(Directory dir)
 {
 	emit backToHome();
 }

@@ -161,9 +161,6 @@
     <ClCompile Include="Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="util.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="appsetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -175,9 +172,6 @@
     </ClCompile>
     <ClCompile Include="homemaincontent.cpp">
       <Filter>Source Files\Home Content</Filter>
-    </ClCompile>
-    <ClCompile Include="settingscontent.cpp">
-      <Filter>Source Files\Settings Content</Filter>
     </ClCompile>
     <ClCompile Include="gridwidget.cpp">
       <Filter>Source Files\Component\Grid Widget</Filter>
@@ -223,6 +217,12 @@
     </ClCompile>
     <ClCompile Include="clickablelabel.cpp">
       <Filter>Source Files\Component\Clickable Label</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settingscontent.cpp">
+      <Filter>Source Files\Settings Content</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

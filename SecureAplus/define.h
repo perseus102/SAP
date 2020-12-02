@@ -222,6 +222,9 @@
 #define BACK_BUTTON_DARK_THEME_COLOR		Config::getInstance()->getConfigValue(BACK_BUTTON_DARK_THEME)
 #define TOP_BAR_TEXT_COLOR_DARK_THEME		Config::getInstance()->getConfigValue(TOP_BAR_TEXT_DARK_THEME)
 #define TOP_BAR_TEXT_COLOR_LIGHT_THEME		Config::getInstance()->getConfigValue(TOP_BAR_TEXT_LIGHT_THEME)
+#define TOP_BAR_TEXT_HOVER_COLOR_DT			Config::getInstance()->getConfigValue("Top Bar/Text_Hover_Color_Dark_Theme")
+#define TOP_BAR_TEXT_HOVER_COLOR_LT			Config::getInstance()->getConfigValue("Top Bar/Text_Hover_Color_Light_Theme")
+
 
 /* Define for main content background color */
 #define MAIN_BACKGROUND_LIGHT_THEME_COLOR	Config::getInstance()->getConfigValue(MAIN_BACKGROUND_LIGHT_THEME)
@@ -427,4 +430,12 @@ enum License
 	License_Active = 0,
 	License_Expire_Soon,
 	License_Expired,
+};
+
+enum Directory
+{
+	Setting = 0,
+	Protection_mode,
+	Language_Personal,
+	Home,
 };

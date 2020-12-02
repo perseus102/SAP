@@ -8,9 +8,10 @@ SettingsContent::SettingsContent(QWidget *parent)
 	ui->setupUi(this);
 	m_settingTopBar = new TopBar();
 	m_settingTopBar->setVisibleNaviButton(false);
-	m_settingTopBar->setDirectoryText("Settings"); //Can use for multi language
-	stackedWidget = new QStackedWidget();
+	m_settingTopBar->addDir("Settings", Directory::Setting); //Can use for multi language
+	m_curSettingDir = Directory::Setting;
 
+	stackedWidget = new QStackedWidget();
 	m_settingLayout = new QVBoxLayout;
 	m_settingLayout->setContentsMargins(30, 20, 30, 0);
 	m_settingLayout->setSpacing(0);
@@ -38,6 +39,9 @@ SettingsContent::SettingsContent(QWidget *parent)
 	connect(m_SettingGridContent, &SettingGridContent::gridWidgetPressed, this, &SettingsContent::changeSettingsView);
 	
 	connect(m_settingTopBar->getButton(), &QPushButton::clicked, this, &SettingsContent::backBtnPressed);
+
+	connect(m_settingTopBar, &TopBar::labelDirClicked, this, &SettingsContent::directoryClicked);
+
 	setStyleSheet("#HomeContent{border: 0px none palette(shadow); "
 		"border-top-left-radius:10px;}");
 
@@ -70,7 +74,9 @@ void SettingsContent::changeSettingsView(QString widgetName)
 	else if (widgetName == "protectionMode")
 	{
 		stackedWidget->setCurrentWidget(m_protectionModes);
-		m_settingTopBar->setDirectoryText("Settings \\ Protection Modes");
+		m_settingTopBar->addDir("Protection Modes", Directory::Protection_mode);
+		m_curSettingDir = Directory::Protection_mode;
+		m_settingTopBar->setVisibleNaviButton(true);
 
 	}
 	else if (widgetName == "info")
@@ -80,6 +86,10 @@ void SettingsContent::changeSettingsView(QString widgetName)
 	else if (widgetName == "languagePersonal")
 	{
 		stackedWidget->setCurrentWidget(m_languagePersonal);
+		m_settingTopBar->addDir("Language & Personalization", Directory::Language_Personal);
+		m_curSettingDir = Directory::Language_Personal;
+		m_settingTopBar->setVisibleNaviButton(true);
+
 	}
 	else if (widgetName == "manageUser")
 	{
@@ -93,18 +103,59 @@ void SettingsContent::changeSettingsView(QString widgetName)
 	{
 		//stackedWidget->setCurrentWidget();
 	}
-	m_settingTopBar->setVisibleNaviButton(true);
 
 	fadeIn();
+
 }
 
 void SettingsContent::backBtnPressed()
 {
-	stackedWidget->setCurrentWidget(m_SettingGridContent);
-	m_settingTopBar->setVisibleNaviButton(false);
-	m_settingTopBar->setDirectoryText("Settings");
+	switch (m_curSettingDir)
+	{
+	case Setting:
+		break;
+	case Protection_mode:
+	case Language_Personal:
+		m_settingTopBar->setVisibleNaviButton(false);
+		stackedWidget->setCurrentWidget(m_SettingGridContent);
+		m_curSettingDir = Directory::Setting;
+		break;
+	default:
+		break;
+	}
 
 	fadeIn();
+}
+
+void SettingsContent::directoryClicked(Directory dir)
+{
+	switch (dir)
+	{
+	case Setting:
+		if (m_curSettingDir == Directory::Setting)
+			return;
+
+		stackedWidget->setCurrentWidget(m_SettingGridContent);
+		m_curSettingDir = Directory::Setting;
+		m_settingTopBar->setVisibleNaviButton(false);
+
+		break;
+	case Protection_mode:
+		if (m_curSettingDir == Directory::Protection_mode)
+			return;
+
+		break;
+	case Language_Personal:
+		if (m_curSettingDir == Directory::Language_Personal)
+			return;
+
+		break;
+	default:
+		break;
+	}
+
+	fadeIn();
+
 }
 
 void SettingsContent::showEvent(QShowEvent *)
