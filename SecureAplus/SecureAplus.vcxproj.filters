@@ -118,6 +118,12 @@
     <Filter Include="Source Files\Component\Clickable Label">
       <UniqueIdentifier>{aaca2d04-69ab-4252-aea8-7a40d2d44134}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Settings Content\Scan Settings">
+      <UniqueIdentifier>{72e7c0a8-ed82-4f75-a7d2-eab9adfcff89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings Content\Scan Settings">
+      <UniqueIdentifier>{b6147e4f-66d5-4d12-a54d-28fd076779e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -224,6 +230,12 @@
     <ClCompile Include="settingscontent.cpp">
       <Filter>Source Files\Settings Content</Filter>
     </ClCompile>
+    <ClCompile Include="scansettings.cpp">
+      <Filter>Source Files\Settings Content</Filter>
+    </ClCompile>
+    <ClCompile Include="universalav.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -304,6 +316,12 @@
     <QtMoc Include="clickablelabel.h">
       <Filter>Header Files\Component\Clickable Label</Filter>
     </QtMoc>
+    <QtMoc Include="scansettings.h">
+      <Filter>Header Files\Settings Content</Filter>
+    </QtMoc>
+    <QtMoc Include="universalav.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -376,6 +394,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="clickablelabel.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="scansettings.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="universalav.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

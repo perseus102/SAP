@@ -13,7 +13,7 @@ SettingsContent::SettingsContent(QWidget *parent)
 
 	stackedWidget = new QStackedWidget();
 	m_settingLayout = new QVBoxLayout;
-	m_settingLayout->setContentsMargins(30, 20, 30, 0);
+	m_settingLayout->setContentsMargins(30, 20, 0, 0);
 	m_settingLayout->setSpacing(0);
 	m_settingLayout->addWidget(m_settingTopBar);
 	m_settingLayout->addWidget(stackedWidget);
@@ -21,10 +21,12 @@ SettingsContent::SettingsContent(QWidget *parent)
 	m_SettingGridContent	= new SettingGridContent();
 	m_languagePersonal		= new LanguagePersonal();
 	m_protectionModes		= new ProtectionModes();
+	m_scanSettings			= new ScanSettings();
 
 	stackedWidget->addWidget(m_SettingGridContent);
 	stackedWidget->addWidget(m_languagePersonal);
 	stackedWidget->addWidget(m_protectionModes);
+	stackedWidget->addWidget(m_scanSettings);
 	setLayout(m_settingLayout);
 
 	/* Init Fade In*/
@@ -59,9 +61,12 @@ void SettingsContent::fadeIn()
 
 void SettingsContent::changeSettingsView(QString widgetName)
 {
-	if (widgetName == "scanning")
+	if (widgetName == "scanSettings")
 	{
-		//stackedWidget->setCurrentWidget();
+		stackedWidget->setCurrentWidget(m_scanSettings);
+		m_settingTopBar->addDir("Scan Settings", Directory::Scan_Settings);
+		m_curSettingDir = Directory::Scan_Settings;
+		m_settingTopBar->setVisibleNaviButton(true);
 	}
 	else if (widgetName == "allowList")
 	{
@@ -116,6 +121,7 @@ void SettingsContent::backBtnPressed()
 		break;
 	case Protection_mode:
 	case Language_Personal:
+	case Scan_Settings:
 		m_settingTopBar->setVisibleNaviButton(false);
 		stackedWidget->setCurrentWidget(m_SettingGridContent);
 		m_curSettingDir = Directory::Setting;
@@ -149,6 +155,9 @@ void SettingsContent::directoryClicked(Directory dir)
 		if (m_curSettingDir == Directory::Language_Personal)
 			return;
 
+	case Scan_Settings:
+		if (m_curSettingDir == Directory::Scan_Settings)
+			return;
 		break;
 	default:
 		break;

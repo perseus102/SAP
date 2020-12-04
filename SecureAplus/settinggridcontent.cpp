@@ -6,12 +6,12 @@ SettingGridContent::SettingGridContent(QWidget *parent)
 	ui.setupUi(this);
 
 	m_flowLayout = new FlowLayout(0, 15, 15);
-	m_flowLayout->setContentsMargins(0, 20, 0, 0);
+	m_flowLayout->setContentsMargins(0, 20, 30, 0);
 
 	m_scanning = new GridWidget();
 	m_scanning->setTitleText("Scanning Settings");
 	m_scanning->setSubTitleText("Universal AV, Engines, Antivirus Settings");
-	m_scanning->setObjectName("scanning");
+	m_scanning->setObjectName("scanSettings");
 
 	//m_allowList = new GridWidget();
 	//m_allowList->setTitleText("Application Allow List");

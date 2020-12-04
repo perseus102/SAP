@@ -171,6 +171,7 @@
     <ClCompile Include="lockdowndialog.cpp" />
     <ClCompile Include="managewidget.cpp" />
     <ClCompile Include="protectionmodes.cpp" />
+    <ClCompile Include="scansettings.cpp" />
     <ClCompile Include="scanwidget.cpp" />
     <ClCompile Include="selectwidget.cpp" />
     <ClCompile Include="settinggridcontent.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="switch.cpp" />
     <ClCompile Include="topbar.cpp" />
     <ClCompile Include="trustalldialog.cpp" />
+    <ClCompile Include="universalav.cpp" />
     <ClCompile Include="upgradedialog.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="widgettransparent.cpp" />
@@ -205,6 +207,7 @@
     <ClCompile Include="main.cpp" />
     <QtUic Include="managewidget.ui" />
     <QtUic Include="protectionmodes.ui" />
+    <QtUic Include="scansettings.ui" />
     <QtUic Include="scanwidget.ui" />
     <QtUic Include="selectwidget.ui" />
     <QtUic Include="settinggridcontent.ui" />
@@ -213,6 +216,7 @@
     <QtUic Include="statuswidget.ui" />
     <QtUic Include="topbar.ui" />
     <QtUic Include="trustalldialog.ui" />
+    <QtUic Include="universalav.ui" />
     <QtUic Include="upgradedialog.ui" />
     <QtUic Include="widgettransparent.ui" />
   </ItemGroup>
@@ -257,11 +261,13 @@
     <QtMoc Include="settingscontent.h" />
     <QtMoc Include="settinggridcontent.h" />
     <QtMoc Include="selectwidget.h" />
+    <QtMoc Include="scansettings.h" />
     <ClInclude Include="style.h" />
     <QtMoc Include="switch.h" />
     <QtMoc Include="topbar.h" />
     <QtMoc Include="trustalldialog.h" />
     <QtMoc Include="upgradedialog.h" />
+    <QtMoc Include="universalav.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>

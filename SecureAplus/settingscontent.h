@@ -19,6 +19,7 @@
 #include "settinggridcontent.h"
 #include "languagepersonal.h"
 #include "protectionmodes.h"
+#include "scansettings.h"
 
 namespace Ui {
 	class SettingsContent;
@@ -55,5 +56,6 @@ private:
 	SettingGridContent	*m_SettingGridContent;
 	LanguagePersonal	*m_languagePersonal;
 	ProtectionModes		*m_protectionModes;
+	ScanSettings		*m_scanSettings;
 	Directory			m_curSettingDir;
 };

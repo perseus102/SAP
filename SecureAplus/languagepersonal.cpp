@@ -6,7 +6,7 @@ LanguagePersonal::LanguagePersonal(QWidget *parent)
 	ui.setupUi(this);
 
 	m_contentLayout = new QVBoxLayout();
-	m_contentLayout->setContentsMargins(0, 20, 0, 0);
+	m_contentLayout->setContentsMargins(0, 20, 30, 0);
 	m_contentLayout->setSpacing(0);
 
 	m_appearance = new QLabel();

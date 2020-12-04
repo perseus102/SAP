@@ -336,6 +336,34 @@
 #define FEATURE_SETTING_LT							Config::getInstance()->getConfigValue("Feature Details/Feature_Setting_Light_Theme")
 #define FEATURE_SETTING_DT							Config::getInstance()->getConfigValue("Feature Details/Feature_Setting_DarkTheme_Theme")
 
+/* Define for Scan Settings */
+#define SCAN_SETTINGS_TAB_SELECTED_TEXT_LT			Config::getInstance()->getConfigValue("Scan Settings/Tab_Selected_Text_Light_Theme")
+#define SCAN_SETTINGS_TAB_SELECTED_TEXT_DT			Config::getInstance()->getConfigValue("Scan Settings/Tab_Selected_Text_Dark_Theme")
+#define SCAN_SETTINGS_TAB_UNSELECTED_TEXT_LT		Config::getInstance()->getConfigValue("Scan Settings/Tab_Unselected_Text_Light_Theme")
+#define SCAN_SETTINGS_TAB_UNSELECTED_TEXT_DT		Config::getInstance()->getConfigValue("Scan Settings/Tab_Unselected_Text_Dark_Theme")
+#define SCAN_SETTINGS_TAB_ACTIVE_BACKGROUND_LT		Config::getInstance()->getConfigValue("Scan Settings/Tab_Active_Background_Light_Theme")
+#define SCAN_SETTINGS_TAB_ACTIVE_BACKGROUND_DT		Config::getInstance()->getConfigValue("Scan Settings/Tab_Active_Background_Dark_Theme")
+#define SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_LT		Config::getInstance()->getConfigValue("Scan Settings/Scroll_Area_Background_Light_Theme")
+#define SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_DT		Config::getInstance()->getConfigValue("Scan Settings/Scroll_Area_Background_Dark_Theme")
+#define SCAN_SETTINGS_TITLE_TEXT_LT					Config::getInstance()->getConfigValue("Scan Settings/Title_Text_Light_Theme")
+#define SCAN_SETTINGS_TITLE_TEXT_DT					Config::getInstance()->getConfigValue("Scan Settings/Title_Text_Dark_Theme")
+#define SCAN_SETTINGS_DESCRIPTION_TEXT_LT			Config::getInstance()->getConfigValue("Scan Settings/Description_Text_Light_Theme")
+#define SCAN_SETTINGS_DESCRIPTION_TEXT_DT			Config::getInstance()->getConfigValue("Scan Settings/Description_Text_Dark_Theme")
+#define COMBOBOX_TEXT_ICON_LT						Config::getInstance()->getConfigValue("Scan Settings/Combobox_Text_Icon_Light_Theme")
+#define COMBOBOX_TEXT_ICON_DT						Config::getInstance()->getConfigValue("Scan Settings/Combobox_Text_Icon_Dark_Theme")
+#define	COMBOBOX_BACKGROUND_LT						Config::getInstance()->getConfigValue("Scan Settings/Combobox_Background_Light_Theme")
+#define	COMBOBOX_BACKGROUND_DT						Config::getInstance()->getConfigValue("Scan Settings/Combobox_Background_Dark_Theme")
+#define TOGGLE_THUMB_LT								Config::getInstance()->getConfigValue("Scan Settings/Toggle_Thumb_Light_Theme")
+#define TOGGLE_THUMB_DT								Config::getInstance()->getConfigValue("Scan Settings/Toggle_Thumb_Dark_Theme")
+#define TOGGLE_TRACK_LT								Config::getInstance()->getConfigValue("Scan Settings/Toggle_Track_Light_Theme")
+#define TOGGLE_TRACK_DT								Config::getInstance()->getConfigValue("Scan Settings/Toggle_Track_Dark_Theme")
+#define SLIDER_ACTIVE_TRACK_LT						Config::getInstance()->getConfigValue("Scan Settings/Slider_Active_Track_Light_Theme")
+#define SLIDER_ACTIVE_TRACK_DT						Config::getInstance()->getConfigValue("Scan Settings/Slider_Active_Track_Dark_Theme")
+#define SLIDER_INACTIVE_TRACK_LT					Config::getInstance()->getConfigValue("Scan Settings/Slider_Inactive_Track_Light_Theme")
+#define SLIDER_INACTIVE_TRACK_DT					Config::getInstance()->getConfigValue("Scan Settings/Slider_Inactive_Track_Dark_Theme")
+#define SLIDER_THUMB_LT								Config::getInstance()->getConfigValue("Scan Settings/Slider_Thumb_Light_Theme")
+#define SLIDER_THUMB_DT								Config::getInstance()->getConfigValue("Scan Settings/Slider_Thumb_Dark_Theme")
+
 enum ColorType
 {
 	Default = 0,
@@ -437,5 +465,6 @@ enum Directory
 	Setting = 0,
 	Protection_mode,
 	Language_Personal,
+	Scan_Settings,
 	Home,
 };
