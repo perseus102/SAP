@@ -39,24 +39,30 @@ ScanSettings::ScanSettings(QWidget *parent)
 	m_tabLayout->addWidget(m_VulAssessment);
 	m_tabLayout->addWidget(bottomSpacer);
 
+	m_tabContentWidget = new QFrame();
+	m_tabContentWidget->setObjectName("m_tabContentWidget");
+
+	QVBoxLayout *tabLayout = new QVBoxLayout();
+	tabLayout->setContentsMargins(0, 25, 0, 0);
+	m_tabContentWidget->setLayout(tabLayout);
+
 	m_tabStackedWidget	= new QStackedWidget();
-	m_tabStackedWidget->setMinimumWidth(500);
 
 	m_universalAVTab = new UniversalAV();
+	m_universalAVTab->setObjectName("m_universalAVTab");
 	m_tabStackedWidget->addWidget(m_universalAVTab);
+	m_universalAVTab->setFixedHeight(880);
 
 	m_scrollView		= new QScrollArea();
-
-	m_scrollView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAsNeeded);
+	m_scrollView->setObjectName("m_scrollView");
+	m_scrollView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
 	m_scrollView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
 
 	m_scrollView->setWidget(m_tabStackedWidget);
-	m_tabStackedWidget->setContentsMargins(30, 25, 0, 0);
-	m_scrollView->setContentsMargins(30, 25, 0, 0);
+	tabLayout->addWidget(m_scrollView);
 
-	m_tabStackedWidget->setStyleSheet("background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_DT + ";}");
 	m_contentLayout->addWidget(m_tabWidget);
-	m_contentLayout->addWidget(m_scrollView);
+	m_contentLayout->addWidget(m_tabContentWidget);
 
 	setLayout(m_contentLayout);
 	setTabText();
@@ -64,6 +70,9 @@ ScanSettings::ScanSettings(QWidget *parent)
 	setTabActiveStyle(m_universalAV);
 	setTabInActiveStyle(m_antivirus);
 	setTabInActiveStyle(m_VulAssessment);
+
+	m_universalAVTab->resize(400, 880);
+	m_tabStackedWidget->resize(400, 880);
 
 	setStyle();
 
@@ -115,17 +124,19 @@ void ScanSettings::setStyle()
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		m_scrollView->setStyleSheet("QScrollArea{border-top-left-radius:10px;"
+		m_tabContentWidget->setStyleSheet("#m_scrollView{border-top-left-radius:10px;}"
 			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_LT + ";}");
-		m_tabStackedWidget->setStyleSheet("QStackedWidget{border-top-left-radius:10px;"
-			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_LT + ";}");
+
+		m_scrollView->setStyleSheet("background-color:transparent; border:0px");
+
 		break;
 
 	case Theme_Type::Dark_Theme:
-		m_scrollView->setStyleSheet("QScrollArea{border-top-left-radius:10px;"
+		m_tabContentWidget->setStyleSheet("QFrame#m_tabContentWidget{border-top-left-radius:10px;"
 			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_DT + ";}");
-		m_tabStackedWidget->setStyleSheet("QStackedWidget{border-top-left-radius:10px;"
-			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_LT + ";}");
+
+		m_scrollView->setStyleSheet("background-color:transparent; border:0px");
+
 		break;
 
 		//MORE THEME
@@ -174,4 +185,12 @@ void ScanSettings::setTabInActiveStyle(ClickableLabel * tab)
 	}
 }
 
- 
+void ScanSettings::resizeEvent(QResizeEvent* event)
+{
+	// Your code here.
+	QSize size = m_scrollView->size();
+	if (size.width() < 450) size = QSize(489,800);
+	m_universalAVTab->resize(size.width()- 15, m_universalAVTab->height());
+	m_tabStackedWidget->resize(size.width() - 15, m_universalAVTab->height());
+	qDebug() << size;
+}

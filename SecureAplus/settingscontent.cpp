@@ -169,8 +169,9 @@ void SettingsContent::directoryClicked(Directory dir)
 
 void SettingsContent::showEvent(QShowEvent *)
 {
-	eff->setEnabled(true);
-	mpFadeIn->start();
+	//eff->setEnabled(true);
+	//mpFadeIn->start();
+	//fadeIn();
 }
 
 void SettingsContent::onFadeInFinished()

@@ -4,115 +4,262 @@ UniversalAV::UniversalAV(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	setMinimumWidth(500);
 	m_layout = new QVBoxLayout();
-	m_layout->setContentsMargins(30, 25, 0, 0);
-	m_layout->setSpacing(10);
+	m_layout->setContentsMargins(0, 0, 0, 0);
+	m_layout->setSpacing(0);
 
 	m_autoUpload		= new QLabel();
 	m_autoUpload->setFont(LARGE_FONT);
-	m_autoUpload->setFixedHeight(12);
+	m_autoUpload->setFixedHeight(20);
 	m_autoUpload->setWordWrap(true);
 
+	QLabel* uploadTitleSpacer = new QLabel();
+	uploadTitleSpacer->setFixedHeight(12);
+
 	m_autoUploadDesc	= new QLabel();
-	m_autoUploadDesc->setFont(FONT);
-	m_autoUploadDesc->setFixedHeight(10);
+	m_autoUploadDesc->setFont(SMALL_FONT);
+	m_autoUploadDesc->setFixedHeight(15);
 	m_autoUploadDesc->setWordWrap(true);
 
+	QLabel* uploadtoggleSpacer = new QLabel();
+	uploadtoggleSpacer->setFixedHeight(2);
+
+	m_autoUploadToggle = new Switch();
+	m_autoUploadToggle->setFixedSize(50,30);
+	m_autoUploadToggle->setStyleSheet("background-color:red");
+
+	QLabel* selectFileSpacer = new QLabel();
+	selectFileSpacer->setFixedHeight(20);
+
 	m_selectFileTyle	= new QLabel();
-	m_selectFileTyle->setFont(FONT);
-	m_selectFileTyle->setFixedHeight(10);
+	m_selectFileTyle->setFont(SMALL_FONT);
+	m_selectFileTyle->setFixedHeight(15);
 	m_selectFileTyle->setWordWrap(true);
+
+	QLabel* CbbSpacer = new QLabel();
+	CbbSpacer->setFixedHeight(13);
+
+	m_fileTypeCbb = new QComboBox();
+	m_fileTypeCbb->setFixedSize(240, 32);
+	m_fileTypeCbb->setObjectName("m_fileTypeCbb");
+
+	QLabel* uploadSpacer = new QLabel();
+	//uploadSpacer->setFixedHeight(20);
+
+	m_fileTypeCbb->addItem("Executable and script files");
+	m_fileTypeCbb->addItem("Executable");
+	m_fileTypeCbb->addItem("Executable");
+	m_fileTypeCbb->addItem("Executable");
+
+	m_autoUploadLine = new QLabel();
+	m_autoUploadLine->setFixedHeight(2);
+
+	QWidget* autoUploadWg = new QWidget();
+	autoUploadWg->setFixedHeight(180);
+	QVBoxLayout* autoUploadLayout = new QVBoxLayout();
+	autoUploadLayout->setSpacing(0);
+	autoUploadLayout->setContentsMargins(30, 0, 0, 0);
+	autoUploadWg->setLayout(autoUploadLayout);
+
+	autoUploadLayout->addWidget(m_autoUpload);
+	autoUploadLayout->addWidget(uploadTitleSpacer);
+	autoUploadLayout->addWidget(m_autoUploadDesc);
+	autoUploadLayout->addWidget(uploadtoggleSpacer);
+	autoUploadLayout->addWidget(m_autoUploadToggle);
+	autoUploadLayout->addWidget(selectFileSpacer);
+	autoUploadLayout->addWidget(m_selectFileTyle);
+	autoUploadLayout->addWidget(CbbSpacer);
+	autoUploadLayout->addWidget(m_fileTypeCbb);
+	autoUploadLayout->addWidget(uploadSpacer);
+
+	QWidget* goodNewWg = new QWidget();
+	goodNewWg->setFixedHeight(116);
+
+	QVBoxLayout* goodNewLayout = new QVBoxLayout();
+	goodNewLayout->setSpacing(0);
+	goodNewLayout->setContentsMargins(30, 0, 0, 0);
+	goodNewWg->setLayout(goodNewLayout);
+
+	QLabel* goodNewTopSpacer = new QLabel();
+	goodNewTopSpacer->setFixedHeight(22);
 
 	m_GoodNew			= new QLabel();
 	m_GoodNew->setFont(LARGE_FONT);
-	m_GoodNew->setFixedHeight(12);
+	m_GoodNew->setFixedHeight(20);
 	m_GoodNew->setWordWrap(true);
 
+	QLabel* goodNewDecsSpacer = new QLabel();
+	goodNewDecsSpacer->setFixedHeight(11);
+
 	m_GoodNewDesr		= new QLabel();
-	m_GoodNewDesr->setFont(FONT);
-	m_GoodNewDesr->setFixedHeight(10);
+	m_GoodNewDesr->setFont(SMALL_FONT);
+	m_GoodNewDesr->setFixedHeight(15);
 	m_GoodNewDesr->setWordWrap(true);
+
+	QLabel* goodNewToggleSpacer = new QLabel();
+	goodNewToggleSpacer->setFixedHeight(2);
+
+	m_goodNewToggle = new Switch();
+	m_goodNewToggle->setFixedSize(50, 30);
+
+	m_goodNewLine = new QLabel();
+	m_goodNewLine->setFixedHeight(2);
+
+	QLabel* goodNewBottomSpacer = new QLabel();
+//	goodNewBottomSpacer->setFixedHeight(28);
+
+	goodNewLayout->addWidget(goodNewTopSpacer);
+	goodNewLayout->addWidget(m_GoodNew);
+	goodNewLayout->addWidget(goodNewDecsSpacer);
+	goodNewLayout->addWidget(m_GoodNewDesr);
+	goodNewLayout->addWidget(goodNewToggleSpacer);
+	goodNewLayout->addWidget(m_goodNewToggle);
+	goodNewLayout->addWidget(goodNewBottomSpacer);
+
+	QWidget* fullScanWg = new QWidget();
+	fullScanWg->setFixedHeight(182);
+
+	QVBoxLayout* fullScanLayout = new QVBoxLayout();
+	fullScanLayout->setSpacing(0);
+	fullScanLayout->setContentsMargins(30, 0, 0, 0);
+	fullScanWg->setLayout(fullScanLayout);
+
+	QLabel* fullScanTopSpacer = new QLabel();
+	fullScanTopSpacer->setFixedHeight(22);
 
 	m_fullScan			= new QLabel();
 	m_fullScan->setFont(LARGE_FONT);
-	m_fullScan->setFixedHeight(12);
+	m_fullScan->setFixedHeight(20);
 	m_fullScan->setWordWrap(true);
 
+	QLabel* fullScanDecsSpacer = new QLabel();
+	fullScanDecsSpacer->setFixedHeight(14);
+
 	m_fullScanDesc		= new QLabel();
-	m_fullScanDesc->setFont(FONT);
-	m_fullScanDesc->setFixedHeight(10);
+	m_fullScanDesc->setFont(SMALL_FONT);
+	m_fullScanDesc->setFixedHeight(15);
 	m_fullScanDesc->setWordWrap(true);
 
+	QLabel* fullScanToggleSpacer = new QLabel();
+	fullScanToggleSpacer->setFixedHeight(1);
+
+	m_fullScanToggle = new Switch();
+	m_fullScanToggle->setFixedSize(50, 30);
+
+	QLabel* autoFullScanSpacer = new QLabel();
+	autoFullScanSpacer->setFixedHeight(16);
+
 	m_autoFullScan		= new QLabel();
-	m_autoFullScan->setFont(FONT);
-	m_autoFullScan->setFixedHeight(10);
+	m_autoFullScan->setFont(SMALL_FONT);
+	m_autoFullScan->setFixedHeight(15);
 	m_autoFullScan->setWordWrap(true);
+
+	m_autoFullScanToggle = new Switch();
+	m_fullScanToggle->setFixedSize(50, 30);
+
+	QLabel* FullScanBottomSpacer = new QLabel();
+
+	m_fullSystemLine = new QLabel();
+	m_fullSystemLine->setFixedHeight(2);
+
+	fullScanLayout->addWidget(fullScanTopSpacer);
+	fullScanLayout->addWidget(m_fullScan);
+	fullScanLayout->addWidget(fullScanDecsSpacer);
+	fullScanLayout->addWidget(m_fullScanDesc);
+	fullScanLayout->addWidget(fullScanToggleSpacer);
+	fullScanLayout->addWidget(m_fullScanToggle);
+	fullScanLayout->addWidget(autoFullScanSpacer);
+	fullScanLayout->addWidget(m_autoFullScan);
+	fullScanLayout->addWidget(m_autoFullScanToggle);
+	fullScanLayout->addWidget(FullScanBottomSpacer);
+
+	QWidget* demandWg = new QWidget();
+	demandWg->setFixedHeight(110);
+
+	QVBoxLayout* demandLayout = new QVBoxLayout();
+	demandLayout->setSpacing(0);
+	demandLayout->setContentsMargins(30, 0, 0, 0);
+	demandWg->setLayout(demandLayout);
+
+	QLabel* demandTopSpacer = new QLabel();
+	demandTopSpacer->setFixedHeight(14);
 
 	m_demandScanning	= new QLabel();
 	m_demandScanning->setFont(LARGE_FONT);
-	m_demandScanning->setFixedHeight(12);
+	m_demandScanning->setFixedHeight(20);
 	m_demandScanning->setWordWrap(true);
 
+	QLabel* demandDecsSpacer = new QLabel();
+	demandDecsSpacer->setFixedHeight(14);
+
 	m_demandScanningDesc	= new QLabel();
-	m_demandScanningDesc->setFont(FONT);
-	m_demandScanningDesc->setFixedHeight(10);
+	m_demandScanningDesc->setFont(SMALL_FONT);
+	m_demandScanningDesc->setFixedHeight(15);
 	m_demandScanningDesc->setWordWrap(true);
+
+	QLabel* demandtoggleSpacer = new QLabel();
+	demandtoggleSpacer->setFixedHeight(2);
+
+	m_onDemandToggle = new Switch();
+	m_onDemandToggle->setFixedSize(50, 30);
+
+	QLabel* demandBottomSpacer = new QLabel();
+
+	m_demandScanningLine = new QLabel();
+	m_demandScanningLine->setFixedHeight(2);
+
+	demandLayout->addWidget(demandTopSpacer);
+	demandLayout->addWidget(m_demandScanning);
+	demandLayout->addWidget(demandDecsSpacer);
+	demandLayout->addWidget(m_demandScanningDesc);
+	demandLayout->addWidget(demandtoggleSpacer);
+	demandLayout->addWidget(m_onDemandToggle);
+	demandLayout->addWidget(demandBottomSpacer);
 
 	m_realTimeScanning		= new QLabel();
 	m_realTimeScanning->setFont(LARGE_FONT);
-	m_realTimeScanning->setFixedHeight(12);
+	m_realTimeScanning->setFixedHeight(20);
 	m_realTimeScanning->setWordWrap(true);
 
 	m_realTimeScanningDesc	= new QLabel();
-	m_realTimeScanningDesc->setFont(FONT);
-	m_realTimeScanningDesc->setFixedHeight(10);
+	m_realTimeScanningDesc->setFont(SMALL_FONT);
+	m_realTimeScanningDesc->setFixedHeight(30);
 	m_realTimeScanningDesc->setWordWrap(true);
 
 	m_dailyUpload			= new QLabel();
 	m_dailyUpload->setFont(LARGE_FONT);
-	m_dailyUpload->setFixedHeight(12);
+	m_dailyUpload->setFixedHeight(20);
 	m_dailyUpload->setWordWrap(true);
 
-	m_fileTypeCbb = new QComboBox();
-	m_fileTypeCbb->setFixedSize(240, 32);
-
-	m_autoUploadToggle	= new Switch();
-	m_goodNewToggle		= new Switch();
-	m_fullScanToggle	= new Switch();
-	m_onDemandToggle	= new Switch();
 	m_realTimeToggle	= new Switch();
-	m_autoFullScanToggle = new Switch();
 
-	m_slider			= new QSlider();
+	m_slider			= new QSlider(Qt::Horizontal);
 	m_slider->setRange(1, 4);
+	//m_slider->setFixedSize(330, 30);
+	m_slider->setFixedWidth(330);
+	m_layout->addWidget(autoUploadWg);
+	m_layout->addWidget(m_autoUploadLine);
 
-	m_layout->addWidget(m_autoUpload);
-	m_layout->addWidget(m_autoUploadDesc);
-	m_layout->addWidget(m_autoUploadToggle);
-	m_layout->addWidget(m_selectFileTyle);
-	m_layout->addWidget(m_fileTypeCbb);
-	m_layout->addWidget(m_GoodNew);
-	m_layout->addWidget(m_GoodNewDesr);
-	m_layout->addWidget(m_goodNewToggle);
-	m_layout->addWidget(m_fullScan);
-	m_layout->addWidget(m_fullScanDesc);
-	m_layout->addWidget(m_fullScanToggle);
-	m_layout->addWidget(m_autoFullScan);
-	m_layout->addWidget(m_autoFullScanToggle);
-	m_layout->addWidget(m_demandScanning);
-	m_layout->addWidget(m_demandScanningDesc);
-	m_layout->addWidget(m_onDemandToggle);
+	m_layout->addWidget(goodNewWg);
+	m_layout->addWidget(m_goodNewLine);
+
+	m_layout->addWidget(fullScanWg);
+	m_layout->addWidget(m_fullSystemLine);
+
+	m_layout->addWidget(demandWg);
+	m_layout->addWidget(m_demandScanningLine);
+
 	m_layout->addWidget(m_realTimeScanning);
 	m_layout->addWidget(m_realTimeScanningDesc);
 	m_layout->addWidget(m_realTimeToggle);
 	m_layout->addWidget(m_dailyUpload);
 	m_layout->addWidget(m_slider);
+	QLabel* spacerBottom = new QLabel();
+	m_layout->addWidget(spacerBottom);
 
 	setLayout(m_layout);
 	setStyle();
 	setLabelText();
-	setStyleSheet("background-color:none;");
 }
 
 UniversalAV::~UniversalAV()
@@ -125,7 +272,9 @@ void UniversalAV::setStyle()
 	{
 	case Theme_Type::Light_Theme:
 
-		m_autoUpload->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TITLE_TEXT_LT + ";}");
+		m_autoUpload->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TITLE_TEXT_LT + ";"
+			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_DT + ";}");
+
 		m_autoUploadDesc->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_LT + ";}");
 
 		m_selectFileTyle->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_LT + ";}");
@@ -151,24 +300,88 @@ void UniversalAV::setStyle()
 
 		m_autoUpload->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TITLE_TEXT_DT + ";}");
 		m_autoUploadDesc->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_DT + ";}");
-
 		m_selectFileTyle->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_DT + ";}");
+		m_autoUploadLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_DT + ";}");
 
 		m_GoodNew->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TITLE_TEXT_DT + ";}");
 		m_GoodNewDesr->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_DT + ";}");
+		m_goodNewLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_DT + ";}");
 
 		m_fullScan->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TITLE_TEXT_DT + ";}");
 		m_fullScanDesc->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_DT + ";}");
 		m_autoFullScan->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_DT + ";}");
+		m_fullSystemLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_DT + ";}");
 
 		m_demandScanning->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TITLE_TEXT_DT + ";}");
 		m_demandScanningDesc->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_DT + ";}");
+		m_demandScanningLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_DT + ";}");
 
 		m_realTimeScanning->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TITLE_TEXT_DT + ";}");
 		m_realTimeScanningDesc->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_DT + ";}");
 
 		m_dailyUpload->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TITLE_TEXT_DT + ";}");
 
+		m_fileTypeCbb->setStyleSheet(
+			"QComboBox#m_fileTypeCbb{"
+			"background-color:"+ COMBOBOX_BACKGROUND_DT +";"
+			"color: "+ COMBOBOX_TEXT_ICON_DT +";"
+			"padding-left:10px;"
+			"}"
+
+			"QComboBox::drop-down{"
+			"border: 2px;"
+			"padding-left:10px"
+			"}"
+
+			"QComboBox::down-arrow {"
+			"image: url("+ DOWN_ARROW_DT + ");"
+			"width:12px;"
+			"height:12px;"
+			"padding-right:30px;"
+			"}"
+
+			"QComboBox QAbstractItemView {"
+			"selection-background-color: "+ COMBOBOX_BACKGROUND_DT +";"
+			"color:"+ COMBOBOX_TEXT_ICON_DT +";"
+			"outline: 1px solid "+ COMBOBOX_TEXT_ICON_DT +";"
+			"padding-left:10px"
+			"}");
+
+		m_slider->setStyleSheet(
+			
+			"QSlider::groove:horizontal{"
+			"border: 1px solid none;"
+			"height: 1px;"
+			"background: none;"
+			"margin: 0px 10px;"
+			"}"
+			"QSlider::handle:horizontal {"
+			/*"width: 20px;"
+			"background-image: url(" + SLIDER_THUMB_ICON_DT + ");"*/
+			"background: "+ SLIDER_THUMB_DT +";"
+			//"border: 1px solid #B5E61D;"
+			"height: 20px;"
+			"width: 20px;"
+			"margin: -10px -10px;"
+			"border-radius: 10px;"
+			"}"
+
+			"QSlider::add-page:qlineargradient {"
+			"background: "+ SLIDER_INACTIVE_TRACK_DT +";"
+			"border-top-right-radius: 5px;"
+			"border-bottom-right-radius: 5px;"
+			"border-top-left-radius: 0px;"
+			"border-bottom-left-radius: 0px;"
+			"}"
+
+			"QSlider::sub-page:qlineargradient {"
+			"background: "+ SLIDER_ACTIVE_TRACK_DT +";"
+			"border-top-right-radius: 0px;"
+			"border-bottom-right-radius: 0px;"
+			"border-top-left-radius: 5px;"
+			"border-bottom-left-radius: 5px;"
+			"}"
+			);
 		break;
 
 		//MORE THEME

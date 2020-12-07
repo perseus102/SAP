@@ -44,6 +44,12 @@ private:
 	Switch*		m_onDemandToggle;
 	Switch*		m_realTimeToggle;
 	QSlider*	m_slider;
+	
+	QLabel*		m_autoUploadLine;
+	QLabel*		m_goodNewLine;
+	QLabel*		m_fullSystemLine;
+	QLabel*		m_demandScanningLine;
+	QLabel*		m_realTimeScanningLine;
 
 	void setStyle();
 	void setLabelText();

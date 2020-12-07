@@ -164,6 +164,11 @@
 #define DOT_STATUS							QString(":/images/feature details/dot_status.svg")
 #define FEATURE_SETTING						QString(":/images/feature details/setting_icon.svg")
 
+/* Define for Scan Settings icon*/
+#define DOWN_ARROW_LT						QString(":/images/Scan Settings/down-arrow-lt.svg")
+#define DOWN_ARROW_DT						QString(":/images/Scan Settings/down-arrow-dt.svg")
+#define SLIDER_THUMB_ICON_DT				QString(":/images/Scan Settings/slider-thumb-dt.svg")
+
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
 
@@ -363,6 +368,8 @@
 #define SLIDER_INACTIVE_TRACK_DT					Config::getInstance()->getConfigValue("Scan Settings/Slider_Inactive_Track_Dark_Theme")
 #define SLIDER_THUMB_LT								Config::getInstance()->getConfigValue("Scan Settings/Slider_Thumb_Light_Theme")
 #define SLIDER_THUMB_DT								Config::getInstance()->getConfigValue("Scan Settings/Slider_Thumb_Dark_Theme")
+#define LINE_COLOR_LT								Config::getInstance()->getConfigValue("Scan Settings/Line_Color_Light_Theme")
+#define LINE_COLOR_DT								Config::getInstance()->getConfigValue("Scan Settings/Line_Color_Dark_Theme")
 
 enum ColorType
 {

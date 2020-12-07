@@ -22,7 +22,8 @@ public:
 
 private slots:
 	void TabClicked();
-
+protected:
+	void resizeEvent(QResizeEvent *event) override;
 private:
 	Ui::ScanSettings ui;
 	QHBoxLayout*		m_contentLayout;
@@ -34,7 +35,7 @@ private:
 
 	QStackedWidget*		m_tabStackedWidget;
 	QScrollArea*		m_scrollView;
-
+	QFrame*				m_tabContentWidget;
 	UniversalAV*		m_universalAVTab;
 	void setStyle();
 	void setTabActiveStyle(ClickableLabel* tab);

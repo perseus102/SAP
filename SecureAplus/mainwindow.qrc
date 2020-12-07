@@ -32,5 +32,8 @@
         <file>images/Observation/observation_icon.svg</file>
         <file>images/feature details/dot_status.svg</file>
         <file>images/feature details/setting_icon.svg</file>
+        <file>images/Scan Settings/down-arrow-dt.svg</file>
+        <file>images/Scan Settings/down-arrow-lt.svg</file>
+        <file>images/Scan Settings/slider-thumb-dt.svg</file>
     </qresource>
 </RCC>
