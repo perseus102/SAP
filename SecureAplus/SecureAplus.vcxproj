@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="anitivirus.cpp" />
     <ClCompile Include="appsetting.cpp" />
     <ClCompile Include="circleprocess.cpp" />
     <ClCompile Include="clickablelabel.cpp" />
@@ -171,6 +172,8 @@
     <ClCompile Include="lockdowndialog.cpp" />
     <ClCompile Include="managewidget.cpp" />
     <ClCompile Include="protectionmodes.cpp" />
+    <ClCompile Include="sapcombobox.cpp" />
+    <ClCompile Include="sapslider.cpp" />
     <ClCompile Include="scansettings.cpp" />
     <ClCompile Include="scanwidget.cpp" />
     <ClCompile Include="selectwidget.cpp" />
@@ -184,9 +187,11 @@
     <ClCompile Include="universalav.cpp" />
     <ClCompile Include="upgradedialog.cpp" />
     <ClCompile Include="util.cpp" />
+    <ClCompile Include="vulassessment.cpp" />
     <ClCompile Include="widgettransparent.cpp" />
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
+    <QtUic Include="anitivirus.ui" />
     <QtUic Include="circleprocess.ui" />
     <QtUic Include="clickablelabel.ui" />
     <QtUic Include="featuredetails.ui" />
@@ -207,6 +212,8 @@
     <ClCompile Include="main.cpp" />
     <QtUic Include="managewidget.ui" />
     <QtUic Include="protectionmodes.ui" />
+    <QtUic Include="sapcombobox.ui" />
+    <QtUic Include="sapslider.ui" />
     <QtUic Include="scansettings.ui" />
     <QtUic Include="scanwidget.ui" />
     <QtUic Include="selectwidget.ui" />
@@ -218,6 +225,7 @@
     <QtUic Include="trustalldialog.ui" />
     <QtUic Include="universalav.ui" />
     <QtUic Include="upgradedialog.ui" />
+    <QtUic Include="vulassessment.ui" />
     <QtUic Include="widgettransparent.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -242,10 +250,12 @@
     <QtMoc Include="settingwidget.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="vulassessment.h" />
     <QtMoc Include="widgettransparent.h" />
     <QtMoc Include="appsetting.h" />
     <QtMoc Include="circleprocess.h" />
     <QtMoc Include="clickablelabel.h" />
+    <QtMoc Include="anitivirus.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />
@@ -262,6 +272,8 @@
     <QtMoc Include="settinggridcontent.h" />
     <QtMoc Include="selectwidget.h" />
     <QtMoc Include="scansettings.h" />
+    <QtMoc Include="sapcombobox.h" />
+    <QtMoc Include="sapslider.h" />
     <ClInclude Include="style.h" />
     <QtMoc Include="switch.h" />
     <QtMoc Include="topbar.h" />

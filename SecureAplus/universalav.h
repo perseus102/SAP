@@ -7,6 +7,9 @@
 #include "util.h"
 #include "appsetting.h"
 #include "switch.h"
+#include "clickablelabel.h"
+#include "sapcombobox.h"
+#include "sapslider.h"
 
 class UniversalAV : public QWidget
 {
@@ -15,6 +18,12 @@ class UniversalAV : public QWidget
 public:
 	UniversalAV(QWidget *parent = Q_NULLPTR);
 	~UniversalAV();
+
+private slots:
+	void capacityClicked();
+	void sliderChangeValue(int value);
+	void comboboxChangeIndex(int index);
+	void changeTheme();
 
 private:
 	Ui::UniversalAV ui;
@@ -35,7 +44,16 @@ private:
 	QLabel*		m_realTimeScanningDesc;
 	QLabel*		m_dailyUpload;
 
-	QComboBox*	m_fileTypeCbb;
+	ClickableLabel*		m_dailyUpload10MB;
+	ClickableLabel*		m_dailyUpload100MB;
+	ClickableLabel*		m_dailyUpload1GB;
+	ClickableLabel*		m_dailyUploadUnlimited;
+
+	QLabel*				spacer10MB;
+	QLabel*				spacer100MB;
+	QLabel*				spacer1GB;
+
+	SAPCombobox*		m_fileTypeCbb;
 
 	Switch*		m_autoUploadToggle;
 	Switch*		m_goodNewToggle;
@@ -43,7 +61,7 @@ private:
 	Switch*		m_autoFullScanToggle;
 	Switch*		m_onDemandToggle;
 	Switch*		m_realTimeToggle;
-	QSlider*	m_slider;
+	SAPSlider*	m_slider;
 	
 	QLabel*		m_autoUploadLine;
 	QLabel*		m_goodNewLine;
@@ -53,4 +71,8 @@ private:
 
 	void setStyle();
 	void setLabelText();
+	void setDailyUpload10MBText(QString text);
+	void setDailyUpload100MBText(QString text);
+	void setDailyUpload1GBText(QString text);
+	void setDailyUploadUnlimitedText(QString text);
 };

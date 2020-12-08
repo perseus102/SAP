@@ -148,6 +148,14 @@ Switch::Switch(const QString& text, const QBrush& brush, QWidget* parent) : Swit
 	style.trackOnBrush = brush.color();
 }
 
+Switch::Switch(const QMargins indicatorMargin, bool inContentView, QWidget * parent) : Switch(parent)
+{
+	style.indicatorMargin = indicatorMargin;
+	m_inContentView = inContentView;
+	init();
+	
+}
+
 Switch::~Switch() {
 
 }
@@ -278,27 +286,55 @@ void Switch::toggle(Qt::CheckState state) {
 
 void Switch::setColorStyle()
 {
-	switch (AppSetting::getInstance()->getTheme())
+	if (m_inContentView)
 	{
-	case Theme_Type::Light_Theme:
-		style.trackOnBrush	= QColor(TRACK_CHECKED_LIGHT_THEME_COLOR);
-		style.trackOffBrush = QColor(TRACK_UNCHECKED_LIGHT_THEME_COLOR);
-		style.thumbOnBrush	= QColor(THUMB_CHECKED_LIGHT_THEME_COLOR);
-		style.thumbOffBrush = QColor(THUMB_UNCHECKED_LIGHT_THEME_COLOR);
-		style.textColor		= QColor(TEXT_LIGHT_THEME_COLOR);
-		break;
+		switch (AppSetting::getInstance()->getTheme())
+		{
+		case Theme_Type::Light_Theme:
+			style.trackOnBrush = QColor(TOGGLE_TRACK_LT);
+			style.trackOffBrush = QColor(TRACK_UNCHECKED_LIGHT_THEME_COLOR);
+			style.thumbOnBrush = QColor(TOGGLE_THUMB_LT);
+			style.thumbOffBrush = QColor(THUMB_UNCHECKED_LIGHT_THEME_COLOR);
+			style.textColor = QColor(TEXT_LIGHT_THEME_COLOR);
+			break;
 
-	case Theme_Type::Dark_Theme:
-		style.trackOnBrush	= QColor(TRACK_CHECKED_DARK_THEME_COLOR);
-		style.trackOffBrush = QColor(TRACK_UNCHECKED_DARK_THEME_COLOR);
-		style.thumbOnBrush	= QColor(THUMB_CHECKED_DARK_THEME_COLOR);
-		style.thumbOffBrush = QColor(THUMB_UNCHECKED_DARK_THEME_COLOR);
-		style.textColor		= QColor(TEXT_DARK_THEME_COLOR);
-		break;
+		case Theme_Type::Dark_Theme:
+			style.trackOnBrush = QColor(TOGGLE_TRACK_DT);
+			style.trackOffBrush = QColor(TRACK_UNCHECKED_DARK_THEME_COLOR);
+			style.thumbOnBrush = QColor(TOGGLE_THUMB_DT);
+			style.thumbOffBrush = QColor(THUMB_UNCHECKED_DARK_THEME_COLOR);
+			style.textColor = QColor(TEXT_DARK_THEME_COLOR);
+			break;
 
-		//MORE THEME
-	default:
-		break;
+			//MORE THEME
+		default:
+			break;
+		}
+	}
+	else
+	{
+		switch (AppSetting::getInstance()->getTheme())
+		{
+		case Theme_Type::Light_Theme:
+			style.trackOnBrush = QColor(TRACK_CHECKED_LIGHT_THEME_COLOR);
+			style.trackOffBrush = QColor(TRACK_UNCHECKED_LIGHT_THEME_COLOR);
+			style.thumbOnBrush = QColor(THUMB_CHECKED_LIGHT_THEME_COLOR);
+			style.thumbOffBrush = QColor(THUMB_UNCHECKED_LIGHT_THEME_COLOR);
+			style.textColor = QColor(TEXT_LIGHT_THEME_COLOR);
+			break;
+
+		case Theme_Type::Dark_Theme:
+			style.trackOnBrush = QColor(TRACK_CHECKED_DARK_THEME_COLOR);
+			style.trackOffBrush = QColor(TRACK_UNCHECKED_DARK_THEME_COLOR);
+			style.thumbOnBrush = QColor(THUMB_CHECKED_DARK_THEME_COLOR);
+			style.thumbOffBrush = QColor(THUMB_UNCHECKED_DARK_THEME_COLOR);
+			style.textColor = QColor(TEXT_DARK_THEME_COLOR);
+			break;
+
+			//MORE THEME
+		default:
+			break;
+		}
 	}
 }
 

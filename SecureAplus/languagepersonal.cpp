@@ -132,7 +132,7 @@ void LanguagePersonal::setAppearLightThemeText(QString text)
 	m_appearLightThemeText->setFixedHeight(pixelsHigh);
 	m_appearLightThemeText->setText(text);
 
-	spacerCenter->setFixedWidth(80- width + 10);
+	spacerCenter->setFixedWidth(80 - width + 10);
 }
 
 void LanguagePersonal::setAppearDarkThemeText(QString text)

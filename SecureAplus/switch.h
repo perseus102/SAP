@@ -79,6 +79,7 @@ public:
 	explicit Switch(QWidget* parent = nullptr);
 	Switch(const QString& text, QWidget* parent = nullptr);
 	Switch(const QString& text, const QBrush&, QWidget* parent = nullptr);
+	Switch(const QMargins indicatorMargin, bool inContentView = false, QWidget* parent = nullptr);
 	~Switch() override;
 
 	QSize sizeHint() const override final;
@@ -112,5 +113,6 @@ private:
 	QPointer<Animator> trackBrushAnimation;
 	QPointer<Animator> thumbPosAniamtion;
 	void setColorStyle();
+	bool m_inContentView = false;
 };
 #endif // SWITCH_H

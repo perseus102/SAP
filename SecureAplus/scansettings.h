@@ -8,6 +8,8 @@
 #include "appsetting.h"
 #include "clickablelabel.h"
 #include "universalav.h"
+#include "anitivirus.h"
+#include "vulassessment.h"
 #include <QStackedWidget>
 #include <QScrollArea>
 
@@ -22,6 +24,8 @@ public:
 
 private slots:
 	void TabClicked();
+	void changeTheme();
+
 protected:
 	void resizeEvent(QResizeEvent *event) override;
 private:
@@ -37,7 +41,13 @@ private:
 	QScrollArea*		m_scrollView;
 	QFrame*				m_tabContentWidget;
 	UniversalAV*		m_universalAVTab;
+	Anitivirus*			m_antivirusTab;
+	VulAssessment*		m_vulAssessmentTab;
+	QObject*			m_activeTab;
+
 	void setStyle();
+	void setTabStyle();
+	void resizeTab();
 	void setTabActiveStyle(ClickableLabel* tab);
 	void setTabInActiveStyle(ClickableLabel* tab);
 };

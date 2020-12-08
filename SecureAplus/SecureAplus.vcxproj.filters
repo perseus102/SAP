@@ -124,6 +124,18 @@
     <Filter Include="Header Files\Settings Content\Scan Settings">
       <UniqueIdentifier>{b6147e4f-66d5-4d12-a54d-28fd076779e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\SAP Combobox">
+      <UniqueIdentifier>{69e76e1b-fbf5-479b-9df0-c1c8dc978474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\SAP Combobox">
+      <UniqueIdentifier>{4a70bc6f-20fe-42c9-ac6e-b48bf856ddac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\SAP Slider">
+      <UniqueIdentifier>{c8d63f00-7557-4420-a6ab-9cdb7bbb9fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\SAP Slider">
+      <UniqueIdentifier>{6b762ed7-1a27-4436-a843-8cfb80225ee0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -236,6 +248,18 @@
     <ClCompile Include="universalav.cpp">
       <Filter>Source Files\Settings Content\Scan Settings</Filter>
     </ClCompile>
+    <ClCompile Include="sapcombobox.cpp">
+      <Filter>Source Files\Component\SAP Combobox</Filter>
+    </ClCompile>
+    <ClCompile Include="sapslider.cpp">
+      <Filter>Source Files\Component\SAP Slider</Filter>
+    </ClCompile>
+    <ClCompile Include="anitivirus.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="vulassessment.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -322,6 +346,18 @@
     <QtMoc Include="universalav.h">
       <Filter>Header Files\Settings Content\Scan Settings</Filter>
     </QtMoc>
+    <QtMoc Include="sapcombobox.h">
+      <Filter>Header Files\Component\SAP Combobox</Filter>
+    </QtMoc>
+    <QtMoc Include="sapslider.h">
+      <Filter>Header Files\Component\SAP Slider</Filter>
+    </QtMoc>
+    <QtMoc Include="anitivirus.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
+    <QtMoc Include="vulassessment.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -400,6 +436,18 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="universalav.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sapcombobox.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sapslider.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="anitivirus.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="vulassessment.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

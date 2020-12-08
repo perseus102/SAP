@@ -53,9 +53,17 @@ ScanSettings::ScanSettings(QWidget *parent)
 	m_tabStackedWidget->addWidget(m_universalAVTab);
 	m_universalAVTab->setFixedHeight(880);
 
+	m_antivirusTab = new Anitivirus();
+	m_tabStackedWidget->addWidget(m_antivirusTab);
+	m_antivirusTab->setFixedHeight(450);
+
+	m_vulAssessmentTab = new VulAssessment();
+	m_tabStackedWidget->addWidget(m_vulAssessmentTab);
+	m_vulAssessmentTab->setFixedHeight(100);
+
 	m_scrollView		= new QScrollArea();
 	m_scrollView->setObjectName("m_scrollView");
-	m_scrollView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
+	m_scrollView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAsNeeded);
 	m_scrollView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
 
 	m_scrollView->setWidget(m_tabStackedWidget);
@@ -71,14 +79,16 @@ ScanSettings::ScanSettings(QWidget *parent)
 	setTabInActiveStyle(m_antivirus);
 	setTabInActiveStyle(m_VulAssessment);
 
-	m_universalAVTab->resize(400, 880);
-	m_tabStackedWidget->resize(400, 880);
+	m_activeTab = new QObject();
 
+	m_activeTab = m_universalAV;
 	setStyle();
 
 	connect(m_universalAV, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(m_antivirus, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(m_VulAssessment, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ScanSettings::changeTheme);
+
 }
 
 ScanSettings::~ScanSettings()
@@ -99,21 +109,27 @@ void ScanSettings::TabClicked()
 		setTabActiveStyle(m_universalAV);
 		setTabInActiveStyle(m_antivirus);
 		setTabInActiveStyle(m_VulAssessment);
+		m_tabStackedWidget->setCurrentWidget(m_universalAVTab);
+		m_activeTab = m_universalAV;
+		resizeTab();
 	}
-
-	if (sender() == m_antivirus)
+	else if (sender() == m_antivirus)
 	{
 		setTabActiveStyle(m_antivirus);
 		setTabInActiveStyle(m_universalAV);
 		setTabInActiveStyle(m_VulAssessment);
+		m_tabStackedWidget->setCurrentWidget(m_antivirusTab);
+		m_activeTab = m_antivirus;
+		resizeTab();
 	}
-
-
-	if (sender() == m_VulAssessment)
+	else if (sender() == m_VulAssessment)
 	{
 		setTabActiveStyle(m_VulAssessment);
 		setTabInActiveStyle(m_antivirus);
 		setTabInActiveStyle(m_universalAV);
+		m_tabStackedWidget->setCurrentWidget(m_vulAssessmentTab);
+		m_activeTab = m_VulAssessment;
+		resizeTab();
 	}
 }
 
@@ -124,11 +140,10 @@ void ScanSettings::setStyle()
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		m_tabContentWidget->setStyleSheet("#m_scrollView{border-top-left-radius:10px;}"
+		m_tabContentWidget->setStyleSheet("QFrame#m_tabContentWidget{border-top-left-radius:10px;"
 			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_LT + ";}");
 
 		m_scrollView->setStyleSheet("background-color:transparent; border:0px");
-
 		break;
 
 	case Theme_Type::Dark_Theme:
@@ -136,7 +151,6 @@ void ScanSettings::setStyle()
 			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_DT + ";}");
 
 		m_scrollView->setStyleSheet("background-color:transparent; border:0px");
-
 		break;
 
 		//MORE THEME
@@ -185,12 +199,84 @@ void ScanSettings::setTabInActiveStyle(ClickableLabel * tab)
 	}
 }
 
+void ScanSettings::changeTheme()
+{
+	setStyle();
+	setTabStyle();
+}
+
+void ScanSettings::setTabStyle()
+{
+	if (m_activeTab == m_universalAV)
+	{
+		setTabActiveStyle(m_universalAV);
+		setTabInActiveStyle(m_antivirus);
+		setTabInActiveStyle(m_VulAssessment);
+	}
+	else if (m_activeTab == m_antivirus)
+	{
+		setTabActiveStyle(m_antivirus);
+		setTabInActiveStyle(m_universalAV);
+		setTabInActiveStyle(m_VulAssessment);
+	}
+	else if (m_activeTab == m_VulAssessment)
+	{
+		setTabActiveStyle(m_VulAssessment);
+		setTabInActiveStyle(m_antivirus);
+		setTabInActiveStyle(m_universalAV);
+	}
+
+}
+
+void ScanSettings::resizeTab()
+{
+	QSize size = m_scrollView->size();
+	qDebug() << size;
+	if (size.width() < 450) size = QSize(489, 800);
+
+	if (m_activeTab == m_universalAV)
+	{
+		if (size.height() <= m_universalAVTab->height())
+		{
+			m_universalAVTab->resize(size.width() - 15, m_universalAVTab->height());
+			m_tabStackedWidget->resize(size.width() - 15, m_universalAVTab->height());
+		}
+		else
+		{
+			m_universalAVTab->resize(size.width(), m_universalAVTab->height());
+			m_tabStackedWidget->resize(size.width(), m_universalAVTab->height());
+		}
+	}
+	else if (m_activeTab == m_antivirus)
+	{
+		if (size.height() <= m_antivirusTab->height())
+		{
+			m_antivirusTab->resize(size.width() - 15, m_antivirusTab->height());
+			m_tabStackedWidget->resize(size.width() - 15, m_antivirusTab->height());
+		}
+		else
+		{
+			m_antivirusTab->resize(size.width(), m_antivirusTab->height());
+			m_tabStackedWidget->resize(size.width(), m_antivirusTab->height());
+		}
+	}
+	else if (m_activeTab == m_VulAssessment)
+	{
+		if (size.height() <= m_vulAssessmentTab->height())
+		{
+			m_vulAssessmentTab->resize(size.width() - 15, m_vulAssessmentTab->height());
+			m_tabStackedWidget->resize(size.width() - 15, m_vulAssessmentTab->height());
+		}
+		else
+		{
+			m_vulAssessmentTab->resize(size.width(), m_vulAssessmentTab->height());
+			m_tabStackedWidget->resize(size.width(), m_vulAssessmentTab->height());
+		}
+	}
+}
+
 void ScanSettings::resizeEvent(QResizeEvent* event)
 {
-	// Your code here.
-	QSize size = m_scrollView->size();
-	if (size.width() < 450) size = QSize(489,800);
-	m_universalAVTab->resize(size.width()- 15, m_universalAVTab->height());
-	m_tabStackedWidget->resize(size.width() - 15, m_universalAVTab->height());
-	qDebug() << size;
+	Q_UNUSED(event);
+	resizeTab();
 }
