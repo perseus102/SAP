@@ -17,7 +17,7 @@ public:
 	~VulAssessment();
 private slots:
 	void changeTheme();
-
+	void toggleClicked();
 private:
 	Ui::VulAssessment ui;
 	QVBoxLayout*	m_layout;

@@ -61,11 +61,10 @@ ScanSettings::ScanSettings(QWidget *parent)
 	m_tabStackedWidget->addWidget(m_vulAssessmentTab);
 	m_vulAssessmentTab->setFixedHeight(100);
 
-	m_scrollView		= new QScrollArea();
+	m_scrollView		= new SAPSCrollArea();
 	m_scrollView->setObjectName("m_scrollView");
 	m_scrollView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAsNeeded);
 	m_scrollView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-
 	m_scrollView->setWidget(m_tabStackedWidget);
 	tabLayout->addWidget(m_scrollView);
 
@@ -143,14 +142,12 @@ void ScanSettings::setStyle()
 		m_tabContentWidget->setStyleSheet("QFrame#m_tabContentWidget{border-top-left-radius:10px;"
 			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_LT + ";}");
 
-		m_scrollView->setStyleSheet("background-color:transparent; border:0px");
 		break;
 
 	case Theme_Type::Dark_Theme:
 		m_tabContentWidget->setStyleSheet("QFrame#m_tabContentWidget{border-top-left-radius:10px;"
 			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_DT + ";}");
 
-		m_scrollView->setStyleSheet("background-color:transparent; border:0px");
 		break;
 
 		//MORE THEME
@@ -230,7 +227,7 @@ void ScanSettings::setTabStyle()
 
 void ScanSettings::resizeTab()
 {
-	QSize size = m_scrollView->size();
+	QSize size = this->size();
 	qDebug() << size;
 	if (size.width() < 450) size = QSize(489, 800);
 
@@ -238,45 +235,46 @@ void ScanSettings::resizeTab()
 	{
 		if (size.height() <= m_universalAVTab->height())
 		{
-			m_universalAVTab->resize(size.width() - 15, m_universalAVTab->height());
-			m_tabStackedWidget->resize(size.width() - 15, m_universalAVTab->height());
+			m_universalAVTab->resize(size.width() - 100 - 15, m_universalAVTab->height());
+			m_tabStackedWidget->resize(size.width() - 100 - 15, m_universalAVTab->height());
 		}
 		else
 		{
-			m_universalAVTab->resize(size.width(), m_universalAVTab->height());
-			m_tabStackedWidget->resize(size.width(), m_universalAVTab->height());
+			m_universalAVTab->resize(size.width() - 100, m_universalAVTab->height());
+			m_tabStackedWidget->resize(size.width() - 100, m_universalAVTab->height());
 		}
 	}
 	else if (m_activeTab == m_antivirus)
 	{
 		if (size.height() <= m_antivirusTab->height())
 		{
-			m_antivirusTab->resize(size.width() - 15, m_antivirusTab->height());
-			m_tabStackedWidget->resize(size.width() - 15, m_antivirusTab->height());
+			m_antivirusTab->resize(size.width() - 100 - 15, m_antivirusTab->height());
+			m_tabStackedWidget->resize(size.width() - 100 - 15, m_antivirusTab->height());
 		}
 		else
 		{
-			m_antivirusTab->resize(size.width(), m_antivirusTab->height());
-			m_tabStackedWidget->resize(size.width(), m_antivirusTab->height());
+			m_antivirusTab->resize(size.width() - 100, m_antivirusTab->height());
+			m_tabStackedWidget->resize(size.width() - 100, m_antivirusTab->height());
 		}
 	}
 	else if (m_activeTab == m_VulAssessment)
 	{
 		if (size.height() <= m_vulAssessmentTab->height())
 		{
-			m_vulAssessmentTab->resize(size.width() - 15, m_vulAssessmentTab->height());
-			m_tabStackedWidget->resize(size.width() - 15, m_vulAssessmentTab->height());
+			m_vulAssessmentTab->resize(size.width() - 100 - 15, m_vulAssessmentTab->height());
+			m_tabStackedWidget->resize(size.width() - 100 - 15, m_vulAssessmentTab->height());
 		}
 		else
 		{
-			m_vulAssessmentTab->resize(size.width(), m_vulAssessmentTab->height());
-			m_tabStackedWidget->resize(size.width(), m_vulAssessmentTab->height());
+			m_vulAssessmentTab->resize(size.width() - 100, m_vulAssessmentTab->height());
+			m_tabStackedWidget->resize(size.width() - 100, m_vulAssessmentTab->height());
 		}
 	}
 }
 
 void ScanSettings::resizeEvent(QResizeEvent* event)
 {
-	Q_UNUSED(event);
+	//Q_UNUSED(event);
+	qDebug()<< event->size();
 	resizeTab();
 }

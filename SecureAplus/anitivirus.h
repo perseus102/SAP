@@ -18,6 +18,8 @@ public:
 
 private slots:
 	void changeTheme();
+	void toggleClicked();
+	void comboboxChangeIndex(int index);
 private:
 	Ui::Anitivirus ui;
 	QVBoxLayout*	m_layout;

@@ -247,6 +247,17 @@
 #define TEXT_DARK_THEME_COLOR				Config::getInstance()->getConfigValue(TEXT_DARK_THEME)
 #define TEXT_LIGHT_THEME_COLOR				Config::getInstance()->getConfigValue(TEXT_LIGHT_THEME)
 
+/* Define for toggle in content view */
+#define TOGGLE_ACTIVE_THUMB_LT				Config::getInstance()->getConfigValue("Toggle/Toggle_Active_Thumb_Light_Theme")
+#define TOGGLE_ACTIVE_THUMB_DT				Config::getInstance()->getConfigValue("Toggle/Toggle_Active_Thumb_Dark_Theme")
+#define TOGGLE_ACTIVE_TRACK_LT				Config::getInstance()->getConfigValue("Toggle/Toggle_Active_Track_Light_Theme")
+#define TOGGLE_ACTIVE_TRACK_DT				Config::getInstance()->getConfigValue("Toggle/Toggle_Active_Track_Dark_Theme")
+
+#define TOGGLE_INACTIVE_THUMB_LT			Config::getInstance()->getConfigValue("Toggle/Toggle_Inactive_Thumb_Light_Theme")
+#define TOGGLE_INACTIVE_THUMB_DT			Config::getInstance()->getConfigValue("Toggle/Toggle_Inactive_Thumb_Dark_Theme")
+#define TOGGLE_INACTIVE_TRACK_LT			Config::getInstance()->getConfigValue("Toggle/Toggle_Inactive_Track_Light_Theme")
+#define TOGGLE_INACTIVE_TRACK_DT			Config::getInstance()->getConfigValue("Toggle/Toggle_Inactive_Track_Dark_Theme")
+
 /* Define for language and personalization */
 #define	LANG_PERS_TEXT_COLOR_DARK_THEME		Config::getInstance()->getConfigValue(LANG_PERS_TEXT_DARK_THEME)
 #define	LANG_PERS_TEXT_COLOR_LIGHT_THEME	Config::getInstance()->getConfigValue(LANG_PERS_TEXT_LIGHT_THEME)
@@ -354,22 +365,30 @@
 #define SCAN_SETTINGS_TITLE_TEXT_DT					Config::getInstance()->getConfigValue("Scan Settings/Title_Text_Dark_Theme")
 #define SCAN_SETTINGS_DESCRIPTION_TEXT_LT			Config::getInstance()->getConfigValue("Scan Settings/Description_Text_Light_Theme")
 #define SCAN_SETTINGS_DESCRIPTION_TEXT_DT			Config::getInstance()->getConfigValue("Scan Settings/Description_Text_Dark_Theme")
-#define COMBOBOX_TEXT_ICON_LT						Config::getInstance()->getConfigValue("Scan Settings/Combobox_Text_Icon_Light_Theme")
-#define COMBOBOX_TEXT_ICON_DT						Config::getInstance()->getConfigValue("Scan Settings/Combobox_Text_Icon_Dark_Theme")
-#define	COMBOBOX_BACKGROUND_LT						Config::getInstance()->getConfigValue("Scan Settings/Combobox_Background_Light_Theme")
-#define	COMBOBOX_BACKGROUND_DT						Config::getInstance()->getConfigValue("Scan Settings/Combobox_Background_Dark_Theme")
-#define TOGGLE_THUMB_LT								Config::getInstance()->getConfigValue("Scan Settings/Toggle_Thumb_Light_Theme")
-#define TOGGLE_THUMB_DT								Config::getInstance()->getConfigValue("Scan Settings/Toggle_Thumb_Dark_Theme")
-#define TOGGLE_TRACK_LT								Config::getInstance()->getConfigValue("Scan Settings/Toggle_Track_Light_Theme")
-#define TOGGLE_TRACK_DT								Config::getInstance()->getConfigValue("Scan Settings/Toggle_Track_Dark_Theme")
-#define SLIDER_ACTIVE_TRACK_LT						Config::getInstance()->getConfigValue("Scan Settings/Slider_Active_Track_Light_Theme")
-#define SLIDER_ACTIVE_TRACK_DT						Config::getInstance()->getConfigValue("Scan Settings/Slider_Active_Track_Dark_Theme")
-#define SLIDER_INACTIVE_TRACK_LT					Config::getInstance()->getConfigValue("Scan Settings/Slider_Inactive_Track_Light_Theme")
-#define SLIDER_INACTIVE_TRACK_DT					Config::getInstance()->getConfigValue("Scan Settings/Slider_Inactive_Track_Dark_Theme")
-#define SLIDER_THUMB_LT								Config::getInstance()->getConfigValue("Scan Settings/Slider_Thumb_Light_Theme")
-#define SLIDER_THUMB_DT								Config::getInstance()->getConfigValue("Scan Settings/Slider_Thumb_Dark_Theme")
-#define LINE_COLOR_LT								Config::getInstance()->getConfigValue("Scan Settings/Line_Color_Light_Theme")
-#define LINE_COLOR_DT								Config::getInstance()->getConfigValue("Scan Settings/Line_Color_Dark_Theme")
+
+/* Define for Line between widgets */
+#define LINE_COLOR_LT								Config::getInstance()->getConfigValue("Line/Line_Color_Light_Theme")
+#define LINE_COLOR_DT								Config::getInstance()->getConfigValue("Line/Line_Color_Dark_Theme")
+
+/* Define for ComboBox */
+#define COMBOBOX_TEXT_ICON_LT						Config::getInstance()->getConfigValue("ComboBox/Combobox_Text_Icon_Light_Theme")
+#define COMBOBOX_TEXT_ICON_DT						Config::getInstance()->getConfigValue("ComboBox/Combobox_Text_Icon_Dark_Theme")
+#define	COMBOBOX_BACKGROUND_LT						Config::getInstance()->getConfigValue("ComboBox/Combobox_Background_Light_Theme")
+#define	COMBOBOX_BACKGROUND_DT						Config::getInstance()->getConfigValue("ComboBox/Combobox_Background_Dark_Theme")
+
+/* Define for Slider */
+#define SLIDER_ACTIVE_TRACK_LT						Config::getInstance()->getConfigValue("Slider/Slider_Active_Track_Light_Theme")
+#define SLIDER_ACTIVE_TRACK_DT						Config::getInstance()->getConfigValue("Slider/Slider_Active_Track_Dark_Theme")
+#define SLIDER_INACTIVE_TRACK_LT					Config::getInstance()->getConfigValue("Slider/Slider_Inactive_Track_Light_Theme")
+#define SLIDER_INACTIVE_TRACK_DT					Config::getInstance()->getConfigValue("Slider/Slider_Inactive_Track_Dark_Theme")
+#define SLIDER_THUMB_LT								Config::getInstance()->getConfigValue("Slider/Slider_Thumb_Light_Theme")
+#define SLIDER_THUMB_DT								Config::getInstance()->getConfigValue("Slider/Slider_Thumb_Dark_Theme")
+
+/* Define for Vertical Scrollbar */
+#define VER_SCROLLBAR_THUMB_LT						Config::getInstance()->getConfigValue("Vertical Scrollbar/Ver_Scroll_Thumb_Light_Theme")
+#define VER_SCROLLBAR_THUMB_DT						Config::getInstance()->getConfigValue("Vertical Scrollbar/Ver_Scroll_Thumb_Dark_Theme")
+#define VER_SCROLLBAR_TRACK_LT						Config::getInstance()->getConfigValue("Vertical Scrollbar/Ver_Scroll_Track_Light_Theme")
+#define VER_SCROLLBAR_TRACK_DT						Config::getInstance()->getConfigValue("Vertical Scrollbar/Ver_Scroll_Track_Dark_Theme")
 
 enum ColorType
 {

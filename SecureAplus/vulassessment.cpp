@@ -51,10 +51,16 @@ VulAssessment::VulAssessment(QWidget *parent)
 	setLabelText();
 	setStyle();
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &VulAssessment::changeTheme);
+	connect(m_automaticToggle, &Switch::released, this, &VulAssessment::toggleClicked);
 }
 
 VulAssessment::~VulAssessment()
 {
+}
+
+void VulAssessment::toggleClicked()
+{
+	//do something
 }
 
 void VulAssessment::setStyle()

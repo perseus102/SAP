@@ -8,6 +8,13 @@ UniversalAV::UniversalAV(QWidget *parent)
 	m_layout->setContentsMargins(0, 0, 0, 0);
 	m_layout->setSpacing(0);
 
+	QWidget* autoUploadWg = new QWidget();
+	autoUploadWg->setFixedHeight(180);
+	QVBoxLayout* autoUploadLayout = new QVBoxLayout();
+	autoUploadLayout->setSpacing(0);
+	autoUploadLayout->setContentsMargins(30, 0, 0, 0);
+	autoUploadWg->setLayout(autoUploadLayout);
+
 	m_autoUpload		= new QLabel();
 	m_autoUpload->setFont(LARGE_FONT);
 	m_autoUpload->setFixedHeight(20);
@@ -52,13 +59,6 @@ UniversalAV::UniversalAV(QWidget *parent)
 
 	m_autoUploadLine = new QLabel();
 	m_autoUploadLine->setFixedHeight(2);
-
-	QWidget* autoUploadWg = new QWidget();
-	autoUploadWg->setFixedHeight(180);
-	QVBoxLayout* autoUploadLayout = new QVBoxLayout();
-	autoUploadLayout->setSpacing(0);
-	autoUploadLayout->setContentsMargins(30, 0, 0, 0);
-	autoUploadWg->setLayout(autoUploadLayout);
 
 	autoUploadLayout->addWidget(m_autoUpload);
 	autoUploadLayout->addWidget(uploadTitleSpacer);
@@ -374,10 +374,89 @@ UniversalAV::UniversalAV(QWidget *parent)
 	connect(m_slider, &QSlider::valueChanged, this, &UniversalAV::sliderChangeValue);
 	connect(m_fileTypeCbb, SIGNAL(currentIndexChanged(int)),this, SLOT(comboboxChangeIndex(int)));
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &UniversalAV::changeTheme);
+	connect(m_autoUploadToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(m_goodNewToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(m_fullScanToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(m_autoFullScanToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(m_onDemandToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(m_realTimeToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+
+
 }
 
 UniversalAV::~UniversalAV()
 {
+}
+
+
+
+void UniversalAV::changeTheme()
+{
+	setStyle();
+}
+
+void UniversalAV::toggleClicked()
+{
+	if (sender() == m_autoUploadToggle)
+	{
+		if(m_autoUploadToggle->isChecked())
+		{
+			//do somthing
+		}
+		else
+		{
+			//do somthing
+		}
+	}
+	else if (sender() == m_goodNewToggle)
+	{
+		if (m_goodNewToggle->isChecked())
+		{
+			//do somthing
+
+		}
+		else
+		{
+			//do somthing
+		}
+	}
+	else if (sender() == m_fullScanToggle)
+	{
+		if (m_fullScanToggle->isChecked())
+		{
+			//do somthing
+
+		}
+		else
+		{
+			//do somthing
+		}
+	}
+	else if (sender() == m_onDemandToggle)
+	{
+		if (m_onDemandToggle->isChecked())
+		{
+			//do somthing
+
+		}
+		else
+		{
+			//do somthing
+		}
+	}
+	else if (sender() == m_realTimeToggle)
+	{
+		if (m_realTimeToggle->isChecked())
+		{
+			//do somthing
+
+		}
+		else
+		{
+			//do somthing
+		}
+	}
+
 }
 
 void UniversalAV::sliderChangeValue(int value)
@@ -392,12 +471,6 @@ void UniversalAV::comboboxChangeIndex(int index)
 	//do something
 	//qDebug() << "comboboxChangeIndex " << index;
 }
-
-void UniversalAV::changeTheme()
-{
-	setStyle();
-}
-
 
 void UniversalAV::setStyle()
 {
@@ -465,67 +538,6 @@ void UniversalAV::setStyle()
 		m_dailyUpload1GB->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_DT + ";}");
 		m_dailyUploadUnlimited->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_DESCRIPTION_TEXT_DT + ";}");
 
-		/*m_fileTypeCbb->setStyleSheet(
-			"QComboBox#m_fileTypeCbb{"
-			"background-color:"+ COMBOBOX_BACKGROUND_DT +";"
-			"color: "+ COMBOBOX_TEXT_ICON_DT +";"
-			"padding-left:10px;"
-			"}"
-
-			"QComboBox::drop-down{"
-			"border: 2px;"
-			"padding-left:10px"
-			"}"
-
-			"QComboBox::down-arrow {"
-			"image: url("+ DOWN_ARROW_DT + ");"
-			"width:12px;"
-			"height:12px;"
-			"padding-right:30px;"
-			"}"
-
-			"QComboBox QAbstractItemView {"
-			"selection-background-color: "+ COMBOBOX_BACKGROUND_DT +";"
-			"color:"+ COMBOBOX_TEXT_ICON_DT +";"
-			"outline: 1px solid "+ COMBOBOX_TEXT_ICON_DT +";"
-			"padding-left:10px"
-			"}");*/
-
-		//m_slider->setStyleSheet(
-		//	
-		//	"QSlider::groove:horizontal{"
-		//	"border: 1px solid none;"
-		//	"height: 1px;"
-		//	"background: none;"
-		//	"margin: 0px 10px;"
-		//	"}"
-		//	"QSlider::handle:horizontal {"
-		//	/*"width: 20px;"
-		//	"background-image: url(" + SLIDER_THUMB_ICON_DT + ");"*/
-		//	"background: "+ SLIDER_THUMB_DT +";"
-		//	//"border: 1px solid #B5E61D;"
-		//	"height: 20px;"
-		//	"width: 20px;"
-		//	"margin: -10px -10px;"
-		//	"border-radius: 10px;"
-		//	"}"
-
-		//	"QSlider::add-page:qlineargradient {"
-		//	"background: "+ SLIDER_INACTIVE_TRACK_DT +";"
-		//	"border-top-right-radius: 5px;"
-		//	"border-bottom-right-radius: 5px;"
-		//	"border-top-left-radius: 0px;"
-		//	"border-bottom-left-radius: 0px;"
-		//	"}"
-
-		//	"QSlider::sub-page:qlineargradient {"
-		//	"background: "+ SLIDER_ACTIVE_TRACK_DT +";"
-		//	"border-top-right-radius: 0px;"
-		//	"border-bottom-right-radius: 0px;"
-		//	"border-top-left-radius: 5px;"
-		//	"border-bottom-left-radius: 5px;"
-		//	"}"
-		//	);
 		break;
 
 		//MORE THEME

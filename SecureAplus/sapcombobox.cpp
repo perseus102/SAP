@@ -38,9 +38,9 @@ void SAPCombobox::setStyle()
 			"}"
 
 			"QComboBox QAbstractItemView {"
-			"selection-background-color: " + COMBOBOX_TEXT_ICON_LT + ";"
+			"selection-background-color: " + SCAN_SETTINGS_TAB_ACTIVE_BACKGROUND_LT + ";"
 			"color:" + COMBOBOX_TEXT_ICON_LT + ";"
-			"outline: 1px solid " + COMBOBOX_TEXT_ICON_LT + ";"
+			"outline: 1px solid " + SCAN_SETTINGS_TAB_ACTIVE_BACKGROUND_LT + ";"
 			"padding-left:10px;"
 			"selection-color: white;"
 			"}");
@@ -69,9 +69,9 @@ void SAPCombobox::setStyle()
 			"}"
 
 			"QComboBox QAbstractItemView {"
-			"selection-background-color: " + COMBOBOX_BACKGROUND_DT + ";"
+			"selection-background-color: " + SCAN_SETTINGS_TAB_ACTIVE_BACKGROUND_DT + ";"
 			"color: " + COMBOBOX_TEXT_ICON_DT + ";"
-			"outline: 1px solid " + COMBOBOX_TEXT_ICON_DT + ";"
+			"outline: 1px solid " + SCAN_SETTINGS_TAB_ACTIVE_BACKGROUND_DT + ";"
 			"padding-left:10px;"
 			"selection-color: " + COMBOBOX_TEXT_ICON_DT + ";"
 			"}");

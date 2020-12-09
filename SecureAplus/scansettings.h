@@ -10,6 +10,7 @@
 #include "universalav.h"
 #include "anitivirus.h"
 #include "vulassessment.h"
+#include "sapscrollarea.h"
 #include <QStackedWidget>
 #include <QScrollArea>
 
@@ -38,7 +39,7 @@ private:
 	ClickableLabel*		m_VulAssessment;
 
 	QStackedWidget*		m_tabStackedWidget;
-	QScrollArea*		m_scrollView;
+	SAPSCrollArea*		m_scrollView;
 	QFrame*				m_tabContentWidget;
 	UniversalAV*		m_universalAVTab;
 	Anitivirus*			m_antivirusTab;

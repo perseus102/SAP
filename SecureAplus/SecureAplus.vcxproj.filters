@@ -260,6 +260,9 @@
     <ClCompile Include="vulassessment.cpp">
       <Filter>Source Files\Settings Content\Scan Settings</Filter>
     </ClCompile>
+    <ClCompile Include="sapscrollarea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -358,6 +361,9 @@
     <QtMoc Include="vulassessment.h">
       <Filter>Header Files\Settings Content\Scan Settings</Filter>
     </QtMoc>
+    <QtMoc Include="sapscrollarea.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -448,6 +454,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="vulassessment.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sapscrollarea.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -173,6 +173,7 @@
     <ClCompile Include="managewidget.cpp" />
     <ClCompile Include="protectionmodes.cpp" />
     <ClCompile Include="sapcombobox.cpp" />
+    <ClCompile Include="sapscrollarea.cpp" />
     <ClCompile Include="sapslider.cpp" />
     <ClCompile Include="scansettings.cpp" />
     <ClCompile Include="scanwidget.cpp" />
@@ -213,6 +214,7 @@
     <QtUic Include="managewidget.ui" />
     <QtUic Include="protectionmodes.ui" />
     <QtUic Include="sapcombobox.ui" />
+    <QtUic Include="sapscrollarea.ui" />
     <QtUic Include="sapslider.ui" />
     <QtUic Include="scansettings.ui" />
     <QtUic Include="scanwidget.ui" />
@@ -274,6 +276,7 @@
     <QtMoc Include="scansettings.h" />
     <QtMoc Include="sapcombobox.h" />
     <QtMoc Include="sapslider.h" />
+    <QtMoc Include="sapscrollarea.h" />
     <ClInclude Include="style.h" />
     <QtMoc Include="switch.h" />
     <QtMoc Include="topbar.h" />

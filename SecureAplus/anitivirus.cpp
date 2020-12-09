@@ -159,11 +159,45 @@ Anitivirus::Anitivirus(QWidget *parent)
 	setStyle();
 	setLabelText();
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &Anitivirus::changeTheme);
-
+	connect(m_APEXRealtimeToggle, &Switch::released, this, &Anitivirus::toggleClicked);
+	connect(m_registerToggle, &Switch::released, this, &Anitivirus::toggleClicked);
+	connect(m_sensitivityCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(comboboxChangeIndex(int)));
 }
 
 Anitivirus::~Anitivirus()
 {
+}
+
+void Anitivirus::toggleClicked()
+{
+	if (sender() == m_APEXRealtimeToggle)
+	{
+		if (m_APEXRealtimeToggle->isChecked())
+		{
+			//do somthing
+		}
+		else
+		{
+			//do somthing
+			//m_APEXRealtimeToggle->setChecked(true);
+		}
+	}
+	else if (sender() == m_registerToggle)
+	{
+		if (m_APEXRealtimeToggle->isChecked())
+		{
+			//do somthing
+		}
+		else
+		{
+			//do somthing
+		}
+	}
+}
+
+void Anitivirus::comboboxChangeIndex(int index)
+{
+	//do somthing
 }
 
 void Anitivirus::setStyle()

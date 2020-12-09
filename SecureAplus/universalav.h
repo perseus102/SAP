@@ -24,6 +24,7 @@ private slots:
 	void sliderChangeValue(int value);
 	void comboboxChangeIndex(int index);
 	void changeTheme();
+	void toggleClicked();
 
 private:
 	Ui::UniversalAV ui;

@@ -291,18 +291,18 @@ void Switch::setColorStyle()
 		switch (AppSetting::getInstance()->getTheme())
 		{
 		case Theme_Type::Light_Theme:
-			style.trackOnBrush = QColor(TOGGLE_TRACK_LT);
-			style.trackOffBrush = QColor(TRACK_UNCHECKED_LIGHT_THEME_COLOR);
-			style.thumbOnBrush = QColor(TOGGLE_THUMB_LT);
-			style.thumbOffBrush = QColor(THUMB_UNCHECKED_LIGHT_THEME_COLOR);
+			style.trackOnBrush = QColor(TOGGLE_ACTIVE_TRACK_LT);
+			style.trackOffBrush = QColor(TOGGLE_INACTIVE_TRACK_LT);
+			style.thumbOnBrush = QColor(TOGGLE_ACTIVE_THUMB_LT);
+			style.thumbOffBrush = QColor(TOGGLE_INACTIVE_THUMB_LT);
 			style.textColor = QColor(TEXT_LIGHT_THEME_COLOR);
 			break;
 
 		case Theme_Type::Dark_Theme:
-			style.trackOnBrush = QColor(TOGGLE_TRACK_DT);
+			style.trackOnBrush = QColor(TOGGLE_ACTIVE_TRACK_DT);
 			style.trackOffBrush = QColor(TRACK_UNCHECKED_DARK_THEME_COLOR);
-			style.thumbOnBrush = QColor(TOGGLE_THUMB_DT);
-			style.thumbOffBrush = QColor(THUMB_UNCHECKED_DARK_THEME_COLOR);
+			style.thumbOnBrush = QColor(TOGGLE_ACTIVE_THUMB_DT);
+			style.thumbOffBrush = QColor(TOGGLE_INACTIVE_THUMB_DT);
 			style.textColor = QColor(TEXT_DARK_THEME_COLOR);
 			break;
 
