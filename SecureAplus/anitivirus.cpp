@@ -155,11 +155,14 @@ Anitivirus::Anitivirus(QWidget *parent)
 	QLabel* bottomSpacer = new QLabel();
 	m_layout->addWidget(bottomSpacer);
 
+	m_APEXRealtimeScanDlg = new APEXRealTimeDialog();
+	transparent = new WidgetTransparent();
+
 	setLayout(m_layout);
 	setStyle();
 	setLabelText();
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &Anitivirus::changeTheme);
-	connect(m_APEXRealtimeToggle, &Switch::released, this, &Anitivirus::toggleClicked);
+	connect(m_APEXRealtimeToggle, &Switch::pressed, this, &Anitivirus::toggleClicked);
 	connect(m_registerToggle, &Switch::released, this, &Anitivirus::toggleClicked);
 	connect(m_sensitivityCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(comboboxChangeIndex(int)));
 }
@@ -175,21 +178,37 @@ void Anitivirus::toggleClicked()
 		if (m_APEXRealtimeToggle->isChecked())
 		{
 			//do somthing
+			QRect geometry = AppSetting::getInstance()->getAppGeometry();
+			transparent->showWidget();
+			m_APEXRealtimeScanDlg->setGeometry(geometry.x() + (geometry.width() / 2) - 220, geometry.y() + 16, 440, 170);
+			m_APEXRealtimeScanDlg->showDialog();
+			transparent->hide();
+			if (m_APEXRealtimeScanDlg->getBtnClicked() == QDialog::Accepted)
+			{
+				m_APEXRealtimeToggle->setChecked(false);
+				AppSetting::getInstance()->changeProtectModeByOtherSetting(Protection_Modes::Lockdown_Default);
+				emit offUniversalAVRealTimeScan();
+			}
+			else
+			{
+				//do somthing
+				
+			}
 		}
 		else
 		{
 			//do somthing
-			//m_APEXRealtimeToggle->setChecked(true);
 		}
 	}
 	else if (sender() == m_registerToggle)
 	{
-		if (m_APEXRealtimeToggle->isChecked())
+		if (m_registerToggle->isChecked())
 		{
 			//do somthing
 		}
 		else
 		{
+			
 			//do somthing
 		}
 	}

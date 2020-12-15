@@ -34,9 +34,10 @@ public:
 	Protection_Modes getPrevMode();
 	License getLicense();
 	void setLicense(License license);
+	void changeProtectModeByOtherSetting(Protection_Modes mode);
 
 public slots:
-	void changeProtectionMode(Protection_Modes mode);
+	void changeProtectionMode(Protection_Modes mode, bool editMode = false);
 	void toggleClicked(bool isChecked);
 
 signals:
@@ -46,7 +47,7 @@ signals:
 	void signal_getAppGeometry();
 	void signal_changeStatus();
 	void signal_changeToPrevMode();
-
+	void signal_ChangeModeByOtherSetting(Protection_Modes mode);
 private:
 	AppSetting();
 	static AppSetting* m_instance;

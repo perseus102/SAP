@@ -14,6 +14,7 @@
 #include "upgradedialog.h"
 #include "widgettransparent.h"
 #include "CircleProcess.h"
+#include "clickablelabel.h"
 
 class ProtectionModes : public QWidget
 {
@@ -24,14 +25,15 @@ public:
 	~ProtectionModes();
 
 signals:
-	void changeMode(Protection_Modes);
+	void changeMode(Protection_Modes, bool editMode = false);
 
 public slots:
 	void changeProtectMode();
 	void changeTheme();
 	void toogleChanged(bool isChecked);
 	void changeToPrevMode();
-
+	void modeChangedByOtherSetting(Protection_Modes mode);
+	void editModeClicked();
 private:
 	Ui::ProtectionModes ui;
 	SelectWidget* m_automatic;
@@ -40,17 +42,20 @@ private:
 	SelectWidget* m_trustall;
 	SelectWidget* m_observation;
 
-	QVBoxLayout* m_layout;
-	QObject* m_modeSelected;
-	FlowLayout* m_selectLayout;
-	QLabel* m_title;
-	QLabel* m_modeTitle;
-	QLabel* m_description;
-	LockDownDialog* lockdownDialog;
-	TrustAllDialog* trustAllDialog;
-	UpgradeDialog* upgradeDialog;
-	WidgetTransparent *transparent;
+	QVBoxLayout*	m_layout;
+	QObject*		m_modeSelected;
+	FlowLayout*		m_selectLayout;
+	QLabel*			m_title;
+	QLabel*			m_modeTitle;
+	QLabel*			m_description;
 
+	LockDownDialog*		lockdownDialog;
+	TrustAllDialog*		trustAllDialog;
+	UpgradeDialog*		upgradeDialog;
+	WidgetTransparent*	transparent;
+
+	ClickableLabel*		m_editMode;
+	QWidget*			m_editModeWidget;
 	void setConnection();
 	void setModeText();
 	void setStyle();

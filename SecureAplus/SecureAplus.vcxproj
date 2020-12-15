@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="anitivirus.cpp" />
+    <ClCompile Include="apexrealtimedialog.cpp" />
     <ClCompile Include="appsetting.cpp" />
     <ClCompile Include="circleprocess.cpp" />
     <ClCompile Include="clickablelabel.cpp" />
@@ -193,6 +194,7 @@
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
     <QtUic Include="anitivirus.ui" />
+    <QtUic Include="apexrealtimedialog.ui" />
     <QtUic Include="circleprocess.ui" />
     <QtUic Include="clickablelabel.ui" />
     <QtUic Include="featuredetails.ui" />
@@ -258,6 +260,7 @@
     <QtMoc Include="circleprocess.h" />
     <QtMoc Include="clickablelabel.h" />
     <QtMoc Include="anitivirus.h" />
+    <QtMoc Include="apexrealtimedialog.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />

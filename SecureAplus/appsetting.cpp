@@ -18,6 +18,7 @@ AppSetting::AppSetting()
 	m_protectionMode = Protection_Modes::Automatic_Mode; //can save and get from ini file
 	m_isFullScreen = false;
 	m_appLicense = License::License_Expire_Soon;
+	m_prevProtectionMode = Protection_Modes::Automatic_Mode;
 }
 
 AppSetting::~AppSetting()
@@ -99,6 +100,13 @@ void AppSetting::setLicense(License license)
 	m_appLicense = license;
 }
 
+void AppSetting::changeProtectModeByOtherSetting(Protection_Modes mode)
+{
+	m_prevProtectionMode = m_protectionMode;
+	m_protectionMode = mode;
+	signal_ChangeModeByOtherSetting(mode);
+}
+
 void AppSetting::toggleClicked(bool isChecked)
 {
 	if (!isChecked)
@@ -112,9 +120,12 @@ void AppSetting::toggleClicked(bool isChecked)
 	emit signal_toggleChanged(isChecked);
 }
 
-void AppSetting::changeProtectionMode(Protection_Modes mode)
+void AppSetting::changeProtectionMode(Protection_Modes mode, bool editMode)
 {
-	m_prevProtectionMode = m_protectionMode;
+	if (!editMode)
+	{
+		m_prevProtectionMode = m_protectionMode;
+	}
 	m_protectionMode = mode;
 	emit signal_changeMode(mode);
 }

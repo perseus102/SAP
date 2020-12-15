@@ -55,7 +55,7 @@ StatusWidget::StatusWidget(QWidget *parent)
 	connect(this, &StatusWidget::toggleChanged, AppSetting::getInstance(), &AppSetting::toggleClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &StatusWidget::changeTheme);
 	connect(m_circleProcess, &CircleProcess::endCountDown, this, &StatusWidget::countDownFinished);
-
+	connect(AppSetting::getInstance(), &AppSetting::signal_ChangeModeByOtherSetting, this, &StatusWidget::protectionModeChanged);
 }
 
 StatusWidget::~StatusWidget()
@@ -149,6 +149,8 @@ void StatusWidget::setIcon()
 			m_icon = util::getInstance()->ChangeSVGColor(INTERACTIVE, ICON_SELECTED_COLOR_LT);
 			break;
 		case Lockdown_Mode:
+		case Lockdown_Silent:
+		case Lockdown_Default:
 			m_icon = util::getInstance()->ChangeSVGColor(LOCKDOWN, ICON_SELECTED_COLOR_LT);
 			break;
 		case TrustAll_Mode:
@@ -177,6 +179,8 @@ void StatusWidget::setIcon()
 			m_icon = util::getInstance()->ChangeSVGColor(INTERACTIVE, ICON_SELECTED_COLOR_DT);
 			break;
 		case Lockdown_Mode:
+		case Lockdown_Silent:
+		case Lockdown_Default:
 			m_icon = util::getInstance()->ChangeSVGColor(LOCKDOWN, ICON_SELECTED_COLOR_DT);
 			break;
 		case TrustAll_Mode:
@@ -214,6 +218,8 @@ void StatusWidget::setIcon()
 		height = 54;
 		break;
 	case Lockdown_Mode:
+	case Lockdown_Silent:
+	case Lockdown_Default:
 		width = 47;
 		height = 54;
 		break;
@@ -270,12 +276,20 @@ void StatusWidget::protectionModeChanged(Protection_Modes mode)
 		setTrustAllMode();
 	}
 
-	if (mode != Automatic_Mode && mode != Lockdown_Mode && m_toggle->isChecked())
+	if ((mode != Automatic_Mode) 
+		&& (mode != Lockdown_Mode) 
+		&& (mode != Lockdown_Silent) 
+		&& (mode != Lockdown_Default) 
+		&& (m_toggle->isChecked()))
 	{
 		m_toggle->setChecked(false);
 		
 	}
-	else if(((mode == Automatic_Mode) || (mode == Lockdown_Mode)) && (!m_toggle->isChecked()))
+	else if(((mode == Automatic_Mode) 
+		|| (mode == Lockdown_Mode) 
+		|| (mode == Lockdown_Silent) 
+		|| (mode == Lockdown_Default)) 
+		&& (!m_toggle->isChecked()))
 	{
 		m_toggle->setChecked(true);
 	}

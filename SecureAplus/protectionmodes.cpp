@@ -41,6 +41,30 @@ ProtectionModes::ProtectionModes(QWidget *parent)
 	descriptionLayout->addWidget(m_modeTitle);
 	descriptionLayout->addWidget(m_description);
 
+	m_editModeWidget = new QWidget();
+	m_editModeWidget->setFixedHeight(24);
+	m_editModeWidget->setContentsMargins(0, 0, 0, 0);
+
+	QHBoxLayout* editNotiWiLayout = new QHBoxLayout();
+	editNotiWiLayout->setContentsMargins(0, 0, 0, 0);
+	editNotiWiLayout->setSpacing(0);
+
+	m_editModeWidget->setLayout(editNotiWiLayout);
+	m_editModeWidget->setVisible(false);
+
+	m_editMode = new ClickableLabel();
+	m_editMode->setFixedSize(160, 24);
+	m_editMode->setAlignment(Qt::AlignCenter);
+
+	QLabel *editNotispacerLeft = new QLabel();
+	editNotispacerLeft->setFixedWidth(95);
+
+	QLabel *editNotispacerRight = new QLabel();
+
+	editNotiWiLayout->addWidget(editNotispacerLeft);
+	editNotiWiLayout->addWidget(m_editMode);
+	editNotiWiLayout->addWidget(editNotispacerRight);
+
 	QWidget* select = new QWidget();
 	m_selectLayout = new FlowLayout(0, 15, 15);
 	m_selectLayout->setContentsMargins(0, 20, 0, 0);
@@ -66,6 +90,7 @@ ProtectionModes::ProtectionModes(QWidget *parent)
 	m_layout->addWidget(m_title);
 	m_layout->addWidget(spacerTitleAndDescription);
 	m_layout->addWidget(modeDescription);
+	m_layout->addWidget(m_editModeWidget);
 	m_layout->addWidget(select);
 	m_layout->addWidget(spacerBottom);
 
@@ -93,7 +118,8 @@ void ProtectionModes::setConnection()
 	connect(this, &ProtectionModes::changeMode, AppSetting::getInstance(), &AppSetting::changeProtectionMode);
 	connect(AppSetting::getInstance(), &AppSetting::signal_toggleChanged, this, &ProtectionModes::toogleChanged);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeToPrevMode, this, &ProtectionModes::changeToPrevMode);
-
+	connect(AppSetting::getInstance(), &AppSetting::signal_ChangeModeByOtherSetting, this, &ProtectionModes::modeChangedByOtherSetting);
+	connect(m_editMode, &ClickableLabel::clicked, this, &ProtectionModes::editModeClicked);
 }
 
 void ProtectionModes::setModeText()
@@ -114,11 +140,13 @@ void ProtectionModes::setModeText()
 	{
 		m_modeTitle->setText("Lockdown");
 		m_description->setText("Programs outside of your trusted list will be automatically blocked.");
+		m_editMode->setText("Edit Notification Settings");
 	}
 	else if (m_modeSelected == m_trustall)
 	{
 		m_modeTitle->setText("Trust All");
 		m_description->setText("No prompts for a specified duration. Any program is allowed to run and is automatically added to your trusted list.");
+		m_editMode->setText("Edit Trust All Duration");
 	}
 	else if (m_modeSelected == m_observation)
 	{
@@ -135,12 +163,16 @@ void ProtectionModes::setStyle()
 		m_title->setStyleSheet("QLabel {  color:" + TITLE_TEXT_COLOR_LT + ";}");
 		m_modeTitle->setStyleSheet("QLabel {  color:" + MODE_TITLE_TEXT_COLOR_LT + ";}");
 		m_description->setStyleSheet("QLabel {  color:" + DESCRIPTION_TEXT_COLOR_LT + ";}");
+		m_editMode->setStyleSheet("QLabel {  color: " + EDIT_LABEL_COLOR_BACKGROUND_LT + "; border-radius:2px;"
+			"border: 1px solid " + EDIT_LABEL_COLOR_BACKGROUND_LT + ";}");
 		break;
 
 	case Theme_Type::Dark_Theme:
 		m_title->setStyleSheet("QLabel {  color:" + TITLE_TEXT_COLOR_DT + ";}");
 		m_modeTitle->setStyleSheet("QLabel {  color:" + MODE_TITLE_TEXT_COLOR_DT + ";}");
 		m_description->setStyleSheet("QLabel {  color:" + DESCRIPTION_TEXT_COLOR_DT + ";}");
+		m_editMode->setStyleSheet("QLabel {  color: " + EDIT_LABEL_COLOR_BACKGROUND_DT + "; border-radius:2px;"
+			"border: 1px solid " + EDIT_LABEL_COLOR_BACKGROUND_DT + ";}");
 		break;
 
 		//MORE THEME
@@ -185,16 +217,17 @@ void ProtectionModes::changeProtectMode()
 	{
 		m_automatic->setSelected(true);
 		mode = Protection_Modes::Automatic_Mode;
+		m_editModeWidget->setVisible(false);
+
 	}
 	else if (sender() == m_interactive)
 	{
 		m_interactive->setSelected(true);
 		mode = Protection_Modes::Interactive_Mode;
-
+		m_editModeWidget->setVisible(false);
 	}
 	else if (sender() == m_lockdown)
 	{
-
 		QRect geometry = AppSetting::getInstance()->getAppGeometry();
 
 		transparent->showWidget();
@@ -219,9 +252,7 @@ void ProtectionModes::changeProtectMode()
 		}
 		m_lockdown->setSelected(true);
 		mode = Protection_Modes::Lockdown_Mode;
-
-
-
+		m_editModeWidget->setVisible(true);
 	}
 	else if (sender() == m_trustall)
 	{
@@ -258,7 +289,7 @@ void ProtectionModes::changeProtectMode()
 			break;
 		}
 		m_trustall->setSelected(true);
-
+		m_editModeWidget->setVisible(true);
 	}
 	else if (sender() == m_observation)
 	{
@@ -276,7 +307,7 @@ void ProtectionModes::changeProtectMode()
 
 		m_observation->setSelected(true);
 		mode = Protection_Modes::Observation_Mode;
-
+		m_editModeWidget->setVisible(false);
 	}
 	switchMode();
 	m_modeSelected = sender();
@@ -308,6 +339,7 @@ void ProtectionModes::toogleChanged(bool isChecked)
 		m_modeSelected = m_interactive;
 	}
 	setModeText();
+	m_editModeWidget->setVisible(false);
 }
 
 void ProtectionModes::changeToPrevMode()
@@ -322,11 +354,14 @@ void ProtectionModes::changeToPrevMode()
 		m_automatic->setSelected(true);
 		mode = Protection_Modes::Automatic_Mode;
 		m_modeSelected = m_automatic;
+		m_editModeWidget->setVisible(false);
 		break;
 	case Interactive_Mode:
 		m_interactive->setSelected(true);
 		mode = Protection_Modes::Interactive_Mode;
 		m_modeSelected = m_interactive;
+		m_editModeWidget->setVisible(false);
+
 		break;
 	case Lockdown_Mode:
 	{
@@ -347,11 +382,12 @@ void ProtectionModes::changeToPrevMode()
 			break;
 		}
 	}
+		m_lockdown->setSelected(true);
+		mode = Protection_Modes::Lockdown_Mode;
+		m_modeSelected = m_lockdown;
+		m_editModeWidget->setVisible(true);
 
-	m_lockdown->setSelected(true);
-	mode = Protection_Modes::Lockdown_Mode;
-	m_modeSelected = m_lockdown;
-	break;
+		break;
 	case TrustAll_Mode:
 		break;
 	case TrustAll_5Mins:
@@ -372,4 +408,137 @@ void ProtectionModes::changeToPrevMode()
 	
 	setModeText();
 	emit changeMode(mode);
+}
+
+void ProtectionModes::modeChangedByOtherSetting(Protection_Modes mode)
+{
+	switchMode();
+	m_editModeWidget->setVisible(false);
+	switch (mode)
+	{
+	case None:
+		break;
+	case Automatic_Mode:
+		break;
+	case Interactive_Mode:
+		break;
+	case Lockdown_Mode:
+		break;
+	case Lockdown_Silent:
+		m_lockdown->setLockDownText("Silent");
+		m_lockdown->setSelected(true);
+		m_modeSelected = m_lockdown;
+		m_editModeWidget->setVisible(true);
+		break;
+	case Lockdown_Default:
+		m_lockdown->setLockDownText("Default");
+		m_lockdown->setSelected(true);
+		m_modeSelected = m_lockdown;
+		m_editModeWidget->setVisible(true);
+		break;
+	case TrustAll_Mode:
+		break;
+	case TrustAll_5Mins:
+		break;
+	case TrustAll_30Mins:
+		break;
+	case TrustAll_NetReboot:
+		break;
+	case Observation_Mode:
+		break;
+	default:
+		break;
+	}
+	setModeText();
+}
+
+void ProtectionModes::editModeClicked()
+{
+	Protection_Modes mode = Protection_Modes::None;
+	QRect geometry = AppSetting::getInstance()->getAppGeometry();
+
+	if (m_modeSelected == m_lockdown)
+	{
+		lockdownDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 220, geometry.y() + 16, 440, 190);
+
+		LockDown currentMode = lockdownDialog->getLockDownMode();
+
+		switch (currentMode)
+		{
+		case LOCKDOWN_CANCEL:
+			break;
+		case LOCKDOWN_SILENT:
+			transparent->showWidget();
+			lockdownDialog->showDefaultDialog();
+			transparent->hide();
+			break;
+		case LOCKDOWN_DEFAULT:
+			transparent->showWidget();
+			lockdownDialog->showSilentDialog();
+			transparent->hide();
+			break;
+		default:
+			break;
+		}
+		LockDown swichMode = lockdownDialog->getLockDownMode();
+
+		if (swichMode == currentMode)
+		{
+			return;
+		}
+
+		switch (swichMode)
+		{
+		case LOCKDOWN_CANCEL:
+			m_lockdown->setLockDownText("");
+			return;
+		case LOCKDOWN_SILENT:
+			m_lockdown->setLockDownText("Silent");
+			//can do something
+			break;
+		case LOCKDOWN_DEFAULT:
+			m_lockdown->setLockDownText("Default");
+			//can do something
+			break;
+		default:
+			break;
+		}
+		mode = Protection_Modes::Lockdown_Mode;
+	}
+	else if (m_modeSelected == m_trustall)
+	{
+		transparent->showWidget();
+		trustAllDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 220, geometry.y() + 16, 440, 156);
+		trustAllDialog->showDialog();
+		transparent->hide();
+
+		TrustAll trustAll = trustAllDialog->getDialogButtonClicked();
+		if (trustAll == TrustAll::TRUSTALL_CANCEL)
+		{
+			return;
+		}
+		TrustAllTime trustAllTime = trustAllDialog->getTrustAllTime();
+
+		switch (trustAllTime)
+		{
+		case TRUSTALL_5MINS:
+			mode = Protection_Modes::TrustAll_5Mins;
+
+			break;
+		case TRUSTALL_30MINS:
+			mode = Protection_Modes::TrustAll_30Mins;
+
+			break;
+		case TRUSTALL_NEXTREBOOT:
+			mode = Protection_Modes::TrustAll_NetReboot;
+
+			break;
+		default:
+			mode = Protection_Modes::TrustAll_Mode;
+			break;
+		}
+		
+	}
+	emit changeMode(mode,true);
+
 }

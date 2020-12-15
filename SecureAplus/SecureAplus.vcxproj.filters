@@ -136,6 +136,12 @@
     <Filter Include="Header Files\Component\SAP Slider">
       <UniqueIdentifier>{6b762ed7-1a27-4436-a843-8cfb80225ee0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\SAP ScrollBar">
+      <UniqueIdentifier>{ba167dc8-8b04-4fc5-ad9a-94d6c72682e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\SAP ScrollBar">
+      <UniqueIdentifier>{799865c1-abd8-44f2-b854-840c339576de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -261,7 +267,10 @@
       <Filter>Source Files\Settings Content\Scan Settings</Filter>
     </ClCompile>
     <ClCompile Include="sapscrollarea.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Component\SAP ScrollBar</Filter>
+    </ClCompile>
+    <ClCompile Include="apexrealtimedialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -362,6 +371,9 @@
       <Filter>Header Files\Settings Content\Scan Settings</Filter>
     </QtMoc>
     <QtMoc Include="sapscrollarea.h">
+      <Filter>Header Files\Component\SAP ScrollBar</Filter>
+    </QtMoc>
+    <QtMoc Include="apexrealtimedialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -457,6 +469,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="sapscrollarea.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="apexrealtimedialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

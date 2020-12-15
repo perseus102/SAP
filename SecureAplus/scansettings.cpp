@@ -67,6 +67,7 @@ ScanSettings::ScanSettings(QWidget *parent)
 	m_scrollView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
 	m_scrollView->setWidget(m_tabStackedWidget);
 	tabLayout->addWidget(m_scrollView);
+	m_scrollView->verticalScrollBar()->setVisible(false);
 
 	m_contentLayout->addWidget(m_tabWidget);
 	m_contentLayout->addWidget(m_tabContentWidget);
@@ -83,11 +84,15 @@ ScanSettings::ScanSettings(QWidget *parent)
 	m_activeTab = m_universalAV;
 	setStyle();
 
+	m_scrollBarTimer = new QTimer();
+
 	connect(m_universalAV, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(m_antivirus, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(m_VulAssessment, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ScanSettings::changeTheme);
-
+	connect(m_antivirusTab, &Anitivirus::offUniversalAVRealTimeScan, m_universalAVTab, &UniversalAV::offRealTimeScan);
+	connect(m_scrollView->verticalScrollBar(), &QScrollBar::valueChanged, this, &ScanSettings::scrollBarChangeValue);
+	connect(m_scrollBarTimer, &QTimer::timeout, this, &ScanSettings::scrollBarTimeout);
 }
 
 ScanSettings::~ScanSettings()
@@ -200,6 +205,22 @@ void ScanSettings::changeTheme()
 {
 	setStyle();
 	setTabStyle();
+}
+
+void ScanSettings::scrollBarChangeValue(int value)
+{
+	qDebug() << " scroll value: " << value;
+	m_scrollView->verticalScrollBar()->setVisible(true);
+	if (m_scrollBarTimer->isActive())
+	{
+		m_scrollBarTimer->stop();
+	}
+	m_scrollBarTimer->start(1000);
+}
+
+void ScanSettings::scrollBarTimeout()
+{
+	m_scrollView->verticalScrollBar()->setVisible(false);
 }
 
 void ScanSettings::setTabStyle()

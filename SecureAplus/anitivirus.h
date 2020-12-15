@@ -8,6 +8,9 @@
 #include "appsetting.h"
 #include "switch.h"
 #include "sapcombobox.h"
+#include "widgettransparent.h"
+#include "apexrealtimedialog.h"
+
 class Anitivirus : public QWidget
 {
 	Q_OBJECT
@@ -15,6 +18,8 @@ class Anitivirus : public QWidget
 public:
 	Anitivirus(QWidget *parent = Q_NULLPTR);
 	~Anitivirus();
+signals:
+	void offUniversalAVRealTimeScan();
 
 private slots:
 	void changeTheme();
@@ -35,8 +40,12 @@ private:
 	QLabel*			m_registerDesc;
 	Switch*			m_registerToggle;
 
-	QLabel*		m_APEXLine;
-	QLabel*		m_APEXRealTimeLine;
+	QLabel*			m_APEXLine;
+	QLabel*			m_APEXRealTimeLine;
+
+	WidgetTransparent*		transparent;
+	APEXRealTimeDialog*		m_APEXRealtimeScanDlg;
+
 
 	void setStyle();
 	void setLabelText();

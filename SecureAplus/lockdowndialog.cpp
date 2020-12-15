@@ -10,6 +10,7 @@ LockDownDialog::LockDownDialog(QDialog*parent)
 	m_titleText		= new QLabel();
 	m_titleText->setFixedHeight(72);
 	m_titleText->setWordWrap(true);
+	m_titleText->setFont(SMALL_FONT);
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout();
 	buttonLayout->setContentsMargins(0, 0, 0, 0);
@@ -78,10 +79,38 @@ void LockDownDialog::setDefaultText(QString text)
 
 void LockDownDialog::showDialog()
 {
+	m_silentBtn->setVisible(true);
+	m_DefaultBtn->setVisible(true);
 	m_lockdownMode = LockDown::LOCKDOWN_CANCEL;
 	activateWindow();
 	raise();
 	exec();
+}
+
+void LockDownDialog::showSilentDialog()
+{
+	m_silentBtn->setVisible(true);
+	m_DefaultBtn->setVisible(false);
+	activateWindow();
+	raise();
+	exec();
+	if (m_lockdownMode == LockDown::LOCKDOWN_CANCEL)
+	{
+		m_lockdownMode = LockDown::LOCKDOWN_DEFAULT;
+	}
+}
+
+void LockDownDialog::showDefaultDialog()
+{
+	m_silentBtn->setVisible(false);
+	m_DefaultBtn->setVisible(true);
+	activateWindow();
+	raise();
+	exec();
+	if (m_lockdownMode == LockDown::LOCKDOWN_CANCEL)
+	{
+		m_lockdownMode = LockDown::LOCKDOWN_SILENT;
+	}
 }
 
 LockDown LockDownDialog::getLockDownMode()

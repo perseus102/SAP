@@ -19,6 +19,9 @@ public:
 	UniversalAV(QWidget *parent = Q_NULLPTR);
 	~UniversalAV();
 
+public slots:
+	void offRealTimeScan();
+
 private slots:
 	void capacityClicked();
 	void sliderChangeValue(int value);

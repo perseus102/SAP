@@ -290,6 +290,8 @@
 #define PRO_ICON_SELECTED_COLOR_LT					Config::getInstance()->getConfigValue(PRO_ICON_SELECTED_LT)
 #define PRO_ICON_SELECTED_COLOR_DT					Config::getInstance()->getConfigValue(PRO_ICON_SELECTED_DT)
 #define LOCKDOWN_ICON_DT_LT							Config::getInstance()->getConfigValue("Protection Modes And Status/Lockdown_Icon_DT_LT")
+#define EDIT_LABEL_COLOR_BACKGROUND_LT				Config::getInstance()->getConfigValue("Protection Modes And Status/Edit_Text_Background_Light_Theme")
+#define EDIT_LABEL_COLOR_BACKGROUND_DT				Config::getInstance()->getConfigValue("Protection Modes And Status/Edit_Text_Background_Dark_Theme")
 
 /*Define for Trust All status */
 #define TRUST_ALL_TEXT_DT							Config::getInstance()->getConfigValue("Protection Modes And Status/Trust_All_Text_Dark_Theme")
@@ -416,6 +418,8 @@ enum Protection_Modes
 	Automatic_Mode,
 	Interactive_Mode,
 	Lockdown_Mode,
+	Lockdown_Silent,
+	Lockdown_Default,
 	TrustAll_Mode,
 	TrustAll_5Mins,
 	TrustAll_30Mins,

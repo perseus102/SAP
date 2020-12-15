@@ -20,6 +20,8 @@ public:
 	void setSilentText(QString text);
 	void setDefaultText(QString text);
 	void showDialog();
+	void showSilentDialog();
+	void showDefaultDialog();
 	LockDown getLockDownMode();
 public slots:
 
