@@ -71,7 +71,7 @@ protected:
 class Switch final : public SelectionControl {
 	Q_OBJECT
 
-		static constexpr auto CORNER_RADIUS = 8.0;
+	static constexpr auto CORNER_RADIUS = 8.0;
 	static constexpr auto THUMB_RADIUS = 8.0;
 	static constexpr auto SHADOW_ELEVATION = 2.0;
 
@@ -83,6 +83,7 @@ public:
 	~Switch() override;
 
 	QSize sizeHint() const override final;
+	void disableToggleAndChecked(bool isChecked);
 
 public slots:
 	void changeTheme();
@@ -114,5 +115,6 @@ private:
 	QPointer<Animator> thumbPosAniamtion;
 	void setColorStyle();
 	bool m_inContentView = false;
+	bool m_disabled = false;
 };
 #endif // SWITCH_H

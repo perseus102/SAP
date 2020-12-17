@@ -35,6 +35,7 @@ public:
 	License getLicense();
 	void setLicense(License license);
 	void changeProtectModeByOtherSetting(Protection_Modes mode);
+	bool getManagedByServer();
 
 public slots:
 	void changeProtectionMode(Protection_Modes mode, bool editMode = false);
@@ -58,4 +59,5 @@ private:
 	QRect m_appGeometry;
 	bool m_isFullScreen;
 	License m_appLicense;
+	bool m_appManagedByServer;
 };

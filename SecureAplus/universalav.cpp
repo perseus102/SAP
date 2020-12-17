@@ -643,8 +643,7 @@ void UniversalAV::capacityClicked()
 
 void UniversalAV::offRealTimeScan()
 {
-	m_realTimeToggle->setChecked(false);
-	m_realTimeToggle->setDisabled(true);
-
+	//set unchecked and disabled toogle
+	m_realTimeToggle->disableToggleAndChecked(false);
 	//do something
 }

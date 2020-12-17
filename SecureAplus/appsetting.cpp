@@ -19,6 +19,7 @@ AppSetting::AppSetting()
 	m_isFullScreen = false;
 	m_appLicense = License::License_Expire_Soon;
 	m_prevProtectionMode = Protection_Modes::Automatic_Mode;
+	m_appManagedByServer = false; //call api for init
 }
 
 AppSetting::~AppSetting()
@@ -105,6 +106,11 @@ void AppSetting::changeProtectModeByOtherSetting(Protection_Modes mode)
 	m_prevProtectionMode = m_protectionMode;
 	m_protectionMode = mode;
 	signal_ChangeModeByOtherSetting(mode);
+}
+
+bool AppSetting::getManagedByServer()
+{
+	return m_appManagedByServer;
 }
 
 void AppSetting::toggleClicked(bool isChecked)

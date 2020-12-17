@@ -32,6 +32,15 @@ FramelessWindow::FramelessWindow(QWidget *parent)
 	windowShadow->setOffset(0.0);
 	ui->windowFrame->setGraphicsEffect(windowShadow);
 
+	if (AppSetting::getInstance()->getManagedByServer())
+	{
+		ui->managedServer->setFont(SMALL_FONT);
+		//ui->managedServer->setAlignment(Qt::AlignLeft);
+		ui->managedServer->setText(" (Managed by Management Server)");
+		ui->managedServer->setVisible(true);
+		ui->managedServer->setStyleSheet("QLabel{color: " +MANAGED_BY_SERVER_LTDT +"}");
+	}
+
 	QObject::connect(qApp, &QGuiApplication::applicationStateChanged, this,
 		&FramelessWindow::on_applicationStateChanged);
 	setMouseTracking(true);
@@ -43,7 +52,6 @@ FramelessWindow::FramelessWindow(QWidget *parent)
 	QApplication::instance()->installEventFilter(this);
 
 	setWindowIcon();
-
 }
 
 FramelessWindow::~FramelessWindow() { delete ui; }

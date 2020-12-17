@@ -190,6 +190,9 @@
 #define HOME_PROTECTED_COLOR				Config::getInstance()->getConfigValue(HOME_PROTECTED)
 #define HOME_WARNING_COLOR					Config::getInstance()->getConfigValue(HOME_WARNING)
 
+/*Define for managed by server title text*/
+#define MANAGED_BY_SERVER_LTDT				Config::getInstance()->getConfigValue("Color/Managed_By_Server_Text_DT_LT")
+
 /* Define text and icon of Scan, manage setting color */
 #define TEXT_ICON_COLOR_LIGHT_THEME			Config::getInstance()->getConfigValue(TEXT_ICON_COLOR_LIGHT_THEME_PATH)
 #define TEXT_ICON_COLOR_DARK_THEME			Config::getInstance()->getConfigValue(TEXT_ICON_COLOR_DARK_THEME_PATH)
@@ -209,6 +212,8 @@
 #define DETAILS_TEXT_COLOR_DARK_THEME		Config::getInstance()->getConfigValue(DETAILS_TEXT_DARK_THEME)
 #define DETAILS_TEXT_COLOR_LIGHT_THEME		Config::getInstance()->getConfigValue(DETAILS_TEXT_LIGHT_THEME)
 #define SCAN_NOW_BUTTON_COLOR				Config::getInstance()->getConfigValue(SCAN_NOW_BUTTON)
+#define POLICY_BORDER_TEXT_LT				Config::getInstance()->getConfigValue("Home Content/Policy_Border_Text_Light_Theme")
+#define POLICY_BORDER_TEXT_DT				Config::getInstance()->getConfigValue("Home Content/Policy_Border_Text_Dark_Theme")
 
 /* Define for Grid Widget Color */
 #define GRID_BACKGROUND_DARK_THEME_COLOR	Config::getInstance()->getConfigValue(GRID_BACKGROUND_DARK_THEME)

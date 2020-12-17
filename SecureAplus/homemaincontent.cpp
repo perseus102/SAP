@@ -7,6 +7,22 @@ HomeMainContent::HomeMainContent(QWidget *parent)
 	ui->setupUi(this);
 
 	/* Init */
+	/* Layout of Scan now button */
+	QWidget *policyWidget		= new QWidget();
+	policyWidget->setFixedHeight(60);
+	QHBoxLayout *policyLayout	= new QHBoxLayout();
+	policyLayout->setContentsMargins(0, 0, 0, 0);
+	policyLayout->setSpacing(0);
+	policyWidget->setLayout(policyLayout);
+
+	m_policy	= new QLabel();
+	m_policy->setFixedSize(180, 30);
+	m_policy->setFont(FONT);
+	m_policy->setAlignment(Qt::AlignCenter);
+	QLabel* policySpacerLeft = new QLabel();
+	policyLayout->addWidget(policySpacerLeft);
+	policyLayout->addWidget(m_policy);
+
 	m_statusIcon			= new QLabel();
 	m_statusText			= new QLabel();
 	m_lastScan				= new QLabel();
@@ -65,25 +81,27 @@ HomeMainContent::HomeMainContent(QWidget *parent)
 	m_vBoxlayout->setSpacing(0);
 
 	/* Icon */
-	m_vBoxlayout->addWidget(m_statusIcon,0,0,1,4);
+	m_vBoxlayout->addWidget(policyWidget,0,0,1,4);
+
+	m_vBoxlayout->addWidget(m_statusIcon,1,0,1,4);
 
 	/* Status Text */
-	m_vBoxlayout->addWidget(m_statusText,1,0,1,4);
+	m_vBoxlayout->addWidget(m_statusText,2,0,1,4);
 
 	/*  Last scan date time */
-	m_vBoxlayout->addWidget(m_lastScan,2,0,1,4);
+	m_vBoxlayout->addWidget(m_lastScan,3,0,1,4);
 
 
-	m_vBoxlayout->addWidget(spacerCenter,3,0,1,4);
+	m_vBoxlayout->addWidget(spacerCenter,4,0,1,4);
 
 	/* Security feature */
-	m_vBoxlayout->addWidget(spacerLeft,4,0);
-	m_vBoxlayout->addWidget(m_securityFeature,4,1);
-	m_vBoxlayout->addWidget(m_featureDetails,4,2);
-	m_vBoxlayout->addWidget(spacerRight,4,3);
+	m_vBoxlayout->addWidget(spacerLeft,5,0);
+	m_vBoxlayout->addWidget(m_securityFeature,5,1);
+	m_vBoxlayout->addWidget(m_featureDetails,5,2);
+	m_vBoxlayout->addWidget(spacerRight,5,3);
 	
 	/* Scan button */
-	m_vBoxlayout->addWidget(scanNowWidget,5,0,1,4);
+	m_vBoxlayout->addWidget(scanNowWidget,6,0,1,4);
 
 	/* spacer bottom */
 	m_vBoxlayout->addWidget(spacer);
@@ -115,6 +133,8 @@ HomeMainContent::HomeMainContent(QWidget *parent)
 	default:
 		break;
 	}
+
+	m_policy->setText("Policy: v2020FDSF48N..."); //Call API or function
 
 	connect(m_btn_scanNow, &QPushButton::clicked, this, &HomeMainContent::scanButtonClick);
 	connect(m_featureDetails, &FeatureDetailsLabel::clicked, this, &HomeMainContent::featureDetailsClick);
@@ -217,6 +237,11 @@ void HomeMainContent::setStyle()
 		m_lastScan->setStyleSheet("QLabel { color:" + LAST_SCAN_COLOR_TEXT_DARK_THEME + ";}");
 		m_securityFeature->setStyleSheet("QLabel { color:" + SECURE_FEATURE_COLOR_DARK_THEME + ";}");
 		m_featureDetails->setStyleSheet("QLabel { color:" + DETAILS_TEXT_COLOR_DARK_THEME + ";}");
+		m_policy->setStyleSheet("QLabel{ color:" + POLICY_BORDER_TEXT_DT + ";"
+			"border-top-left-radius: 14px;"
+			"border-bottom-left-radius: 14px;"
+			"border: 1px solid " + POLICY_BORDER_TEXT_DT + ";"
+			"}");
 		break;
 
 	case Theme_Type::Light_Theme:
@@ -237,6 +262,11 @@ void HomeMainContent::setStyle()
 		m_lastScan->setStyleSheet("QLabel {  color:" + LAST_SCAN_COLOR_TEXT_LIGHT_THEME + ";}");
 		m_securityFeature->setStyleSheet("QLabel {  color:" + SECURE_FEATURE_COLOR_LIGHT_THEME + ";}");
 		m_featureDetails->setStyleSheet("QLabel {  color:" + DETAILS_TEXT_COLOR_LIGHT_THEME + ";}");
+		m_policy->setStyleSheet("QLabel{ color:" + POLICY_BORDER_TEXT_LT + ";"
+			"border-top-left-radius: 14px;"
+			"border-bottom-left-radius: 14px;"
+			"border: 1px solid " + POLICY_BORDER_TEXT_LT + ";"
+			"}");
 		break;
 
 		/* MORE THEME */

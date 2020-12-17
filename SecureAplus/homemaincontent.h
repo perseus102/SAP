@@ -56,6 +56,7 @@ private:
 	QLabel	*m_statusText;
 	QLabel	*m_lastScan;
 	QLabel	*m_securityFeature;
+	QLabel	*m_policy;
 	QPushButton	*m_btn_scanNow;
 	QGridLayout * m_vBoxlayout;
 	FeatureDetailsLabel *m_featureDetails;

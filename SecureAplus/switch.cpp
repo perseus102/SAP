@@ -87,6 +87,7 @@ Qt::CheckState SelectionControl::checkState() const {
 }
 
 void SelectionControl::checkStateSet() {
+
 	const auto state = checkState();
 	emit stateChanged(state);
 	toggle(state);
@@ -165,6 +166,14 @@ QSize Switch::sizeHint() const {
 	auto w = style.indicatorMargin.left() + style.height + style.indicatorMargin.right() + fontMetrics().width(text());
 
 	return QSize(w, h);
+}
+
+void Switch::disableToggleAndChecked(bool isChecked)
+{
+	setCheckable(false);
+	setColorStyle();
+	setChecked(isChecked);
+	m_disabled = true;
 }
 
 void Switch::paintEvent(QPaintEvent*) {
@@ -249,6 +258,9 @@ void Switch::resizeEvent(QResizeEvent* e) {
 }
 
 void Switch::toggle(Qt::CheckState state) {
+	
+	if (m_disabled) return;
+
 	if (state == Qt::Checked) {
 		const QVariant posEnd = (style.indicatorMargin.left() + style.indicatorMargin.right() + 2) * 2;
 		const QVariant thumbEnd = colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity);
@@ -296,6 +308,14 @@ void Switch::setColorStyle()
 			style.thumbOnBrush = QColor(TOGGLE_ACTIVE_THUMB_LT);
 			style.thumbOffBrush = QColor(TOGGLE_INACTIVE_THUMB_LT);
 			style.textColor = QColor(TEXT_LIGHT_THEME_COLOR);
+			if (!isCheckable())
+			{
+				style.trackOnBrush = QColor(TOGGLE_ACTIVE_TRACK_DT);
+				style.trackOffBrush = QColor("#CECECE");
+				style.thumbOnBrush = QColor(TOGGLE_ACTIVE_THUMB_DT);
+				style.thumbOffBrush = QColor("#E5E5E5");
+				style.textColor = QColor(TEXT_DARK_THEME_COLOR);
+			}
 			break;
 
 		case Theme_Type::Dark_Theme:
@@ -304,6 +324,15 @@ void Switch::setColorStyle()
 			style.thumbOnBrush = QColor(TOGGLE_ACTIVE_THUMB_DT);
 			style.thumbOffBrush = QColor(TOGGLE_INACTIVE_THUMB_DT);
 			style.textColor = QColor(TEXT_DARK_THEME_COLOR);
+
+			if (!isCheckable())
+			{
+				style.trackOnBrush = QColor(TOGGLE_ACTIVE_TRACK_DT);
+				style.trackOffBrush = QColor(TRACK_UNCHECKED_DARK_THEME_COLOR);
+				style.thumbOnBrush = QColor(TOGGLE_ACTIVE_THUMB_DT);
+				style.thumbOffBrush = QColor("#1A2B4A");
+				style.textColor = QColor(TEXT_DARK_THEME_COLOR);
+			}
 			break;
 
 			//MORE THEME
@@ -321,6 +350,7 @@ void Switch::setColorStyle()
 			style.thumbOnBrush = QColor(THUMB_CHECKED_LIGHT_THEME_COLOR);
 			style.thumbOffBrush = QColor(THUMB_UNCHECKED_LIGHT_THEME_COLOR);
 			style.textColor = QColor(TEXT_LIGHT_THEME_COLOR);
+
 			break;
 
 		case Theme_Type::Dark_Theme:
@@ -329,6 +359,7 @@ void Switch::setColorStyle()
 			style.thumbOnBrush = QColor(THUMB_CHECKED_DARK_THEME_COLOR);
 			style.thumbOffBrush = QColor(THUMB_UNCHECKED_DARK_THEME_COLOR);
 			style.textColor = QColor(TEXT_DARK_THEME_COLOR);
+
 			break;
 
 			//MORE THEME
