@@ -1,7 +1,9 @@
 #include "gridwidget.h"
 
-GridWidget::GridWidget(QWidget *parent)
+GridWidget::GridWidget(QString iconPath, QSize iconSize, QWidget *parent)
 	: QWidget(parent),
+	m_iconPath(iconPath),
+	m_iconSize(iconSize),
 	ui(new Ui::GridWidget)
 {
 	ui->setupUi(this);
@@ -97,11 +99,11 @@ void GridWidget::setIcon()
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		icon = util::getInstance()->ChangeSVGColor(GRID_WIDGET_ICON_PATH, GRID_RING_LIGHT_THEME_COLOR);
+		icon = util::getInstance()->ChangeSVGColor(m_iconPath, GRID_ICON_LIGHT_THEME_COLOR);
 		break;
 
 	case Theme_Type::Dark_Theme:
-		icon = util::getInstance()->ChangeSVGColor(GRID_WIDGET_ICON_PATH, GRID_RING_DARK_THEME_COLOR);
+		icon = util::getInstance()->ChangeSVGColor(m_iconPath, GRID_ICON_DARK_THEME_COLOR);
 
 		break;
 
@@ -109,7 +111,7 @@ void GridWidget::setIcon()
 	default:
 		break;
 	}
-	m_gridIcon->setPixmap(icon.pixmap(30, 30));
+	m_gridIcon->setPixmap(icon.pixmap(m_iconSize.width(), m_iconSize.height()));
 }
 
 void GridWidget::setTitleText(QString text)

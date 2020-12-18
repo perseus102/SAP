@@ -48,8 +48,8 @@
 #define GRID_BACKGROUND_LIGHT_THEME			QString("Grid Widget/Grid_Background_Light_Theme")
 #define GRID_BORDER_DARK_THEME				QString("Grid Widget/Grid_Border_Dark_Theme")
 #define GRID_BORDER_LIGHT_THEME				QString("Grid Widget/Grid_Border_Light_Theme")
-#define GRID_RING_DARK_THEME				QString("Grid Widget/Ring_Icon_Dark_Theme")
-#define GRID_RING_LIGHT_THEME				QString("Grid Widget/Ring_Icon_Light_Theme")
+#define GRID_ICON_DARK_THEME				QString("Grid Widget/Grid_Icon_Dark_Theme")
+#define GRID_ICON_LIGHT_THEME				QString("Grid Widget/Grid_Icon_Light_Theme")
 #define GRID_TITLE_DARK_THEME				QString("Grid Widget/Grid_Tittle_Color_Dark_Theme")
 #define GRID_TITLE_LIGHT_THEME				QString("Grid Widget/Grid_Tittle_Color_Light_Theme")
 #define GRID_SUB_TITLE_DARK_THEME			QString("Grid Widget/Grid_Sub_Tittle_Color_Dark_Theme")
@@ -169,6 +169,23 @@
 #define DOWN_ARROW_DT						QString(":/images/Scan Settings/down-arrow-dt.svg")
 #define SLIDER_THUMB_ICON_DT				QString(":/images/Scan Settings/slider-thumb-dt.svg")
 
+/*Define for setting grid widget icon */
+#define SCAN_SETTINGS						QString(":/images/setting/scan_settings.svg")
+#define PROTECTION_MODE						QString(":/images/setting/protection_modes.svg")
+#define LANGUAGE_PERSIONAL					QString(":/images/setting/language_persional.svg")
+#define DIAGNOSIS							QString(":/images/setting/diagnosis.svg")
+#define MANAGEMENT_SERVER					QString(":/images/setting/management_server.svg")
+#define SECURITY							QString(":/images/setting/security.svg")
+#define UPDATE								QString(":/images/setting/update.svg")
+
+/*Define for manage grid widget icon */
+#define STRUCTED_GROUPS						QString(":/images/manage/trusted_groups.svg")
+#define STRUCTED_USERS						QString(":/images/manage/trusted_users.svg")
+#define EXC_INC								QString(":/images/manage/exc_inc.svg")
+#define APP_CONTROL							QString(":/images/manage/app_control.svg")
+#define REMOVABLE_DEVICES					QString(":/images/manage/removeable_devices.svg")
+#define ACCOUNT_LICENSE						QString(":/images/manage/account_license.svg")
+
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
 
@@ -220,8 +237,8 @@
 #define GRID_BACKGROUND_LIGHT_THEME_COLOR	Config::getInstance()->getConfigValue(GRID_BACKGROUND_LIGHT_THEME)
 #define GRID_BORDER_DARK_THEME_COLOR		Config::getInstance()->getConfigValue(GRID_BORDER_DARK_THEME)
 #define GRID_BORDER_LIGHT_THEME_COLOR		Config::getInstance()->getConfigValue(GRID_BORDER_LIGHT_THEME)
-#define GRID_RING_DARK_THEME_COLOR			Config::getInstance()->getConfigValue(GRID_RING_DARK_THEME)
-#define GRID_RING_LIGHT_THEME_COLOR			Config::getInstance()->getConfigValue(GRID_RING_LIGHT_THEME)
+#define GRID_ICON_DARK_THEME_COLOR			Config::getInstance()->getConfigValue(GRID_ICON_DARK_THEME)
+#define GRID_ICON_LIGHT_THEME_COLOR			Config::getInstance()->getConfigValue(GRID_ICON_LIGHT_THEME)
 #define GRID_TITLE_DARK_THEME_COLOR			Config::getInstance()->getConfigValue(GRID_TITLE_DARK_THEME)
 #define GRID_TITLE_LIGHT_THEME_COLOR		Config::getInstance()->getConfigValue(GRID_TITLE_LIGHT_THEME)
 #define GRID_SUB_TITLE_DARK_THEME_COLOR		Config::getInstance()->getConfigValue(GRID_SUB_TITLE_DARK_THEME)
@@ -502,4 +519,5 @@ enum Directory
 	Language_Personal,
 	Scan_Settings,
 	Home,
+	Manage,
 };

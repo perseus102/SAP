@@ -142,6 +142,9 @@
     <Filter Include="Header Files\Component\SAP ScrollBar">
       <UniqueIdentifier>{799865c1-abd8-44f2-b854-840c339576de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Manage content">
+      <UniqueIdentifier>{367196c6-2b50-4fbd-9e65-1e2de5dd4683}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -272,6 +275,12 @@
     <ClCompile Include="apexrealtimedialog.cpp">
       <Filter>Source Files\Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="managecontent.cpp">
+      <Filter>Source Files\Manage content</Filter>
+    </ClCompile>
+    <ClCompile Include="managegridcontent.cpp">
+      <Filter>Source Files\Manage content</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -376,6 +385,12 @@
     <QtMoc Include="apexrealtimedialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="managecontent.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="managegridcontent.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -472,6 +487,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="apexrealtimedialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="managecontent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="managegridcontent.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

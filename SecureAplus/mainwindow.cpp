@@ -15,15 +15,15 @@ MainWindow::MainWindow(QWidget *parent)
 	m_homeContent		= new HomeContent;
 	firstPageWidget		= new QWidget;
 	secondPageWidget	= new QWidget;
-	thirdPageWidget		= new QWidget;
 	m_settingContent	= new SettingsContent;
-	
+	m_manageContent		= new ManageContent;
+
 	stackedWidget = new QStackedWidget;
 	stackedWidget->addWidget(m_homeContent);
 
 	stackedWidget->addWidget(firstPageWidget);
 	stackedWidget->addWidget(secondPageWidget);
-	stackedWidget->addWidget(thirdPageWidget);
+	stackedWidget->addWidget(m_manageContent);
 	stackedWidget->addWidget(m_settingContent);
 
 	ActiveWidget = m_homeWidget;
@@ -76,7 +76,7 @@ void MainWindow::switchActiveWidget()
 
 	if (sender() == m_manageWidget)
 	{
-		stackedWidget->setCurrentWidget(thirdPageWidget);
+		stackedWidget->setCurrentWidget(m_manageContent);
 
 	}
 	if (sender() == m_SettingWidget)

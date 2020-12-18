@@ -135,6 +135,7 @@ HomeMainContent::HomeMainContent(QWidget *parent)
 	}
 
 	m_policy->setText("Policy: v2020FDSF48N..."); //Call API or function
+	m_policy->setToolTip("Policy: v2020FDSF48N45345dff45656SSAX");
 
 	connect(m_btn_scanNow, &QPushButton::clicked, this, &HomeMainContent::scanButtonClick);
 	connect(m_featureDetails, &FeatureDetailsLabel::clicked, this, &HomeMainContent::featureDetailsClick);

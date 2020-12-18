@@ -171,6 +171,8 @@
     <ClCompile Include="homemaincontent.cpp" />
     <ClCompile Include="languagepersonal.cpp" />
     <ClCompile Include="lockdowndialog.cpp" />
+    <ClCompile Include="managecontent.cpp" />
+    <ClCompile Include="managegridcontent.cpp" />
     <ClCompile Include="managewidget.cpp" />
     <ClCompile Include="protectionmodes.cpp" />
     <ClCompile Include="sapcombobox.cpp" />
@@ -213,6 +215,8 @@
     <ClCompile Include="homewidget.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="managecontent.ui" />
+    <QtUic Include="managegridcontent.ui" />
     <QtUic Include="managewidget.ui" />
     <QtUic Include="protectionmodes.ui" />
     <QtUic Include="sapcombobox.ui" />
@@ -272,6 +276,8 @@
     <QtMoc Include="languagepersonal.h" />
     <QtMoc Include="protectionmodes.h" />
     <QtMoc Include="lockdowndialog.h" />
+    <QtMoc Include="managecontent.h" />
+    <QtMoc Include="managegridcontent.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="settingscontent.h" />
     <QtMoc Include="settinggridcontent.h" />

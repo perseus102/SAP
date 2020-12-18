@@ -48,8 +48,6 @@ private:
 	QPropertyAnimation		*mpFadeIn;
 	QGraphicsOpacityEffect	*eff;
 
-	QLabel				*m_settingIcon;
-	QLabel				*m_settingText;
 	QVBoxLayout			*m_settingLayout;
 	QStackedWidget		*stackedWidget;
 	TopBar				*m_settingTopBar;

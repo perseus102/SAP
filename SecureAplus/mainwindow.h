@@ -15,6 +15,7 @@
 #include "appsetting.h"
 #include "homecontent.h"
 #include "settingscontent.h"
+#include "managecontent.h"
 namespace Ui {
 	class MainWindow;
 }
@@ -48,9 +49,9 @@ private:
 	QObject *ActiveWidget;
 	QWidget *firstPageWidget;
 	QWidget *secondPageWidget;
-	QWidget *thirdPageWidget;
 	HomeContent *m_homeContent;
 	SettingsContent *m_settingContent;
+	ManageContent *m_manageContent;
 	QStackedWidget *stackedWidget;
 	QPropertyAnimation *animation;
 	QGraphicsOpacityEffect *effect;

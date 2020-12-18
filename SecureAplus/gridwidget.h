@@ -20,7 +20,7 @@ class GridWidget : public QWidget
 	Q_OBJECT
 
 public:
-	GridWidget(QWidget *parent = Q_NULLPTR);
+	GridWidget(QString iconPath, QSize iconSize, QWidget *parent = Q_NULLPTR);
 	~GridWidget();
 	void setTitleText(QString text = NULL);
 	void setSubTitleText(QString text = NULL);
@@ -43,6 +43,8 @@ private:
 	QLabel			*m_gridTitle;
 	QLabel			*m_gridSubTitle;
 	QIcon			icon;
+	QString			m_iconPath;
+	QSize			m_iconSize;
 
 	void setBackground();
 	void setIcon();
