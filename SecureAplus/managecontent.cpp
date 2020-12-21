@@ -20,9 +20,7 @@ ManageContent::ManageContent(QWidget *parent)
 	m_manageGridContent = new ManageGridContent();
 
 	stackedWidget->addWidget(m_manageGridContent);
-	//stackedWidget->addWidget(m_languagePersonal);
-	//stackedWidget->addWidget(m_protectionModes);
-	//stackedWidget->addWidget(m_scanSettings);
+
 	setLayout(m_manageLayout);
 
 	/* Init Fade In*/
@@ -94,13 +92,6 @@ void ManageContent::backBtnPressed()
 	{
 	case Manage:
 		break;
-		//case Protection_mode:
-		//case Language_Personal:
-		//case Scan_Settings:
-		//	m_settingTopBar->setVisibleNaviButton(false);
-		//	stackedWidget->setCurrentWidget(m_SettingGridContent);
-		//	m_curSettingDir = Directory::Setting;
-		break;
 	default:
 		break;
 	}
@@ -120,19 +111,6 @@ void ManageContent::directoryClicked(Directory dir)
 		m_curManageDir = Directory::Manage;
 		m_manageTopBar->setVisibleNaviButton(false);
 
-		break;
-	//case Protection_mode:
-	//	if (m_curSettingDir == Directory::Protection_mode)
-	//		return;
-
-	//	break;
-	//case Language_Personal:
-	//	if (m_curSettingDir == Directory::Language_Personal)
-	//		return;
-
-	//case Scan_Settings:
-	//	if (m_curSettingDir == Directory::Scan_Settings)
-	//		return;
 		break;
 	default:
 		break;
