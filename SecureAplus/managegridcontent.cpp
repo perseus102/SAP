@@ -6,7 +6,7 @@ ManageGridContent::ManageGridContent(QWidget *parent)
 	ui.setupUi(this);
 
 	m_flowLayout = new FlowLayout(0, 15, 15);
-	m_flowLayout->setContentsMargins(0, 20, 30, 0);
+	m_flowLayout->setContentsMargins(30, 20, 30, 0);
 
 	m_trustedGroups = new GridWidget(STRUCTED_GROUPS, QSize(46, 30));
 	m_trustedGroups->setTitleText("Trusted Groups");

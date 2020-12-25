@@ -198,6 +198,7 @@ void Anitivirus::toggleClicked()
 		else
 		{
 			//do somthing
+			AppSetting::getInstance()->changeProtectModeByOtherSetting(Protection_Modes::Automatic_Mode);
 		}
 	}
 	else if (sender() == m_registerToggle)

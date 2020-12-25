@@ -126,6 +126,13 @@ void AppSetting::toggleClicked(bool isChecked)
 	emit signal_toggleChanged(isChecked);
 }
 
+void AppSetting::appChangeScreen(Screen screen)
+{
+	emit signal_ChangeScreen(screen);
+}
+
+
+
 void AppSetting::changeProtectionMode(Protection_Modes mode, bool editMode)
 {
 	if (!editMode)

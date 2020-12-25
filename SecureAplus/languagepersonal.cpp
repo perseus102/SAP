@@ -36,10 +36,10 @@ LanguagePersonal::LanguagePersonal(QWidget *parent)
 	appear_Img_Widget->setLayout(appear_Img_Layout);
 
 	/*Init Apperance button */
-	m_lightThemeBtn = new QPushButton();
+	m_lightThemeBtn = new SAPRadioButton();
 	m_lightThemeBtn->setFixedSize(20, 20);
 
-	m_darkThemeBtn = new QPushButton();
+	m_darkThemeBtn = new SAPRadioButton();
 	m_darkThemeBtn->setFixedSize(20, 20);
 
 	m_appearLightThemeText = new ClickableLabel();
@@ -103,8 +103,8 @@ LanguagePersonal::LanguagePersonal(QWidget *parent)
 	setAppearDarkThemeText("Dark theme");
 
 	/* Connection */
-	connect(m_lightThemeBtn, &QPushButton::clicked, this, &LanguagePersonal::radioButtonClicked);
-	connect(m_darkThemeBtn, &QPushButton::clicked, this, &LanguagePersonal::radioButtonClicked);
+	connect(m_lightThemeBtn, &SAPRadioButton::clicked, this, &LanguagePersonal::radioButtonClicked);
+	connect(m_darkThemeBtn, &SAPRadioButton::clicked, this, &LanguagePersonal::radioButtonClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &LanguagePersonal::changeTheme);
 	connect(m_appearLightThemeText, &ClickableLabel::clicked, this, &LanguagePersonal::themeTextClicked);
 	connect(m_appearDarkThemeText, &ClickableLabel::clicked, this, &LanguagePersonal::themeTextClicked);
@@ -150,7 +150,7 @@ void LanguagePersonal::changeTheme()
 {
 	setTextStyle();
 	setAppearImage();
-	setButtonStyle();
+	//setButtonStyle();
 }
 
 void LanguagePersonal::setTextStyle()
@@ -202,22 +202,17 @@ void LanguagePersonal::setAppearImage()
 
 void LanguagePersonal::setButtonStyle()
 {
-	QIcon lightTheme;
-	QIcon darkTheme;
-
-	m_darkThemeBtn->setStyleSheet("QPushButton {border: 0px;}");
-	m_lightThemeBtn->setStyleSheet("QPushButton {border: 0px;}");
 
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		lightTheme.addFile(LIGHT_THEME_ICON_SELECTED);
-		darkTheme.addFile(DARK_THEME_ICON_UNSELECTED);
+		m_lightThemeBtn->setButtonChecked(Qt::Checked);
+		m_darkThemeBtn->setButtonChecked(Qt::Unchecked);
 		break;
 
 	case Theme_Type::Dark_Theme:
-		lightTheme.addFile(LIGHT_THEME_ICON_UNSELECTED);
-		darkTheme.addFile(DARK_THEME_ICON_SELECTED);
+		m_lightThemeBtn->setButtonChecked(Qt::Unchecked);
+		m_darkThemeBtn->setButtonChecked(Qt::Checked);
 		break;
 
 		//MORE THEME
@@ -225,11 +220,6 @@ void LanguagePersonal::setButtonStyle()
 		break;
 	}
 
-	m_lightThemeBtn->setIcon(lightTheme);
-	m_lightThemeBtn->setIconSize(QSize(20, 20));
-
-	m_darkThemeBtn->setIcon(darkTheme);
-	m_darkThemeBtn->setIconSize(QSize(20, 20));
 }
 
 void LanguagePersonal::radioButtonClicked()
@@ -241,6 +231,8 @@ void LanguagePersonal::radioButtonClicked()
 		{
 			AppSetting::getInstance()->setTheme(Theme_Type::Light_Theme);
 		}
+		m_lightThemeBtn->setButtonChecked(Qt::Checked);
+		m_darkThemeBtn->setButtonChecked(Qt::Unchecked);
 
 	}
 	else if (sender() == m_darkThemeBtn)
@@ -249,6 +241,8 @@ void LanguagePersonal::radioButtonClicked()
 		{
 			AppSetting::getInstance()->setTheme(Theme_Type::Dark_Theme);
 		}
+		m_lightThemeBtn->setButtonChecked(Qt::Unchecked);
+		m_darkThemeBtn->setButtonChecked(Qt::Checked);
 	}
 }
 
@@ -257,6 +251,8 @@ void LanguagePersonal::themeTextClicked()
 {
 	if (sender() == m_appearLightThemeText)
 	{
+		m_lightThemeBtn->setButtonChecked(Qt::Checked);
+		m_darkThemeBtn->setButtonChecked(Qt::Unchecked);
 		if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
 		{
 			AppSetting::getInstance()->setTheme(Theme_Type::Light_Theme);
@@ -265,6 +261,8 @@ void LanguagePersonal::themeTextClicked()
 	}
 	else if (sender() == m_appearDarkThemeText)
 	{
+		m_lightThemeBtn->setButtonChecked(Qt::Unchecked);
+		m_darkThemeBtn->setButtonChecked(Qt::Checked);
 		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
 		{
 			AppSetting::getInstance()->setTheme(Theme_Type::Dark_Theme);

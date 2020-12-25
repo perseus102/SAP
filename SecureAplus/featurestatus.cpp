@@ -67,6 +67,7 @@ FeatureStatus::FeatureStatus(Feature featureName, Feature_States state, QWidget 
 	setStyle();
 
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &FeatureStatus::changeTheme);
+	connect(this, &FeatureStatus::changeScreen, AppSetting::getInstance(), &AppSetting::appChangeScreen);
 }
 
 FeatureStatus::~FeatureStatus()
@@ -107,13 +108,19 @@ Feature FeatureStatus::getFeatureName()
 
 void FeatureStatus::settingBtnClicked()
 {
-	qDebug() << m_featureNameLabel->text() << " clicked";
-	emit settingFeature();
+	if (m_featureName == Feature::Lisence)
+	{
+		emit changeScreen(Screen::License_Screen);
+	}
+	else if (m_featureName == Feature::RealTime_Scanning)
+	{
+		emit changeScreen(Screen::Antivirus_Tab);
+	}
 }
 
 void FeatureStatus::setStyle()
 {
-	switch (m_featureName)
+	/*switch (m_featureName)
 	{
 	case Lisence:
 		setLicenseStyle();
@@ -141,7 +148,73 @@ void FeatureStatus::setStyle()
 		break;
 	default:
 		break;
+	}*/
+
+	QIcon dotStatusIcon;
+	m_statusIcon->setStyleSheet("QLabel {border-radius:0px;}");
+
+	switch (m_featureState)
+	{
+	case Active:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_ACTIVE);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_ACTIVE + ";border-radius:0px;}");
+		break;
+	case Off_Intentional:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_OFF_INTENTIONAL);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_OFF_INTENTIONAL + ";border-radius:0px;}");
+		break;
+	case Off_NotIntentional:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_OFF_NOT_INTENTIONAL);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_OFF_NOT_INTENTIONAL + ";border-radius:0px;}");
+		break;
+	case Expire_Soon:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_EXPIRE_SOON);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_EXPIRE_SOON + ";border-radius:0px;}");
+		break;
+	case Expired:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_EXPIRED);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_EXPIRED + ";border-radius:0px;}");
+		break;
+	case Invalid:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_INVALID);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_INVALID + ";border-radius:0px;}");
+		break;
+	case Running:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_RUNNING);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_RUNNING + ";border-radius:0px;}");
+		break;
+	case Not_Running:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_RUNNING);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_RUNNING + ";border-radius:0px;}");
+		break;
+	case Not_Installed:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_NOT_INSTALLED);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_NOT_INSTALLED + ";border-radius:0px;}");
+		break;
+	case Start_Pending:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_START_PENDING);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_START_PENDING + ";border-radius:0px;}");
+		break;
+	case Stop_Pending:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_STOP_PENDING);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_STOP_PENDING + ";border-radius:0px;}");
+		break;
+	case Continue_Pending:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_CONTINUE_PENDING);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_CONTINUE_PENDING + ";border-radius:0px;}");
+		break;
+	case Pause_Pending:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSE_PENDING);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSE_PENDING + ";border-radius:0px;}");
+		break;
+	case Paused:
+		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_PAUSED);
+		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_PAUSED + ";border-radius:0px;}");
+		break;
+	default:
+		break;
 	}
+	m_statusIcon->setPixmap(dotStatusIcon.pixmap(12, 12));
 
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -190,7 +263,7 @@ void FeatureStatus::setLicenseStyle()
 		dotStatusIcon = util::getInstance()->ChangeCircleSVGColor(DOT_STATUS, FEATURE_INVALID);
 		m_statusTextLabel->setStyleSheet("QLabel {color:" + FEATURE_INVALID + ";border-radius:0px;}");
 		break;
-	case Running:
+	case Feature_States::Running:
 		break;
 	case Not_Running:
 		break;

@@ -33,6 +33,7 @@ public:
 	~SettingsContent();
 
 	void fadeIn();
+	void changeToAntivirusTab();
 
 public slots:
 	void onFadeInFinished();

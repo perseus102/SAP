@@ -40,6 +40,8 @@ signals:
 public slots:
 	void switchActiveWidget();
 	void changeBackground();
+	void changeScreenView(Screen screen);
+
 protected:
 	void resizeEvent(QResizeEvent *event);
 

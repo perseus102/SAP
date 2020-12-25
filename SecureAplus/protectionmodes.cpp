@@ -419,8 +419,16 @@ void ProtectionModes::modeChangedByOtherSetting(Protection_Modes mode)
 	case None:
 		break;
 	case Automatic_Mode:
+		m_automatic->setSelected(true);
+		mode = Protection_Modes::Automatic_Mode;
+		m_modeSelected = m_automatic;
+		m_editModeWidget->setVisible(false);
 		break;
 	case Interactive_Mode:
+		m_interactive->setSelected(true);
+		mode = Protection_Modes::Interactive_Mode;
+		m_modeSelected = m_interactive;
+		m_editModeWidget->setVisible(false);
 		break;
 	case Lockdown_Mode:
 		break;

@@ -145,6 +145,21 @@
     <Filter Include="Source Files\Manage content">
       <UniqueIdentifier>{367196c6-2b50-4fbd-9e65-1e2de5dd4683}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Manage Content">
+      <UniqueIdentifier>{9217952e-e836-4939-990c-4077bef02584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\SAP RadioButton">
+      <UniqueIdentifier>{321a067c-7d30-4c4b-8c24-2750ccd428ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\SAP RadioButton">
+      <UniqueIdentifier>{e3a7f905-b0e5-4536-9aff-5d03cacb2843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Manage content\Application Control">
+      <UniqueIdentifier>{ec3afd99-1a33-49ed-9261-3d933d8bf587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Manage Content\Application Control">
+      <UniqueIdentifier>{2e090bb6-bcec-4db8-8957-641c59565c8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -281,6 +296,21 @@
     <ClCompile Include="managegridcontent.cpp">
       <Filter>Source Files\Manage content</Filter>
     </ClCompile>
+    <ClCompile Include="applicationcontrol.cpp">
+      <Filter>Source Files\Manage content</Filter>
+    </ClCompile>
+    <ClCompile Include="sapradiobutton.cpp">
+      <Filter>Source Files\Component\SAP RadioButton</Filter>
+    </ClCompile>
+    <ClCompile Include="digitalsignature.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="allowlist.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="allowliststatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -386,9 +416,24 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="managecontent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Manage Content</Filter>
+    </QtMoc>
+    <QtMoc Include="applicationcontrol.h">
+      <Filter>Header Files\Manage Content</Filter>
     </QtMoc>
     <QtMoc Include="managegridcontent.h">
+      <Filter>Header Files\Manage Content</Filter>
+    </QtMoc>
+    <QtMoc Include="sapradiobutton.h">
+      <Filter>Header Files\Component\SAP RadioButton</Filter>
+    </QtMoc>
+    <QtMoc Include="digitalsignature.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="allowlist.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="allowliststatus.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -493,6 +538,21 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="managegridcontent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="applicationcontrol.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sapradiobutton.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="digitalsignature.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="allowlist.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="allowliststatus.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

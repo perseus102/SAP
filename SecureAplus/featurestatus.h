@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QObject>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QPushButton>
@@ -29,7 +28,8 @@ public slots:
 	void settingBtnClicked();
 
 signals:
-	void settingFeature();
+	void changeScreen(Screen screen);
+
 private:
 	Ui::FeatureStatus ui;
 	QLabel *m_featureNameLabel;

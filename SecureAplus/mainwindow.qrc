@@ -14,10 +14,6 @@
         <file>images/language personal/appear_dark_theme_light_mode.png</file>
         <file>images/language personal/appear_light_theme_dark_mode.png</file>
         <file>images/language personal/appear_light_theme_light_mode.png</file>
-        <file>images/language personal/dark_theme_selected.svg</file>
-        <file>images/language personal/dark_theme_unselected.svg</file>
-        <file>images/language personal/light_theme_selected.svg</file>
-        <file>images/language personal/light_theme_unselected.svg</file>
         <file>images/protection modes/automatic.svg</file>
         <file>images/protection modes/interactive.svg</file>
         <file>images/protection modes/lockdown.svg</file>
@@ -48,5 +44,9 @@
         <file>images/setting/scan_settings.svg</file>
         <file>images/setting/security.svg</file>
         <file>images/setting/update.svg</file>
+        <file>images/radio button/radio_btn_selected_dt.svg</file>
+        <file>images/radio button/radio_btn_selected_lt.svg</file>
+        <file>images/radio button/radio_btn_unselected_dt.svg</file>
+        <file>images/radio button/radio_btn_unselected_lt.svg</file>
     </qresource>
 </RCC>

@@ -40,6 +40,7 @@ public:
 public slots:
 	void changeProtectionMode(Protection_Modes mode, bool editMode = false);
 	void toggleClicked(bool isChecked);
+	void appChangeScreen(Screen screen);
 
 signals:
 	void signal_changeTheme();
@@ -49,6 +50,8 @@ signals:
 	void signal_changeStatus();
 	void signal_changeToPrevMode();
 	void signal_ChangeModeByOtherSetting(Protection_Modes mode);
+	void signal_ChangeScreen(Screen screen);
+
 private:
 	AppSetting();
 	static AppSetting* m_instance;

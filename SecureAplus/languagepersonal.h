@@ -8,6 +8,7 @@
 #include "define.h"
 #include "appsetting.h"
 #include "clickablelabel.h"
+#include "sapradiobutton.h"
 class LanguagePersonal : public QWidget
 {
 	Q_OBJECT
@@ -29,8 +30,8 @@ private:
 	QLabel* m_appearance;
 	QLabel* m_appearLightTheme;
 	QLabel* m_appearDarkTheme;
-	QPushButton *m_lightThemeBtn;
-	QPushButton *m_darkThemeBtn;
+	SAPRadioButton *m_lightThemeBtn;
+	SAPRadioButton *m_darkThemeBtn;
 	ClickableLabel* m_appearLightThemeText;
 	ClickableLabel* m_appearDarkThemeText;
 	QLabel* spacerCenter;

@@ -17,8 +17,10 @@ public:
 	~SAPSCrollArea();
 private slots:
 	void changeTheme();
+	void scrollBarChangeValue(int);
+	void scrollBarTimeout();
 private:
 	Ui::SAPSCrollArea ui;
-
+	QTimer*				m_scrollBarTimer;
 	void setStyle();
 };

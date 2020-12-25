@@ -84,15 +84,11 @@ ScanSettings::ScanSettings(QWidget *parent)
 	m_activeTab = m_universalAV;
 	setStyle();
 
-	m_scrollBarTimer = new QTimer();
-
 	connect(m_universalAV, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(m_antivirus, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(m_VulAssessment, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ScanSettings::changeTheme);
 	connect(m_antivirusTab, &Anitivirus::offUniversalAVRealTimeScan, m_universalAVTab, &UniversalAV::offRealTimeScan);
-	connect(m_scrollView->verticalScrollBar(), &QScrollBar::valueChanged, this, &ScanSettings::scrollBarChangeValue);
-	connect(m_scrollBarTimer, &QTimer::timeout, this, &ScanSettings::scrollBarTimeout);
 }
 
 ScanSettings::~ScanSettings()
@@ -106,35 +102,36 @@ void ScanSettings::setTabText()
 	m_VulAssessment->setText("Vulnerability Assessment");
 }
 
+void ScanSettings::activeAntivirusTab()
+{
+	m_tabStackedWidget->setCurrentWidget(m_antivirusTab);
+	m_activeTab = m_antivirus;
+	setTabStyle();
+	resizeTab();
+}
+
 void ScanSettings::TabClicked()
 {
 	if (sender() == m_universalAV)
 	{
-		setTabActiveStyle(m_universalAV);
-		setTabInActiveStyle(m_antivirus);
-		setTabInActiveStyle(m_VulAssessment);
 		m_tabStackedWidget->setCurrentWidget(m_universalAVTab);
 		m_activeTab = m_universalAV;
-		resizeTab();
 	}
 	else if (sender() == m_antivirus)
 	{
-		setTabActiveStyle(m_antivirus);
-		setTabInActiveStyle(m_universalAV);
-		setTabInActiveStyle(m_VulAssessment);
+
 		m_tabStackedWidget->setCurrentWidget(m_antivirusTab);
 		m_activeTab = m_antivirus;
-		resizeTab();
 	}
 	else if (sender() == m_VulAssessment)
 	{
-		setTabActiveStyle(m_VulAssessment);
-		setTabInActiveStyle(m_antivirus);
-		setTabInActiveStyle(m_universalAV);
+
 		m_tabStackedWidget->setCurrentWidget(m_vulAssessmentTab);
 		m_activeTab = m_VulAssessment;
-		resizeTab();
 	}
+	setTabStyle();
+	resizeTab();
+
 }
 
 
@@ -145,13 +142,13 @@ void ScanSettings::setStyle()
 	{
 	case Theme_Type::Light_Theme:
 		m_tabContentWidget->setStyleSheet("QFrame#m_tabContentWidget{border-top-left-radius:10px;"
-			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_LT + ";}");
+			"background-color:" + TAB_CONTENT_BACKGROUND_LT + ";}");
 
 		break;
 
 	case Theme_Type::Dark_Theme:
 		m_tabContentWidget->setStyleSheet("QFrame#m_tabContentWidget{border-top-left-radius:10px;"
-			"background-color:" + SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_DT + ";}");
+			"background-color:" + TAB_CONTENT_BACKGROUND_DT + ";}");
 
 		break;
 
@@ -166,13 +163,13 @@ void ScanSettings::setTabActiveStyle(ClickableLabel * tab)
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		tab->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TAB_SELECTED_TEXT_LT + "; border-top-left-radius:2px; border-bottom-left-radius:2px;"
-			"background-color:" + SCAN_SETTINGS_TAB_ACTIVE_BACKGROUND_LT + ";}");
+		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_ACTIVE_LT + "; border-top-left-radius:2px; border-bottom-left-radius:2px;"
+			"background-color:" + TAB_TITLE_BACKGROUND_ACTIVE_LT + ";}");
 		break;
 
 	case Theme_Type::Dark_Theme:
-		tab->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TAB_SELECTED_TEXT_DT + "; border-top-left-radius:2px; border-bottom-left-radius:2px;"
-			"background-color:" + SCAN_SETTINGS_TAB_ACTIVE_BACKGROUND_DT + ";}");
+		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_ACTIVE_DT + "; border-top-left-radius:2px; border-bottom-left-radius:2px;"
+			"background-color:" + TAB_TITLE_BACKGROUND_ACTIVE_DT + ";}");
 		break;
 
 		//MORE THEME
@@ -186,12 +183,12 @@ void ScanSettings::setTabInActiveStyle(ClickableLabel * tab)
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		tab->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TAB_UNSELECTED_TEXT_LT + ";"
+		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_INACTIVE_LT + ";"
 			"background-color: none;}");
 		break;
 
 	case Theme_Type::Dark_Theme:
-		tab->setStyleSheet("QLabel{ color:" + SCAN_SETTINGS_TAB_UNSELECTED_TEXT_DT + ";"
+		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_INACTIVE_DT + ";"
 			"background-color: none;}");
 		break;
 
@@ -205,22 +202,6 @@ void ScanSettings::changeTheme()
 {
 	setStyle();
 	setTabStyle();
-}
-
-void ScanSettings::scrollBarChangeValue(int value)
-{
-	qDebug() << " scroll value: " << value;
-	m_scrollView->verticalScrollBar()->setVisible(true);
-	if (m_scrollBarTimer->isActive())
-	{
-		m_scrollBarTimer->stop();
-	}
-	m_scrollBarTimer->start(1000);
-}
-
-void ScanSettings::scrollBarTimeout()
-{
-	m_scrollView->verticalScrollBar()->setVisible(false);
 }
 
 void ScanSettings::setTabStyle()
@@ -296,6 +277,5 @@ void ScanSettings::resizeTab()
 void ScanSettings::resizeEvent(QResizeEvent* event)
 {
 	//Q_UNUSED(event);
-	qDebug()<< event->size();
 	resizeTab();
 }

@@ -5,11 +5,30 @@ SAPSCrollArea::SAPSCrollArea(QWidget *parent)
 {
 	ui.setupUi(this);
 	setStyle();
+	m_scrollBarTimer = new QTimer();
+
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SAPSCrollArea::changeTheme);
+	connect(this->verticalScrollBar(), &QScrollBar::valueChanged, this, &SAPSCrollArea::scrollBarChangeValue);
+	connect(m_scrollBarTimer, &QTimer::timeout, this, &SAPSCrollArea::scrollBarTimeout);
 }
 
 SAPSCrollArea::~SAPSCrollArea()
 {
+}
+
+void SAPSCrollArea::scrollBarChangeValue(int)
+{
+	this->verticalScrollBar()->setVisible(true);
+	if (m_scrollBarTimer->isActive())
+	{
+		m_scrollBarTimer->stop();
+	}
+	m_scrollBarTimer->start(1000);
+}
+
+void SAPSCrollArea::scrollBarTimeout()
+{
+	this->verticalScrollBar()->setVisible(false);
 }
 
 void SAPSCrollArea::setStyle()

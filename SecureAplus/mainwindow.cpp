@@ -48,6 +48,7 @@ void MainWindow::setConnection()
 	connect(m_manageWidget, &ManageWidget::setActive, this, &MainWindow::switchActiveWidget);
 	connect(m_SettingWidget, &SettingWidget::setActive, this, &MainWindow::switchActiveWidget);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &MainWindow::changeBackground);
+	connect(AppSetting::getInstance(), &AppSetting::signal_ChangeScreen, this, &MainWindow::changeScreenView);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -135,6 +136,56 @@ void MainWindow::changeBackground()
 			"#main_widget{border: 0px none palette(shadow); "
 			"border-top-left-radius:10px;"
 			"background-color:" + MAIN_BACKGROUND_DARK_THEME_COLOR + ";}");
+	}
+}
+
+void MainWindow::changeScreenView(Screen screen)
+{
+	if (ActiveWidget == m_statusWidget)
+	{
+		//do something
+	}
+	else if (ActiveWidget == m_homeWidget)
+	{
+		m_homeWidget->setSelected(false);
+		m_homeWidget->setWidgetStyle();
+
+	}
+	else if (ActiveWidget == m_scanWidget)
+	{
+		m_scanWidget->setSelected(false);
+		m_scanWidget->setWidgetStyle();
+
+
+	}
+	else if (ActiveWidget == m_manageWidget)
+	{
+		m_manageWidget->setSelected(false);
+		m_manageWidget->setWidgetStyle();
+
+
+	}
+	else if (ActiveWidget == m_SettingWidget)
+	{
+		m_SettingWidget->setSelected(false);
+		m_SettingWidget->setWidgetStyle();
+	}
+
+	switch (screen)
+	{
+	case Screen_None:
+		break;
+	case License_Screen:
+		break;
+	case Antivirus_Tab:
+		m_SettingWidget->setSelected(true);
+		m_SettingWidget->setWidgetStyle();
+		ActiveWidget = m_SettingWidget;
+		stackedWidget->setCurrentWidget(m_settingContent);
+		m_settingContent->changeToAntivirusTab();
+		break;
+	default:
+		break;
 	}
 }
 

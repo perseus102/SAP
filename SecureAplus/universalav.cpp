@@ -53,9 +53,9 @@ UniversalAV::UniversalAV(QWidget *parent)
 	//uploadSpacer->setFixedHeight(20);
 
 	m_fileTypeCbb->addItem("Executable and script files");
-	m_fileTypeCbb->addItem("Executable");
-	m_fileTypeCbb->addItem("Executable");
-	m_fileTypeCbb->addItem("Executable");
+	m_fileTypeCbb->addItem("Executable files");
+	m_fileTypeCbb->addItem("Any type of files");
+	m_fileTypeCbb->addItem("Executable and script files");
 
 	m_autoUploadLine = new QLabel();
 	m_autoUploadLine->setFixedHeight(2);

@@ -12,8 +12,6 @@
 #include "vulassessment.h"
 #include "sapscrollarea.h"
 #include <QStackedWidget>
-#include <QScrollArea>
-#include <QTimer>
 
 class ScanSettings : public QWidget
 {
@@ -23,12 +21,11 @@ public:
 	ScanSettings(QWidget *parent = Q_NULLPTR);
 	~ScanSettings();
 	void setTabText();
+	void activeAntivirusTab();
 
 private slots:
 	void TabClicked();
 	void changeTheme();
-	void scrollBarChangeValue(int);
-	void scrollBarTimeout();
 protected:
 	void resizeEvent(QResizeEvent *event) override;
 private:
@@ -47,7 +44,6 @@ private:
 	Anitivirus*			m_antivirusTab;
 	VulAssessment*		m_vulAssessmentTab;
 	QObject*			m_activeTab;
-	QTimer*				m_scrollBarTimer;
 	void setStyle();
 	void setTabStyle();
 	void resizeTab();

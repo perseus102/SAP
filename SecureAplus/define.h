@@ -141,10 +141,6 @@
 #define APPEAR_LIGHT_THEME_LIGHT_MODE		QString(":/images/language personal/appear_light_theme_light_mode.png")
 #define APPEAR_DARK_THEME_DARK_MODE			QString(":/images/language personal/appear_dark_theme_dark_mode.png")
 #define APPEAR_LIGHT_THEME_DARK_MODE		QString(":/images/language personal/appear_light_theme_dark_mode.png")
-#define LIGHT_THEME_ICON_SELECTED			QString(":/images/language personal/light_theme_selected.svg")
-#define LIGHT_THEME_ICON_UNSELECTED			QString(":/images/language personal/light_theme_unselected.svg")
-#define DARK_THEME_ICON_SELECTED			QString(":/images/language personal/dark_theme_selected.svg")
-#define DARK_THEME_ICON_UNSELECTED			QString(":/images/language personal/dark_theme_unselected.svg")
 
 /* Define for Protection Modes icon */
 #define AUTOMATIC							QString(":/images/protection modes/automatic.svg")
@@ -186,6 +182,12 @@
 #define REMOVABLE_DEVICES					QString(":/images/manage/removeable_devices.svg")
 #define ACCOUNT_LICENSE						QString(":/images/manage/account_license.svg")
 
+/* Define for radio button */
+#define RADIO_BTN_SELECTED_LT				QString(":/images/radio button/radio_btn_selected_lt.svg")
+#define RADIO_BTN_SELECTED_DT				QString(":/images/radio button/radio_btn_selected_dt.svg")
+#define RADIO_BTN_UNSELECTED_LT				QString(":/images/radio button/radio_btn_unselected_lt.svg")
+#define RADIO_BTN_UNSELECTED_DT				QString(":/images/radio button/radio_btn_unselected_dt.svg")
+
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
 
@@ -194,6 +196,7 @@
 #define HOME_CONTENT_STATUS_FONT			QFont("Lato", 16, QFont::Medium)
 #define GRID_SUB_TITLE_FONT					QFont("Lato", 8, QFont::Normal)
 #define SMALL_FONT							QFont("Lato", 8, QFont::Normal)
+#define SMALL_FONT_BOLD						QFont("Lato", 8, QFont::Bold)
 #define LARGE_FONT							QFont("Lato", 12, QFont::Normal)
 
 /* Define for navigation button color */
@@ -377,18 +380,20 @@
 #define FEATURE_SETTING_DT							Config::getInstance()->getConfigValue("Feature Details/Feature_Setting_DarkTheme_Theme")
 
 /* Define for Scan Settings */
-#define SCAN_SETTINGS_TAB_SELECTED_TEXT_LT			Config::getInstance()->getConfigValue("Scan Settings/Tab_Selected_Text_Light_Theme")
-#define SCAN_SETTINGS_TAB_SELECTED_TEXT_DT			Config::getInstance()->getConfigValue("Scan Settings/Tab_Selected_Text_Dark_Theme")
-#define SCAN_SETTINGS_TAB_UNSELECTED_TEXT_LT		Config::getInstance()->getConfigValue("Scan Settings/Tab_Unselected_Text_Light_Theme")
-#define SCAN_SETTINGS_TAB_UNSELECTED_TEXT_DT		Config::getInstance()->getConfigValue("Scan Settings/Tab_Unselected_Text_Dark_Theme")
-#define SCAN_SETTINGS_TAB_ACTIVE_BACKGROUND_LT		Config::getInstance()->getConfigValue("Scan Settings/Tab_Active_Background_Light_Theme")
-#define SCAN_SETTINGS_TAB_ACTIVE_BACKGROUND_DT		Config::getInstance()->getConfigValue("Scan Settings/Tab_Active_Background_Dark_Theme")
-#define SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_LT		Config::getInstance()->getConfigValue("Scan Settings/Scroll_Area_Background_Light_Theme")
-#define SCAN_SETTINGS_SCROLL_AREA_BACKGROUND_DT		Config::getInstance()->getConfigValue("Scan Settings/Scroll_Area_Background_Dark_Theme")
 #define SCAN_SETTINGS_TITLE_TEXT_LT					Config::getInstance()->getConfigValue("Scan Settings/Title_Text_Light_Theme")
 #define SCAN_SETTINGS_TITLE_TEXT_DT					Config::getInstance()->getConfigValue("Scan Settings/Title_Text_Dark_Theme")
 #define SCAN_SETTINGS_DESCRIPTION_TEXT_LT			Config::getInstance()->getConfigValue("Scan Settings/Description_Text_Light_Theme")
 #define SCAN_SETTINGS_DESCRIPTION_TEXT_DT			Config::getInstance()->getConfigValue("Scan Settings/Description_Text_Dark_Theme")
+
+/* Define for Tab widget */
+#define TAB_TITLE_TEXT_ACTIVE_LT					Config::getInstance()->getConfigValue("Tab/Tab_Title_Text_Active_Light_Theme")
+#define TAB_TITLE_TEXT_ACTIVE_DT					Config::getInstance()->getConfigValue("Tab/Tab_Title_Text_Active_Dark_Theme")
+#define TAB_TITLE_TEXT_INACTIVE_LT					Config::getInstance()->getConfigValue("Tab/Tab_Title_Text_Inactive_Light_Theme")
+#define TAB_TITLE_TEXT_INACTIVE_DT					Config::getInstance()->getConfigValue("Tab/Tab_Title_Text_Inactive_Dark_Theme")
+#define TAB_TITLE_BACKGROUND_ACTIVE_LT				Config::getInstance()->getConfigValue("Tab/Tab_Title_Active_Background_Light_Theme")
+#define TAB_TITLE_BACKGROUND_ACTIVE_DT				Config::getInstance()->getConfigValue("Tab/Tab_Title_Active_Background_Dark_Theme")
+#define TAB_CONTENT_BACKGROUND_LT					Config::getInstance()->getConfigValue("Tab/Tab_Content_Background_Light_Theme")
+#define TAB_CONTENT_BACKGROUND_DT					Config::getInstance()->getConfigValue("Tab/Tab_Content_Background_Dark_Theme")
 
 /* Define for Line between widgets */
 #define LINE_COLOR_LT								Config::getInstance()->getConfigValue("Line/Line_Color_Light_Theme")
@@ -399,6 +404,8 @@
 #define COMBOBOX_TEXT_ICON_DT						Config::getInstance()->getConfigValue("ComboBox/Combobox_Text_Icon_Dark_Theme")
 #define	COMBOBOX_BACKGROUND_LT						Config::getInstance()->getConfigValue("ComboBox/Combobox_Background_Light_Theme")
 #define	COMBOBOX_BACKGROUND_DT						Config::getInstance()->getConfigValue("ComboBox/Combobox_Background_Dark_Theme")
+#define COMBOBOX_SELECTION_BACKGROUND_LT			Config::getInstance()->getConfigValue("ComboBox/Combobox_Selection_Background_Light_theme")
+#define COMBOBOX_SELECTION_BACKGROUND_DT			Config::getInstance()->getConfigValue("ComboBox/Combobox_Selection_Background_Dark_theme")
 
 /* Define for Slider */
 #define SLIDER_ACTIVE_TRACK_LT						Config::getInstance()->getConfigValue("Slider/Slider_Active_Track_Light_Theme")
@@ -414,6 +421,18 @@
 #define VER_SCROLLBAR_TRACK_LT						Config::getInstance()->getConfigValue("Vertical Scrollbar/Ver_Scroll_Track_Light_Theme")
 #define VER_SCROLLBAR_TRACK_DT						Config::getInstance()->getConfigValue("Vertical Scrollbar/Ver_Scroll_Track_Dark_Theme")
 
+/* Define for Application Control */
+#define APP_CONTROL_TITLE_TEXT_LT					Config::getInstance()->getConfigValue("Application Control/Title_Text_Light_Theme")
+#define APP_CONTROL_TITLE_TEXT_DT					Config::getInstance()->getConfigValue("Application Control/Title_Text_Dark_Theme")
+#define APP_CONTROL_DESC_TEXT_LT					Config::getInstance()->getConfigValue("Application Control/Description_Text_Light_Theme")
+#define APP_CONTROL_DESC_TEXT_DT					Config::getInstance()->getConfigValue("Application Control/Description_Text_Dark_Theme")
+
+/* Define for Application Control > Allow list */
+#define ALLOW_LIST_STATUS_BUILDING					Config::getInstance()->getConfigValue("Application Control/Allist_status_Building")
+#define ALLOW_LIST_STATUS_RUNNING					Config::getInstance()->getConfigValue("Application Control/Allist_status_Running")
+#define ALLOW_LIST_STATUS_COMPLETED					Config::getInstance()->getConfigValue("Application Control/Allist_status_Completed")
+#define ALLOW_LIST_BACKGROUND_LT					Config::getInstance()->getConfigValue("Application Control/Allist_Background_Light_Theme")
+#define ALLOW_LIST_BACKGROUND_DT					Config::getInstance()->getConfigValue("Application Control/Allist_Background_Dark_Theme")
 enum ColorType
 {
 	Default = 0,
@@ -520,4 +539,26 @@ enum Directory
 	Scan_Settings,
 	Home,
 	Manage,
+	AppControl,
+};
+
+enum AllowList_Type
+{
+	Allist_Creation = 0,
+	Allist_Service,
+	Allist_Driver,
+};
+
+enum AllowList_States
+{
+	Allist_Building = 0,
+	Allist_Completed,
+	Allist_Running,
+};
+
+enum Screen
+{
+	Screen_None = 0,
+	License_Screen,
+	Antivirus_Tab,
 };

@@ -59,6 +59,19 @@ void SettingsContent::fadeIn()
 	mpFadeIn->start();
 }
 
+void SettingsContent::changeToAntivirusTab()
+{
+	stackedWidget->setCurrentWidget(m_scanSettings);
+	if (m_settingTopBar->getLastLabel()->text() != "Scan Settings")
+	{
+		m_settingTopBar->addDir("Scan Settings", Directory::Scan_Settings);
+	}
+	m_curSettingDir = Directory::Scan_Settings;
+	m_settingTopBar->setVisibleNaviButton(true);
+	m_scanSettings->activeAntivirusTab();
+	fadeIn();
+}
+
 void SettingsContent::changeSettingsView(QString widgetName)
 {
 	if (widgetName == "scanSettings")
