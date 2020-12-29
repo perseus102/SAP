@@ -15,7 +15,8 @@ class AllowList : public QWidget
 public:
 	AllowList(QWidget *parent = Q_NULLPTR);
 	~AllowList();
-
+private slots:
+	void changeTheme();
 private:
 	Ui::AllowList ui;
 
@@ -39,5 +40,7 @@ private:
 
 	void setStyle();
 	void setLabelText();
+
+	
 
 };

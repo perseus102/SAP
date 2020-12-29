@@ -44,6 +44,7 @@ public:
 	QPushButton* getButton();
 	void addDir(QString dirText, Directory dir);
 	ClickableLabel* getLastLabel();
+	void clearContent();
 
 public slots:
 	void changeTheme();

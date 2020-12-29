@@ -4,7 +4,7 @@ AllowList::AllowList(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	setContentsMargins(0, 0, 0, 0);
+
 	m_layout = new QVBoxLayout();
 	m_layout->setContentsMargins(0, 0, 0, 0);
 	m_layout->setSpacing(0);
@@ -41,11 +41,7 @@ AllowList::AllowList(QWidget *parent)
 	m_allistDriver = new AllowListStatus(AllowList_Type::Allist_Driver, AllowList_States::Allist_Running);
 	m_allistDriver->setAllowListName("Application Allowlisting Driver");
 	m_allistDriver->setStatusText("Running");
-	
 	QLabel* statusBottom = new QLabel();
-
-	m_statusLine = new QLabel();
-	m_statusLine->setFixedHeight(2);
 
 	statusLayout->addWidget(m_status);
 	statusLayout->addWidget(statusTopSpacer);
@@ -56,8 +52,11 @@ AllowList::AllowList(QWidget *parent)
 	statusLayout->addWidget(m_allistDriver);
 	statusLayout->addWidget(statusBottom);
 
+	m_statusLine = new QLabel();
+	m_statusLine->setFixedHeight(2);
+
 	QWidget* imExportWg = new QWidget();
-	imExportWg->setFixedHeight(124);
+	imExportWg->setFixedHeight(115);
 	QVBoxLayout* imExportLayout = new QVBoxLayout();
 	imExportLayout->setSpacing(0);
 	imExportLayout->setContentsMargins(30, 0, 0, 0);
@@ -71,7 +70,7 @@ AllowList::AllowList(QWidget *parent)
 	m_imExport->setFixedHeight(20);
 
 	QLabel* imExportSpacer = new QLabel();
-	statusTopSpacer->setFixedHeight(12);
+	imExportSpacer->setFixedHeight(12);
 
 	m_imExportDesc = new QLabel();
 	m_imExportDesc->setFont(SMALL_FONT);
@@ -125,7 +124,7 @@ AllowList::AllowList(QWidget *parent)
 	compactWg->setLayout(compactLayout);
 
 	QLabel* compactTopSpacer = new QLabel();
-	imExportTopSpacer->setFixedHeight(15);
+	compactTopSpacer->setFixedHeight(15);
 
 	m_compactAllowList = new QLabel();
 	m_compactAllowList->setFont(LARGE_FONT);
@@ -165,7 +164,7 @@ AllowList::AllowList(QWidget *parent)
 	setLayout(m_layout);
 	setStyle();
 	setLabelText();
-
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &AllowList::changeTheme);
 }
 
 AllowList::~AllowList()
@@ -177,56 +176,56 @@ void AllowList::setStyle()
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		m_status->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_LT + ";}");
+		m_status->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
 
-		m_imExport->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_LT + ";}");
+		m_imExport->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
 
-		m_imExportDesc->setStyleSheet("QLabel{ color:" + APP_CONTROL_DESC_TEXT_LT + ";}");
+		m_imExportDesc->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
-		m_compactAllowList->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_LT + ";}");
-		m_compactAllowListDesc->setStyleSheet("QLabel{ color:" + APP_CONTROL_DESC_TEXT_LT + ";}");
+		m_compactAllowList->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
+		m_compactAllowListDesc->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
 		m_statusLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_LT + ";}");
 		m_imExportLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_LT + ";}");
 
-		m_exportAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + APP_CONTROL_TITLE_TEXT_DT + ";"
+		m_exportAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + TAB_CONTENT_DESC_TEXT_LT + ";"
 			"border-radius:2px;"
-			"border: 1px solid " + APP_CONTROL_TITLE_TEXT_DT + ";}");
+			"border: 1px solid " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
-		m_importAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + APP_CONTROL_TITLE_TEXT_DT + ";"
+		m_importAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + TAB_CONTENT_DESC_TEXT_LT + ";"
 			"border-radius:2px;"
-			"border: 1px solid " + APP_CONTROL_TITLE_TEXT_DT + ";}");
+			"border: 1px solid " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
-		m_compactAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + APP_CONTROL_TITLE_TEXT_DT + ";"
+		m_compactAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + TAB_CONTENT_DESC_TEXT_LT + ";"
 			"border-radius:2px;"
-			"border: 1px solid " + APP_CONTROL_TITLE_TEXT_DT + ";}");
+			"border: 1px solid " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 		break;
 
 	case Theme_Type::Dark_Theme:
-		m_status->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_DT + ";}");
+		m_status->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
 
-		m_imExport->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_DT + ";}");
+		m_imExport->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
 
-		m_imExportDesc->setStyleSheet("QLabel{ color:" + APP_CONTROL_DESC_TEXT_DT + ";}");
+		m_imExportDesc->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
-		m_compactAllowList->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_DT + ";}");
-		m_compactAllowListDesc->setStyleSheet("QLabel{ color:" + APP_CONTROL_DESC_TEXT_DT + ";}");
+		m_compactAllowList->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
+		m_compactAllowListDesc->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		m_statusLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_DT + ";}");
 
 		m_imExportLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_DT + ";}");
 
-		m_exportAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + APP_CONTROL_TITLE_TEXT_DT + ";"
+		m_exportAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + TAB_CONTENT_DESC_TEXT_DT + ";"
 			"border-radius:2px;"
-			"border: 1px solid " + APP_CONTROL_TITLE_TEXT_DT + ";}");
+			"border: 1px solid " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
-		m_importAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + APP_CONTROL_TITLE_TEXT_DT + ";"
+		m_importAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + TAB_CONTENT_DESC_TEXT_DT + ";"
 			"border-radius:2px;"
-			"border: 1px solid " + APP_CONTROL_TITLE_TEXT_DT + ";}");
+			"border: 1px solid " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
-		m_compactAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + APP_CONTROL_TITLE_TEXT_DT + ";"
+		m_compactAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + TAB_CONTENT_DESC_TEXT_DT + ";"
 			"border-radius:2px;"
-			"border: 1px solid " + APP_CONTROL_TITLE_TEXT_DT + ";}");
+			"border: 1px solid " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		break;
 		//MORE THEME
@@ -247,4 +246,9 @@ void AllowList::setLabelText()
 	m_importAllistBtn->setText("Import Allowlist");
 	m_compactAllistBtn->setText("Compact Allowlist");
 
+}
+
+void AllowList::changeTheme()
+{
+	setStyle();
 }

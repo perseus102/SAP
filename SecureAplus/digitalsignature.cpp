@@ -201,8 +201,8 @@ DigitalSignature::DigitalSignature(QWidget *parent)
 	setLabelText();
 	setStyle();
 
-	m_nameInTrustedBtn->setButtonChecked(Qt::Checked);
-	m_trustedByOSBtn->setButtonChecked(Qt::Unchecked);
+	m_nameInTrustedBtn->setButtonChecked(Qt::Unchecked);
+	m_trustedByOSBtn->setButtonChecked(Qt::Checked);
 	m_nameAndThumbprintBtn->setButtonChecked(Qt::Unchecked);
 
 	setAllowAppListVisible(false);
@@ -264,33 +264,33 @@ void DigitalSignature::setStyle()
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		m_trustBased->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_LT + ";}");
+		m_trustBased->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
 		
-		m_allowAppTitle->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_LT + ";}");
+		m_allowAppTitle->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
 		
-		m_nameInTrusted->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_LT + ";}");
-		m_nameInTrustedDesc->setStyleSheet("QLabel{ color:" + APP_CONTROL_DESC_TEXT_LT + ";}");
+		m_nameInTrusted->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
+		m_nameInTrustedDesc->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
 		
-		m_trustedByOS->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_LT + ";}");
-		m_trustedByOSDesc->setStyleSheet("QLabel{ color:" + APP_CONTROL_DESC_TEXT_LT + ";}");
+		m_trustedByOS->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
+		m_trustedByOSDesc->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
 		
-		m_nameAndThumbprint->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_LT + ";}");
-		m_nameAndThumbprintDesc->setStyleSheet("QLabel{ color:" + APP_CONTROL_DESC_TEXT_LT + ";}");
+		m_nameAndThumbprint->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
+		m_nameAndThumbprintDesc->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
 		break;
 
 	case Theme_Type::Dark_Theme:
-		m_trustBased->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_DT + ";}");
+		m_trustBased->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
 
-		m_allowAppTitle->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_DT + ";}");
+		m_allowAppTitle->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
 
-		m_nameInTrusted->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_DT + ";}");
-		m_nameInTrustedDesc->setStyleSheet("QLabel{ color:" + APP_CONTROL_DESC_TEXT_DT + ";}");
+		m_nameInTrusted->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
+		m_nameInTrustedDesc->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
-		m_trustedByOS->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_DT + ";}");
-		m_trustedByOSDesc->setStyleSheet("QLabel{ color:" + APP_CONTROL_DESC_TEXT_DT + ";}");
+		m_trustedByOS->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
+		m_trustedByOSDesc->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
-		m_nameAndThumbprint->setStyleSheet("QLabel{ color:" + APP_CONTROL_TITLE_TEXT_DT + ";}");
-		m_nameAndThumbprintDesc->setStyleSheet("QLabel{ color:" + APP_CONTROL_DESC_TEXT_DT + ";}");
+		m_nameAndThumbprint->setStyleSheet("QLabel{ color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
+		m_nameAndThumbprintDesc->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
 		break;
 		//MORE THEME
 	default:

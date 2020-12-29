@@ -78,10 +78,12 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 
 	m_digitalSignatureTab = new DigitalSignature();
 	m_allowListTab = new AllowList();
+	m_restrictedAppTab = new RestrictedApp();
 
 	m_tabStackedWidget = new QStackedWidget();
 	m_tabStackedWidget->addWidget(m_digitalSignatureTab);
 	m_tabStackedWidget->addWidget(m_allowListTab);
+	m_tabStackedWidget->addWidget(m_restrictedAppTab);
 
 	tabLayout->addWidget(m_tabStackedWidget);
 
@@ -247,6 +249,8 @@ void ApplicationControl::TabClicked()
 	}
 	else if (sender() == m_restrictApp)
 	{
+		m_tabStackedWidget->setCurrentWidget(m_restrictedAppTab);
+		m_activeTab = m_allowList;
 		m_activeTab = m_restrictApp;
 	}
 	else if (sender() == m_trustedCertificate)

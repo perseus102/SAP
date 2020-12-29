@@ -160,6 +160,18 @@
     <Filter Include="Header Files\Manage Content\Application Control">
       <UniqueIdentifier>{2e090bb6-bcec-4db8-8957-641c59565c8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Allowlist Status">
+      <UniqueIdentifier>{08c08a73-3f37-47d4-96d7-753a3de444f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Allowlist Status">
+      <UniqueIdentifier>{573a1766-9f1a-4eec-91f7-9f81e8c0c5bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\File Name Table">
+      <UniqueIdentifier>{d7e24488-b6ed-475f-b314-b08f497db88a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\File Name Table">
+      <UniqueIdentifier>{7386863b-03ab-4b48-acd1-16e7b1f9801c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -308,8 +320,17 @@
     <ClCompile Include="allowlist.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
-    <ClCompile Include="allowliststatus.cpp">
+    <ClCompile Include="search.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="restrictedapp.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="allowliststatus.cpp">
+      <Filter>Source Files\Component\Allowlist Status</Filter>
+    </ClCompile>
+    <ClCompile Include="filenametable.cpp">
+      <Filter>Source Files\Component\File Name Table</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -433,8 +454,17 @@
     <QtMoc Include="allowlist.h">
       <Filter>Header Files\Manage Content\Application Control</Filter>
     </QtMoc>
-    <QtMoc Include="allowliststatus.h">
+    <QtMoc Include="search.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="restrictedapp.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="allowliststatus.h">
+      <Filter>Header Files\Component\Allowlist Status</Filter>
+    </QtMoc>
+    <QtMoc Include="filenametable.h">
+      <Filter>Header Files\Component\File Name Table</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -553,6 +583,15 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="allowliststatus.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="rectrictedapp.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="search.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="filenametable.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

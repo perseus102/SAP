@@ -34,8 +34,6 @@ APEXRealTimeDialog::APEXRealTimeDialog(QWidget *parent)
 	m_yesBtn->setFont(FONT);
 	setYesBtnText("Yes"); //call function get text multi language
 
-	QLabel* spacerCenter = new QLabel();
-
 	buttonLayout->addWidget(leftSpacer);
 	buttonLayout->addWidget(m_noBtn);
 	buttonLayout->addWidget(m_yesBtn);

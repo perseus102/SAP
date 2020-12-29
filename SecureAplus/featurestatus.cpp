@@ -1,5 +1,57 @@
 #include "featurestatus.h"
 
+SettingButton::SettingButton(QWidget* parent)
+	: QPushButton(parent)
+{
+	setFixedSize(16, 16);
+	setStyleSheet("QPushButton {border: 0px;}");
+	initIcon();
+	/* Connection */
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingButton::changeTheme);
+}
+
+SettingButton::~SettingButton() {};
+
+void SettingButton::enterEvent(QEvent*)
+{
+	setIconSize(QSize(14, 14));
+}
+
+void SettingButton::leaveEvent(QEvent*)
+{
+	setIconSize(QSize(16, 16));
+}
+
+void SettingButton::initIcon()
+{
+	QIcon settingIcon;
+	setStyleSheet("QPushButton {border: 0px;}");
+
+	switch (AppSetting::getInstance()->getTheme())
+	{
+	case Theme_Type::Light_Theme:
+		settingIcon = util::getInstance()->ChangeSVGColor(FEATURE_SETTING, FEATURE_SETTING_LT);
+		break;
+
+	case Theme_Type::Dark_Theme:
+		settingIcon = util::getInstance()->ChangeSVGColor(FEATURE_SETTING, FEATURE_SETTING_DT);
+
+		break;
+
+		//MORE THEME
+	default:
+		break;
+	}
+
+	setIcon(settingIcon);
+	setIconSize(QSize(16, 16));
+}
+
+void SettingButton::changeTheme()
+{
+	initIcon();
+}
+
 FeatureStatus::FeatureStatus(Feature featureName, Feature_States state, QWidget *parent)
 	: QWidget(parent),
 	m_featureName(featureName),
@@ -53,10 +105,10 @@ FeatureStatus::FeatureStatus(Feature featureName, Feature_States state, QWidget 
 	{
 		m_statusTextLabel->setFixedWidth(248);
 
-		m_settingButton = new QPushButton();
+		m_settingButton = new SettingButton();
 		m_settingButton->setFixedSize(16, 16);
 		m_layout->addWidget(m_settingButton);
-		setSettingBtnStyle();
+		//setSettingBtnStyle();
 		connect(m_settingButton, &QPushButton::clicked, this, &FeatureStatus::settingBtnClicked);
 
 	}
@@ -110,7 +162,7 @@ void FeatureStatus::settingBtnClicked()
 {
 	if (m_featureName == Feature::Lisence)
 	{
-		emit changeScreen(Screen::License_Screen);
+		//emit changeScreen(Screen::License_Screen);
 	}
 	else if (m_featureName == Feature::RealTime_Scanning)
 	{
@@ -234,6 +286,7 @@ void FeatureStatus::setStyle()
 	default:
 		break;
 	}
+
 }
 
 void FeatureStatus::setLicenseStyle()
@@ -708,8 +761,10 @@ void FeatureStatus::setSettingBtnStyle()
 void FeatureStatus::changeTheme()
 {
 	setStyle();
-	if (m_featureName == Feature::Lisence || m_featureName == Feature::RealTime_Scanning)
-	{
-		setSettingBtnStyle();
-	}
+	//if (m_featureName == Feature::Lisence || m_featureName == Feature::RealTime_Scanning)
+	//{
+	//	setSettingBtnStyle();
+	//}
 }
+
+

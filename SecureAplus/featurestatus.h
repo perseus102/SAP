@@ -9,6 +9,25 @@
 #include "appsetting.h"
 #include "ui_featurestatus.h"
 
+class SettingButton : public QPushButton
+{
+	Q_OBJECT
+public:
+	SettingButton(QWidget* parent = Q_NULLPTR);
+	~SettingButton();
+
+public slots:
+	void changeTheme();
+
+protected:
+	void enterEvent(QEvent*) override;
+	void leaveEvent(QEvent*) override;
+
+private:
+	void initIcon();
+	QIcon icon;
+};
+
 class FeatureStatus : public QWidget
 {
 	Q_OBJECT

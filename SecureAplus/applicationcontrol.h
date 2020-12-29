@@ -7,6 +7,7 @@
 #include <QStackedWidget>
 #include "digitalsignature.h"
 #include "allowlist.h"
+#include "restrictedapp.h"
 class ApplicationControl : public QWidget
 {
 	Q_OBJECT
@@ -42,6 +43,8 @@ private:
 
 	DigitalSignature*	m_digitalSignatureTab;
 	AllowList*			m_allowListTab;
+	RestrictedApp*		m_restrictedAppTab;
+
 	void setStyle();
 	void setTabStyle();
 	void setTabActiveStyle(ClickableLabel* tab);

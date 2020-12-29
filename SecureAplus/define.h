@@ -392,8 +392,8 @@
 #define TAB_TITLE_TEXT_INACTIVE_DT					Config::getInstance()->getConfigValue("Tab/Tab_Title_Text_Inactive_Dark_Theme")
 #define TAB_TITLE_BACKGROUND_ACTIVE_LT				Config::getInstance()->getConfigValue("Tab/Tab_Title_Active_Background_Light_Theme")
 #define TAB_TITLE_BACKGROUND_ACTIVE_DT				Config::getInstance()->getConfigValue("Tab/Tab_Title_Active_Background_Dark_Theme")
-#define TAB_CONTENT_BACKGROUND_LT					Config::getInstance()->getConfigValue("Tab/Tab_Content_Background_Light_Theme")
-#define TAB_CONTENT_BACKGROUND_DT					Config::getInstance()->getConfigValue("Tab/Tab_Content_Background_Dark_Theme")
+//#define TAB_CONTENT_BACKGROUND_LT					Config::getInstance()->getConfigValue("Tab/Tab_Content_Background_Light_Theme")
+//#define TAB_CONTENT_BACKGROUND_DT					Config::getInstance()->getConfigValue("Tab/Tab_Content_Background_Dark_Theme")
 
 /* Define for Line between widgets */
 #define LINE_COLOR_LT								Config::getInstance()->getConfigValue("Line/Line_Color_Light_Theme")
@@ -433,6 +433,15 @@
 #define ALLOW_LIST_STATUS_COMPLETED					Config::getInstance()->getConfigValue("Application Control/Allist_status_Completed")
 #define ALLOW_LIST_BACKGROUND_LT					Config::getInstance()->getConfigValue("Application Control/Allist_Background_Light_Theme")
 #define ALLOW_LIST_BACKGROUND_DT					Config::getInstance()->getConfigValue("Application Control/Allist_Background_Dark_Theme")
+
+/* Define for Tab content widget */
+#define TAB_CONTENT_TITLE_TEXT_LT					Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Title_Text_Light_Theme")
+#define TAB_CONTENT_TITLE_TEXT_DT					Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Title_Text_Dark_Theme")
+#define TAB_CONTENT_DESC_TEXT_LT					Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Desc_Text_Light_Theme")
+#define TAB_CONTENT_DESC_TEXT_DT					Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Desc_Text_Dark_Theme")
+#define TAB_CONTENT_BACKGROUND_LT					Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Background_Light_Theme")
+#define TAB_CONTENT_BACKGROUND_DT					Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Background_Dark_Theme")
+
 enum ColorType
 {
 	Default = 0,

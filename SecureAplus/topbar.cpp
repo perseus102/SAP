@@ -57,7 +57,6 @@ TopBar::TopBar(QWidget *parent)
 	setFixedHeight(16);
 
 	/* Init */
-	//m_Directory			= new QLabel();
 	m_navigationBtn		= new BackButton();
 	m_topBarLayout		= new QHBoxLayout();
 
@@ -65,14 +64,12 @@ TopBar::TopBar(QWidget *parent)
 	m_topBarLayout->setContentsMargins(0, 0, 0, 0);
 	m_topBarLayout->setSpacing(10);
 
-	//m_Directory->setFixedHeight(16);
-	//m_Directory->setFont(FONT);
-	//m_Directory->setAlignment(Qt::AlignLeft);
 	setTextStyle();
-	
+	m_navigationBtn->setObjectName("backButton");
 	m_topBarLayout->addWidget(m_navigationBtn);
-	//m_topBarLayout->addWidget(m_Directory);
+
 	QLabel * spacerRight = new QLabel();
+	spacerRight->setObjectName("rightSpacer");
 	m_topBarLayout->addWidget(spacerRight);
 
 	/* Set layout */
@@ -149,16 +146,37 @@ ClickableLabel * TopBar::getLastLabel()
 	return nullptr;
 }
 
-void TopBar::labelClicked()
+void TopBar::clearContent()
 {
-	//int count = m_topBarLayout->count();
-	//Top bar always have minimum 3 item ( 1 back button, 1 label, and spacer right)
-	//if (count <= 3) return;
-
 	for (int i = m_topBarLayout->count() - 2; i > 0; i--)
 	{
 		QWidget * widget = m_topBarLayout->itemAt(i)->widget();
 
+		int count = layout()->count();
+		if (count == 2) //  back button and right spacer
+		{
+			return;
+		}
+
+		QString nameWg = widget->objectName();
+		if ((nameWg == "backButton") || (nameWg == "rightSpacer")) continue;
+
+		m_topBarLayout->removeWidget(widget);
+		widget->setParent(nullptr);
+		delete widget;
+	}
+	m_labelList.clear();
+	m_backSlashList.clear();
+}
+
+void TopBar::labelClicked()
+{
+	//loop from end (ignore right spacer)
+	for (int i = m_topBarLayout->count() - 2; i > 0; i--)
+	{
+		QWidget * widget = m_topBarLayout->itemAt(i)->widget();
+
+		//delete and return if widget is sender
 		if (widget == sender())
 		{
 			for (auto &label : m_labelList)
@@ -172,9 +190,11 @@ void TopBar::labelClicked()
 			return;
 		}
 
+		//delete widget in behind (clickable label or back Slash)
 		m_topBarLayout->removeWidget(widget);
 		widget->setParent(nullptr);
 
+		//remove label from list
 		for (auto &label : m_labelList) 
 		{
 			if (label == widget)
@@ -184,6 +204,7 @@ void TopBar::labelClicked()
 			}
 		}
 
+		//remove black slash from list
 		for (auto &label : m_backSlashList)
 		{
 			if (label == widget)
@@ -210,6 +231,7 @@ void TopBar::backButtonClicked()
 		m_topBarLayout->removeWidget(widget);
 		widget->setParent(nullptr);
 
+		//remove label from list
 		for (auto &label : m_labelList)
 		{
 			if (label == widget)
@@ -221,6 +243,7 @@ void TopBar::backButtonClicked()
 
 		}
 
+		//remove black slash from list
 		for (auto &label : m_backSlashList)
 		{
 			if (label == widget)
@@ -230,8 +253,8 @@ void TopBar::backButtonClicked()
 				return;
 			}
 		}
-	}
 
+	}
 
 
 }
