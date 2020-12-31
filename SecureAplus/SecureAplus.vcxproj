@@ -181,6 +181,7 @@
     <ClCompile Include="managewidget.cpp" />
     <ClCompile Include="protectionmodes.cpp" />
     <ClCompile Include="restrictedapp.cpp" />
+    <ClCompile Include="sapcheckbox.cpp" />
     <ClCompile Include="sapcombobox.cpp" />
     <ClCompile Include="sapradiobutton.cpp" />
     <ClCompile Include="sapscrollarea.cpp" />
@@ -233,6 +234,7 @@
     <QtUic Include="managewidget.ui" />
     <QtUic Include="protectionmodes.ui" />
     <QtUic Include="rectrictedapp.ui" />
+    <QtUic Include="sapcheckbox.ui" />
     <QtUic Include="sapcombobox.ui" />
     <QtUic Include="sapradiobutton.ui" />
     <QtUic Include="sapscrollarea.ui" />
@@ -310,6 +312,7 @@
     <QtMoc Include="sapscrollarea.h" />
     <QtMoc Include="sapradiobutton.h" />
     <QtMoc Include="search.h" />
+    <QtMoc Include="sapcheckbox.h" />
     <ClInclude Include="style.h" />
     <QtMoc Include="switch.h" />
     <QtMoc Include="topbar.h" />

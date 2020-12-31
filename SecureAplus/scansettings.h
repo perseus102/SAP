@@ -26,6 +26,7 @@ public:
 private slots:
 	void TabClicked();
 	void changeTheme();
+	
 protected:
 	void resizeEvent(QResizeEvent *event) override;
 private:

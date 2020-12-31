@@ -113,26 +113,28 @@ void Search::setStyle()
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		m_searchWg->setStyleSheet("background-color:#FFFFFF;");
+		m_searchWg->setStyleSheet("background-color:#FFFFFF;"
+			"border-top-left-radius:2px; border-top-right-radius:2px;");
+
 		m_searchLabel->setStyleSheet("QLineEdit{color:#727272; border:none;}");
 		completer->popup()->setStyleSheet("background-color:#FFFFFF; border:none;"
 			"selection-background-color: #055598;"
 			"color: #727272;"
 			"outline: 1px solid #055598;"
 			"padding-left:10px;"
-			//"selection-color: red;"
 			"}");
 		break;
 
 	case Theme_Type::Dark_Theme:
-		m_searchWg->setStyleSheet("background-color:#253653;");
+		m_searchWg->setStyleSheet("background-color:#253653;"
+			"border-top-left-radius:2px; border-top-right-radius:2px;");
+
 		m_searchLabel->setStyleSheet("color:#667286; border:none;"); 
 		completer->popup()->setStyleSheet("background-color:#253653; border:none;"
 			"selection-background-color: #19C2E8;"
 			"color: #667286;"
 			"outline: 1px solid #19C2E8;"
 			"padding-left:10px;"
-			//"selection-color: red;"
 			"}");
 		break;
 

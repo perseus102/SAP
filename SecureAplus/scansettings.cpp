@@ -61,7 +61,7 @@ ScanSettings::ScanSettings(QWidget *parent)
 	m_tabStackedWidget->addWidget(m_vulAssessmentTab);
 	m_vulAssessmentTab->setFixedHeight(100);
 
-	m_scrollView		= new SAPSCrollArea();
+	m_scrollView		= new SAPSCrollArea(QMargins(0, 0, 5, 30));
 	m_scrollView->setObjectName("m_scrollView");
 	m_scrollView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAsNeeded);
 	m_scrollView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
@@ -237,8 +237,8 @@ void ScanSettings::resizeTab()
 	{
 		if (size.height() <= m_universalAVTab->height())
 		{
-			m_universalAVTab->resize(size.width() - 100 - 15, m_universalAVTab->height());
-			m_tabStackedWidget->resize(size.width() - 100 - 15, m_universalAVTab->height());
+			m_universalAVTab->resize(size.width() - 100, m_universalAVTab->height());
+			m_tabStackedWidget->resize(size.width() - 100, m_universalAVTab->height());
 		}
 		else
 		{
@@ -250,8 +250,8 @@ void ScanSettings::resizeTab()
 	{
 		if (size.height() <= m_antivirusTab->height())
 		{
-			m_antivirusTab->resize(size.width() - 100 - 15, m_antivirusTab->height());
-			m_tabStackedWidget->resize(size.width() - 100 - 15, m_antivirusTab->height());
+			m_antivirusTab->resize(size.width() - 100 , m_antivirusTab->height());
+			m_tabStackedWidget->resize(size.width() - 100, m_antivirusTab->height());
 		}
 		else
 		{
@@ -263,8 +263,8 @@ void ScanSettings::resizeTab()
 	{
 		if (size.height() <= m_vulAssessmentTab->height())
 		{
-			m_vulAssessmentTab->resize(size.width() - 100 - 15, m_vulAssessmentTab->height());
-			m_tabStackedWidget->resize(size.width() - 100 - 15, m_vulAssessmentTab->height());
+			m_vulAssessmentTab->resize(size.width() - 100, m_vulAssessmentTab->height());
+			m_tabStackedWidget->resize(size.width() - 100, m_vulAssessmentTab->height());
 		}
 		else
 		{

@@ -48,5 +48,8 @@
         <file>images/radio button/radio_btn_selected_lt.svg</file>
         <file>images/radio button/radio_btn_unselected_dt.svg</file>
         <file>images/radio button/radio_btn_unselected_lt.svg</file>
+        <file>images/checkbox/checkbox.svg</file>
+        <file>images/checkbox/checkbox_checked_dt.svg</file>
+        <file>images/checkbox/checkbox_checked_lt.svg</file>
     </qresource>
 </RCC>

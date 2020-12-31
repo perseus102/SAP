@@ -1,7 +1,8 @@
 #include "sapscrollarea.h"
 
-SAPSCrollArea::SAPSCrollArea(QWidget *parent)
-	: QScrollArea(parent)
+SAPSCrollArea::SAPSCrollArea(QMargins margins,QWidget *parent)
+	: QScrollArea(parent),
+	m_margins(margins)
 {
 	ui.setupUi(this);
 	setStyle();
@@ -14,11 +15,13 @@ SAPSCrollArea::SAPSCrollArea(QWidget *parent)
 
 SAPSCrollArea::~SAPSCrollArea()
 {
+
 }
 
 void SAPSCrollArea::scrollBarChangeValue(int)
 {
 	this->verticalScrollBar()->setVisible(true);
+	setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAsNeeded);
 	if (m_scrollBarTimer->isActive())
 	{
 		m_scrollBarTimer->stop();
@@ -29,6 +32,7 @@ void SAPSCrollArea::scrollBarChangeValue(int)
 void SAPSCrollArea::scrollBarTimeout()
 {
 	this->verticalScrollBar()->setVisible(false);
+	setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
 }
 
 void SAPSCrollArea::setStyle()
@@ -45,7 +49,7 @@ void SAPSCrollArea::setStyle()
 			"border: 0px solid " + VER_SCROLLBAR_TRACK_LT + ";"
 			"background: " + VER_SCROLLBAR_TRACK_LT + ";"
 			"width:10px;"
-			"margin: 0px 5px 30px 0px;"
+			"margin: " + QString::number(m_margins.top()) + "px " + QString::number(m_margins.right()) + "px " + QString::number(m_margins.bottom()) + "px " + QString::number(m_margins.left()) + "px;"
 			"border-radius: 2px;"
 			"}"
 
@@ -89,7 +93,7 @@ void SAPSCrollArea::setStyle()
 			"border: 0px solid "+ VER_SCROLLBAR_TRACK_DT +";"
 			"background: "+ VER_SCROLLBAR_TRACK_DT +";"
 			"width:10px;"
-			"margin: 0px 5px 30px 0px;"
+			"margin: " + QString::number(m_margins.top()) + "px " + QString::number(m_margins.right()) + "px " + QString::number(m_margins.bottom()) + "px " + QString::number(m_margins.left()) + "px;"
 			"border-radius: 2px;"
 			"}"
 

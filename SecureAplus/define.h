@@ -188,6 +188,11 @@
 #define RADIO_BTN_UNSELECTED_LT				QString(":/images/radio button/radio_btn_unselected_lt.svg")
 #define RADIO_BTN_UNSELECTED_DT				QString(":/images/radio button/radio_btn_unselected_dt.svg")
 
+/* Define for checkbox icon */
+#define CHECKBOX_ICON_PATH					QString(":/images/checkbox/checkbox.svg")
+#define CHECKBOX_CHECKED_LT					QString(":/images/checkbox/checkbox_checked_lt.svg")
+#define CHECKBOX_CHECKED_DT					QString(":/images/checkbox/checkbox_checked_dt.svg")
+
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
 

@@ -127,7 +127,7 @@ void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
 				"background-color:" + background_color + ";}");
 			ui->windowFrame->setStyleSheet(
 				"#windowFrame{border:1px solid palette(highlight);" 
-				"border-radius:0px 0px 0px 0px;"
+				"border-radius:4px 4px 4px 4px;"
 				"background-color:" + background_color + ";}");
 			QGraphicsEffect *oldShadow = ui->windowFrame->graphicsEffect();
 			if (oldShadow) delete oldShadow;
@@ -145,7 +145,7 @@ void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
 				"background-color:" + background_color + ";}");
 			ui->windowFrame->setStyleSheet(
 				"#windowFrame{border:1px solid palette(dark);"
-				"border-radius:0px 0px 0px 0px;"
+				"border-radius:4px 4px 4px 4px;"
 				"background-color:" + background_color + ";}");
 			QGraphicsEffect *oldShadow = ui->windowFrame->graphicsEffect();
 			if (oldShadow) delete oldShadow;
@@ -161,7 +161,8 @@ void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
 				"border-top-left-radius:5px; border-top-right-radius:5px;"
 				"background-color:" + background_color + ";}");
 			ui->windowFrame->setStyleSheet(
-				"#windowFrame{border:1px solid #000000; border-radius:0px 0px 0px 0px;"
+				"#windowFrame{border:1px solid #000000;"
+				"border-radius:4px 4px 4px 4px;"
 				"background-color:" + background_color + ";}");
 			QGraphicsEffect *oldShadow = ui->windowFrame->graphicsEffect();
 			if (oldShadow) delete oldShadow;
@@ -178,7 +179,8 @@ void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
 				"border-top-left-radius:0px; border-top-right-radius:0px; "
 				"background-color:" + background_color + ";}");
 			ui->windowFrame->setStyleSheet(
-				"#windowFrame{border:1px solid palette(shadow); border-radius:0px 0px 0px 0px;"
+				"#windowFrame{border:1px solid palette(shadow);"
+				"border-radius:4px 4px 4px 4px;"
 				"background-color:" + background_color + ";}");
 			QGraphicsEffect *oldShadow = ui->windowFrame->graphicsEffect();
 			if (oldShadow) delete oldShadow;

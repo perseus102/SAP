@@ -8,12 +8,13 @@
 #include "define.h"
 #include "util.h"
 #include "appsetting.h"
+#include <QMargins>
 class SAPSCrollArea : public QScrollArea
 {
 	Q_OBJECT
 
 public:
-	SAPSCrollArea(QWidget *parent = Q_NULLPTR);
+	SAPSCrollArea(QMargins margins,QWidget *parent = Q_NULLPTR);
 	~SAPSCrollArea();
 private slots:
 	void changeTheme();
@@ -23,4 +24,5 @@ private:
 	Ui::SAPSCrollArea ui;
 	QTimer*				m_scrollBarTimer;
 	void setStyle();
+	QMargins m_margins;
 };

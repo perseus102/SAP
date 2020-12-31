@@ -172,6 +172,18 @@
     <Filter Include="Source Files\Component\File Name Table">
       <UniqueIdentifier>{7386863b-03ab-4b48-acd1-16e7b1f9801c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Search">
+      <UniqueIdentifier>{f08d28c9-98a1-4a77-ad1c-79492fa18455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\SAP CheckBox">
+      <UniqueIdentifier>{6991c985-ad92-4989-a3e4-f1f778d8afa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Search">
+      <UniqueIdentifier>{05b7b099-6f7c-4e5a-8886-3c40024ca637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\SAP CheckBox">
+      <UniqueIdentifier>{0211eebd-c693-4bae-985e-b8a6b0cf6ae5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -320,9 +332,6 @@
     <ClCompile Include="allowlist.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
-    <ClCompile Include="search.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="restrictedapp.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
@@ -331,6 +340,12 @@
     </ClCompile>
     <ClCompile Include="filenametable.cpp">
       <Filter>Source Files\Component\File Name Table</Filter>
+    </ClCompile>
+    <ClCompile Include="sapcheckbox.cpp">
+      <Filter>Source Files\Component\SAP CheckBox</Filter>
+    </ClCompile>
+    <ClCompile Include="search.cpp">
+      <Filter>Source Files\Component\Search</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -454,9 +469,6 @@
     <QtMoc Include="allowlist.h">
       <Filter>Header Files\Manage Content\Application Control</Filter>
     </QtMoc>
-    <QtMoc Include="search.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="restrictedapp.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -465,6 +477,12 @@
     </QtMoc>
     <QtMoc Include="filenametable.h">
       <Filter>Header Files\Component\File Name Table</Filter>
+    </QtMoc>
+    <QtMoc Include="search.h">
+      <Filter>Header Files\Component\Search</Filter>
+    </QtMoc>
+    <QtMoc Include="sapcheckbox.h">
+      <Filter>Header Files\Component\SAP CheckBox</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -592,6 +610,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="filenametable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sapcheckbox.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
