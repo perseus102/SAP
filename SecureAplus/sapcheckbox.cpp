@@ -1,7 +1,8 @@
 #include "sapcheckbox.h"
 
-SAPCheckBox::SAPCheckBox(QWidget *parent)
-	: QPushButton(parent)
+SAPCheckBox::SAPCheckBox(bool selectAll, QWidget *parent)
+	: QPushButton(parent),
+	m_selectAll(selectAll)
 {
 	ui.setupUi(this);
 
@@ -54,9 +55,10 @@ void SAPCheckBox::setButtonStyle(Qt::CheckState state)
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
+		
 		if (state == Qt::Checked)
 		{
-			icon.addFile(CHECKBOX_CHECKED_LT);
+			m_selectAll == true ? icon.addFile(CHECKBOX_SELECT_ALL_LT): icon.addFile(CHECKBOX_CHECKED_LT);
 		}
 		else
 		{
@@ -67,7 +69,7 @@ void SAPCheckBox::setButtonStyle(Qt::CheckState state)
 	case Theme_Type::Dark_Theme:
 		if (state == Qt::Checked)
 		{
-			icon.addFile(CHECKBOX_CHECKED_DT);
+			m_selectAll == true ? icon.addFile(CHECKBOX_SELECT_ALL_DT) :  icon.addFile(CHECKBOX_CHECKED_DT);
 		}
 		else
 		{

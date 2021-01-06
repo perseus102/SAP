@@ -25,6 +25,9 @@ signals:
 private slots:
 	void changeTheme();
 	void viewBtnClick();
+	
+protected:
+	void resizeEvent(QResizeEvent *event) override;
 
 private:
 	Ui::AllowListStatus ui;

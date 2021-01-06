@@ -12,7 +12,7 @@ VulAssessment::VulAssessment(QWidget *parent)
 	automaticWg->setFixedHeight(80);
 	QVBoxLayout* automaticLayout = new QVBoxLayout();
 	automaticLayout->setSpacing(0);
-	automaticLayout->setContentsMargins(30, 0, 0, 0);
+	automaticLayout->setContentsMargins(30, 0, 30, 0);
 	automaticWg->setLayout(automaticLayout);
 
 	m_automaticCheck = new QLabel();

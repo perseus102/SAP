@@ -8,6 +8,10 @@
 #include "search.h"
 #include "filenametable.h"
 #include "sapscrollarea.h"
+#include "addresappdialog.h"
+#include "widgettransparent.h"
+#include "clickablelabel.h"
+
 class RestrictedApp : public QWidget
 {
 	Q_OBJECT
@@ -17,6 +21,14 @@ public:
 	~RestrictedApp();
 	void setDescText(QString text);
 
+private slots:
+	void removeButtonClicked();
+	void addButtonClicked();
+	void resetToDefaultClicked();
+public slots:
+	void setRemoveBtnDisabled(bool disabled);
+	void changeTheme();
+
 protected:
 	void resizeEvent(QResizeEvent *event) override;
 private:
@@ -25,13 +37,16 @@ private:
 	QLabel*			m_description;
 	Search *		m_searchWg;
 	QVBoxLayout*	m_layout;
-	QLabel*			m_resetToDefault;
 	QPushButton*	m_removeBtn;
 	QPushButton*	m_addBtn;
 
-	FileNameTable*	m_fileNameTable;
+	ClickableLabel*			m_resetToDefaultBtn;
+
+	FileNameTable*		m_fileNameTable;
+	AddResAppDialog*	m_addResAppDialog;
+	WidgetTransparent*	transparent;
 
 	void setStyle();
-
+	void setRemoveBtnStyle();
 
 };

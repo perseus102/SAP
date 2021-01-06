@@ -12,7 +12,7 @@ class SAPCheckBox : public QPushButton
 	Q_OBJECT
 
 public:
-	SAPCheckBox(QWidget *parent = Q_NULLPTR);
+	SAPCheckBox(bool selectAll = false, QWidget *parent = Q_NULLPTR);
 	~SAPCheckBox();
 	void setButtonChecked(Qt::CheckState state);
 	Qt::CheckState getCheckState();
@@ -25,4 +25,5 @@ private:
 	Ui::SAPCheckBox ui;
 	void setButtonStyle(Qt::CheckState state);
 	Qt::CheckState m_state;
+	bool m_selectAll;
 };

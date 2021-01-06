@@ -20,44 +20,44 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_digitalSignature = new ClickableLabel();
 	m_digitalSignature->setFixedSize(100, 48);
 	m_digitalSignature->setFont(FONT);
-	m_digitalSignature->setAlignment(Qt::AlignCenter);
+	m_digitalSignature->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	m_digitalSignature->setWordWrap(true);
 
 	m_allowList = new ClickableLabel();
 	m_allowList->setFixedSize(100, 28);
 	m_allowList->setFont(FONT);
-	m_allowList->setAlignment(Qt::AlignCenter);
+	m_allowList->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	m_allowList->setWordWrap(true);
 
 	m_restrictApp = new ClickableLabel();
 	m_restrictApp->setFixedSize(100, 48);
 	m_restrictApp->setFont(FONT);
 	m_restrictApp->setWordWrap(true);
-	m_restrictApp->setAlignment(Qt::AlignCenter);	
+	m_restrictApp->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	
 	m_trustedCertificate = new ClickableLabel();
 	m_trustedCertificate->setFixedSize(100, 48);
 	m_trustedCertificate->setFont(FONT);
 	m_trustedCertificate->setWordWrap(true);
-	m_trustedCertificate->setAlignment(Qt::AlignCenter);
+	m_trustedCertificate->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	m_scripts = new ClickableLabel();
 	m_scripts->setFixedSize(100, 28);
 	m_scripts->setFont(FONT);
 	m_scripts->setWordWrap(true);
-	m_scripts->setAlignment(Qt::AlignCenter);
+	m_scripts->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	m_cmdRules = new ClickableLabel();
 	m_cmdRules->setFixedSize(100, 48);
 	m_cmdRules->setFont(FONT);
 	m_cmdRules->setWordWrap(true);
-	m_cmdRules->setAlignment(Qt::AlignCenter);
+	m_cmdRules->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	m_allowedListCmd = new ClickableLabel();
 	m_allowedListCmd->setFixedSize(100, 48);
 	m_allowedListCmd->setFont(FONT);
 	m_allowedListCmd->setWordWrap(true);
-	m_allowedListCmd->setAlignment(Qt::AlignCenter);
+	m_allowedListCmd->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	QLabel* bottomSpacer = new QLabel();
 	m_tabLayout->addWidget(m_digitalSignature);
@@ -121,7 +121,7 @@ void ApplicationControl::setTabText()
 	m_trustedCertificate->setText("Trusted Certificates");
 	m_scripts->setText("Scripts");
 	m_cmdRules->setText("Command Line Rules");
-	m_allowedListCmd->setText("Allowedlist Command Line");
+	m_allowedListCmd->setText("Allowed List Command Line");
 }
 
 void ApplicationControl::changeTheme()
@@ -278,12 +278,16 @@ void ApplicationControl::setTabActiveStyle(ClickableLabel * tab)
 	{
 	case Theme_Type::Light_Theme:
 		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_ACTIVE_LT + "; border-top-left-radius:2px; border-bottom-left-radius:2px;"
-			"background-color:" + TAB_TITLE_BACKGROUND_ACTIVE_LT + ";}");
+			"background-color:" + TAB_TITLE_BACKGROUND_ACTIVE_LT + ";"
+			"padding-left:12px;"
+			"padding-right:10px;}");
 		break;
 
 	case Theme_Type::Dark_Theme:
 		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_ACTIVE_DT + "; border-top-left-radius:2px; border-bottom-left-radius:2px;"
-			"background-color:" + TAB_TITLE_BACKGROUND_ACTIVE_DT + ";}");
+			"background-color:" + TAB_TITLE_BACKGROUND_ACTIVE_DT + ";"
+			"padding-left:12px;"
+			"padding-right:10px;}");
 		break;
 
 		//MORE THEME
@@ -298,12 +302,16 @@ void ApplicationControl::setTabInActiveStyle(ClickableLabel * tab)
 	{
 	case Theme_Type::Light_Theme:
 		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_INACTIVE_LT + ";"
-			"background-color: none;}");
+			"background-color: none;"
+			"padding-left:12px;"
+			"padding-right:10px;}");
 		break;
 
 	case Theme_Type::Dark_Theme:
 		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_INACTIVE_DT + ";"
-			"background-color: none;}");
+			"background-color: none;"
+			"padding-left:12px;"
+			"padding-right:10px;}");
 		break;
 
 		//MORE THEME

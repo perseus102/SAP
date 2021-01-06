@@ -6,7 +6,7 @@ ScanSettings::ScanSettings(QWidget *parent)
 	ui.setupUi(this);
 
 	m_contentLayout		= new QHBoxLayout();
-	m_contentLayout->setContentsMargins(0, 20, 0, 0);
+	m_contentLayout->setContentsMargins(15, 20, 0, 0);
 	m_contentLayout->setSpacing(0);
 
 	m_tabLayout			= new QVBoxLayout();
@@ -20,18 +20,18 @@ ScanSettings::ScanSettings(QWidget *parent)
 	m_universalAV		= new ClickableLabel();
 	m_universalAV->setFixedSize(100, 28);
 	m_universalAV->setFont(FONT);
-	m_universalAV->setAlignment(Qt::AlignCenter);
+	m_universalAV->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	m_antivirus			= new ClickableLabel();
 	m_antivirus->setFixedSize(100, 28);
 	m_antivirus->setFont(FONT);
-	m_antivirus->setAlignment(Qt::AlignCenter);
+	m_antivirus->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	m_VulAssessment		= new ClickableLabel();
 	m_VulAssessment->setFixedSize(100, 48);
 	m_VulAssessment->setFont(FONT);
 	m_VulAssessment->setWordWrap(true);
-	m_VulAssessment->setAlignment(Qt::AlignCenter);
+	m_VulAssessment->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	QLabel* bottomSpacer = new QLabel();
 	m_tabLayout->addWidget(m_universalAV);
@@ -89,6 +89,8 @@ ScanSettings::ScanSettings(QWidget *parent)
 	connect(m_VulAssessment, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ScanSettings::changeTheme);
 	connect(m_antivirusTab, &Anitivirus::offUniversalAVRealTimeScan, m_universalAVTab, &UniversalAV::offRealTimeScan);
+
+	emit m_scrollView->verticalScrollBar()->valueChanged(m_scrollView->verticalScrollBar()->value());
 }
 
 ScanSettings::~ScanSettings()
@@ -164,12 +166,16 @@ void ScanSettings::setTabActiveStyle(ClickableLabel * tab)
 	{
 	case Theme_Type::Light_Theme:
 		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_ACTIVE_LT + "; border-top-left-radius:2px; border-bottom-left-radius:2px;"
-			"background-color:" + TAB_TITLE_BACKGROUND_ACTIVE_LT + ";}");
+			"background-color:" + TAB_TITLE_BACKGROUND_ACTIVE_LT + ";"
+			"padding-left:12px;"
+			"padding-right:10px;}");
 		break;
 
 	case Theme_Type::Dark_Theme:
 		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_ACTIVE_DT + "; border-top-left-radius:2px; border-bottom-left-radius:2px;"
-			"background-color:" + TAB_TITLE_BACKGROUND_ACTIVE_DT + ";}");
+			"background-color:" + TAB_TITLE_BACKGROUND_ACTIVE_DT + ";"
+			"padding-left:12px;"
+			"padding-right:10px;}");
 		break;
 
 		//MORE THEME
@@ -184,12 +190,16 @@ void ScanSettings::setTabInActiveStyle(ClickableLabel * tab)
 	{
 	case Theme_Type::Light_Theme:
 		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_INACTIVE_LT + ";"
-			"background-color: none;}");
+			"background-color: none;"
+			"padding-left:12px;"
+			"padding-right:10px;}");
 		break;
 
 	case Theme_Type::Dark_Theme:
 		tab->setStyleSheet("QLabel{ color:" + TAB_TITLE_TEXT_INACTIVE_DT + ";"
-			"background-color: none;}");
+			"background-color: none;"
+			"padding-left:12px;"
+			"padding-right:10px;}");
 		break;
 
 		//MORE THEME

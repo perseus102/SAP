@@ -6,12 +6,11 @@ AllowListStatus::AllowListStatus(AllowList_Type allistType, AllowList_States all
 	m_allowListState(allistState)
 {
 	ui.setupUi(this);
-	setFixedSize(444, 50);
+	//setFixedSize(444, 50);
 	setContentsMargins(0, 0, 0, 0);
 
 	m_allowListWidget = new QWidget();
-	m_allowListWidget->setFixedSize(444, 50);
-
+	m_allowListWidget->setFixedHeight(50);
 	m_allowListLayout = new QVBoxLayout();
 	m_allowListLayout->setContentsMargins(0, 0, 0, 0);
 	m_allowListLayout->setSpacing(0);
@@ -25,7 +24,8 @@ AllowListStatus::AllowListStatus(AllowList_Type allistType, AllowList_States all
 	m_allowListWidget->setLayout(m_layout);
 
 	m_allowListNameLabel = new QLabel();
-	m_allowListNameLabel->setFixedWidth(206);
+	//m_allowListNameLabel->setFixedWidth(206);
+	//m_allowListNameLabel->setMinimumWidth(206);
 	m_allowListNameLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	m_allowListNameLabel->setFont(FONT);
 
@@ -52,7 +52,7 @@ AllowListStatus::AllowListStatus(AllowList_Type allistType, AllowList_States all
 
 	if (m_allowListType == AllowList_Type::Allist_Creation)
 	{
-		m_statusTextLabel->setFixedWidth(113);
+		//m_statusTextLabel->setFixedWidth(113);
 
 		m_viewButton = new QPushButton();
 		m_viewButton->setFixedSize(60, 24);
@@ -62,6 +62,7 @@ AllowListStatus::AllowListStatus(AllowList_Type allistType, AllowList_States all
 		setViewBtnStyle();
 
 		QLabel *spacerRight = new QLabel();
+		spacerRight->setFixedWidth(22);
 		m_layout->addWidget(spacerRight);
 
 
@@ -106,6 +107,16 @@ void AllowListStatus::setViewBtnText(QString text)
 void AllowListStatus::viewBtnClick()
 {
 	emit viewBtnClicked();
+}
+
+void AllowListStatus::resizeEvent(QResizeEvent * event)
+{
+	if (m_allowListType == AllowList_Type::Allist_Creation)
+	{
+		m_allowListNameLabel->setFixedSize((this->width() / 2) - 22, 50);
+
+	}
+
 }
 
 void AllowListStatus::setStyle()

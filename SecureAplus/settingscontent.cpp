@@ -10,10 +10,11 @@ SettingsContent::SettingsContent(QWidget *parent)
 	m_settingTopBar->setVisibleNaviButton(false);
 	m_settingTopBar->addDir("Settings", Directory::Setting); //Can use for multi language
 	m_curSettingDir = Directory::Setting;
+	m_settingTopBar->layout()->setContentsMargins(30, 0, 0, 0);
 
 	stackedWidget = new QStackedWidget();
 	m_settingLayout = new QVBoxLayout;
-	m_settingLayout->setContentsMargins(30, 20, 0, 0);
+	m_settingLayout->setContentsMargins(0, 20, 0, 0);
 	m_settingLayout->setSpacing(0);
 	m_settingLayout->addWidget(m_settingTopBar);
 	m_settingLayout->addWidget(stackedWidget);
@@ -44,8 +45,8 @@ SettingsContent::SettingsContent(QWidget *parent)
 
 	connect(m_settingTopBar, &TopBar::labelDirClicked, this, &SettingsContent::directoryClicked);
 
-	setStyleSheet("#HomeContent{border: 0px none palette(shadow); "
-		"border-top-left-radius:10px;}");
+	//setStyleSheet("#HomeContent{border: 0px none palette(shadow); "
+	//	"border-top-left-radius:10px;}");
 
 }
 

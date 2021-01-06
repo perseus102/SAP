@@ -58,11 +58,10 @@ FeatureStatus::FeatureStatus(Feature featureName, Feature_States state, QWidget 
 	m_featureState(state)
 {
 	ui.setupUi(this);
-	setFixedSize(620, 50);
-	setContentsMargins(0, 0, 0, 0);
 
 	m_featureWidget = new QWidget();
-	m_featureWidget->setFixedSize(560, 50);
+	//m_featureWidget->setFixedSize(560, 50);
+	m_featureWidget->setFixedHeight(50);
 	m_featureLayout = new QVBoxLayout();
 	m_featureLayout->setContentsMargins(0, 0, 0, 0 );
 	m_featureLayout->setSpacing(0);
@@ -76,7 +75,7 @@ FeatureStatus::FeatureStatus(Feature featureName, Feature_States state, QWidget 
 	m_featureWidget->setLayout(m_layout);
 
 	m_featureNameLabel = new QLabel();
-	m_featureNameLabel->setFixedWidth(226);
+	//m_featureNameLabel->setFixedWidth(226);
 	m_featureNameLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	m_featureNameLabel->setFont(FONT);
 
@@ -85,7 +84,7 @@ FeatureStatus::FeatureStatus(Feature featureName, Feature_States state, QWidget 
 	m_statusIcon->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	m_statusTextLabel = new QLabel();
-	m_statusTextLabel->setFixedWidth(264);
+	//m_statusTextLabel->setFixedWidth(264);
 	m_statusTextLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	m_statusTextLabel->setFont(FONT);
 
@@ -103,7 +102,7 @@ FeatureStatus::FeatureStatus(Feature featureName, Feature_States state, QWidget 
 
 	if (m_featureName == Feature::Lisence || m_featureName == Feature::RealTime_Scanning)
 	{
-		m_statusTextLabel->setFixedWidth(248);
+		//m_statusTextLabel->setFixedWidth(248);
 
 		m_settingButton = new SettingButton();
 		m_settingButton->setFixedSize(16, 16);
@@ -168,6 +167,15 @@ void FeatureStatus::settingBtnClicked()
 	{
 		emit changeScreen(Screen::Antivirus_Tab);
 	}
+}
+
+void FeatureStatus::resizeEvent(QResizeEvent * event)
+{
+	if (m_featureName == Feature::Lisence || m_featureName == Feature::RealTime_Scanning)
+	{
+		m_featureNameLabel->setFixedSize((this->width() / 2) - 24 - 12, 50);
+	}
+	qDebug() << m_featureName << " m_featureNameLabel " << m_featureNameLabel->size();
 }
 
 void FeatureStatus::setStyle()

@@ -41,8 +41,8 @@ ManageContent::ManageContent(QWidget *parent)
 
 	connect(m_manageTopBar, &TopBar::labelDirClicked, this, &ManageContent::directoryClicked);
 
-	setStyleSheet("#HomeContent{border: 0px none palette(shadow); "
-		"border-top-left-radius:10px;}");
+	//setStyleSheet("#HomeContent{border: 0px none palette(shadow); "
+	//	"border-top-left-radius:10px;}");
 
 }
 

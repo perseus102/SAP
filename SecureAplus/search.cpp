@@ -14,13 +14,13 @@ SearchButton::~SearchButton() {};
 
 void SearchButton::enterEvent(QEvent*)
 {
-	setIconSize(QSize(14, 14));
-	setCursor(Qt::PointingHandCursor);
+	//setIconSize(QSize(14, 14));
+	//setCursor(Qt::PointingHandCursor);
 }
 
 void SearchButton::leaveEvent(QEvent*)
 {
-	setIconSize(QSize(16, 16));
+	//setIconSize(QSize(16, 16));
 }
 
 void SearchButton::initIcon()
@@ -74,33 +74,32 @@ Search::Search(QWidget *parent)
 	centerSpacer->setFixedWidth(10);
 
 	m_searchLabel = new QLineEdit(this);
-	m_searchLabel->setFont(SMALL_FONT);
+	m_searchLabel->setFont(FONT);
 	m_searchLabel->setFixedHeight(32);
 
 	m_searchLabel->setPlaceholderText("Search file");
-	QStringList wordList;
-	wordList.append("Uninstall_Service.cmd");
-	wordList.append("Uninstall_Service1.cmd");
-	wordList.append("Uninstall_Service2.cmd");
-	wordList.append("kmspico-setup.exe");
-	m_wordList.setStringList(wordList);
-	completer = new QCompleter(this);
-	completer->setCaseSensitivity(Qt::CaseInsensitive);
-	completer->setModel(&m_wordList);
+	
+	//m_wordListModel.setStringList(m_wordList);
+	//completer = new QCompleter(this);
+	//completer->setCompletionMode(QCompleter::PopupCompletion);
+	//completer->setModelSorting(QCompleter::UnsortedModel);
+	//completer->setFilterMode(Qt::MatchStartsWith);
+	//completer->setCaseSensitivity(Qt::CaseSensitive);
 
-	m_searchLabel->setCompleter(completer);
-
-
+	//completer->setModel(&m_wordListModel);
+	//m_searchLabel->setCompleter(completer);
+	//completer->popup()->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
+	//completer->popup()->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
 
 	searchLayout->addWidget(m_searchButton);
 	searchLayout->addWidget(centerSpacer);
 	searchLayout->addWidget(m_searchLabel);
 	m_layout->addWidget(m_searchWg);
-
 	setLayout(m_layout);
 
 	setStyle();
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &Search::changeTheme);
+	connect(m_searchLabel, &QLineEdit::textChanged, this, &Search::updateWord);
 }
 
 
@@ -108,34 +107,74 @@ Search::~Search()
 {
 }
 
+void Search::updateWord(QString word)
+{
+	word == "" ? emit setFilter(false) : emit setFilter(true);
+	
+	int idx(0);
+	QStringList tempList;
+	QStringList c_m_list(m_wordList);
+
+	while (idx < c_m_list.size())
+	{
+		if (c_m_list.at(idx).startsWith(word, Qt::CaseInsensitive))
+		{
+			tempList.append(c_m_list.takeAt(idx--));
+		}
+		idx++;
+	}
+
+	QStringList filtered = m_wordList.filter(word, Qt::CaseSensitivity::CaseSensitive);
+
+	filtered.append(tempList);
+
+	emit updateFilter(filtered);
+}
+
+void Search::addWordList(QString word)
+{
+	m_wordList.append(word);
+	//m_wordListModel.setStringList(m_wordList);
+	//completer->setModel(&m_wordListModel);
+}
+
+void Search::removeWordList(QString word)
+{
+	m_wordList.removeOne(word);
+	//m_wordListModel.setStringList(m_wordList);
+}
+
 void Search::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		m_searchWg->setStyleSheet("background-color:#FFFFFF;"
+		m_searchWg->setStyleSheet("background-color:" + SEARCH_BACKGROUND_LT + ";"
 			"border-top-left-radius:2px; border-top-right-radius:2px;");
 
-		m_searchLabel->setStyleSheet("QLineEdit{color:#727272; border:none;}");
-		completer->popup()->setStyleSheet("background-color:#FFFFFF; border:none;"
-			"selection-background-color: #055598;"
-			"color: #727272;"
-			"outline: 1px solid #055598;"
-			"padding-left:10px;"
-			"}");
+		m_searchLabel->setStyleSheet("QLineEdit{color:"+ TAB_CONTENT_DESC_TEXT_LT +";"
+			"border:none;}");
+		//completer->popup()->setStyleSheet("background-color:#FFFFFF; border:none;"
+		//	"selection-background-color: #055598;"
+		//	"color: #727272;"
+		//	"outline: 1px solid #055598;"
+		//	"padding-left:10px;"
+		//	"}");
 		break;
 
 	case Theme_Type::Dark_Theme:
-		m_searchWg->setStyleSheet("background-color:#253653;"
+		m_searchWg->setStyleSheet("background-color:"+ SEARCH_BACKGROUND_DT +";"
 			"border-top-left-radius:2px; border-top-right-radius:2px;");
 
-		m_searchLabel->setStyleSheet("color:#667286; border:none;"); 
-		completer->popup()->setStyleSheet("background-color:#253653; border:none;"
+		m_searchLabel->setStyleSheet("QLineEdit{color:" + TAB_CONTENT_DESC_TEXT_DT + ";"
+			"border:none;}");
+		/*completer->popup()->setStyleSheet("background-color:#253653; border:none;"
 			"selection-background-color: #19C2E8;"
 			"color: #667286;"
 			"outline: 1px solid #19C2E8;"
 			"padding-left:10px;"
-			"}");
+
+			);*/
 		break;
 
 		//MORE THEME

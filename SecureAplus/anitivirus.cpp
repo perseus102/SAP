@@ -13,7 +13,7 @@ Anitivirus::Anitivirus(QWidget *parent)
 	APEXWg->setFixedHeight(160);
 	QVBoxLayout* APEXLayout = new QVBoxLayout();
 	APEXLayout->setSpacing(0);
-	APEXLayout->setContentsMargins(30, 0, 0, 0);
+	APEXLayout->setContentsMargins(30, 0, 30, 0);
 	APEXWg->setLayout(APEXLayout);
 
 	m_APEX = new QLabel();
@@ -68,7 +68,7 @@ Anitivirus::Anitivirus(QWidget *parent)
 	APEXRealTimeWg->setFixedHeight(140);
 	QVBoxLayout* APEXRealTimeLayout = new QVBoxLayout();
 	APEXRealTimeLayout->setSpacing(0);
-	APEXRealTimeLayout->setContentsMargins(30, 0, 0, 0);
+	APEXRealTimeLayout->setContentsMargins(30, 0, 30, 0);
 	APEXRealTimeWg->setLayout(APEXRealTimeLayout);
 
 	QLabel* APEXRealTimeTopSpacer = new QLabel();
@@ -110,7 +110,7 @@ Anitivirus::Anitivirus(QWidget *parent)
 	registerWg->setFixedHeight(130);
 	QVBoxLayout* registerLayout = new QVBoxLayout();
 	registerLayout->setSpacing(0);
-	registerLayout->setContentsMargins(30, 0, 0, 0);
+	registerLayout->setContentsMargins(30, 0, 30, 0);
 	registerWg->setLayout(registerLayout);
 
 	QLabel* registerTopSpacer = new QLabel();

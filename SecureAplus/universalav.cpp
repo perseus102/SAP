@@ -12,7 +12,7 @@ UniversalAV::UniversalAV(QWidget *parent)
 	autoUploadWg->setFixedHeight(180);
 	QVBoxLayout* autoUploadLayout = new QVBoxLayout();
 	autoUploadLayout->setSpacing(0);
-	autoUploadLayout->setContentsMargins(30, 0, 0, 0);
+	autoUploadLayout->setContentsMargins(30, 0, 30, 0);
 	autoUploadWg->setLayout(autoUploadLayout);
 
 	m_autoUpload		= new QLabel();
@@ -76,7 +76,7 @@ UniversalAV::UniversalAV(QWidget *parent)
 
 	QVBoxLayout* goodNewLayout = new QVBoxLayout();
 	goodNewLayout->setSpacing(0);
-	goodNewLayout->setContentsMargins(30, 0, 0, 0);
+	goodNewLayout->setContentsMargins(30, 0, 30, 0);
 	goodNewWg->setLayout(goodNewLayout);
 
 	QLabel* goodNewTopSpacer = new QLabel();
@@ -119,7 +119,7 @@ UniversalAV::UniversalAV(QWidget *parent)
 
 	QVBoxLayout* fullScanLayout = new QVBoxLayout();
 	fullScanLayout->setSpacing(0);
-	fullScanLayout->setContentsMargins(30, 0, 0, 0);
+	fullScanLayout->setContentsMargins(30, 0, 30, 0);
 	fullScanWg->setLayout(fullScanLayout);
 
 	QLabel* fullScanTopSpacer = new QLabel();
@@ -176,7 +176,7 @@ UniversalAV::UniversalAV(QWidget *parent)
 
 	QVBoxLayout* demandLayout = new QVBoxLayout();
 	demandLayout->setSpacing(0);
-	demandLayout->setContentsMargins(30, 0, 0, 0);
+	demandLayout->setContentsMargins(30, 0, 30, 0);
 	demandWg->setLayout(demandLayout);
 
 	QLabel* demandTopSpacer = new QLabel();
@@ -219,7 +219,7 @@ UniversalAV::UniversalAV(QWidget *parent)
 
 	QVBoxLayout* realTimeLayout = new QVBoxLayout();
 	realTimeLayout->setSpacing(0);
-	realTimeLayout->setContentsMargins(30, 0, 0, 0);
+	realTimeLayout->setContentsMargins(30, 0, 30, 0);
 	realTimeWg->setLayout(realTimeLayout);
 
 	QLabel* realTimeTopSpacer = new QLabel();
@@ -262,7 +262,7 @@ UniversalAV::UniversalAV(QWidget *parent)
 
 	QVBoxLayout* dailyUploadLayout = new QVBoxLayout();
 	dailyUploadLayout->setSpacing(0);
-	dailyUploadLayout->setContentsMargins(30, 0, 0, 0);
+	dailyUploadLayout->setContentsMargins(30, 0, 30, 0);
 	dailyUploadWg->setLayout(dailyUploadLayout);
 
 	QLabel* dailyUploadTopSpacer = new QLabel();

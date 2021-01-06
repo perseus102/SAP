@@ -6,7 +6,7 @@ SettingGridContent::SettingGridContent(QWidget *parent)
 	ui.setupUi(this);
 
 	m_flowLayout = new FlowLayout(0, 15, 15);
-	m_flowLayout->setContentsMargins(0, 20, 30, 0);
+	m_flowLayout->setContentsMargins(30, 20, 30, 0);
 
 	m_scanning = new GridWidget(SCAN_SETTINGS, QSize(38,30));
 	m_scanning->setTitleText("Scanning Settings");

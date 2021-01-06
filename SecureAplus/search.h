@@ -9,6 +9,7 @@
 #include "appsetting.h"
 #include "util.h"
 #include <QAbstractItemView>
+#include "sapscrollarea.h"
 class SearchButton : public QPushButton
 {
 	Q_OBJECT
@@ -37,16 +38,26 @@ public:
 	~Search();
 private slots:
 	void changeTheme();
+	void updateWord(QString word);
+
+public slots:
+	void addWordList(QString word);
+	void removeWordList(QString word);
+signals:
+	void updateFilter(QStringList list);
+	void setFilter(bool isFilter);
 
 private:
 	Ui::Search ui;
 	
-	SearchButton*	m_searchButton;
-	QLineEdit*		m_searchLabel;
-	QStringListModel m_wordList;
+	SearchButton*		m_searchButton;
+	QLineEdit*			m_searchLabel;
+	QStringListModel	m_wordListModel;
+	QStringList			m_wordList;
+
 	QVBoxLayout*	m_layout;
 	QWidget*		m_searchWg;
-	QCompleter *completer;
+	QCompleter*		completer;
 	void setStyle();
-	
+
 };

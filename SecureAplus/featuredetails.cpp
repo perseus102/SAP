@@ -6,7 +6,7 @@ FeatureDetails::FeatureDetails(QWidget *parent)
 	ui.setupUi(this);
 	m_layout = new QVBoxLayout();
 	m_layout->setContentsMargins(29, 20, 30, 0);
-	m_layout->setSpacing(4);
+	m_layout->setSpacing(0);
 
 	m_FeatureTopBar = new TopBar();
 	m_FeatureTopBar->setVisibleNaviButton(true);
@@ -14,6 +14,13 @@ FeatureDetails::FeatureDetails(QWidget *parent)
 	
 	QLabel *spacerTopBar = new QLabel();
 	spacerTopBar->setFixedHeight(20);
+
+	QWidget* featureWg = new QWidget();
+	featureWg->setFixedHeight(428); // increase 54px for 1 FeatureStatus
+	QVBoxLayout* featureLayout = new QVBoxLayout();
+	featureLayout->setContentsMargins(0, 0, 0, 0);
+	featureLayout->setSpacing(4);
+	featureWg->setLayout(featureLayout);
 
 	m_LicenseFeature = new FeatureStatus(Feature::Lisence, Feature_States::Expire_Soon);
 	m_LicenseFeature->setFeatureName("License");
@@ -48,17 +55,22 @@ FeatureDetails::FeatureDetails(QWidget *parent)
 	m_OffAntivServiceFeature->setStatusText("Apex");
 
 	QLabel *spacerBottom = new QLabel();
+	QLabel *featureBottom = new QLabel();
 
 	m_layout->addWidget(m_FeatureTopBar);
 	m_layout->addWidget(spacerTopBar);
-	m_layout->addWidget(m_LicenseFeature);
-	m_layout->addWidget(m_RTimeFeature);
-	//m_layout->addWidget(m_UAVServiceFeature);
-	m_layout->addWidget(m_WListDriverFeature);
-	m_layout->addWidget(m_WListServiceFeature);
-	m_layout->addWidget(m_SAPServiceFeature);
-	m_layout->addWidget(m_AntivDriverFeature);
-	m_layout->addWidget(m_OffAntivServiceFeature);
+
+	featureLayout->addWidget(m_LicenseFeature);
+	featureLayout->addWidget(m_RTimeFeature);
+	//featureLayout->addWidget(m_UAVServiceFeature);
+	featureLayout->addWidget(m_WListDriverFeature);
+	featureLayout->addWidget(m_WListServiceFeature);
+	featureLayout->addWidget(m_SAPServiceFeature);
+	featureLayout->addWidget(m_AntivDriverFeature);
+	featureLayout->addWidget(m_OffAntivServiceFeature);
+	featureLayout->addWidget(featureBottom);
+
+	m_layout->addWidget(featureWg);
 	m_layout->addWidget(spacerBottom);
 
 	setLayout(m_layout);

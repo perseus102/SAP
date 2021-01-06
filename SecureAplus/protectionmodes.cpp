@@ -7,7 +7,7 @@ ProtectionModes::ProtectionModes(QWidget *parent)
 
 
 	m_layout = new QVBoxLayout();
-	m_layout->setContentsMargins(0, 20, 30, 0);
+	m_layout->setContentsMargins(30, 20, 30, 0);
 	m_layout->setSpacing(0);
 
 	QLabel* spacerTitleAndDescription = new QLabel();

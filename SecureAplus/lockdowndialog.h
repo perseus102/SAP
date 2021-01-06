@@ -23,8 +23,8 @@ public:
 	void showSilentDialog();
 	void showDefaultDialog();
 	LockDown getLockDownMode();
-public slots:
 
+public slots:
 	void cancelClicked();
 	void silentClicked();
 	void defaultClicked();

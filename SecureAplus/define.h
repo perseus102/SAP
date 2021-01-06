@@ -192,6 +192,8 @@
 #define CHECKBOX_ICON_PATH					QString(":/images/checkbox/checkbox.svg")
 #define CHECKBOX_CHECKED_LT					QString(":/images/checkbox/checkbox_checked_lt.svg")
 #define CHECKBOX_CHECKED_DT					QString(":/images/checkbox/checkbox_checked_dt.svg")
+#define CHECKBOX_SELECT_ALL_LT				QString(":/images/checkbox/select_all_lt.svg")
+#define CHECKBOX_SELECT_ALL_DT				QString(":/images/checkbox/select_all_dt.svg")
 
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
@@ -203,6 +205,7 @@
 #define SMALL_FONT							QFont("Lato", 8, QFont::Normal)
 #define SMALL_FONT_BOLD						QFont("Lato", 8, QFont::Bold)
 #define LARGE_FONT							QFont("Lato", 12, QFont::Normal)
+#define BIG_FONT							QFont("Lato", 16, QFont::Medium)
 
 /* Define for navigation button color */
 #define GRADIENT_START_DARK					Config::getInstance()->getConfigValue(NAVIGATION_BTN_GRADIENT_START_DARK)
@@ -341,6 +344,8 @@
 #define DIALOG_CANCEL_TEXT_BORDER_LT				Config::getInstance()->getConfigValue("Dialog/Cancel_Text_Border_Light_Theme")
 #define	DIALOG_BUTTON_TEXT_DT						Config::getInstance()->getConfigValue("Dialog/Button_Text_Dark_Theme")
 #define	DIALOG_BUTTON_TEXT_LT						Config::getInstance()->getConfigValue("Dialog/Button_Text_Light_Theme")
+#define DIALOG_TEXBOX_DT							Config::getInstance()->getConfigValue("Dialog/TextBox_Dark_Theme")
+#define DIALOG_TEXBOX_LT							Config::getInstance()->getConfigValue("Dialog/TextBox_Light_Theme")
 
 /* Define for widget Transparent */
 #define TRANSPARENT_BACKGROUND_DT					Config::getInstance()->getConfigValue("Transparent/Transparent_Background_Dark_Theme")
@@ -446,7 +451,14 @@
 #define TAB_CONTENT_DESC_TEXT_DT					Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Desc_Text_Dark_Theme")
 #define TAB_CONTENT_BACKGROUND_LT					Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Background_Light_Theme")
 #define TAB_CONTENT_BACKGROUND_DT					Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Background_Dark_Theme")
+#define TAB_CONTENT_BTN_TEXT_DISABLED_LT			Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Button_Text_Disabled_Light_Theme")
+#define TAB_CONTENT_BTN_TEXT_DISABLED_DT			Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Button_Text_Disabled_Dark_Theme")
+#define TAB_CONTENT_BTN_BACKGROUND_DISABLED_LT		Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Button_Background_Disabled_Light_Theme")
+#define TAB_CONTENT_BTN_BACKGROUND_DISABLED_DT		Config::getInstance()->getConfigValue("Tab Content/Tab_Content_Button_Background_Disabled_Dark_Theme")
 
+/* Define for Searh widget */
+#define SEARCH_BACKGROUND_LT						Config::getInstance()->getConfigValue("Search/Search_Background_Light_Theme")
+#define SEARCH_BACKGROUND_DT						Config::getInstance()->getConfigValue("Search/Search_Background_Dark_Theme")
 enum ColorType
 {
 	Default = 0,
@@ -575,4 +587,11 @@ enum Screen
 	Screen_None = 0,
 	License_Screen,
 	Antivirus_Tab,
+};
+
+enum Button_Check_State
+{
+	Button_Checked = 0,
+	Button_All_Unchecked,
+	Button_All_Checked,
 };

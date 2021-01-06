@@ -14,7 +14,7 @@ struct FileNameRow
 	QWidget* rowWg;
 	SAPCheckBox* checkBox;
 	QLabel*	fileNameText;
-	QLabel* m_line;
+	QLabel* line;
 };
 
 class FileNameTable : public QWidget
@@ -24,13 +24,24 @@ class FileNameTable : public QWidget
 public:
 	FileNameTable(QWidget *parent = Q_NULLPTR);
 	~FileNameTable();
-	void AddFileName(QString fileName);
 
 private slots:
 	void changeTheme();
 	void allCheckBoxSetCheck(Qt::CheckState);
 	void scrollBarRangeChanged(int min, int max);
 	void rowCheckBoxSetCheck(Qt::CheckState);
+	
+public slots:
+	void removeRows();
+	void AddFileName(QString fileName);
+	void updateFilterRow(QStringList list);
+	void setFilterRow(bool isFilter);
+	void resetToDefault();
+
+signals:
+	void addWord(QString word);
+	void removeWord(QString word);
+	void setRemoveBtnDisabled(bool disabled);
 protected:
 	void resizeEvent(QResizeEvent *event) override;
 
@@ -45,11 +56,20 @@ private:
 	QWidget*		m_rowWg;
 	QVBoxLayout*	m_rowLayout;
 
-	QMap<QString, FileNameRow*> m_fileNameRowMap;
+	QMultiMap<QString, FileNameRow*> m_fileNameRowMap;
+	QStringList m_defaultList;
+
+	int m_rowCount;
+	bool m_isFilter = false;
+	int m_rowChecked = 0;
+	int m_filterCount;
 
 	void setStyle();
 	void setRowStyle(FileNameRow* row);
-	
-	int m_rowCount;
+	bool checkAllUnChecked();
+	bool checkAllChecked();
 
+	Button_Check_State buttonCheckState();
+
+	void setCheckBoxsState();
 };

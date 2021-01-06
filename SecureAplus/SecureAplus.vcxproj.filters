@@ -347,6 +347,9 @@
     <ClCompile Include="search.cpp">
       <Filter>Source Files\Component\Search</Filter>
     </ClCompile>
+    <ClCompile Include="addresappdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -484,6 +487,9 @@
     <QtMoc Include="sapcheckbox.h">
       <Filter>Header Files\Component\SAP CheckBox</Filter>
     </QtMoc>
+    <QtMoc Include="addresappdialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -613,6 +619,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="sapcheckbox.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="addresappdialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

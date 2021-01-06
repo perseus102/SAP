@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="addresappdialog.cpp" />
     <ClCompile Include="allowlist.cpp" />
     <ClCompile Include="allowliststatus.cpp" />
     <ClCompile Include="anitivirus.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="widgettransparent.cpp" />
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
+    <QtUic Include="addresappdialog.ui" />
     <QtUic Include="allowlist.ui" />
     <QtUic Include="allowliststatus.ui" />
     <QtUic Include="anitivirus.ui" />
@@ -286,6 +288,7 @@
     <QtMoc Include="applicationcontrol.h" />
     <QtMoc Include="allowlist.h" />
     <QtMoc Include="allowliststatus.h" />
+    <QtMoc Include="addresappdialog.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />

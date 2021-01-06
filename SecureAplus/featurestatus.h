@@ -49,6 +49,9 @@ public slots:
 signals:
 	void changeScreen(Screen screen);
 
+protected:
+	void resizeEvent(QResizeEvent *event) override;
+
 private:
 	Ui::FeatureStatus ui;
 	QLabel *m_featureNameLabel;
