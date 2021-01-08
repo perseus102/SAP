@@ -1,0 +1,23 @@
+<UI version="4.0" >
+ <class>TrustedCertificate</class>
+ <widget class="QWidget" name="TrustedCertificate" >
+  <property name="objectName" >
+   <string notr="true">TrustedCertificate</string>
+  </property>
+  <property name="geometry" >
+   <rect>
+	<x>0</x>
+	<y>0</y>
+	<width>400</width>
+	<height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>TrustedCertificate</string>
+  </property>
+ </widget>
+ <layoutDefault spacing="6" margin="11" />
+ <pixmapfunction></pixmapfunction>
+ <resources/>
+ <connections/>
+</UI>

@@ -8,6 +8,7 @@
 #include "digitalsignature.h"
 #include "allowlist.h"
 #include "restrictedapp.h"
+#include "trustedcertificate.h"
 class ApplicationControl : public QWidget
 {
 	Q_OBJECT
@@ -44,6 +45,7 @@ private:
 	DigitalSignature*	m_digitalSignatureTab;
 	AllowList*			m_allowListTab;
 	RestrictedApp*		m_restrictedAppTab;
+	TrustedCertificate*		m_trustedCertificateTab;
 
 	void setStyle();
 	void setTabStyle();

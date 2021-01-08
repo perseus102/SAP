@@ -164,6 +164,7 @@
     <ClCompile Include="apexrealtimedialog.cpp" />
     <ClCompile Include="applicationcontrol.cpp" />
     <ClCompile Include="appsetting.cpp" />
+    <ClCompile Include="certificatetable.cpp" />
     <ClCompile Include="circleprocess.cpp" />
     <ClCompile Include="clickablelabel.cpp" />
     <ClCompile Include="Config.cpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="switch.cpp" />
     <ClCompile Include="topbar.cpp" />
     <ClCompile Include="trustalldialog.cpp" />
+    <ClCompile Include="trustedcertificate.cpp" />
     <ClCompile Include="universalav.cpp" />
     <ClCompile Include="upgradedialog.cpp" />
     <ClCompile Include="util.cpp" />
@@ -211,6 +213,7 @@
     <QtUic Include="anitivirus.ui" />
     <QtUic Include="apexrealtimedialog.ui" />
     <QtUic Include="applicationcontrol.ui" />
+    <QtUic Include="certificatetable.ui" />
     <QtUic Include="circleprocess.ui" />
     <QtUic Include="clickablelabel.ui" />
     <QtUic Include="digitalsignature.ui" />
@@ -251,6 +254,7 @@
     <QtUic Include="statuswidget.ui" />
     <QtUic Include="topbar.ui" />
     <QtUic Include="trustalldialog.ui" />
+    <QtUic Include="trustedcertificate.ui" />
     <QtUic Include="universalav.ui" />
     <QtUic Include="upgradedialog.ui" />
     <QtUic Include="vulassessment.ui" />
@@ -289,6 +293,7 @@
     <QtMoc Include="allowlist.h" />
     <QtMoc Include="allowliststatus.h" />
     <QtMoc Include="addresappdialog.h" />
+    <QtMoc Include="certificatetable.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />
@@ -322,6 +327,7 @@
     <QtMoc Include="trustalldialog.h" />
     <QtMoc Include="upgradedialog.h" />
     <QtMoc Include="universalav.h" />
+    <QtMoc Include="trustedcertificate.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>

@@ -82,9 +82,6 @@
     <Filter Include="Header Files\Component\Flow Layout">
       <UniqueIdentifier>{1746315e-c4ba-408e-8240-4ff8b5799143}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Component\Select Widget">
-      <UniqueIdentifier>{8a3d4049-c943-4cc9-a405-a1adafe5186f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Component\Select Widget">
       <UniqueIdentifier>{155007cd-2333-46a8-a794-6b905f5bb39f}</UniqueIdentifier>
     </Filter>
@@ -183,6 +180,9 @@
     </Filter>
     <Filter Include="Header Files\Component\SAP CheckBox">
       <UniqueIdentifier>{0211eebd-c693-4bae-985e-b8a6b0cf6ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Select Widget">
+      <UniqueIdentifier>{8a3d4049-c943-4cc9-a405-a1adafe5186f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +350,12 @@
     <ClCompile Include="addresappdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="trustedcertificate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="certificatetable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -490,6 +496,12 @@
     <QtMoc Include="addresappdialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="trustedcertificate.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="certificatetable.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -622,6 +634,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="addresappdialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="trustedcertificate.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="certificatetable.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
