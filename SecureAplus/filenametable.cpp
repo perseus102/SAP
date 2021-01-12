@@ -93,6 +93,9 @@ FileNameTable::~FileNameTable()
 
 void FileNameTable::AddFileName(QString fileName)
 {
+	//check exist row
+	if (m_fileNameRowMap.value(fileName) != nullptr) return;
+
 	FileNameRow* row = new FileNameRow();
 
 	row->rowWg = new QWidget();
@@ -136,11 +139,12 @@ void FileNameTable::AddFileName(QString fileName)
 	if (m_isFilter)
 	{
 		QSize size = m_rowWg->size();
-		m_rowWg->resize(this->width(), size.height() + 36);
+		m_rowWg->resize(this->width(), size.height() + 38);
 	}
 	else
 	{
-		m_rowWg->resize(this->width(), (36 * m_rowCount));
+		int size = this->width();
+		m_rowWg->resize(this->width(), (38 * m_rowCount));
 	}
 
 	connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &FileNameTable::rowCheckBoxSetCheck);

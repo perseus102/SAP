@@ -65,14 +65,14 @@ Anitivirus::Anitivirus(QWidget *parent)
 	APEXLayout->addWidget(APEXBottomSpacer);
 
 	QWidget* APEXRealTimeWg = new QWidget();
-	APEXRealTimeWg->setFixedHeight(140);
+	APEXRealTimeWg->setFixedHeight(130);
 	QVBoxLayout* APEXRealTimeLayout = new QVBoxLayout();
 	APEXRealTimeLayout->setSpacing(0);
 	APEXRealTimeLayout->setContentsMargins(30, 0, 30, 0);
 	APEXRealTimeWg->setLayout(APEXRealTimeLayout);
 
 	QLabel* APEXRealTimeTopSpacer = new QLabel();
-	APEXRealTimeTopSpacer->setFixedHeight(22);
+	APEXRealTimeTopSpacer->setFixedHeight(12);
 
 	m_APEXRealtime = new QLabel();
 	m_APEXRealtime->setFont(LARGE_FONT);
@@ -107,14 +107,14 @@ Anitivirus::Anitivirus(QWidget *parent)
 	APEXRealTimeLayout->addWidget(APEXRealTimeBottomSpacer);
 
 	QWidget* registerWg = new QWidget();
-	registerWg->setFixedHeight(130);
+	registerWg->setFixedHeight(140);
 	QVBoxLayout* registerLayout = new QVBoxLayout();
 	registerLayout->setSpacing(0);
 	registerLayout->setContentsMargins(30, 0, 30, 0);
 	registerWg->setLayout(registerLayout);
 
 	QLabel* registerTopSpacer = new QLabel();
-	registerTopSpacer->setFixedHeight(22);
+	registerTopSpacer->setFixedHeight(17);
 
 	m_register = new QLabel();
 	m_register->setFont(LARGE_FONT);
@@ -126,7 +126,7 @@ Anitivirus::Anitivirus(QWidget *parent)
 
 	m_registerDesc = new QLabel();
 	m_registerDesc->setFont(SMALL_FONT);
-	m_registerDesc->setFixedHeight(45);
+	m_registerDesc->setFixedHeight(40);
 	m_registerDesc->setWordWrap(true);
 
 	QLabel* registerToggleSpacer = new QLabel();

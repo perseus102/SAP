@@ -195,11 +195,14 @@
 #define CHECKBOX_SELECT_ALL_LT				QString(":/images/checkbox/select_all_lt.svg")
 #define CHECKBOX_SELECT_ALL_DT				QString(":/images/checkbox/select_all_dt.svg")
 
+/* Define for choose file label icon */
+#define CHOOSE_FILE_ICON					QString(":/images/choose file/choose_file_icon.svg")
+
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
 
 /* Define font */
-#define FONT								QFont("Lato", 10, QFont::Normal)
+#define FONT								QFont("Lato", 10, QFont::Normal) //1 character 5px <= 7px <= 10px
 #define HOME_CONTENT_STATUS_FONT			QFont("Lato", 16, QFont::Medium)
 #define GRID_SUB_TITLE_FONT					QFont("Lato", 8, QFont::Normal)
 #define SMALL_FONT							QFont("Lato", 8, QFont::Normal)
@@ -594,4 +597,12 @@ enum Button_Check_State
 	Button_Checked = 0,
 	Button_All_Unchecked,
 	Button_All_Checked,
+};
+
+struct CertificateRowString
+{
+	QString	CertificateNameText;
+	QString	validFromText;
+	QString	validToText;
+	QString	thumprintText;
 };

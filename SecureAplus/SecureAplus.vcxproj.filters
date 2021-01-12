@@ -184,6 +184,24 @@
     <Filter Include="Source Files\Component\Select Widget">
       <UniqueIdentifier>{8a3d4049-c943-4cc9-a405-a1adafe5186f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Certificate Table">
+      <UniqueIdentifier>{3c7458bd-0432-4cd6-bb13-4f6d489ba4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Certificate Table">
+      <UniqueIdentifier>{5ab330f1-7ea6-411e-9d89-d74c7e08f868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings Content\Language &amp; Persional">
+      <UniqueIdentifier>{4805477e-9bcc-4d18-aefe-50947ee1a13e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Settings Content\Language &amp; Persional">
+      <UniqueIdentifier>{71cc2908-3158-4b3e-a018-970dbe7fca9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Settings Content\Protection Mode">
+      <UniqueIdentifier>{a1c6e1b2-fd14-482d-b31b-174441bfe111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings Content\Protection Mode">
+      <UniqueIdentifier>{9bbdc50a-34bd-480a-8e29-3b65d4bf465a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -251,12 +269,6 @@
     <ClCompile Include="settinggridcontent.cpp">
       <Filter>Source Files\Settings Content</Filter>
     </ClCompile>
-    <ClCompile Include="languagepersonal.cpp">
-      <Filter>Source Files\Settings Content</Filter>
-    </ClCompile>
-    <ClCompile Include="protectionmodes.cpp">
-      <Filter>Source Files\Settings Content</Filter>
-    </ClCompile>
     <ClCompile Include="selectwidget.cpp">
       <Filter>Source Files\Component\Select Widget</Filter>
     </ClCompile>
@@ -290,9 +302,6 @@
     <ClCompile Include="settingscontent.cpp">
       <Filter>Source Files\Settings Content</Filter>
     </ClCompile>
-    <ClCompile Include="scansettings.cpp">
-      <Filter>Source Files\Settings Content</Filter>
-    </ClCompile>
     <ClCompile Include="universalav.cpp">
       <Filter>Source Files\Settings Content\Scan Settings</Filter>
     </ClCompile>
@@ -320,9 +329,6 @@
     <ClCompile Include="managegridcontent.cpp">
       <Filter>Source Files\Manage content</Filter>
     </ClCompile>
-    <ClCompile Include="applicationcontrol.cpp">
-      <Filter>Source Files\Manage content</Filter>
-    </ClCompile>
     <ClCompile Include="sapradiobutton.cpp">
       <Filter>Source Files\Component\SAP RadioButton</Filter>
     </ClCompile>
@@ -347,14 +353,29 @@
     <ClCompile Include="search.cpp">
       <Filter>Source Files\Component\Search</Filter>
     </ClCompile>
-    <ClCompile Include="addresappdialog.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="certificatetable.cpp">
+      <Filter>Source Files\Component\Certificate Table</Filter>
     </ClCompile>
     <ClCompile Include="trustedcertificate.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
-    <ClCompile Include="certificatetable.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="languagepersonal.cpp">
+      <Filter>Source Files\Settings Content\Language &amp; Persional</Filter>
+    </ClCompile>
+    <ClCompile Include="protectionmodes.cpp">
+      <Filter>Source Files\Settings Content\Protection Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="scansettings.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="applicationcontrol.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="addresappdialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="addtrustedcertdialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -400,12 +421,6 @@
     <QtMoc Include="topbar.h">
       <Filter>Header Files\Component\Top Bar</Filter>
     </QtMoc>
-    <QtMoc Include="settinggridcontent.h">
-      <Filter>Header Files\Settings Content</Filter>
-    </QtMoc>
-    <QtMoc Include="languagepersonal.h">
-      <Filter>Header Files\Settings Content</Filter>
-    </QtMoc>
     <QtMoc Include="protectionmodes.h">
       <Filter>Header Files\Settings Content</Filter>
     </QtMoc>
@@ -436,9 +451,6 @@
     <QtMoc Include="clickablelabel.h">
       <Filter>Header Files\Component\Clickable Label</Filter>
     </QtMoc>
-    <QtMoc Include="scansettings.h">
-      <Filter>Header Files\Settings Content</Filter>
-    </QtMoc>
     <QtMoc Include="universalav.h">
       <Filter>Header Files\Settings Content\Scan Settings</Filter>
     </QtMoc>
@@ -456,9 +468,6 @@
     </QtMoc>
     <QtMoc Include="sapscrollarea.h">
       <Filter>Header Files\Component\SAP ScrollBar</Filter>
-    </QtMoc>
-    <QtMoc Include="apexrealtimedialog.h">
-      <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="managecontent.h">
       <Filter>Header Files\Manage Content</Filter>
@@ -478,9 +487,6 @@
     <QtMoc Include="allowlist.h">
       <Filter>Header Files\Manage Content\Application Control</Filter>
     </QtMoc>
-    <QtMoc Include="restrictedapp.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="allowliststatus.h">
       <Filter>Header Files\Component\Allowlist Status</Filter>
     </QtMoc>
@@ -493,13 +499,31 @@
     <QtMoc Include="sapcheckbox.h">
       <Filter>Header Files\Component\SAP CheckBox</Filter>
     </QtMoc>
-    <QtMoc Include="addresappdialog.h">
-      <Filter>Header Files</Filter>
+    <QtMoc Include="certificatetable.h">
+      <Filter>Header Files\Component\Certificate Table</Filter>
     </QtMoc>
     <QtMoc Include="trustedcertificate.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Manage Content\Application Control</Filter>
     </QtMoc>
-    <QtMoc Include="certificatetable.h">
+    <QtMoc Include="languagepersonal.h">
+      <Filter>Header Files\Settings Content\Language &amp; Persional</Filter>
+    </QtMoc>
+    <QtMoc Include="scansettings.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
+    <QtMoc Include="settinggridcontent.h">
+      <Filter>Header Files\Settings Content\Protection Mode</Filter>
+    </QtMoc>
+    <QtMoc Include="restrictedapp.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="addresappdialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="apexrealtimedialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="addtrustedcertdialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -640,6 +664,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="certificatetable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="adddtrustedcertdialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -56,8 +56,24 @@ TrustedCertificate::TrustedCertificate(QWidget *parent)
 	m_layout->addWidget(bottomBtns);
 	m_layout->addWidget(bottomSpacer);
 
+	m_addTrustedCertDialog = new AddTrustedCertDialog();
+	transparent = new WidgetTransparent();
+
 	setLayout(m_layout);
 	setStyle();
+
+	connect(m_removeBtn, &QPushButton::clicked, m_certificateTable, &CertificateTable::removeRows);
+	connect(m_removeBtn, &QPushButton::clicked, this, &TrustedCertificate::removeButtonClicked);
+
+	connect(m_addBtn, &QPushButton::clicked, this, &TrustedCertificate::addButtonClicked);
+
+	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, this, &TrustedCertificate::resetToDefaultClicked);
+	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, m_certificateTable, &CertificateTable::resetToDefault);
+	
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &TrustedCertificate::changeTheme);
+
+	connect(m_certificateTable, &CertificateTable::setRemoveBtnDisabled, this, &TrustedCertificate::setRemoveBtnDisabled);
+	connect(m_addTrustedCertDialog, &AddTrustedCertDialog::addTrustedCert, m_certificateTable, &CertificateTable::AddCertificateFromDialog);
 }
 
 TrustedCertificate::~TrustedCertificate()
@@ -66,6 +82,13 @@ TrustedCertificate::~TrustedCertificate()
 
 void TrustedCertificate::addButtonClicked()
 {
+	QRect geometry = AppSetting::getInstance()->getAppGeometry();
+
+	transparent->showWidget();
+	m_addTrustedCertDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*140 is half width*/, geometry.y() + 16, 380, 360);
+	m_addTrustedCertDialog->showDialog();
+	transparent->hide();
+
 }
 
 void TrustedCertificate::resetToDefaultClicked()

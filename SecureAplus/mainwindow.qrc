@@ -53,5 +53,6 @@
         <file>images/checkbox/checkbox_checked_lt.svg</file>
         <file>images/checkbox/select_all_dt.svg</file>
         <file>images/checkbox/select_all_lt.svg</file>
+        <file>images/choose file/choose_file_icon.svg</file>
     </qresource>
 </RCC>

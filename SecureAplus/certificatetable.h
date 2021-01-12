@@ -8,6 +8,7 @@
 #include "appsetting.h"
 #include "sapcheckbox.h"
 #include "sapscrollarea.h"
+#include <QSslCertificate>
 
 struct CertificateRow
 {
@@ -33,10 +34,12 @@ private slots:
 	void allCheckBoxSetCheck(Qt::CheckState);
 	void scrollBarRangeChanged(int min, int max);
 	void rowCheckBoxSetCheck(Qt::CheckState);
-	void resetToDefault();
 
 public slots:
-	void AddCertificate(CertificateRow* Certificate);
+	void AddCertificate(CertificateRowString rowString);
+	void AddCertificateFromDialog(CertificateRowString rowString);
+	void removeRows();
+	void resetToDefault();
 
 signals:
 	void addWord(QString word);
@@ -59,7 +62,7 @@ private:
 	QVBoxLayout*	m_rowLayout;
 
 	QMultiMap<QString, CertificateRow*> m_CertificateRowMap;
-	QList<CertificateRow*> m_defaultList;
+	QList<CertificateRowString> m_defaultList;
 
 	int m_rowCount;
 	bool m_isFilter = false;

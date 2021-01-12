@@ -9,7 +9,7 @@ VulAssessment::VulAssessment(QWidget *parent)
 	m_layout->setSpacing(0);
 
 	QWidget* automaticWg = new QWidget();
-	automaticWg->setFixedHeight(80);
+	automaticWg->setFixedHeight(120);
 	QVBoxLayout* automaticLayout = new QVBoxLayout();
 	automaticLayout->setSpacing(0);
 	automaticLayout->setContentsMargins(30, 0, 30, 0);
@@ -25,7 +25,7 @@ VulAssessment::VulAssessment(QWidget *parent)
 
 	m_automaticCheckDecs = new QLabel();
 	m_automaticCheckDecs->setFont(SMALL_FONT);
-	m_automaticCheckDecs->setFixedHeight(30);
+	m_automaticCheckDecs->setFixedHeight(20);
 	m_automaticCheckDecs->setWordWrap(true);
 
 	QLabel* automaticToggleSpacer = new QLabel();

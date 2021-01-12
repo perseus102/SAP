@@ -11,6 +11,7 @@
 #include "addresappdialog.h"
 #include "widgettransparent.h"
 #include "clickablelabel.h"
+#include "addtrustedcertdialog.h"
 
 class TrustedCertificate : public QWidget
 {
@@ -36,9 +37,12 @@ private:
 	QPushButton*	m_removeBtn;
 	QPushButton*	m_addBtn;
 
-	ClickableLabel*			m_resetToDefaultBtn;
+	ClickableLabel*		m_resetToDefaultBtn;
 
-	CertificateTable*		m_certificateTable;
+	CertificateTable*	m_certificateTable;
+
+	AddTrustedCertDialog*	m_addTrustedCertDialog;
+
 	WidgetTransparent*	transparent;
 
 	void setStyle();
