@@ -286,6 +286,6 @@ void ScanSettings::resizeTab()
 
 void ScanSettings::resizeEvent(QResizeEvent* event)
 {
-	//Q_UNUSED(event);
+	Q_UNUSED(event);
 	resizeTab();
 }

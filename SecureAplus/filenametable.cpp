@@ -141,7 +141,6 @@ void FileNameTable::AddFileName(QString fileName)
 	}
 	else
 	{
-		int size = this->width();
 		m_rowWg->resize(this->width(), (38 * m_rowCount));
 	}
 
@@ -246,6 +245,7 @@ void FileNameTable::scrollBarRangeChanged(int min, int max)
 
 void FileNameTable::rowCheckBoxSetCheck(Qt::CheckState state)
 {
+	Q_UNUSED(state);
 	setCheckBoxsState();
 }
 

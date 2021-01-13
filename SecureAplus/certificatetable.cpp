@@ -81,7 +81,7 @@ CertificateTable::CertificateTable(QWidget *parent)
 	for (int a = 1; a <= 100; a++)
 	{
 		CertificateRowString rowString;
-		rowString.CertificateNameText = "Uninstall_Service.cmd" + QString::number(a);;
+		rowString.CertificateNameText = "Uninstall_Service_Deviceeeee.cmd" + QString::number(a);;
 		rowString.validFromText = "2006-06-28";
 		rowString.validToText = "2009-06-27";
 		rowString.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF" + QString::number(a);
@@ -226,18 +226,19 @@ void CertificateTable::resizeEvent(QResizeEvent * event)
 {
 	Q_UNUSED(event);
 	m_rowWg->resize(m_scrollView->width(), m_rowWg->height());
+	
+	int fullTextWidth, labelWidth, defaultCharsNum, threeDotSize, textWidth, nextCharWidth, remainSpace;
+	QFontMetrics fm(FONT);
+	QString CertificateName;
 
 	for (auto& row : m_CertificateRowMap)
 	{
-		QString CertificateName;
 
-		QFontMetrics fm(FONT);
-		int fullTextWidth = fm.width(row->CertificateName->toolTip());
-		int labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/) / 3;
-
-
-		int defaultCharsNum = 19; // 19 character <= 131px 
-		int threeDotSize = 12; // ... => 12px
+		fullTextWidth = fm.width(row->CertificateName->toolTip());
+		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/) / 3;
+		defaultCharsNum = 19; // 19 character <= 131px 
+		threeDotSize = fm.width("..."); // ... => 12px
+		
 		do
 		{
 			if ((fullTextWidth <= labelWidth))
@@ -248,10 +249,14 @@ void CertificateTable::resizeEvent(QResizeEvent * event)
 			}
 
 			CertificateName = row->CertificateName->toolTip();
-			QFontMetrics fm(FONT);
-			int textWidth = fm.width(CertificateName.mid(0, defaultCharsNum));
 
-			if ((labelWidth - (textWidth + threeDotSize)) >= 10) //10px is for 1 character
+			textWidth = fm.width(CertificateName.mid(0, defaultCharsNum));
+			
+			nextCharWidth = fm.width(CertificateName.mid(defaultCharsNum, 1));
+
+			remainSpace = (labelWidth - (textWidth + threeDotSize));
+
+			if (remainSpace > nextCharWidth)
 			{
 				defaultCharsNum++;
 				continue;
@@ -262,7 +267,9 @@ void CertificateTable::resizeEvent(QResizeEvent * event)
 				row->CertificateName->setText(CertificateName);
 				break;
 			}
+
 			defaultCharsNum--;
+
 		} while (true);
 	}
 }

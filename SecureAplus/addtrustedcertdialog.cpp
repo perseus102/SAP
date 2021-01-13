@@ -40,7 +40,7 @@ void ChooseFile::changeTheme()
 	setIcon();
 }
 
-void ChooseFile::mousePressEvent(QMouseEvent * event)
+void ChooseFile::mousePressEvent(QMouseEvent*)
 {
 	QString fileName = "";
 	fileName = QFileDialog::getOpenFileName(this, tr("Select File"), "C:/", tr("Files (*.exe *.dll *.msi *.msu *.ocx *.sys);;All files (*.*)"));

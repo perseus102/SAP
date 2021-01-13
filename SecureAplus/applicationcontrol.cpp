@@ -54,7 +54,7 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_cmdRules->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	m_allowedListCmd = new ClickableLabel();
-	m_allowedListCmd->setFixedSize(100, 48);
+	m_allowedListCmd->setFixedSize(100, 58);
 	m_allowedListCmd->setFont(FONT);
 	m_allowedListCmd->setWordWrap(true);
 	m_allowedListCmd->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);

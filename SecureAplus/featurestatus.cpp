@@ -169,13 +169,12 @@ void FeatureStatus::settingBtnClicked()
 	}
 }
 
-void FeatureStatus::resizeEvent(QResizeEvent * event)
+void FeatureStatus::resizeEvent(QResizeEvent *)
 {
 	if (m_featureName == Feature::Lisence || m_featureName == Feature::RealTime_Scanning)
 	{
 		m_featureNameLabel->setFixedSize((this->width() / 2) - 24 - 12, 50);
 	}
-	qDebug() << m_featureName << " m_featureNameLabel " << m_featureNameLabel->size();
 }
 
 void FeatureStatus::setStyle()

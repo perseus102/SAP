@@ -109,7 +109,7 @@ void AllowListStatus::viewBtnClick()
 	emit viewBtnClicked();
 }
 
-void AllowListStatus::resizeEvent(QResizeEvent * event)
+void AllowListStatus::resizeEvent(QResizeEvent*)
 {
 	if (m_allowListType == AllowList_Type::Allist_Creation)
 	{

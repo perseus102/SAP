@@ -115,5 +115,7 @@ void FeatureDetails::backBtnCliked()
 
 void FeatureDetails::backToHomeClick(Directory dir)
 {
+	Q_UNUSED(dir);
+
 	emit backToHome();
 }

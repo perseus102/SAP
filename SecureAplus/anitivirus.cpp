@@ -217,6 +217,7 @@ void Anitivirus::toggleClicked()
 
 void Anitivirus::comboboxChangeIndex(int index)
 {
+	Q_UNUSED(index);
 	//do somthing
 }
 

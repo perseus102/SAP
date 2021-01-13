@@ -461,6 +461,8 @@ void UniversalAV::toggleClicked()
 
 void UniversalAV::sliderChangeValue(int value)
 {
+	Q_UNUSED(value);
+
 	//do something
 	//qDebug() << "sliderChangeValue " << value;
 
@@ -468,6 +470,7 @@ void UniversalAV::sliderChangeValue(int value)
 
 void UniversalAV::comboboxChangeIndex(int index)
 {
+	Q_UNUSED(index);
 	//do something
 	//qDebug() << "comboboxChangeIndex " << index;
 }
