@@ -93,9 +93,6 @@ FileNameTable::~FileNameTable()
 
 void FileNameTable::AddFileName(QString fileName)
 {
-	//check exist row
-	if (m_fileNameRowMap.value(fileName) != nullptr) return;
-
 	FileNameRow* row = new FileNameRow();
 
 	row->rowWg = new QWidget();
@@ -134,6 +131,7 @@ void FileNameTable::AddFileName(QString fileName)
 	m_rowLayout->addWidget(row->line);
 
 	m_fileNameRowMap.insert(fileName, row);
+	m_fileNameList.append(fileName);
 	m_rowCount++;
 	
 	if (m_isFilter)
@@ -249,6 +247,27 @@ void FileNameTable::scrollBarRangeChanged(int min, int max)
 void FileNameTable::rowCheckBoxSetCheck(Qt::CheckState state)
 {
 	setCheckBoxsState();
+}
+
+void FileNameTable::AddFileNameFromDialog(QString fileName)
+{
+	int cout = -1;
+	//check exist row
+	if (m_fileNameRowMap.value(fileName) != nullptr)
+	{
+		for (auto& name : m_fileNameList)
+		{
+			cout++;
+			if (name == fileName)
+			{
+				QWidget* wg = m_rowLayout->itemAt(cout * 2)->widget();
+				m_scrollView->ensureWidgetVisible(wg, 150, 150);
+				return;
+			}
+		}
+	}
+
+	AddFileName(fileName);
 }
 
 void FileNameTable::removeRows()

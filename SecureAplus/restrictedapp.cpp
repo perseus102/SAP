@@ -93,7 +93,7 @@ RestrictedApp::RestrictedApp(QWidget *parent)
 	connect(m_fileNameTable, &FileNameTable::addWord, m_searchWg, &Search::addWordList);
 	connect(m_fileNameTable, &FileNameTable::removeWord, m_searchWg, &Search::removeWordList);
 
-	connect(m_addResAppDialog, &AddResAppDialog::addFile, m_fileNameTable, &FileNameTable::AddFileName);
+	connect(m_addResAppDialog, &AddResAppDialog::addFile, m_fileNameTable, &FileNameTable::AddFileNameFromDialog);
 
 	connect(m_searchWg, &Search::updateFilter, m_fileNameTable, &FileNameTable::updateFilterRow);
 	connect(m_searchWg, &Search::setFilter, m_fileNameTable, &FileNameTable::setFilterRow);

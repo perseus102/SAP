@@ -85,7 +85,7 @@ void TrustedCertificate::addButtonClicked()
 	QRect geometry = AppSetting::getInstance()->getAppGeometry();
 
 	transparent->showWidget();
-	m_addTrustedCertDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*140 is half width*/, geometry.y() + 16, 380, 360);
+	m_addTrustedCertDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 360);
 	m_addTrustedCertDialog->showDialog();
 	transparent->hide();
 

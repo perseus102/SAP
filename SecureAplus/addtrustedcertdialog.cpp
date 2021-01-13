@@ -312,7 +312,7 @@ void AddTrustedCertDialog::getFileName(QString fileName)
 		m_commonNameLabel->setText("demo test");
 		m_validFromLabel->setText("01/01/2021");
 		m_validToLabel->setText("01/01/2023");
-		m_thumbprintLabel->setText("IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF5");
+		m_thumbprintLabel->setText("IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF50");
 	}
 }
 void AddTrustedCertDialog::setStyle()

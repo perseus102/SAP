@@ -77,77 +77,18 @@ CertificateTable::CertificateTable(QWidget *parent)
 	connect(m_checkAllBox, &SAPCheckBox::boxSetChecked, this, &CertificateTable::allCheckBoxSetCheck);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &CertificateTable::changeTheme);
 
-	CertificateRowString rowString1;
-	rowString1.CertificateNameText = "Uninstall_Service.cmd";
-	rowString1.validFromText = "2006-06-28";
-	rowString1.validToText = "2009-06-27";
-	rowString1.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF1";
 
-	CertificateRowString rowString2;
-	rowString2.CertificateNameText = "QWERTYUIOPASDFGHJKL.ZXCVBNM1234567890";
-	rowString2.validFromText = "2006-06-28";
-	rowString2.validToText = "2009-06-27";
-	rowString2.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF2";
-
-	CertificateRowString rowString3;
-	rowString3.CertificateNameText = "Uninstall_Service1.cmd";
-	rowString3.validFromText = "2006-06-28";
-	rowString3.validToText = "2009-06-27";
-	rowString3.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF3";
-
-	CertificateRowString rowString4;
-	rowString4.CertificateNameText = "Uninstall_Service2.cmd";
-	rowString4.validFromText = "2006-06-28";
-	rowString4.validToText = "2009-06-27";
-	rowString4.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF4";
-
-	CertificateRowString rowString5;
-	rowString5.CertificateNameText = "Uninstall_Service3.cmd";
-	rowString5.validFromText = "2006-06-28";
-	rowString5.validToText = "2009-06-27";
-	rowString5.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF5";
-
-	CertificateRowString rowString6;
-	rowString6.CertificateNameText = "Uninstall_Service4.cmd";
-	rowString6.validFromText = "2006-06-28";
-	rowString6.validToText = "2009-06-27";
-	rowString6.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF6";
-
-	CertificateRowString rowString7;
-	rowString7.CertificateNameText = "Uninstall_Service5.cmd";
-	rowString7.validFromText = "2006-06-28";
-	rowString7.validToText = "2009-06-27";
-	rowString7.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF7";
-
-	CertificateRowString rowString8;
-	rowString8.CertificateNameText = "Uninstall_Service6.cmd";
-	rowString8.validFromText = "2006-06-28";
-	rowString8.validToText = "2009-06-27";
-	rowString8.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF8";
-
-	CertificateRowString rowString9;
-	rowString9.CertificateNameText = "Uninstall_Service7.cmd";
-	rowString9.validFromText = "2006-06-28";
-	rowString9.validToText = "2009-06-27";
-	rowString9.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUH9F";
-
-	CertificateRowString rowString10;
-	rowString10.CertificateNameText = "Uninstall_Service8.cmd";
-	rowString10.validFromText = "2006-06-28";
-	rowString10.validToText = "2009-06-27";
-	rowString10.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF10";
-
-	AddCertificate(rowString1);
-	AddCertificate(rowString2);
-	AddCertificate(rowString3);
-	AddCertificate(rowString4);
-	AddCertificate(rowString5);
-	AddCertificate(rowString6);
-	AddCertificate(rowString7);
-	AddCertificate(rowString8);
-	AddCertificate(rowString9);
-	AddCertificate(rowString10);
-
+	for (int a = 1; a <= 100; a++)
+	{
+		CertificateRowString rowString;
+		rowString.CertificateNameText = "Uninstall_Service.cmd" + QString::number(a);;
+		rowString.validFromText = "2006-06-28";
+		rowString.validToText = "2009-06-27";
+		rowString.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF" + QString::number(a);
+		AddCertificate(rowString);
+		m_defaultList.append(rowString);
+	}
+	//init m_defaultList here
 }
 
 CertificateTable::~CertificateTable()
@@ -197,10 +138,10 @@ void CertificateTable::rowCheckBoxSetCheck(Qt::CheckState)
 
 void CertificateTable::resetToDefault()
 {
-	QList<QString> keyList;
+	QList<CertificateRow*> keyList;
 	for (auto& row : m_CertificateRowMap)
 	{
-		keyList.append(m_CertificateRowMap.key(row));
+		keyList.append(row);
 		m_rowLayout->removeWidget(row->rowWg);
 		m_rowLayout->removeWidget(row->line);
 		row->rowWg->setParent(nullptr);
@@ -209,13 +150,12 @@ void CertificateTable::resetToDefault()
 		delete row->line;
 		m_rowCount--;
 		QSize size = m_rowWg->size();
-		m_rowWg->resize(this->width(), size.height() - 50);
+		m_rowWg->resize(this->width(), size.height() - 52 /* row height */);
 	}
 
 	for (auto& key : keyList)
 	{
-		m_CertificateRowMap.remove(key);
-		//emit removeWord(key);
+		m_CertificateRowMap.removeOne(key);
 	}
 
 	for (auto& key : m_defaultList)
@@ -233,10 +173,11 @@ void CertificateTable::AddCertificateFromDialog(CertificateRowString rowString)
 	for (auto& row : m_CertificateRowMap)
 	{
 		cout++;
+
 		if (row->thumprint->text() == rowString.thumprintText)
 		{
 			QWidget* wg = m_rowLayout->itemAt(cout * 2)->widget();
-			m_scrollView->ensureWidgetVisible(wg);
+			m_scrollView->ensureWidgetVisible(wg,150,150);
 			return;
 		}
 	}
@@ -246,12 +187,12 @@ void CertificateTable::AddCertificateFromDialog(CertificateRowString rowString)
 
 void CertificateTable::removeRows()
 {
-	QList<QString> keyList;
+	QList<CertificateRow*> keyList;
 	for (auto& row : m_CertificateRowMap)
 	{
 		if (row->checkBox->getCheckState() == Qt::Checked && row->rowWg->isVisible())
 		{
-			keyList.append(m_CertificateRowMap.key(row));
+			keyList.append(row);
 			m_rowLayout->removeWidget(row->rowWg);
 			m_rowLayout->removeWidget(row->line);
 			row->rowWg->setParent(nullptr);
@@ -259,15 +200,15 @@ void CertificateTable::removeRows()
 			delete row->rowWg;
 			delete row->line;
 			m_rowCount--;
+
 			QSize size = m_rowWg->size();
-			m_rowWg->resize(this->width(), size.height() - 36);
+			m_rowWg->resize(this->width(), size.height() - 52 /* row height */);
 		}
 	}
 
 	for (auto& key : keyList)
 	{
-		m_CertificateRowMap.remove(key);
-		//emit removeWord(key);
+		m_CertificateRowMap.removeOne(key);
 	}
 
 	if (m_CertificateRowMap.count() == 0) // remove all
@@ -296,7 +237,7 @@ void CertificateTable::resizeEvent(QResizeEvent * event)
 
 
 		int defaultCharsNum = 19; // 19 character <= 131px 
-		int treeDotSize = 12; // ... => 12px
+		int threeDotSize = 12; // ... => 12px
 		do
 		{
 			if ((fullTextWidth <= labelWidth))
@@ -310,12 +251,12 @@ void CertificateTable::resizeEvent(QResizeEvent * event)
 			QFontMetrics fm(FONT);
 			int textWidth = fm.width(CertificateName.mid(0, defaultCharsNum));
 
-			if ((labelWidth - (textWidth + treeDotSize)) >= 10) //10px is for 1 character
+			if ((labelWidth - (textWidth + threeDotSize)) >= 10) //10px is for 1 character
 			{
 				defaultCharsNum++;
 				continue;
 			}
-			if ((textWidth + treeDotSize) <= labelWidth)
+			if ((textWidth + threeDotSize) <= labelWidth)
 			{
 				CertificateName = CertificateName.mid(0, defaultCharsNum) + "...";
 				row->CertificateName->setText(CertificateName);
@@ -558,8 +499,7 @@ void CertificateTable::AddCertificate(CertificateRowString rowString)
 	setRowStyle(row);
 	m_rowCount++;
 
-	m_CertificateRowMap.insert(rowString.CertificateNameText, row);
-
+	m_CertificateRowMap.append(row);
 	if (m_isFilter)
 	{
 		QSize size = m_scrollView->size();
@@ -572,9 +512,6 @@ void CertificateTable::AddCertificate(CertificateRowString rowString)
 	}
 
 	connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &CertificateTable::rowCheckBoxSetCheck);
-
-	//emit addWord(fileName);
-
 }
 
 void CertificateTable::changeTheme()

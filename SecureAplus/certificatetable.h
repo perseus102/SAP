@@ -61,8 +61,9 @@ private:
 	QWidget*		m_rowWg;
 	QVBoxLayout*	m_rowLayout;
 
-	QMultiMap<QString, CertificateRow*> m_CertificateRowMap;
+	//QMap<QString, CertificateRow*> m_CertificateRowMap;
 	QList<CertificateRowString> m_defaultList;
+	QList<CertificateRow*> m_CertificateRowMap;;
 
 	int m_rowCount;
 	bool m_isFilter = false;

@@ -30,13 +30,14 @@ private slots:
 	void allCheckBoxSetCheck(Qt::CheckState);
 	void scrollBarRangeChanged(int min, int max);
 	void rowCheckBoxSetCheck(Qt::CheckState);
-	
+
 public slots:
 	void removeRows();
 	void AddFileName(QString fileName);
 	void updateFilterRow(QStringList list);
 	void setFilterRow(bool isFilter);
 	void resetToDefault();
+	void AddFileNameFromDialog(QString fileName);
 
 signals:
 	void addWord(QString word);
@@ -58,6 +59,7 @@ private:
 
 	QMultiMap<QString, FileNameRow*> m_fileNameRowMap;
 	QStringList m_defaultList;
+	QStringList m_fileNameList;
 
 	int m_rowCount;
 	bool m_isFilter = false;
