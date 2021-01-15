@@ -191,6 +191,8 @@
     <ClCompile Include="sapslider.cpp" />
     <ClCompile Include="scansettings.cpp" />
     <ClCompile Include="scanwidget.cpp" />
+    <ClCompile Include="scripts.cpp" />
+    <ClCompile Include="scriptstable.cpp" />
     <ClCompile Include="search.cpp" />
     <ClCompile Include="selectwidget.cpp" />
     <ClCompile Include="settinggridcontent.cpp" />
@@ -248,6 +250,8 @@
     <QtUic Include="sapslider.ui" />
     <QtUic Include="scansettings.ui" />
     <QtUic Include="scanwidget.ui" />
+    <QtUic Include="scripts.ui" />
+    <QtUic Include="scriptstable.ui" />
     <QtUic Include="search.ui" />
     <QtUic Include="selectwidget.ui" />
     <QtUic Include="settinggridcontent.ui" />
@@ -324,6 +328,8 @@
     <QtMoc Include="sapradiobutton.h" />
     <QtMoc Include="search.h" />
     <QtMoc Include="sapcheckbox.h" />
+    <QtMoc Include="scripts.h" />
+    <QtMoc Include="scriptstable.h" />
     <ClInclude Include="style.h" />
     <QtMoc Include="switch.h" />
     <QtMoc Include="topbar.h" />

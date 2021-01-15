@@ -1,23 +1,22 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_trustedcertificate.h"
+#include "ui_scripts.h"
 #include "define.h"
 #include "appsetting.h"
 #include "util.h"
-#include "search.h"
-#include "certificatetable.h"
-#include "widgettransparent.h"
 #include "clickablelabel.h"
-#include "addtrustedcertdialog.h"
+#include "scriptstable.h"
+#include <QPushButton>
+#include "widgettransparent.h"
 
-class TrustedCertificate : public QWidget
+class Scripts : public QWidget
 {
 	Q_OBJECT
 
 public:
-	TrustedCertificate(QWidget *parent = Q_NULLPTR);
-	~TrustedCertificate();
+	Scripts(QWidget *parent = Q_NULLPTR);
+	~Scripts();
 
 private slots:
 	void removeButtonClicked();
@@ -29,17 +28,15 @@ public slots:
 	void changeTheme();
 
 private:
-	Ui::TrustedCertificate ui;
+	Ui::Scripts ui;
 
 	QVBoxLayout*	m_layout;
 	QPushButton*	m_removeBtn;
 	QPushButton*	m_addBtn;
 
+	ScriptsTable*	m_scriptsTable;
+
 	ClickableLabel*		m_resetToDefaultBtn;
-
-	CertificateTable*	m_certificateTable;
-
-	AddTrustedCertDialog*	m_addTrustedCertDialog;
 
 	WidgetTransparent*	transparent;
 

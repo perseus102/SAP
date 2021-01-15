@@ -59,6 +59,7 @@ AddResAppDialog::AddResAppDialog(QDialog *parent)
 	m_addFileBtn->setFixedSize(80, 30);
 	m_addFileBtn->setFont(FONT);
 	m_addFileBtn->setText("Add File");
+	m_addFileBtn->setEnabled(false);
 
 	buttonLayout->addWidget(btnLeftSpacer);
 	buttonLayout->addWidget(m_cancelBtn);
@@ -77,10 +78,13 @@ AddResAppDialog::AddResAppDialog(QDialog *parent)
 	setLayout(m_layout);
 
 	setStyle();
+	setAddBtnStyle();
 
 	connect(m_cancelBtn, &QPushButton::clicked, this, &AddResAppDialog::cancelClicked);
 	connect(m_addFileBtn, &QPushButton::clicked, this, &AddResAppDialog::addFileClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &AddResAppDialog::changeTheme);
+	connect(m_fileNameLabel, &QLineEdit::textChanged, this, &AddResAppDialog::textChange);
+
 }
 
 AddResAppDialog::~AddResAppDialog()
@@ -117,9 +121,9 @@ void AddResAppDialog::setStyle()
 			"border: 1px solid" + DIALOG_CANCEL_TEXT_BORDER_DT + "; border-radius:4px;}"
 			"QPushButton:hover{border: 2px solid " + DIALOG_CANCEL_TEXT_BORDER_DT + ";}");
 
-		m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_DT + ";"
+		/*m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_DT + ";"
 			"color: " + DIALOG_BUTTON_TEXT_DT + ";"
-			"border-radius:4px;}");
+			"border-radius:4px;}");*/
 
 		m_fileNameLabel->setStyleSheet("border:none;"
 			"color:" + TAB_CONTENT_DESC_TEXT_DT + ";");
@@ -136,9 +140,9 @@ void AddResAppDialog::setStyle()
 			"border: 1px solid" + DIALOG_CANCEL_TEXT_BORDER_LT + "; border-radius:4px;}"
 			"QPushButton:hover{border: 2px solid " + DIALOG_CANCEL_TEXT_BORDER_LT + ";}");
 
-		m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_LT + ";"
+		/*m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_LT + ";"
 			"color: " + DIALOG_BUTTON_TEXT_LT + ";"
-			"border-radius:4px;}");
+			"border-radius:4px;}");*/
 
 		m_fileNameLabel->setStyleSheet("border:none;"
 			"color:"+ TAB_CONTENT_DESC_TEXT_LT +";");
@@ -155,10 +159,70 @@ void AddResAppDialog::changeTheme()
 	setStyle();
 }
 
+void AddResAppDialog::textChange(QString text)
+{
+	if (text == "")
+	{
+		m_addFileBtn->setEnabled(false);
+	}
+	else
+	{
+		m_addFileBtn->setEnabled(true);
+
+	}
+	setAddBtnStyle();
+
+}
+
 void AddResAppDialog::showDialog()
 {
+	m_addFileBtn->setEnabled(false);
+	setAddBtnStyle();
 	m_fileNameLabel->setText("");
 	activateWindow();
 	raise();
 	exec();
+}
+
+void AddResAppDialog::setAddBtnStyle()
+{
+	switch (AppSetting::getInstance()->getTheme())
+	{
+	case Theme_Type::Light_Theme:
+		if (m_addFileBtn->isEnabled())
+		{
+			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_LT + ";"
+				"color: " + DIALOG_BUTTON_TEXT_LT + ";"
+				"border-radius:4px;}");
+		}
+		else
+		{
+			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BACKGROUND_DISABLE_LT + ";"
+				"color: " + DIALOG_BUTTON_TEXT_DISABLE_LT + ";"
+				"border-radius:4px;"
+				"border:none;}");
+		}
+		break;
+
+	case Theme_Type::Dark_Theme:
+
+		if (m_addFileBtn->isEnabled())
+		{
+			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_DT + ";"
+				"color: " + DIALOG_BUTTON_TEXT_DT + ";"
+				"border-radius:4px;}");
+		}
+		else
+		{
+			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BACKGROUND_DISABLE_DT + ";"
+				"color: " + DIALOG_BUTTON_TEXT_DISABLE_DT + ";"
+				"border-radius:4px;"
+				"border:none;}");
+		}
+		break;
+
+		//MORE THEME
+	default:
+		break;
+	}
 }

@@ -19,10 +19,12 @@ public:
 	~AddResAppDialog();
 	void showDialog();
 
+
 private slots:
 	void cancelClicked();
 	void addFileClicked();
 	void changeTheme();
+	void textChange(QString text);
 
 signals:
 	void addFile(QString fileName);
@@ -37,4 +39,6 @@ private:
 	QWidget*		m_fileNameWg;
 
 	void setStyle();
+	void setAddBtnStyle();
+
 };

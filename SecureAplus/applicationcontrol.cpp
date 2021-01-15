@@ -76,16 +76,18 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	tabLayout->setContentsMargins(0, 25, 0, 0);
 	m_tabContentWidget->setLayout(tabLayout);
 
-	m_digitalSignatureTab = new DigitalSignature();
-	m_allowListTab = new AllowList();
-	m_restrictedAppTab = new RestrictedApp();
+	m_digitalSignatureTab	= new DigitalSignature();
+	m_allowListTab			= new AllowList();
+	m_restrictedAppTab		= new RestrictedApp();
 	m_trustedCertificateTab = new TrustedCertificate();
+	m_scriptsTab			= new Scripts();
 
 	m_tabStackedWidget = new QStackedWidget();
 	m_tabStackedWidget->addWidget(m_digitalSignatureTab);
 	m_tabStackedWidget->addWidget(m_allowListTab);
 	m_tabStackedWidget->addWidget(m_restrictedAppTab);
 	m_tabStackedWidget->addWidget(m_trustedCertificateTab);
+	m_tabStackedWidget->addWidget(m_scriptsTab);
 
 	tabLayout->addWidget(m_tabStackedWidget);
 
@@ -261,6 +263,7 @@ void ApplicationControl::TabClicked()
 	}
 	else if (sender() == m_scripts)
 	{
+		m_tabStackedWidget->setCurrentWidget(m_scriptsTab);
 		m_activeTab = m_scripts;
 	}
 	else if (sender() == m_cmdRules)

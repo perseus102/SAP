@@ -377,6 +377,12 @@
     <ClCompile Include="addtrustedcertdialog.cpp">
       <Filter>Source Files\Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="scriptstable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scripts.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -526,6 +532,12 @@
     <QtMoc Include="addtrustedcertdialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="scripts.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="scriptstable.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -667,6 +679,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="adddtrustedcertdialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="scripts.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="scriptstable.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

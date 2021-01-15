@@ -9,6 +9,7 @@
 #include "allowlist.h"
 #include "restrictedapp.h"
 #include "trustedcertificate.h"
+#include "scripts.h"
 class ApplicationControl : public QWidget
 {
 	Q_OBJECT
@@ -42,10 +43,11 @@ private:
 
 	QObject*			m_activeTab;
 
-	DigitalSignature*	m_digitalSignatureTab;
-	AllowList*			m_allowListTab;
-	RestrictedApp*		m_restrictedAppTab;
+	DigitalSignature*		m_digitalSignatureTab;
+	AllowList*				m_allowListTab;
+	RestrictedApp*			m_restrictedAppTab;
 	TrustedCertificate*		m_trustedCertificateTab;
+	Scripts*				m_scriptsTab;
 
 	void setStyle();
 	void setTabStyle();
