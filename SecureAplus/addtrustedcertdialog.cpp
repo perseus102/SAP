@@ -43,7 +43,7 @@ void ChooseFile::changeTheme()
 void ChooseFile::mousePressEvent(QMouseEvent*)
 {
 	QString fileName = "";
-	fileName = QFileDialog::getOpenFileName(this, tr("Select File"), "C:/", tr("Files (*.exe *.dll *.msi *.msu *.ocx *.sys);;All files (*.*)"));
+	fileName = QFileDialog::getOpenFileName(this, tr("Select File"), "", tr("Files (*.exe *.dll *.msi *.msu *.ocx *.sys);;All files (*.*)"));
 
 	if (fileName != "")
 	{
@@ -56,21 +56,21 @@ void ChooseFile::setStyle()
 	{
 	case Theme_Type::Dark_Theme:
 		this->setStyleSheet("QFrame{background-color:none; border-radius:2px;"
-			"border: 1px solid #19C2E8;}");
+			"border: 1px solid " + DIALOG_BUTTON_BGROUND_DT + ";}");
 
 		m_iconLabel->setStyleSheet("QLabel{border:none;background-color:none}");
 
-		m_chooseFileLabel->setStyleSheet("QLabel{border:none;color:#19C2E8;}");
+		m_chooseFileLabel->setStyleSheet("QLabel{border:none;color:" + DIALOG_BUTTON_BGROUND_DT + ";}");
 		break;
 
 	case Theme_Type::Light_Theme:
 
 		this->setStyleSheet("QFrame{background-color:none; border-radius:2px;"
-			"border: 1px solid #055598;}");
+			"border: 1px solid "+ DIALOG_BUTTON_BGROUND_LT +";}");
 
 		m_iconLabel->setStyleSheet("QLabel{border:none;background-color:none}");
 
-		m_chooseFileLabel->setStyleSheet("QLabel{border:none;color:#055598;}");
+		m_chooseFileLabel->setStyleSheet("QLabel{border:none;color:"+ DIALOG_BUTTON_BGROUND_LT +";}");
 		break;
 
 		/* MORE THEME */
@@ -86,11 +86,11 @@ void ChooseFile::setIcon()
 	{
 	case Theme_Type::Light_Theme:
 
-		icon = util::getInstance()->ChangeSVGColor(CHOOSE_FILE_ICON, "#055598");
+		icon = util::getInstance()->ChangeSVGColor(CHOOSE_FILE_ICON, DIALOG_BUTTON_BGROUND_LT);
 		break;
 
 	case Theme_Type::Dark_Theme:
-		icon = util::getInstance()->ChangeSVGColor(CHOOSE_FILE_ICON, "#19C2E8");
+		icon = util::getInstance()->ChangeSVGColor(CHOOSE_FILE_ICON, DIALOG_BUTTON_BGROUND_DT);
 		break;
 
 		/* MORE THEME */
@@ -104,14 +104,14 @@ AddTrustedCertDialog::AddTrustedCertDialog(QDialog *parent)
 	: QDialog(parent, Qt::FramelessWindowHint)
 {
 	ui.setupUi(this);
-	setFixedSize(380, 360);
+	setFixedSize(380, 180);
 
 	m_layout = new QVBoxLayout();
-	m_layout->setContentsMargins(30, 30, 30, 0);
+	m_layout->setContentsMargins(23, 30, 23, 0);
 	m_layout->setSpacing(0);
 
 	QWidget* topWg = new QWidget();
-	topWg->setFixedHeight(87);
+	topWg->setFixedHeight(65);
 	QVBoxLayout* topLayout = new QVBoxLayout();
 	topLayout->setContentsMargins(0, 0, 0, 0);
 	topLayout->setSpacing(20);
@@ -119,7 +119,7 @@ AddTrustedCertDialog::AddTrustedCertDialog(QDialog *parent)
 
 	m_titleText = new QLabel();
 	m_titleText->setFixedHeight(15);
-	m_titleText->setFont(FONT);
+	m_titleText->setFont(LARGE_FONT);
 
 	QWidget* chooseFileWg = new QWidget();
 	chooseFileWg->setFixedHeight(30);
@@ -137,87 +137,111 @@ AddTrustedCertDialog::AddTrustedCertDialog(QDialog *parent)
 	chooseFileLayout->addWidget(m_chooseFileBtn);
 	chooseFileLayout->addWidget(m_filePathText);
 
-	m_centerLine = new QLabel();
-	m_centerLine->setFixedHeight(2);
-
 	topLayout->addWidget(m_titleText);
 	topLayout->addWidget(chooseFileWg);
-	topLayout->addWidget(m_centerLine);
 
-	QWidget* inforWg = new QWidget();
-	inforWg->setFixedHeight(164);
-	QVBoxLayout* inforLayout = new QVBoxLayout();
-	inforLayout->setContentsMargins(0, 20, 0, 0);
-	inforLayout->setSpacing(8);
-	inforWg->setLayout(inforLayout);
+	/////////////
+
+	topSpacer = new QLabel();
+	topSpacer->setFixedHeight(14);
+
+	//////////////////
+
+	m_certificateInforWg = new QWidget();
+	m_certificateInforWg->setFixedSize(334, 123);
+	m_certificateInforWg->setVisible(false);
+
+	QHBoxLayout* certinforsLayout = new QHBoxLayout();
+	certinforsLayout->setContentsMargins(16, 16, 16, 0);
+	certinforsLayout->setSpacing(30);
+	m_certificateInforWg->setLayout(certinforsLayout);
 
 	//////////
-	m_commonNameWg = new QWidget();
-	m_commonNameWg->setFixedHeight(30);
 
-	QHBoxLayout* commonNameLayout = new QHBoxLayout();
-	commonNameLayout->setContentsMargins(18, 0, 18, 0);
-	commonNameLayout->setSpacing(0);
-	m_commonNameWg->setLayout(commonNameLayout);
+	QWidget* titleWg = new QWidget();
+	titleWg->setFixedWidth(100);
 
-	m_commonNameLabel = new QLabel(this);
-	m_commonNameLabel->setFont(FONT);
-	m_commonNameLabel->setFixedHeight(30);
+	QVBoxLayout* titleLayout = new QVBoxLayout();
+	titleLayout->setContentsMargins(0, 0, 0, 0);
+	titleLayout->setSpacing(0);
+	titleWg->setLayout(titleLayout);
 
-	commonNameLayout->addWidget(m_commonNameLabel);
+	m_commonNameTitle = new QLabel();
+	m_commonNameTitle->setAlignment(Qt::AlignLeft |Qt::AlignTop);
+	m_commonNameTitle->setFont(FONT);
+	m_commonNameTitle->setFixedHeight(20);
+	m_commonNameTitle->setText("Certificate Name");
+
+	m_validFromTitle = new QLabel();
+	m_validFromTitle->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	m_validFromTitle->setFont(FONT);
+	m_validFromTitle->setFixedHeight(20);
+	m_validFromTitle->setText("Valid From");
+
+	m_validToTitle = new QLabel();
+	m_validToTitle->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	m_validToTitle->setFont(FONT);
+	m_validToTitle->setFixedHeight(20);
+	m_validToTitle->setText("Valid to");
+
+	m_thumbprintTitle = new QLabel();
+	m_thumbprintTitle->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	m_thumbprintTitle->setFont(FONT);
+	m_thumbprintTitle->setText("Thumbprint");
+
+	titleLayout->addWidget(m_commonNameTitle);
+	titleLayout->addWidget(m_validFromTitle);
+	titleLayout->addWidget(m_validToTitle);
+	titleLayout->addWidget(m_thumbprintTitle);
+
+	/////////////
+
+	QWidget* inforWg = new QWidget();
+	inforWg->setFixedWidth(172);
+	QVBoxLayout* inforLayout = new QVBoxLayout();
+	inforLayout->setContentsMargins(0, 0, 0, 0);
+	inforLayout->setSpacing(0);
+	inforWg->setLayout(inforLayout);
+
+	m_commonName = new QLabel();
+	m_commonName->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	m_commonName->setFont(FONT);
+	m_commonName->setFixedHeight(20);
+	m_commonName->setWordWrap(true);
+
+	m_validFrom = new QLabel();
+	m_validFrom->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	m_validFrom->setFont(FONT);
+	m_validFrom->setFixedHeight(20);
+	m_validFrom->setWordWrap(true);
+
+	m_validTo = new QLabel();
+	m_validTo->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	m_validTo->setFont(FONT);
+	m_validTo->setFixedHeight(20);
+	m_validTo->setWordWrap(true);
+
+	m_thumbprint = new QLabel();
+	m_thumbprint->setFont(FONT);
+	m_thumbprint->setWordWrap(true);
+	m_thumbprint->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	
-	/////////
-	m_validFromWg = new QWidget();
-	m_validFromWg->setFixedHeight(30);
+	inforLayout->addWidget(m_commonName);
+	inforLayout->addWidget(m_validFrom);
+	inforLayout->addWidget(m_validTo);
+	inforLayout->addWidget(m_thumbprint);
 
-	QHBoxLayout* validFromLayout = new QHBoxLayout();
-	validFromLayout->setContentsMargins(18, 0, 18, 0);
-	validFromLayout->setSpacing(0);
-	m_validFromWg->setLayout(validFromLayout);
+	////////////
 
-	m_validFromLabel = new QLabel(this);
-	m_validFromLabel->setFont(FONT);
-	m_validFromLabel->setFixedHeight(30);
+	certinforsLayout->addWidget(titleWg);
+	certinforsLayout->addWidget(inforWg);
 
-	validFromLayout->addWidget(m_validFromLabel);
+	QLabel* rightSpacer = new QLabel();
+	certinforsLayout->addWidget(rightSpacer);
 
-	/////////
-	m_validToWg = new QWidget();
-	m_validToWg->setFixedHeight(30);
-
-	QHBoxLayout* validToLayout = new QHBoxLayout();
-	validToLayout->setContentsMargins(18, 0, 18, 0);
-	validToLayout->setSpacing(0);
-	m_validToWg->setLayout(validToLayout);
-
-	m_validToLabel = new QLabel(this);
-	m_validToLabel->setFont(FONT);
-	m_validToLabel->setFixedHeight(30);
-
-	validToLayout->addWidget(m_validToLabel);
-
-	/////////
-	m_thumbprintWg = new QWidget();
-	m_thumbprintWg->setFixedHeight(30);
-
-	QHBoxLayout* thumbprintLayout = new QHBoxLayout();
-	thumbprintLayout->setContentsMargins(18, 0, 18, 0);
-	thumbprintLayout->setSpacing(0);
-	m_thumbprintWg->setLayout(thumbprintLayout);
-
-	m_thumbprintLabel = new QLabel(this);
-	m_thumbprintLabel->setFont(FONT);
-	m_thumbprintLabel->setFixedHeight(30);
-
-	thumbprintLayout->addWidget(m_thumbprintLabel);
-
-	inforLayout->addWidget(m_commonNameWg);
-	inforLayout->addWidget(m_validFromWg);
-	inforLayout->addWidget(m_validToWg);
-	inforLayout->addWidget(m_thumbprintWg);
-
+	/////////////
 	QLabel* inforSpacer = new QLabel();
-	inforSpacer->setFixedHeight(25);
+	inforSpacer->setFixedHeight(26);
 
 	///////////////
 	QWidget* buttonWidget = new QWidget();
@@ -240,6 +264,7 @@ AddTrustedCertDialog::AddTrustedCertDialog(QDialog *parent)
 	m_addFileBtn = new QPushButton();
 	m_addFileBtn->setFixedSize(80, 30);
 	m_addFileBtn->setFont(FONT);
+	m_addFileBtn->setEnabled(false);
 
 	buttonLayout->addWidget(btnLeftSpacer);
 	buttonLayout->addWidget(m_cancelBtn);
@@ -249,7 +274,8 @@ AddTrustedCertDialog::AddTrustedCertDialog(QDialog *parent)
 	QLabel* bottomSpacer = new QLabel();
 
 	m_layout->addWidget(topWg);
-	m_layout->addWidget(inforWg);
+	m_layout->addWidget(topSpacer);
+	m_layout->addWidget(m_certificateInforWg);
 	m_layout->addWidget(inforSpacer);
 	m_layout->addWidget(buttonWidget);
 	m_layout->addWidget(bottomSpacer);
@@ -258,6 +284,7 @@ AddTrustedCertDialog::AddTrustedCertDialog(QDialog *parent)
 
 	setStyle();
 	setText();
+	setAddBtnStyle();
 
 	connect(m_chooseFileBtn, &ChooseFile::choosedFile, this, &AddTrustedCertDialog::getFileName);
 	connect(m_cancelBtn, &QPushButton::clicked, this, &AddTrustedCertDialog::cancelClicked);
@@ -271,6 +298,11 @@ AddTrustedCertDialog::~AddTrustedCertDialog()
 
 void AddTrustedCertDialog::showDialog()
 {
+	setFixedSize(380, 180);
+	m_certificateInforWg->setVisible(false);
+	topSpacer->setVisible(false);
+	m_addFileBtn->setEnabled(false);
+	setAddBtnStyle();
 	m_curFileName = "";
 	setText();
 	activateWindow();
@@ -283,10 +315,10 @@ void AddTrustedCertDialog::addClicked()
 	if (m_curFileName != "")
 	{
 		CertificateRowString certInfor;
-		certInfor.CertificateNameText = m_commonNameLabel->text();
-		certInfor.validFromText = m_validFromLabel->text();
-		certInfor.validToText = m_validToLabel->text();
-		certInfor.thumprintText = m_thumbprintLabel->text();
+		certInfor.CertificateNameText = m_commonName->text();
+		certInfor.validFromText = m_validFrom->text();
+		certInfor.validToText = m_validTo->text();
+		certInfor.thumprintText = m_thumbprint->text();
 		emit addTrustedCert(certInfor);
 	}
 
@@ -295,24 +327,32 @@ void AddTrustedCertDialog::addClicked()
 void AddTrustedCertDialog::changeTheme()
 {
 	setStyle();
+	setAddBtnStyle();
 }
 void AddTrustedCertDialog::getFileName(QString fileName)
 {
+	setFixedSize(380, 322);
+	m_certificateInforWg->setVisible(true);
+	topSpacer->setVisible(true);
+
 	if (m_curFileName == fileName) return;
 
 	m_curFileName = fileName;
-
 	if (fileName != "")
 	{
-		m_filePathText->setText(fileName);
+		m_addFileBtn->setEnabled(true);
+		setAddBtnStyle();
+
+		setFilePathText(fileName);
 
 		//do something to get common name, valid from, valid to, thumprint
 
 		/* set text after get infor */
-		m_commonNameLabel->setText("demo test");
-		m_validFromLabel->setText("01/01/2021");
-		m_validToLabel->setText("01/01/2023");
-		m_thumbprintLabel->setText("IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF50");
+		m_commonName->setText("demo test");
+		m_validFrom->setText("01/01/2021");
+		m_validTo->setText("01/01/2023");
+		setThumprintText("2bb95f164c168bfe64340802000b54e3f3460dd7");
+		qDebug() << m_thumbprint->size();
 	}
 }
 void AddTrustedCertDialog::setStyle()
@@ -327,35 +367,38 @@ void AddTrustedCertDialog::setStyle()
 			m_filePathText->setStyleSheet("border:none; background-color:none;"
 				"color:" + TAB_CONTENT_DESC_TEXT_DT + ";");
 
-			m_centerLine->setStyleSheet("border:none; background-color: " + DIALOG_TEXBOX_DT + ";");
+			m_certificateInforWg->setStyleSheet("background-color: " + DIALOG_TEXBOX_DT + ";");
 
-			m_commonNameWg->setStyleSheet("background-color: " + DIALOG_TEXBOX_DT + ";");
-
-			m_commonNameLabel->setStyleSheet("border:none;"
+			m_commonNameTitle->setStyleSheet("border:none;"
 				"color:" + TAB_CONTENT_DESC_TEXT_DT + ";");
 
-			m_validFromWg->setStyleSheet("background-color: " + DIALOG_TEXBOX_DT + ";");
-
-			m_validFromLabel->setStyleSheet("border:none;"
+			m_commonName->setStyleSheet("border:none;"
 				"color:" + TAB_CONTENT_DESC_TEXT_DT + ";");
 
-			m_validToWg->setStyleSheet("background-color: " + DIALOG_TEXBOX_DT + ";");
-
-			m_validToLabel->setStyleSheet("border:none;"
+			m_validFromTitle->setStyleSheet("border:none;"
 				"color:" + TAB_CONTENT_DESC_TEXT_DT + ";");
 
-			m_thumbprintWg->setStyleSheet("background-color: " + DIALOG_TEXBOX_DT + ";");
-
-			m_thumbprintLabel->setStyleSheet("border:none;"
+			m_validFrom->setStyleSheet("border:none;"
 				"color:" + TAB_CONTENT_DESC_TEXT_DT + ";");
+
+			m_validToTitle->setStyleSheet("border:none;"
+				"color:" + TAB_CONTENT_DESC_TEXT_DT + ";");
+
+			m_validTo->setStyleSheet("border:none;"
+				"color:" + TAB_CONTENT_DESC_TEXT_DT + ";");
+
+			m_thumbprintTitle->setStyleSheet("border:none;"
+				"color:" + TAB_CONTENT_DESC_TEXT_DT + ";");
+
+			m_thumbprint->setStyleSheet("border:none;"
+				"color:" + TAB_CONTENT_DESC_TEXT_DT + ";");
+
 
 			m_cancelBtn->setStyleSheet("QPushButton {color: " + DIALOG_CANCEL_TEXT_BORDER_DT + ";"
 				"border: 1px solid" + DIALOG_CANCEL_TEXT_BORDER_DT + "; border-radius:4px;}"
 				"QPushButton:hover{border: 2px solid " + DIALOG_CANCEL_TEXT_BORDER_DT + ";}");
 
-			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_DT + ";"
-				"color: " + DIALOG_BUTTON_TEXT_DT + ";"
-				"border-radius:4px;}");
+
 
 			break;
 
@@ -366,35 +409,37 @@ void AddTrustedCertDialog::setStyle()
 			m_filePathText->setStyleSheet("border:none; background-color:none;"
 				"color:" + TAB_CONTENT_DESC_TEXT_LT + ";");
 
-			m_centerLine->setStyleSheet("border:none; background-color: " + DIALOG_TEXBOX_LT + ";");
 
-			m_commonNameWg->setStyleSheet("background-color: " + DIALOG_TEXBOX_LT + ";");
+			m_certificateInforWg->setStyleSheet("background-color: " + DIALOG_TEXBOX_LT + ";");
 
-			m_commonNameLabel->setStyleSheet("border:none;"
+			m_commonNameTitle->setStyleSheet("border:none;"
 				"color:" + TAB_CONTENT_DESC_TEXT_LT + ";");
 
-			m_validFromWg->setStyleSheet("background-color: " + DIALOG_TEXBOX_LT + ";");
-
-			m_validFromLabel->setStyleSheet("border:none;"
+			m_commonName->setStyleSheet("border:none;"
 				"color:" + TAB_CONTENT_DESC_TEXT_LT + ";");
 
-			m_validToWg->setStyleSheet("background-color: " + DIALOG_TEXBOX_LT + ";");
-
-			m_validToLabel->setStyleSheet("border:none;"
+			m_validFromTitle->setStyleSheet("border:none;"
 				"color:" + TAB_CONTENT_DESC_TEXT_LT + ";");
 
-			m_thumbprintWg->setStyleSheet("background-color: " + DIALOG_TEXBOX_LT + ";");
+			m_validFrom->setStyleSheet("border:none;"
+				"color:" + TAB_CONTENT_DESC_TEXT_LT + ";");
 
-			m_thumbprintLabel->setStyleSheet("border:none;"
+			m_validToTitle->setStyleSheet("border:none;"
+				"color:" + TAB_CONTENT_DESC_TEXT_LT + ";");
+
+			m_validTo->setStyleSheet("border:none;"
+				"color:" + TAB_CONTENT_DESC_TEXT_LT + ";");
+
+			m_thumbprintTitle->setStyleSheet("border:none;"
+				"color:" + TAB_CONTENT_DESC_TEXT_LT + ";");
+
+			m_thumbprint->setStyleSheet("border:none;"
 				"color:" + TAB_CONTENT_DESC_TEXT_LT + ";");
 
 			m_cancelBtn->setStyleSheet("QPushButton {color: " + DIALOG_CANCEL_TEXT_BORDER_LT + ";"
 				"border: 1px solid" + DIALOG_CANCEL_TEXT_BORDER_LT + "; border-radius:4px;}"
 				"QPushButton:hover{border: 2px solid " + DIALOG_CANCEL_TEXT_BORDER_LT + ";}");
 
-			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_LT + ";"
-				"color: " + DIALOG_BUTTON_TEXT_LT + ";"
-				"border-radius:4px;}");
 
 
 			break;
@@ -406,15 +451,151 @@ void AddTrustedCertDialog::setStyle()
 }
 void AddTrustedCertDialog::setText()
 {
-	m_titleText->setText("ADD TRUSTED CERTIFICATE");
+	m_titleText->setText("Add Trusted Certificate");
 	m_filePathText->setText("No file chosen");
-	m_validFromLabel->setText("Valid From");
-	m_validToLabel->setText("Valid To");
-	m_thumbprintLabel->setText("Thumpbprint");
-	m_commonNameLabel->setText("Certificate Common Name");
+	m_commonNameTitle->setText("Certificate Name");
+	m_validFromTitle->setText("Valid From");
+	m_validToTitle->setText("Valid to");
+	m_thumbprintTitle->setText("Thumpbprint");
 	m_cancelBtn->setText("Cancel");
 	m_addFileBtn->setText("Add");
 }
+
+void AddTrustedCertDialog::setAddBtnStyle()
+{
+	switch (AppSetting::getInstance()->getTheme())
+	{
+	case Theme_Type::Light_Theme:
+		if (m_addFileBtn->isEnabled())
+		{
+			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_LT + ";"
+				"color: " + DIALOG_BUTTON_TEXT_LT + ";"
+				"border-radius:4px;}");
+		}
+		else
+		{
+			m_addFileBtn->setStyleSheet("QPushButton {background-color: "+ DIALOG_BUTTON_BACKGROUND_DISABLE_LT +";"
+				"color: " + DIALOG_BUTTON_TEXT_DISABLE_LT + ";"
+				"border-radius:4px;"
+				"border:none;}");
+		}
+		break;
+
+	case Theme_Type::Dark_Theme:
+
+		if (m_addFileBtn->isEnabled())
+		{
+			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_DT + ";"
+				"color: " + DIALOG_BUTTON_TEXT_DT + ";"
+				"border-radius:4px;}");
+		}
+		else
+		{
+			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BACKGROUND_DISABLE_DT + ";"
+				"color: " + DIALOG_BUTTON_TEXT_DISABLE_DT + ";"
+				"border-radius:4px;"
+				"border:none;}");
+		}
+		break;
+
+		//MORE THEME
+	default:
+		break;
+	}
+}
+
+void AddTrustedCertDialog::setThumprintText(QString text)
+{
+	m_thumbprintText = text;
+
+	int centerPos = text.count() / 2;
+	int thumbprintWidth = m_thumbprint->size().width();
+	QFontMetrics fm(FONT);
+
+	int textWidth, remainSpace, nextCharWidth;
+	do
+	{
+		textWidth = fm.width(text.mid(0, centerPos));
+
+		remainSpace = thumbprintWidth - textWidth;
+
+		nextCharWidth = fm.width(text.mid(centerPos, 1));;
+
+		if (remainSpace > nextCharWidth)
+		{
+			centerPos++;
+			continue;
+		}
+
+		if (textWidth <= thumbprintWidth)
+		{
+			break;
+		}
+
+		centerPos--;
+
+	} while (true);
+
+	QString thumbprintText = text.insert(centerPos, " ");
+
+	m_thumbprint->setText(thumbprintText);
+}
+
+void AddTrustedCertDialog::setFilePathText(QString text)
+{
+	QFontMetrics fm(FONT);
+	int FilePathWidth = m_filePathText->size().width();
+	int textWidth = fm.width(text);
+	int inscreasePathWidth, threeDotSize;
+	int count = 0;
+
+	text.replace("/", "\\");
+	m_filePathText->setToolTip(text);
+	threeDotSize = fm.width("...");
+
+	if (textWidth <= FilePathWidth)
+	{
+		m_filePathText->setText(text);
+		return;
+	}
+
+	QStringList textSplit = text.split("\\");
+	QString filePath = textSplit[0] + "\\" +"..."+ "\\"+ textSplit[textSplit.count() - 1];
+	QString inscreasePath = "";
+
+	do
+	{
+		inscreasePath = "";
+		for (int i = 0; i <= count + 1; i++)
+		{
+			inscreasePath += textSplit[i] + "\\";
+		}
+
+		inscreasePath += "...\\" + textSplit[textSplit.count() - 1];
+
+		inscreasePathWidth = fm.width(inscreasePath);
+
+		if (inscreasePathWidth == FilePathWidth)
+		{
+			filePath = inscreasePath;
+			break;
+		}
+
+		if (inscreasePathWidth < FilePathWidth)
+		{
+			count++;
+			filePath = inscreasePath;
+			continue;
+			
+		}
+
+		break;
+
+	} while (true);
+
+	m_filePathText->setText(filePath);
+}
+
 void AddTrustedCertDialog::cancelClicked()
 {
 	this->close();

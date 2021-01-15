@@ -33,12 +33,13 @@ CertificateTable::CertificateTable(QWidget *parent)
 	m_certificateName->setText("CERTIFICATE NAME");
 
 	m_validFrom = new QLabel();
-	m_validFrom->setFixedHeight(36);
+	m_validFrom->setFixedSize(130,36);
 	m_validFrom->setFont(FONT);
 	m_validFrom->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	m_validFrom->setText("VALID FROM");
 
 	m_validTo = new QLabel();
+	m_validTo->setFixedSize(130, 36);
 	m_validTo->setFixedHeight(36);
 	m_validTo->setFont(FONT);
 	m_validTo->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -235,7 +236,8 @@ void CertificateTable::resizeEvent(QResizeEvent * event)
 	{
 
 		fullTextWidth = fm.width(row->CertificateName->toolTip());
-		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/) / 3;
+		//labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/) / 3;
+		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/) - 260;
 		defaultCharsNum = 19; // 19 character <= 131px 
 		threeDotSize = fm.width("..."); // ... => 12px
 		
@@ -458,13 +460,15 @@ void CertificateTable::AddCertificate(CertificateRowString rowString)
 	row->CertificateName->setToolTip(rowString.CertificateNameText);
 
 	row->validFrom = new QLabel();
-	row->validFrom->setFixedHeight(36);
+	row->validFrom->setFixedSize(130,36);
+
 	row->validFrom->setFont(FONT);
 	row->validFrom->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	row->validFrom->setText(rowString.validFromText);
 
 	row->validTo = new QLabel();
-	row->validTo->setFixedHeight(36);
+	row->validTo->setFixedSize(130, 36);
+
 	row->validTo->setFont(FONT);
 	row->validTo->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	row->validTo->setText(rowString.validToText);

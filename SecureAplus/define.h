@@ -349,6 +349,11 @@
 #define	DIALOG_BUTTON_TEXT_LT						Config::getInstance()->getConfigValue("Dialog/Button_Text_Light_Theme")
 #define DIALOG_TEXBOX_DT							Config::getInstance()->getConfigValue("Dialog/TextBox_Dark_Theme")
 #define DIALOG_TEXBOX_LT							Config::getInstance()->getConfigValue("Dialog/TextBox_Light_Theme")
+#define DIALOG_BUTTON_TEXT_DISABLE_LT				Config::getInstance()->getConfigValue("Dialog/Button_Text_Disable_Light_Theme")
+#define DIALOG_BUTTON_TEXT_DISABLE_DT				Config::getInstance()->getConfigValue("Dialog/Button_Text_Disable_Dark_Theme")
+#define DIALOG_BUTTON_BACKGROUND_DISABLE_LT			Config::getInstance()->getConfigValue("Dialog/Button_Background_Disable_Light_Theme")
+#define DIALOG_BUTTON_BACKGROUND_DISABLE_DT			Config::getInstance()->getConfigValue("Dialog/Button_Background_Disable_Dark_Theme")
+
 
 /* Define for widget Transparent */
 #define TRANSPARENT_BACKGROUND_DT					Config::getInstance()->getConfigValue("Transparent/Transparent_Background_Dark_Theme")

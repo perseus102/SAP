@@ -6,6 +6,7 @@
 #include "define.h"
 #include "util.h"
 #include "appsetting.h"
+#include "clickablelabel.h"
 #include <QPushButton>
 #include <QDialog>
 #include <QFileDialog>
@@ -65,23 +66,32 @@ private:
 	QLabel*			m_filePathText;
 	QLabel*			m_centerLine;
 
-	QLabel*			m_commonNameLabel;
-	QWidget*		m_commonNameWg;
+	QLabel*			m_commonNameTitle;
+	QLabel*			m_commonName;
 	
-	QLabel*			m_validFromLabel;
-	QWidget*		m_validFromWg;
+	QLabel*			m_validFromTitle;
+	QLabel*			m_validFrom;
 
-	QLabel*			m_validToLabel;
-	QWidget*		m_validToWg;
+	QLabel*			m_validToTitle;
+	QLabel*			m_validTo;
 
-	QLabel*			m_thumbprintLabel;
-	QWidget*		m_thumbprintWg;
+	QLabel*			m_thumbprintTitle;
+	QLabel*			m_thumbprint;
+
+	QLabel*			topSpacer;
 
 	QPushButton*	m_cancelBtn;
 	QPushButton*	m_addFileBtn;
 
+	QWidget*		m_certificateInforWg;
+
+
 	QString m_curFileName;
+	QString m_thumbprintText;
 
 	void setStyle();
 	void setText();
+	void setAddBtnStyle();
+	void setThumprintText(QString text);
+	void setFilePathText(QString text);
 };
