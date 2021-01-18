@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="addscriptdialog.cpp" />
     <ClCompile Include="addtrustedcertdialog.cpp" />
     <ClCompile Include="addresappdialog.cpp" />
     <ClCompile Include="allowlist.cpp" />
@@ -212,6 +213,7 @@
     <QtRcc Include="mainwindow.qrc" />
     <QtUic Include="adddtrustedcertdialog.ui" />
     <QtUic Include="addresappdialog.ui" />
+    <QtUic Include="addscriptdialog.ui" />
     <QtUic Include="allowlist.ui" />
     <QtUic Include="allowliststatus.ui" />
     <QtUic Include="anitivirus.ui" />
@@ -301,6 +303,7 @@
     <QtMoc Include="addresappdialog.h" />
     <QtMoc Include="certificatetable.h" />
     <QtMoc Include="addtrustedcertdialog.h" />
+    <QtMoc Include="addscriptdialog.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />

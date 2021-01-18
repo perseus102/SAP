@@ -73,4 +73,6 @@ private:
 	Button_Check_State buttonCheckState();
 
 	void setCheckBoxsState();
+
+	void resizeLabel();
 };

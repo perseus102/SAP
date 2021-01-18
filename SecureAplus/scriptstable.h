@@ -15,7 +15,7 @@ struct ScriptsRow
 	SAPCheckBox* checkBox;
 	QLabel*	interpreter;
 	QLabel*	extensions;
-
+	QLabel* line;
 };
 struct ScriptsString
 {
@@ -63,7 +63,7 @@ private:
 	QVBoxLayout*	m_rowLayout;
 
 	QList<ScriptsString> m_defaultList;
-	QMultiMap<QString, ScriptsRow*> m_scriptsRowMap;
+	QList<ScriptsRow*> m_scriptsRowMap;
 	QStringList m_fileNameList;
 
 	int m_rowCount;
@@ -74,4 +74,6 @@ private:
 	Button_Check_State buttonCheckState();
 
 	void setCheckBoxsState();
+	void resizeLabel();
+
 };

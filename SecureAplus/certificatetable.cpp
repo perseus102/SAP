@@ -165,6 +165,8 @@ void CertificateTable::resetToDefault()
 	}
 
 	setCheckBoxsState();
+
+	resizeLabel();
 }
 
 void CertificateTable::AddCertificateFromDialog(CertificateRowString rowString)
@@ -228,52 +230,7 @@ void CertificateTable::resizeEvent(QResizeEvent * event)
 	Q_UNUSED(event);
 	m_rowWg->resize(m_scrollView->width(), m_rowWg->height());
 	
-	int fullTextWidth, labelWidth, defaultCharsNum, threeDotSize, textWidth, nextCharWidth, remainSpace;
-	QFontMetrics fm(FONT);
-	QString CertificateName;
-
-	for (auto& row : m_CertificateRowMap)
-	{
-
-		fullTextWidth = fm.width(row->CertificateName->toolTip());
-		//labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/) / 3;
-		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/) - 260;
-		defaultCharsNum = 19; // 19 character <= 131px 
-		threeDotSize = fm.width("..."); // ... => 12px
-		
-		do
-		{
-			if ((fullTextWidth <= labelWidth))
-			{
-				CertificateName = row->CertificateName->toolTip();
-				row->CertificateName->setText(row->CertificateName->toolTip());
-				break;
-			}
-
-			CertificateName = row->CertificateName->toolTip();
-
-			textWidth = fm.width(CertificateName.mid(0, defaultCharsNum));
-			
-			nextCharWidth = fm.width(CertificateName.mid(defaultCharsNum, 1));
-
-			remainSpace = (labelWidth - (textWidth + threeDotSize));
-
-			if (remainSpace > nextCharWidth)
-			{
-				defaultCharsNum++;
-				continue;
-			}
-			if ((textWidth + threeDotSize) <= labelWidth)
-			{
-				CertificateName = CertificateName.mid(0, defaultCharsNum) + "...";
-				row->CertificateName->setText(CertificateName);
-				break;
-			}
-
-			defaultCharsNum--;
-
-		} while (true);
-	}
+	resizeLabel();
 }
 
 void CertificateTable::setStyle()
@@ -418,6 +375,54 @@ void CertificateTable::setCheckBoxsState()
 		break;
 	default:
 		break;
+	}
+}
+
+void CertificateTable::resizeLabel()
+{
+	int fullTextWidth, labelWidth, defaultCharsNum, threeDotSize, textWidth, nextCharWidth, remainSpace;
+	QFontMetrics fm(FONT);
+	QString CertificateName;
+
+	for (auto& row : m_CertificateRowMap)
+	{
+
+		fullTextWidth = fm.width(row->CertificateName->toolTip());
+		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/) - 260;
+		defaultCharsNum = 19; // 19 character <= 131px 
+		threeDotSize = fm.width("..."); // ... => 12px
+
+		do
+		{
+			CertificateName = row->CertificateName->toolTip();
+
+			if ((fullTextWidth <= labelWidth))
+			{
+				row->CertificateName->setText(CertificateName);
+				break;
+			}
+
+			textWidth = fm.width(CertificateName.mid(0, defaultCharsNum));
+
+			nextCharWidth = fm.width(CertificateName.mid(defaultCharsNum, 1));
+
+			remainSpace = (labelWidth - (textWidth + threeDotSize));
+
+			if (remainSpace > nextCharWidth)
+			{
+				defaultCharsNum++;
+				continue;
+			}
+			if ((textWidth + threeDotSize) <= labelWidth)
+			{
+				CertificateName = CertificateName.mid(0, defaultCharsNum) + "...";
+				row->CertificateName->setText(CertificateName);
+				break;
+			}
+
+			defaultCharsNum--;
+
+		} while (true);
 	}
 }
 

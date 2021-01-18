@@ -9,6 +9,7 @@
 #include "scriptstable.h"
 #include <QPushButton>
 #include "widgettransparent.h"
+#include "addscriptdialog.h"
 
 class Scripts : public QWidget
 {
@@ -39,6 +40,7 @@ private:
 	ClickableLabel*		m_resetToDefaultBtn;
 
 	WidgetTransparent*	transparent;
+	AddScriptDialog*	m_addScriptDialog;
 
 	void setStyle();
 	void setRemoveBtnStyle();

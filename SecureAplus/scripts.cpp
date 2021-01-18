@@ -56,9 +56,23 @@ Scripts::Scripts(QWidget *parent)
 	m_layout->addWidget(bottomSpacer);
 
 	transparent = new WidgetTransparent();
+	m_addScriptDialog = new AddScriptDialog();
 
 	setLayout(m_layout);
 	setStyle();
+
+	connect(m_removeBtn, &QPushButton::clicked, m_scriptsTable, &ScriptsTable::removeRows);
+	connect(m_removeBtn, &QPushButton::clicked, this, &Scripts::removeButtonClicked);
+
+	connect(m_addBtn, &QPushButton::clicked, this, &Scripts::addButtonClicked);
+
+	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, this, &Scripts::resetToDefaultClicked);
+	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, m_scriptsTable, &ScriptsTable::resetToDefault);
+
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &Scripts::changeTheme);
+
+	connect(m_scriptsTable, &ScriptsTable::setRemoveBtnDisabled, this, &Scripts::setRemoveBtnDisabled);
+	connect(m_addScriptDialog, &AddScriptDialog::addScript, m_scriptsTable, &ScriptsTable::AddScriptsFromDialog);
 
 }
 
@@ -72,6 +86,12 @@ void Scripts::removeButtonClicked()
 
 void Scripts::addButtonClicked()
 {
+	QRect geometry = AppSetting::getInstance()->getAppGeometry();
+
+	transparent->showWidget();
+	m_addScriptDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 290);
+	m_addScriptDialog->showDialog();
+	transparent->hide();
 }
 
 void Scripts::resetToDefaultClicked()

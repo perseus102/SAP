@@ -383,6 +383,9 @@
     <ClCompile Include="scripts.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
+    <ClCompile Include="addscriptdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -538,6 +541,9 @@
     <QtMoc Include="scriptstable.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="addscriptdialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -685,6 +691,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="scriptstable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="addscriptdialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
