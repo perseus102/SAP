@@ -79,7 +79,7 @@ CertificateTable::CertificateTable(QWidget *parent)
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &CertificateTable::changeTheme);
 
 
-	for (int a = 1; a <= 100; a++)
+	for (int a = 1; a <= 50; a++)
 	{
 		CertificateRowString rowString;
 		rowString.CertificateNameText = "Uninstall_Service_Deviceeeee.cmd" + QString::number(a);;

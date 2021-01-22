@@ -157,6 +157,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="addcommandlinedialog.cpp" />
+    <ClCompile Include="addprocessprotectordialog.cpp" />
     <ClCompile Include="addscriptdialog.cpp" />
     <ClCompile Include="addtrustedcertdialog.cpp" />
     <ClCompile Include="addresappdialog.cpp" />
@@ -169,6 +171,9 @@
     <ClCompile Include="certificatetable.cpp" />
     <ClCompile Include="circleprocess.cpp" />
     <ClCompile Include="clickablelabel.cpp" />
+    <ClCompile Include="commandline.cpp" />
+    <ClCompile Include="commandlinerule.cpp" />
+    <ClCompile Include="commandlinetable.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="digitalsignature.cpp" />
     <ClCompile Include="featuredetails.cpp" />
@@ -183,6 +188,8 @@
     <ClCompile Include="managecontent.cpp" />
     <ClCompile Include="managegridcontent.cpp" />
     <ClCompile Include="managewidget.cpp" />
+    <ClCompile Include="processprotector.cpp" />
+    <ClCompile Include="processprotectortable.cpp" />
     <ClCompile Include="protectionmodes.cpp" />
     <ClCompile Include="restrictedapp.cpp" />
     <ClCompile Include="sapcheckbox.cpp" />
@@ -211,7 +218,9 @@
     <ClCompile Include="widgettransparent.cpp" />
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
+    <QtUic Include="addcommandlinedialog.ui" />
     <QtUic Include="adddtrustedcertdialog.ui" />
+    <QtUic Include="addprocessprotectordialog.ui" />
     <QtUic Include="addresappdialog.ui" />
     <QtUic Include="addscriptdialog.ui" />
     <QtUic Include="allowlist.ui" />
@@ -222,6 +231,9 @@
     <QtUic Include="certificatetable.ui" />
     <QtUic Include="circleprocess.ui" />
     <QtUic Include="clickablelabel.ui" />
+    <QtUic Include="commandline.ui" />
+    <QtUic Include="commandlinerule.ui" />
+    <QtUic Include="commandlinetable.ui" />
     <QtUic Include="digitalsignature.ui" />
     <QtUic Include="featuredetails.ui" />
     <QtUic Include="featurestatus.ui" />
@@ -243,6 +255,8 @@
     <QtUic Include="managecontent.ui" />
     <QtUic Include="managegridcontent.ui" />
     <QtUic Include="managewidget.ui" />
+    <QtUic Include="processprotector.ui" />
+    <QtUic Include="processprotectortable.ui" />
     <QtUic Include="protectionmodes.ui" />
     <QtUic Include="rectrictedapp.ui" />
     <QtUic Include="sapcheckbox.ui" />
@@ -304,6 +318,11 @@
     <QtMoc Include="certificatetable.h" />
     <QtMoc Include="addtrustedcertdialog.h" />
     <QtMoc Include="addscriptdialog.h" />
+    <QtMoc Include="commandline.h" />
+    <QtMoc Include="commandlinetable.h" />
+    <QtMoc Include="addcommandlinedialog.h" />
+    <QtMoc Include="commandlinerule.h" />
+    <QtMoc Include="addprocessprotectordialog.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />
@@ -320,6 +339,8 @@
     <QtMoc Include="managecontent.h" />
     <QtMoc Include="managegridcontent.h" />
     <QtMoc Include="restrictedapp.h" />
+    <QtMoc Include="processprotector.h" />
+    <QtMoc Include="processprotectortable.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="settingscontent.h" />
     <QtMoc Include="settinggridcontent.h" />

@@ -10,6 +10,9 @@
 #include "restrictedapp.h"
 #include "trustedcertificate.h"
 #include "scripts.h"
+#include "commandline.h"
+#include "processprotector.h"
+
 class ApplicationControl : public QWidget
 {
 	Q_OBJECT
@@ -36,6 +39,7 @@ private:
 	ClickableLabel*		m_scripts;
 	ClickableLabel*		m_cmdRules;
 	ClickableLabel*		m_allowedListCmd;
+	ClickableLabel*		m_processProtector;
 
 	QStackedWidget*		m_tabStackedWidget;
 	SAPSCrollArea*		m_scrollView;
@@ -48,6 +52,8 @@ private:
 	RestrictedApp*			m_restrictedAppTab;
 	TrustedCertificate*		m_trustedCertificateTab;
 	Scripts*				m_scriptsTab;
+	CommandLine*			m_commandLineTab;
+	ProcessProtector*		m_processProtectorTab;
 
 	void setStyle();
 	void setTabStyle();

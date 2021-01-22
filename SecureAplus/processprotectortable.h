@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_scriptstable.h"
+#include "ui_processprotectortable.h"
 #include "Config.h"
 #include "define.h"
 #include "util.h"
@@ -9,28 +9,21 @@
 #include "sapcheckbox.h"
 #include "sapscrollarea.h"
 
-struct ScriptsRow
+struct ProcessProtectorRow
 {
 	QWidget* rowWg;
 	SAPCheckBox* checkBox;
-	QLabel*	interpreter;
-	QLabel*	extensions;
+	QLabel*	processProtector;
 	QLabel* line;
 };
 
-struct ScriptsString
-{
-	QString	interpreter;
-	QString	extensions;
-};
-
-class ScriptsTable : public QWidget
+class ProcessProtectorTable : public QWidget
 {
 	Q_OBJECT
 
 public:
-	ScriptsTable(QWidget *parent = Q_NULLPTR);
-	~ScriptsTable();
+	ProcessProtectorTable(QWidget *parent = Q_NULLPTR);
+	~ProcessProtectorTable();
 
 private slots:
 	void changeTheme();
@@ -39,10 +32,10 @@ private slots:
 	void rowCheckBoxSetCheck(Qt::CheckState);
 
 public slots:
-	void AddScripts(QString interpreter, QString extensions);
-	void AddScriptsFromDialog(QString interpreter, QString extensions);
 	void removeRows();
+	void AddProcess(QString process);
 	void resetToDefault();
+	void AddProcessFromDialog(QString process);
 
 signals:
 	void setRemoveBtnDisabled(bool disabled);
@@ -50,30 +43,28 @@ signals:
 protected:
 	void resizeEvent(QResizeEvent *event) override;
 
-
 private:
-	Ui::ScriptsTable ui;
+	Ui::ProcessProtectorTable ui;
 
 	QWidget*		m_titleWg;
+	QLabel*			m_processText;
 	SAPCheckBox*	m_checkAllBox;
-	QLabel*			m_interpreter;
-	QLabel*			m_extensions;
-
 	QVBoxLayout*	m_layout;
 	SAPSCrollArea*	m_scrollView;
 	QWidget*		m_rowWg;
 	QVBoxLayout*	m_rowLayout;
 
-	QList<ScriptsString> m_defaultList;
-	QList<ScriptsRow*> m_scriptsRowMap;
+	QList<ProcessProtectorRow*> m_processRowMap;
 	QStringList m_fileNameList;
-
+	QStringList m_defaultList;
 
 	int m_rowCount;
-	void setStyle();
-	void setRowStyle(ScriptsRow* row);
-	Button_Check_State buttonCheckState();
-	void setCheckBoxsState();
-	void resizeLabel();
 
+	void setStyle();
+	void setRowStyle(ProcessProtectorRow* row);
+;
+
+	Button_Check_State buttonCheckState();
+
+	void setCheckBoxsState();
 };

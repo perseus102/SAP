@@ -48,7 +48,6 @@ UniversalAV::UniversalAV(QWidget *parent)
 	m_fileTypeCbb = new SAPCombobox();
 	m_fileTypeCbb->setFixedSize(240, 32);
 	m_fileTypeCbb->setObjectName("m_fileTypeCbb");
-
 	QLabel* uploadSpacer = new QLabel();
 	//uploadSpacer->setFixedHeight(20);
 
@@ -59,7 +58,6 @@ UniversalAV::UniversalAV(QWidget *parent)
 
 	m_autoUploadLine = new QLabel();
 	m_autoUploadLine->setFixedHeight(2);
-
 	autoUploadLayout->addWidget(m_autoUpload);
 	autoUploadLayout->addWidget(uploadTitleSpacer);
 	autoUploadLayout->addWidget(m_autoUploadDesc);

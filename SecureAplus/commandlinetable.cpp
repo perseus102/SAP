@@ -1,6 +1,6 @@
-#include "scriptstable.h"
+#include "commandlinetable.h"
 
-ScriptsTable::ScriptsTable(QWidget *parent)
+CommandLineTable::CommandLineTable(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -27,23 +27,15 @@ ScriptsTable::ScriptsTable(QWidget *parent)
 	QLabel* checkboxSpacer = new QLabel();
 	checkboxSpacer->setFixedWidth(12);
 
-	m_interpreter = new QLabel();
-	m_interpreter->setFixedHeight(36);
-	m_interpreter->setFont(FONT);
-	m_interpreter->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	m_interpreter->setText("INTERPRETER");
-
-	m_extensions = new QLabel();
-	m_extensions->setFixedSize(250, 36);
-	m_extensions->setFont(FONT);
-	m_extensions->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	m_extensions->setText("EXTENSIONS");
-
+	m_commandLine = new QLabel();
+	m_commandLine->setFixedHeight(36);
+	m_commandLine->setFont(FONT);
+	m_commandLine->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+	m_commandLine->setText("COMMAND LINE");
 
 	titleLayout->addWidget(m_checkAllBox);
 	titleLayout->addWidget(checkboxSpacer);
-	titleLayout->addWidget(m_interpreter);
-	titleLayout->addWidget(m_extensions);
+	titleLayout->addWidget(m_commandLine);
 
 	m_layout->addWidget(m_titleWg);
 
@@ -70,28 +62,42 @@ ScriptsTable::ScriptsTable(QWidget *parent)
 
 	m_rowCount = 0;
 
-	connect(m_checkAllBox, &SAPCheckBox::boxSetChecked, this, &ScriptsTable::allCheckBoxSetCheck);
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ScriptsTable::changeTheme);
-	ScriptsString rowString;
+	connect(m_checkAllBox, &SAPCheckBox::boxSetChecked, this, &CommandLineTable::allCheckBoxSetCheck);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &CommandLineTable::changeTheme);
+	//connect(m_scrollView->verticalScrollBar(), &QScrollBar::valueChanged, this, &CommandLineTable::scrollbarChangeValue);
+	//connect(m_scrollView->verticalScrollBar(), &QScrollBar::rangeChanged, this, &CommandLineTable::scrollBarRangeChanged);
+	
+	QString rowString;
+
 	for (int a = 1; a <= 10; a++)
 	{
-		rowString.interpreter += "Scripts.exe" + QString::number(a) + " ";
-		rowString.extensions = ".js|.jse|.vbe|.vbs|.wsc|.wsf|.wsh";
-		AddScripts(rowString.interpreter, rowString.extensions);
+		rowString += "Command Line" + QString::number(a) + " ";
+		AddCommandLine(rowString);
 		m_defaultList.append(rowString);
 	}
 
+	emit m_scrollView->verticalScrollBar()->valueChanged(m_scrollView->verticalScrollBar()->value());
 }
 
-ScriptsTable::~ScriptsTable()
+CommandLineTable::~CommandLineTable()
 {
 }
 
-void ScriptsTable::allCheckBoxSetCheck(Qt::CheckState state)
+void CommandLineTable::changeTheme()
+{
+	setStyle();
+
+	for (auto& row : m_commandLineRowMap)
+	{
+		setRowStyle(row);
+	}
+}
+
+void CommandLineTable::allCheckBoxSetCheck(Qt::CheckState state)
 {
 	if (state == Qt::Checked)
 	{
-		for (auto& row : m_scriptsRowMap)
+		for (auto& row : m_commandLineRowMap)
 		{
 			if (row->rowWg->isVisible())
 			{
@@ -102,7 +108,7 @@ void ScriptsTable::allCheckBoxSetCheck(Qt::CheckState state)
 	}
 	else
 	{
-		for (auto& row : m_scriptsRowMap)
+		for (auto& row : m_commandLineRowMap)
 		{
 			if (row->rowWg->isVisible())
 			{
@@ -113,7 +119,7 @@ void ScriptsTable::allCheckBoxSetCheck(Qt::CheckState state)
 	}
 }
 
-void ScriptsTable::scrollBarRangeChanged(int min, int max)
+void CommandLineTable::scrollBarRangeChanged(int min, int max)
 {
 	Q_UNUSED(min);
 	Q_UNUSED(max);
@@ -123,33 +129,19 @@ void ScriptsTable::scrollBarRangeChanged(int min, int max)
 	}
 }
 
-void ScriptsTable::rowCheckBoxSetCheck(Qt::CheckState)
+void CommandLineTable::rowCheckBoxSetCheck(Qt::CheckState)
 {
 	setCheckBoxsState();
 }
 
-void ScriptsTable::AddScriptsFromDialog(QString interpreter, QString extensions)
+void CommandLineTable::scrollbarChangeValue(int value)
 {
-	int cout = -1;
-
-	for (auto& row : m_scriptsRowMap)
-	{
-		cout++;
-
-		if (row->interpreter->text() == interpreter)
-		{
-			QWidget* wg = m_rowLayout->itemAt(cout * 2)->widget();
-			m_scrollView->ensureWidgetVisible(wg, 150, 150);
-			return;
-		}
-	}
-
-	AddScripts(interpreter, extensions);
+	//resizeLabel();
 }
 
-void ScriptsTable::AddScripts(QString interpreter, QString extensions)
+void CommandLineTable::AddCommandLine(QString commandLine)
 {
-	ScriptsRow* row = new ScriptsRow();
+	CommandLineRow* row = new CommandLineRow();
 
 	row->rowWg = new QWidget();
 	row->rowWg->setFixedHeight(36);
@@ -167,26 +159,20 @@ void ScriptsTable::AddScripts(QString interpreter, QString extensions)
 	QLabel* centerSpacer = new QLabel();
 	centerSpacer->setFixedWidth(12);
 
-	row->interpreter = new QLabel();
-	row->interpreter->setFixedHeight(36);
-	row->interpreter->setFont(FONT);
-	row->interpreter->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	row->interpreter->setText(interpreter);
-	row->interpreter->setToolTip(interpreter);
+	row->commandLine = new QLabel();
+	row->commandLine->setFixedHeight(36);
+	row->commandLine->setFont(FONT);
+	row->commandLine->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+	row->commandLine->setText(commandLine);
+	row->commandLine->setToolTip(commandLine);
 
-	row->extensions = new QLabel();
-	row->extensions->setFixedSize(250, 36);
-	row->extensions->setFont(FONT);
-	row->extensions->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	row->extensions->setText(extensions);
 
 	row->line = new QLabel();
 	row->line->setFixedHeight(2);
 
 	rowLayout->addWidget(row->checkBox);
 	rowLayout->addWidget(centerSpacer);
-	rowLayout->addWidget(row->interpreter);
-	rowLayout->addWidget(row->extensions);
+	rowLayout->addWidget(row->commandLine);
 	setRowStyle(row);
 
 	m_rowLayout->addWidget(row->rowWg);
@@ -194,18 +180,48 @@ void ScriptsTable::AddScripts(QString interpreter, QString extensions)
 
 	m_rowCount++;
 
-	m_scriptsRowMap.append(row);
+	m_commandLineRowMap.append(row);
 
 	m_rowWg->resize(this->width(), (38 * m_rowCount));
 
-	connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &ScriptsTable::rowCheckBoxSetCheck);
+	int labelWidth, commandLineWidth;
+	QFontMetrics fm(FONT);
 
+	labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/);
+	commandLineWidth = fm.width(commandLine);
+
+	if (commandLineWidth > labelWidth)
+	{
+		resizeRow.append(row);
+	}
+
+	connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &CommandLineTable::rowCheckBoxSetCheck);
+}
+
+void CommandLineTable::AddCommandLineFromDialog(QString commandLine)
+{
+	int cout = -1;
+
+	for (auto& row : m_commandLineRowMap)
+	{
+		cout++;
+
+		if (row->commandLine->text() == commandLine)
+		{
+			QWidget* wg = m_rowLayout->itemAt(cout * 2)->widget();
+			m_scrollView->ensureWidgetVisible(wg, 150, 150);
+			return;
+		}
+	}
+
+	AddCommandLine(commandLine);
 
 }
-void ScriptsTable::removeRows()
+
+void CommandLineTable::removeRows()
 {
-	QList<ScriptsRow*> keyList;
-	for (auto& row : m_scriptsRowMap)
+	QList<CommandLineRow*> keyList;
+	for (auto& row : m_commandLineRowMap)
 	{
 		if (row->checkBox->getCheckState() == Qt::Checked && row->rowWg->isVisible())
 		{
@@ -225,10 +241,10 @@ void ScriptsTable::removeRows()
 
 	for (auto& key : keyList)
 	{
-		m_scriptsRowMap.removeOne(key);
+		m_commandLineRowMap.removeOne(key);
 	}
 
-	if (m_scriptsRowMap.count() == 0) // remove all
+	if (m_commandLineRowMap.count() == 0) // remove all
 	{
 		m_checkAllBox->setButtonChecked(Qt::Unchecked);
 		emit setRemoveBtnDisabled(true);
@@ -237,10 +253,11 @@ void ScriptsTable::removeRows()
 
 	setCheckBoxsState();
 }
-void ScriptsTable::resetToDefault()
+
+void CommandLineTable::resetToDefault()
 {
-	QList<ScriptsRow*> keyList;
-	for (auto& row : m_scriptsRowMap)
+	QList<CommandLineRow*> keyList;
+	for (auto& row : m_commandLineRowMap)
 	{
 		keyList.append(row);
 		m_rowLayout->removeWidget(row->rowWg);
@@ -251,16 +268,16 @@ void ScriptsTable::resetToDefault()
 		delete row->line;
 		m_rowCount--;
 		QSize size = m_rowWg->size();
-		m_rowWg->resize(this->width(), size.height() - 38 /* row height */);
+		m_rowWg->resize(this->width(), size.height() - 52 /* row height */);
 	}
 
 	for (auto& key : keyList)
 	{
-		m_scriptsRowMap.removeOne(key);
+		m_commandLineRowMap.removeOne(key);
 	}
 	for (auto& key : m_defaultList)
 	{
-		AddScripts(key.interpreter, key.extensions);
+		AddCommandLine(key);
 	}
 
 	setCheckBoxsState();
@@ -268,60 +285,52 @@ void ScriptsTable::resetToDefault()
 	resizeLabel();
 }
 
-void ScriptsTable::resizeEvent(QResizeEvent * event)
+void CommandLineTable::resizeEvent(QResizeEvent * event)
 {
 	Q_UNUSED(event);
 	m_rowWg->resize(m_scrollView->width(), m_rowWg->height());
 
 	resizeLabel();
 }
-void ScriptsTable::setStyle()
+
+void CommandLineTable::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
 		m_titleWg->setStyleSheet("background-color:#C9C9C9;"
 			"border-top-left-radius:2px; border-top-right-radius:2px;");
-		m_interpreter->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
+		m_commandLine->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
 
-		m_extensions->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_LT + ";"
-			"padding-left:5px;}");
 		break;
 
 	case Theme_Type::Dark_Theme:
 		m_titleWg->setStyleSheet("background-color:#48556E;"
 			"border-top-left-radius:2px; border-top-right-radius:2px;");
 
-		m_interpreter->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
-
-		m_extensions->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_DT + ";"
-			"padding-left:5px;}");
+		m_commandLine->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
 
 		break;
 
 	default:
 		break;
 	}
+
 }
-void ScriptsTable::setRowStyle(ScriptsRow * row)
+
+void CommandLineTable::setRowStyle(CommandLineRow * row)
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
-		row->interpreter->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
-
-		row->extensions->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_LT + ";"
-		"padding-left:5px;}");
-
+		row->commandLine->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
+		
 		row->line->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_LT + ";}");
 
 		break;
 
 	case Theme_Type::Dark_Theme:
-		row->interpreter->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
-
-		row->extensions->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_DT + ";"
-		"padding-left:5px;}");
+		row->commandLine->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		row->line->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_DT + ";}");
 
@@ -330,15 +339,15 @@ void ScriptsTable::setRowStyle(ScriptsRow * row)
 	default:
 		break;
 	}
-
 }
-Button_Check_State ScriptsTable::buttonCheckState()
+
+Button_Check_State CommandLineTable::buttonCheckState()
 {
 	Button_Check_State checkState = Button_All_Unchecked;
 
 	int countCheck = 0;
 
-	for (auto& row : m_scriptsRowMap)
+	for (auto& row : m_commandLineRowMap)
 	{
 		if (row->checkBox->getCheckState() == Qt::Checked && row->rowWg->isVisible())
 		{
@@ -346,8 +355,8 @@ Button_Check_State ScriptsTable::buttonCheckState()
 		}
 	}
 
-	
-	int rowCount = m_scriptsRowMap.count();
+
+	int rowCount = m_commandLineRowMap.count();
 
 	if (rowCount == 0)
 	{
@@ -368,7 +377,8 @@ Button_Check_State ScriptsTable::buttonCheckState()
 
 	return checkState;
 }
-void ScriptsTable::setCheckBoxsState()
+
+void CommandLineTable::setCheckBoxsState()
 {
 	Button_Check_State checkState = buttonCheckState();
 
@@ -391,33 +401,36 @@ void ScriptsTable::setCheckBoxsState()
 		break;
 	}
 }
-void ScriptsTable::resizeLabel()
+
+void CommandLineTable::resizeLabel()
 {
+
+
 	int fullTextWidth, labelWidth, defaultCharsNum, threeDotSize, textWidth, nextCharWidth, remainSpace;
 	QFontMetrics fm(FONT);
-	QString interpreter;
+	QString commandLine;
 
-	for (auto& row : m_scriptsRowMap)
+	for (auto& row : m_commandLineRowMap)
 	{
 
-		fullTextWidth = fm.width(row->interpreter->toolTip());
-		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/) - 250;
-		defaultCharsNum = 19; // 19 character <= 131px 
+		fullTextWidth = fm.width(row->commandLine->toolTip());
+		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/);
+		defaultCharsNum = 55;  
 		threeDotSize = fm.width("..."); // ... => 12px
 
 		do
 		{
-			interpreter = row->interpreter->toolTip();
+			commandLine = row->commandLine->toolTip();
 
 			if ((fullTextWidth <= labelWidth))
 			{
-				row->interpreter->setText(interpreter);
+				row->commandLine->setText(commandLine);
 				break;
 			}
 
-			textWidth = fm.width(interpreter.mid(0, defaultCharsNum));
+			textWidth = fm.width(commandLine.mid(0, defaultCharsNum));
 
-			nextCharWidth = fm.width(interpreter.mid(defaultCharsNum, 1));
+			nextCharWidth = fm.width(commandLine.mid(defaultCharsNum, 1));
 
 			remainSpace = (labelWidth - (textWidth + threeDotSize));
 
@@ -428,23 +441,13 @@ void ScriptsTable::resizeLabel()
 			}
 			if ((textWidth + threeDotSize) <= labelWidth)
 			{
-				interpreter = interpreter.mid(0, defaultCharsNum) + "...";
-				row->interpreter->setText(interpreter);
+				commandLine = commandLine.mid(0, defaultCharsNum) + "...";
+				row->commandLine->setText(commandLine);
 				break;
 			}
 
 			defaultCharsNum--;
 
 		} while (true);
-	}
-
-}
-void ScriptsTable::changeTheme()
-{
-	setStyle();
-
-	for (auto& row : m_scriptsRowMap)
-	{
-		setRowStyle(row);
 	}
 }

@@ -9,6 +9,15 @@ TrustedCertificate::TrustedCertificate(QWidget *parent)
 	m_layout->setContentsMargins(30, 0, 30, 30);
 	m_layout->setSpacing(0);
 
+	m_certificateDesc = new QLabel();
+	m_certificateDesc->setFont(FONT);
+	m_certificateDesc->setFixedHeight(45);
+	m_certificateDesc->setWordWrap(true);
+	m_certificateDesc->setText("Manage the list of trusted certificates which are being used by the applications. Applications with their certificate listed under the Trusted Certificates list will be trusted.");
+
+	QLabel* descSpacer = new QLabel();
+	descSpacer->setFixedHeight(15);
+
 	m_certificateTable = new CertificateTable();
 
 	QLabel* bottomTableSpacer = new QLabel();
@@ -51,6 +60,8 @@ TrustedCertificate::TrustedCertificate(QWidget *parent)
 
 	QLabel* bottomSpacer = new QLabel();
 
+	m_layout->addWidget(m_certificateDesc);
+	m_layout->addWidget(descSpacer);
 	m_layout->addWidget(m_certificateTable);
 	m_layout->addWidget(bottomTableSpacer);
 	m_layout->addWidget(bottomBtns);
@@ -108,6 +119,8 @@ void TrustedCertificate::setStyle()
 
 		setRemoveBtnStyle();
 
+		m_certificateDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
+
 		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
 		m_addBtn->setStyleSheet("QPushButton {background-color:none;"
@@ -117,6 +130,8 @@ void TrustedCertificate::setStyle()
 		break;
 
 	case Theme_Type::Dark_Theme:
+
+		m_certificateDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 

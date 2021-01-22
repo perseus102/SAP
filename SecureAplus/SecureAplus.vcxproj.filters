@@ -202,6 +202,18 @@
     <Filter Include="Header Files\Settings Content\Protection Mode">
       <UniqueIdentifier>{9bbdc50a-34bd-480a-8e29-3b65d4bf465a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Script Table">
+      <UniqueIdentifier>{cbec300e-7b54-47db-bde7-ab2c02abcda2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Script Table">
+      <UniqueIdentifier>{8531c8df-8cf9-4f58-b9e3-fde188d7eee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Command Line Rule">
+      <UniqueIdentifier>{c5ba8a3f-799c-4432-aae5-fba069963155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Command Line Table">
+      <UniqueIdentifier>{ba0dd16d-6788-411c-8904-43942dca0332}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -377,13 +389,34 @@
     <ClCompile Include="addtrustedcertdialog.cpp">
       <Filter>Source Files\Dialog</Filter>
     </ClCompile>
-    <ClCompile Include="scriptstable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="scripts.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
     <ClCompile Include="addscriptdialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="scriptstable.cpp">
+      <Filter>Source Files\Component\Script Table</Filter>
+    </ClCompile>
+    <ClCompile Include="commandline.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="addcommandlinedialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="commandlinerule.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="commandlinetable.cpp">
+      <Filter>Source Files\Component\Command Line Rule</Filter>
+    </ClCompile>
+    <ClCompile Include="processprotector.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="processprotectortable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="addprocessprotectordialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -532,16 +565,37 @@
     <QtMoc Include="apexrealtimedialog.h">
       <Filter>Header Files\Dialog</Filter>
     </QtMoc>
-    <QtMoc Include="addtrustedcertdialog.h">
-      <Filter>Header Files</Filter>
+    <QtMoc Include="scriptstable.h">
+      <Filter>Header Files\Component\Script Table</Filter>
     </QtMoc>
     <QtMoc Include="scripts.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Manage Content\Application Control</Filter>
     </QtMoc>
-    <QtMoc Include="scriptstable.h">
-      <Filter>Header Files</Filter>
+    <QtMoc Include="addtrustedcertdialog.h">
+      <Filter>Header Files\Dialog</Filter>
     </QtMoc>
     <QtMoc Include="addscriptdialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="commandline.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="commandlinerule.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="addcommandlinedialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="processprotector.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="commandlinetable.h">
+      <Filter>Header Files\Component\Command Line Table</Filter>
+    </QtMoc>
+    <QtMoc Include="processprotectortable.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="addprocessprotectordialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -694,6 +748,27 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="addscriptdialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="commandline.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="commandlinetable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="addcommandlinedialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="commandlinerule.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="processprotector.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="processprotectortable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="addprocessprotectordialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

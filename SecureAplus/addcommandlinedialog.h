@@ -1,43 +1,44 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_addresappdialog.h"
+#include "ui_addcommandlinedialog.h"
 #include "Config.h"
 #include "define.h"
 #include "util.h"
 #include "appsetting.h"
 #include <QPushButton>
 #include <QDialog>
-#include <QLineEdit>
+#include <QTextEdit>
 
-class AddResAppDialog : public QDialog
+class AddCommandLineDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
-	AddResAppDialog(QDialog *parent = Q_NULLPTR);
-	~AddResAppDialog();
+	AddCommandLineDialog(QDialog *parent = Q_NULLPTR);
+	~AddCommandLineDialog();
+
 	void showDialog();
 
 private slots:
 	void cancelClicked();
 	void addFileClicked();
 	void changeTheme();
-	void textChange(QString text);
+	void cmdTextChange();
 
 signals:
-	void addFile(QString fileName);
+	void addCommandLine(QString commandLine);
 
 private:
-	Ui::AddResAppDialog ui;
+	Ui::AddCommandLineDialog ui;
+
 	QLabel*			m_titleText;
-	QPushButton*	m_cancelBtn;
+	QTextEdit*		m_commandLine;
+	QVBoxLayout*	m_cmdLayout;
+
 	QPushButton*	m_addFileBtn;
-	QVBoxLayout*	m_layout;
-	QLineEdit*		m_fileNameLabel;
-	QWidget*		m_fileNameWg;
+	QPushButton*	m_cancelBtn;
 
 	void setStyle();
 	void setAddBtnStyle();
-
 };

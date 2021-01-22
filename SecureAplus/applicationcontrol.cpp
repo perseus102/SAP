@@ -57,7 +57,13 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_allowedListCmd->setFixedSize(100, 58);
 	m_allowedListCmd->setFont(FONT);
 	m_allowedListCmd->setWordWrap(true);
-	m_allowedListCmd->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+	m_allowedListCmd->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);	
+	
+	m_processProtector = new ClickableLabel();
+	m_processProtector->setFixedSize(100, 48);
+	m_processProtector->setFont(FONT);
+	m_processProtector->setWordWrap(true);
+	m_processProtector->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	QLabel* bottomSpacer = new QLabel();
 	m_tabLayout->addWidget(m_digitalSignature);
@@ -67,6 +73,7 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_tabLayout->addWidget(m_scripts);
 	m_tabLayout->addWidget(m_cmdRules);
 	m_tabLayout->addWidget(m_allowedListCmd);
+	m_tabLayout->addWidget(m_processProtector);
 	m_tabLayout->addWidget(bottomSpacer);
 
 	m_tabContentWidget = new QFrame();
@@ -81,6 +88,8 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_restrictedAppTab		= new RestrictedApp();
 	m_trustedCertificateTab = new TrustedCertificate();
 	m_scriptsTab			= new Scripts();
+	m_commandLineTab		= new CommandLine();
+	m_processProtectorTab	= new ProcessProtector();
 
 	m_tabStackedWidget = new QStackedWidget();
 	m_tabStackedWidget->addWidget(m_digitalSignatureTab);
@@ -88,6 +97,8 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_tabStackedWidget->addWidget(m_restrictedAppTab);
 	m_tabStackedWidget->addWidget(m_trustedCertificateTab);
 	m_tabStackedWidget->addWidget(m_scriptsTab);
+	m_tabStackedWidget->addWidget(m_commandLineTab);
+	m_tabStackedWidget->addWidget(m_processProtectorTab);
 
 	tabLayout->addWidget(m_tabStackedWidget);
 
@@ -110,6 +121,7 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	connect(m_scripts, &ClickableLabel::clicked, this, &ApplicationControl::TabClicked);
 	connect(m_cmdRules, &ClickableLabel::clicked, this, &ApplicationControl::TabClicked);
 	connect(m_allowedListCmd, &ClickableLabel::clicked, this, &ApplicationControl::TabClicked);
+	connect(m_processProtector, &ClickableLabel::clicked, this, &ApplicationControl::TabClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ApplicationControl::changeTheme);
 }
 
@@ -126,6 +138,7 @@ void ApplicationControl::setTabText()
 	m_scripts->setText("Scripts");
 	m_cmdRules->setText("Command Line Rules");
 	m_allowedListCmd->setText("Allowed List Command Line");
+	m_processProtector->setText("Process Protector");
 }
 
 void ApplicationControl::changeTheme()
@@ -169,6 +182,7 @@ void ApplicationControl::setTabStyle()
 		setTabInActiveStyle(m_scripts);
 		setTabInActiveStyle(m_cmdRules);
 		setTabInActiveStyle(m_allowedListCmd);
+		setTabInActiveStyle(m_processProtector);
 	}
 	else if (m_activeTab == m_allowList)
 	{
@@ -180,6 +194,7 @@ void ApplicationControl::setTabStyle()
 		setTabInActiveStyle(m_scripts);
 		setTabInActiveStyle(m_cmdRules);
 		setTabInActiveStyle(m_allowedListCmd);
+		setTabInActiveStyle(m_processProtector);
 	}
 	else if (m_activeTab == m_restrictApp)
 	{
@@ -191,6 +206,7 @@ void ApplicationControl::setTabStyle()
 		setTabInActiveStyle(m_scripts);
 		setTabInActiveStyle(m_cmdRules);
 		setTabInActiveStyle(m_allowedListCmd);
+		setTabInActiveStyle(m_processProtector);
 	}
 	else if (m_activeTab == m_trustedCertificate)
 	{
@@ -202,6 +218,7 @@ void ApplicationControl::setTabStyle()
 		setTabInActiveStyle(m_scripts);
 		setTabInActiveStyle(m_cmdRules);
 		setTabInActiveStyle(m_allowedListCmd);
+		setTabInActiveStyle(m_processProtector);
 	}
 	else if (m_activeTab == m_scripts)
 	{
@@ -213,6 +230,7 @@ void ApplicationControl::setTabStyle()
 		setTabInActiveStyle(m_trustedCertificate);
 		setTabInActiveStyle(m_cmdRules);
 		setTabInActiveStyle(m_allowedListCmd);
+		setTabInActiveStyle(m_processProtector);
 	}
 	else if (m_activeTab == m_cmdRules)
 	{
@@ -224,6 +242,7 @@ void ApplicationControl::setTabStyle()
 		setTabInActiveStyle(m_trustedCertificate);
 		setTabInActiveStyle(m_scripts);
 		setTabInActiveStyle(m_allowedListCmd);
+		setTabInActiveStyle(m_processProtector);
 	}
 	else if (m_activeTab == m_allowedListCmd)
 	{
@@ -235,6 +254,20 @@ void ApplicationControl::setTabStyle()
 		setTabInActiveStyle(m_trustedCertificate);
 		setTabInActiveStyle(m_scripts);
 		setTabInActiveStyle(m_cmdRules);
+		setTabInActiveStyle(m_processProtector);
+	}
+
+	else if (m_activeTab == m_processProtector)
+	{
+		setTabActiveStyle(m_processProtector);
+
+		setTabInActiveStyle(m_digitalSignature);
+		setTabInActiveStyle(m_allowList);
+		setTabInActiveStyle(m_restrictApp);
+		setTabInActiveStyle(m_trustedCertificate);
+		setTabInActiveStyle(m_scripts);
+		setTabInActiveStyle(m_cmdRules);
+		setTabInActiveStyle(m_allowedListCmd);
 	}
 }
 
@@ -272,7 +305,13 @@ void ApplicationControl::TabClicked()
 	}
 	else if (sender() == m_allowedListCmd)
 	{
+		m_tabStackedWidget->setCurrentWidget(m_commandLineTab);
 		m_activeTab = m_allowedListCmd;
+	}	
+	else if (sender() == m_processProtector)
+	{
+		m_tabStackedWidget->setCurrentWidget(m_processProtectorTab);
+		m_activeTab = m_processProtector;
 	}
 	setTabStyle();
 }

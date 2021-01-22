@@ -1,9 +1,10 @@
-#include "scripts.h"
+#include "processprotector.h"
 
-Scripts::Scripts(QWidget *parent)
+ProcessProtector::ProcessProtector(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+
 	m_layout = new QVBoxLayout();
 	m_layout->setContentsMargins(30, 0, 30, 30);
 	m_layout->setSpacing(0);
@@ -12,12 +13,12 @@ Scripts::Scripts(QWidget *parent)
 	m_scriptsDesc->setFont(FONT);
 	m_scriptsDesc->setFixedHeight(45);
 	m_scriptsDesc->setWordWrap(true);
-	m_scriptsDesc->setText("Executing a script requires both the script interpreter (which executes the script) and the script file itself to be trusted. The script interpreter will refuse to open any non-trusted file.");
+	m_scriptsDesc->setText("Some malwares have the ability to inject their code into another process, and run as the infected process. The process in this list will be protected against such attack.");
 
 	QLabel* descSpacer = new QLabel();
 	descSpacer->setFixedHeight(15);
 
-	m_scriptsTable = new ScriptsTable();
+	m_processProtectorTable = new ProcessProtectorTable();
 
 	QLabel* bottomTableSpacer = new QLabel();
 	bottomTableSpacer->setFixedHeight(10);
@@ -29,13 +30,7 @@ Scripts::Scripts(QWidget *parent)
 	btnsLayout->setSpacing(0);
 	bottomBtns->setLayout(btnsLayout);
 
-	m_resetToDefaultBtn = new ClickableLabel();
-	m_resetToDefaultBtn->setFixedSize(100, 30);
-	m_resetToDefaultBtn->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	m_resetToDefaultBtn->setFont(FONT);
-	m_resetToDefaultBtn->setText("Reset to Defaults");
-
-	QLabel* centerBtnsSpacer = new QLabel();
+	QLabel* leftBtnsSpacer = new QLabel();
 
 	m_removeBtn = new QPushButton();
 	m_removeBtn->setFixedSize(80, 30);
@@ -51,8 +46,7 @@ Scripts::Scripts(QWidget *parent)
 	m_addBtn->setFont(FONT);
 	m_addBtn->setText("Add");
 
-	btnsLayout->addWidget(m_resetToDefaultBtn);
-	btnsLayout->addWidget(centerBtnsSpacer);
+	btnsLayout->addWidget(leftBtnsSpacer);
 	btnsLayout->addWidget(m_removeBtn);
 	btnsLayout->addWidget(btnsSpacer);
 	btnsLayout->addWidget(m_addBtn);
@@ -61,60 +55,54 @@ Scripts::Scripts(QWidget *parent)
 
 	m_layout->addWidget(m_scriptsDesc);
 	m_layout->addWidget(descSpacer);
-	m_layout->addWidget(m_scriptsTable);
+	m_layout->addWidget(m_processProtectorTable);
 	m_layout->addWidget(bottomTableSpacer);
 	m_layout->addWidget(bottomBtns);
 	m_layout->addWidget(bottomSpacer);
 
 	transparent = new WidgetTransparent();
-	m_addScriptDialog = new AddScriptDialog();
+	m_addProcessDialog = new AddProcessProtectorDialog();
 
 	setLayout(m_layout);
 	setStyle();
 
-	connect(m_removeBtn, &QPushButton::clicked, m_scriptsTable, &ScriptsTable::removeRows);
-	connect(m_removeBtn, &QPushButton::clicked, this, &Scripts::removeButtonClicked);
+	connect(m_removeBtn, &QPushButton::clicked, m_processProtectorTable, &ProcessProtectorTable::removeRows);
+	connect(m_removeBtn, &QPushButton::clicked, this, &ProcessProtector::removeButtonClicked);
 
-	connect(m_addBtn, &QPushButton::clicked, this, &Scripts::addButtonClicked);
+	connect(m_addBtn, &QPushButton::clicked, this, &ProcessProtector::addButtonClicked);
 
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, this, &Scripts::resetToDefaultClicked);
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, m_scriptsTable, &ScriptsTable::resetToDefault);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ProcessProtector::changeTheme, Qt::ConnectionType::DirectConnection);
 
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &Scripts::changeTheme);
+	connect(m_processProtectorTable, &ProcessProtectorTable::setRemoveBtnDisabled, this, &ProcessProtector::setRemoveBtnDisabled);
+	connect(m_addProcessDialog, &AddProcessProtectorDialog::addProcess, m_processProtectorTable, &ProcessProtectorTable::AddProcessFromDialog);
 
-	connect(m_scriptsTable, &ScriptsTable::setRemoveBtnDisabled, this, &Scripts::setRemoveBtnDisabled);
-	connect(m_addScriptDialog, &AddScriptDialog::addScript, m_scriptsTable, &ScriptsTable::AddScriptsFromDialog);
 
 }
 
-Scripts::~Scripts()
+ProcessProtector::~ProcessProtector()
 {
 }
 
-void Scripts::removeButtonClicked()
-{
-}
-
-void Scripts::addButtonClicked()
+void ProcessProtector::addButtonClicked()
 {
 	QRect geometry = AppSetting::getInstance()->getAppGeometry();
 
 	transparent->showWidget();
-	m_addScriptDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 290);
-	m_addScriptDialog->showDialog();
+	m_addProcessDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 195);
+	m_addProcessDialog->showDialog();
 	transparent->hide();
 }
 
-void Scripts::resetToDefaultClicked()
+void ProcessProtector::removeButtonClicked()
 {
 }
 
-void Scripts::changeTheme()
+void ProcessProtector::changeTheme()
 {
 	setStyle();
 }
 
-void Scripts::setStyle()
+void ProcessProtector::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -122,8 +110,6 @@ void Scripts::setStyle()
 
 		setRemoveBtnStyle();
 
-		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
-		
 		m_scriptsDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
 		m_addBtn->setStyleSheet("QPushButton {background-color:none;"
@@ -133,8 +119,6 @@ void Scripts::setStyle()
 		break;
 
 	case Theme_Type::Dark_Theme:
-
-		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		m_scriptsDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
@@ -150,9 +134,9 @@ void Scripts::setStyle()
 	default:
 		break;
 	}
-}
 
-void Scripts::setRemoveBtnStyle()
+}
+void ProcessProtector::setRemoveBtnStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -197,8 +181,7 @@ void Scripts::setRemoveBtnStyle()
 	}
 
 }
-
-void Scripts:: setRemoveBtnDisabled(bool disabled)
+void ProcessProtector::setRemoveBtnDisabled(bool disabled)
 {
 	m_removeBtn->setDisabled(disabled);
 	setRemoveBtnStyle();

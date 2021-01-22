@@ -35,6 +35,8 @@ private:
 	QPushButton*	m_removeBtn;
 	QPushButton*	m_addBtn;
 
+	QLabel*	m_certificateDesc;
+
 	ClickableLabel*		m_resetToDefaultBtn;
 
 	CertificateTable*	m_certificateTable;

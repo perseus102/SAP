@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_addresappdialog.h"
+#include "ui_addprocessprotectordialog.h"
 #include "Config.h"
 #include "define.h"
 #include "util.h"
@@ -10,34 +10,35 @@
 #include <QDialog>
 #include <QLineEdit>
 
-class AddResAppDialog : public QDialog
+class AddProcessProtectorDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
-	AddResAppDialog(QDialog *parent = Q_NULLPTR);
-	~AddResAppDialog();
+	AddProcessProtectorDialog(QDialog *parent = Q_NULLPTR);
+	~AddProcessProtectorDialog();
 	void showDialog();
 
 private slots:
 	void cancelClicked();
-	void addFileClicked();
+	void addClicked();
 	void changeTheme();
 	void textChange(QString text);
 
 signals:
-	void addFile(QString fileName);
+	void addProcess(QString process);
 
 private:
-	Ui::AddResAppDialog ui;
+	Ui::AddProcessProtectorDialog ui;
+
 	QLabel*			m_titleText;
+	QLabel*			m_descText;
 	QPushButton*	m_cancelBtn;
 	QPushButton*	m_addFileBtn;
 	QVBoxLayout*	m_layout;
-	QLineEdit*		m_fileNameLabel;
-	QWidget*		m_fileNameWg;
+	QLineEdit*		m_processLabel;
+	QWidget*		m_processWg;
 
 	void setStyle();
 	void setAddBtnStyle();
-
 };

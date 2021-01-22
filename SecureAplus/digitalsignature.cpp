@@ -20,7 +20,7 @@ DigitalSignature::DigitalSignature(QWidget *parent)
 	m_trustBasedToggle->setFixedSize(50, 30);
 
 	QLabel* toggleSpacer = new QLabel();
-	toggleSpacer->setFixedHeight(30);
+	toggleSpacer->setFixedHeight(15);
 
 	m_allowAppTitle = new QLabel();
 	m_allowAppTitle->setFont(SMALL_FONT);
@@ -28,7 +28,7 @@ DigitalSignature::DigitalSignature(QWidget *parent)
 	m_allowAppTitle->setWordWrap(true);
 
 	QLabel* allowAppTitleSpacer = new QLabel();
-	allowAppTitleSpacer->setFixedHeight(20);
+	allowAppTitleSpacer->setFixedHeight(6);
 
 	/* Init Name in Trusted Certificate List */
 	nameInTrustedWg = new QWidget();
@@ -173,11 +173,12 @@ DigitalSignature::DigitalSignature(QWidget *parent)
 
 	m_layout->addWidget(m_trustBased);
 	m_layout->addWidget(trustBasedSpacer);
-	m_layout->addWidget(m_trustBasedToggle);
 
-	m_layout->addWidget(toggleSpacer);
 	m_layout->addWidget(m_allowAppTitle);
 	m_layout->addWidget(allowAppTitleSpacer);
+
+	m_layout->addWidget(m_trustBasedToggle);
+	m_layout->addWidget(toggleSpacer);
 
 	m_layout->addWidget(nameInTrustedWg);
 	m_layout->addWidget(nameInTrustedDescSpacer);
@@ -201,8 +202,8 @@ DigitalSignature::DigitalSignature(QWidget *parent)
 	setLabelText();
 	setStyle();
 
-	m_nameInTrustedBtn->setButtonChecked(Qt::Unchecked);
-	m_trustedByOSBtn->setButtonChecked(Qt::Checked);
+	m_nameInTrustedBtn->setButtonChecked(Qt::Checked);
+	m_trustedByOSBtn->setButtonChecked(Qt::Unchecked);
 	m_nameAndThumbprintBtn->setButtonChecked(Qt::Unchecked);
 
 	setAllowAppListVisible(false);
@@ -250,7 +251,7 @@ void DigitalSignature::radioButtonClicked()
 void DigitalSignature::setLabelText()
 {
 	m_trustBased->setText("Trust based on Digital Signature");
-	m_allowAppTitle->setText("Allow application with valid digital signature to be trusted as installer if its certificate:");
+	m_allowAppTitle->setText("Allow application with valid digital signature to be trusted as installer if its certificate");
 	m_nameInTrusted->setText("Name in Trusted Certificate List");
 	m_nameInTrustedDesc->setText("Trust the file only if the certificate is in the trusted certificate list");
 	m_trustedByOS->setText("Trusted by the Operating System");
@@ -300,7 +301,7 @@ void DigitalSignature::setStyle()
 
 void DigitalSignature::setAllowAppListVisible(bool isVisible)
 {
-	m_allowAppTitle->setVisible(isVisible);
+	//m_allowAppTitle->setVisible(isVisible);
 	nameInTrustedWg->setVisible(isVisible);
 	nameInTrustedDescWg->setVisible(isVisible);
 	trustedByOSWg->setVisible(isVisible);

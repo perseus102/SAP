@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_scriptstable.h"
+#include "ui_commandlinetable.h"
 #include "Config.h"
 #include "define.h"
 #include "util.h"
@@ -9,38 +9,31 @@
 #include "sapcheckbox.h"
 #include "sapscrollarea.h"
 
-struct ScriptsRow
+struct CommandLineRow
 {
 	QWidget* rowWg;
 	SAPCheckBox* checkBox;
-	QLabel*	interpreter;
-	QLabel*	extensions;
+	QLabel*	commandLine;
 	QLabel* line;
 };
-
-struct ScriptsString
-{
-	QString	interpreter;
-	QString	extensions;
-};
-
-class ScriptsTable : public QWidget
+class CommandLineTable : public QWidget
 {
 	Q_OBJECT
 
 public:
-	ScriptsTable(QWidget *parent = Q_NULLPTR);
-	~ScriptsTable();
+	CommandLineTable(QWidget *parent = Q_NULLPTR);
+	~CommandLineTable();
 
 private slots:
 	void changeTheme();
 	void allCheckBoxSetCheck(Qt::CheckState);
 	void scrollBarRangeChanged(int min, int max);
 	void rowCheckBoxSetCheck(Qt::CheckState);
+	void scrollbarChangeValue(int value);
 
 public slots:
-	void AddScripts(QString interpreter, QString extensions);
-	void AddScriptsFromDialog(QString interpreter, QString extensions);
+	void AddCommandLine(QString commandLine);
+	void AddCommandLineFromDialog(QString commandLine);
 	void removeRows();
 	void resetToDefault();
 
@@ -50,30 +43,30 @@ signals:
 protected:
 	void resizeEvent(QResizeEvent *event) override;
 
-
 private:
-	Ui::ScriptsTable ui;
+	Ui::CommandLineTable ui;
 
 	QWidget*		m_titleWg;
 	SAPCheckBox*	m_checkAllBox;
-	QLabel*			m_interpreter;
-	QLabel*			m_extensions;
+	QLabel*			m_commandLine;
 
 	QVBoxLayout*	m_layout;
 	SAPSCrollArea*	m_scrollView;
 	QWidget*		m_rowWg;
 	QVBoxLayout*	m_rowLayout;
 
-	QList<ScriptsString> m_defaultList;
-	QList<ScriptsRow*> m_scriptsRowMap;
-	QStringList m_fileNameList;
 
+	QList<QString> m_defaultList;
+	QList<CommandLineRow*> m_commandLineRowMap;
+	QList<CommandLineRow*> resizeRow;
 
 	int m_rowCount;
+
 	void setStyle();
-	void setRowStyle(ScriptsRow* row);
+	void setRowStyle(CommandLineRow* row);
+
 	Button_Check_State buttonCheckState();
+
 	void setCheckBoxsState();
 	void resizeLabel();
-
 };

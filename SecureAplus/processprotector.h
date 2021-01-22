@@ -1,35 +1,33 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_scripts.h"
+#include "ui_processprotector.h"
 #include "define.h"
 #include "appsetting.h"
 #include "util.h"
 #include "clickablelabel.h"
-#include "scriptstable.h"
 #include <QPushButton>
 #include "widgettransparent.h"
-#include "addscriptdialog.h"
-
-class Scripts : public QWidget
+#include "processprotectortable.h"
+#include "addprocessprotectordialog.h"
+class ProcessProtector : public QWidget
 {
 	Q_OBJECT
 
 public:
-	Scripts(QWidget *parent = Q_NULLPTR);
-	~Scripts();
+	ProcessProtector(QWidget *parent = Q_NULLPTR);
+	~ProcessProtector();
 
 private slots:
 	void removeButtonClicked();
 	void addButtonClicked();
-	void resetToDefaultClicked();
 
 public slots:
 	void setRemoveBtnDisabled(bool disabled);
 	void changeTheme();
 
 private:
-	Ui::Scripts ui;
+	Ui::ProcessProtector ui;
 
 	QLabel*	m_scriptsDesc;
 
@@ -37,13 +35,11 @@ private:
 	QPushButton*	m_removeBtn;
 	QPushButton*	m_addBtn;
 
-	ScriptsTable*	m_scriptsTable;
-
-	ClickableLabel*		m_resetToDefaultBtn;
+	ProcessProtectorTable*	m_processProtectorTable;
 
 	WidgetTransparent*	transparent;
-	AddScriptDialog*	m_addScriptDialog;
-
+	AddProcessProtectorDialog* m_addProcessDialog;
+	
 	void setStyle();
 	void setRemoveBtnStyle();
 };

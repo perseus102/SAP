@@ -1,23 +1,15 @@
-#include "scripts.h"
+#include "commandline.h"
 
-Scripts::Scripts(QWidget *parent)
+CommandLine::CommandLine(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+
 	m_layout = new QVBoxLayout();
 	m_layout->setContentsMargins(30, 0, 30, 30);
 	m_layout->setSpacing(0);
 
-	m_scriptsDesc = new QLabel();
-	m_scriptsDesc->setFont(FONT);
-	m_scriptsDesc->setFixedHeight(45);
-	m_scriptsDesc->setWordWrap(true);
-	m_scriptsDesc->setText("Executing a script requires both the script interpreter (which executes the script) and the script file itself to be trusted. The script interpreter will refuse to open any non-trusted file.");
-
-	QLabel* descSpacer = new QLabel();
-	descSpacer->setFixedHeight(15);
-
-	m_scriptsTable = new ScriptsTable();
+	m_commandLineTable = new CommandLineTable();
 
 	QLabel* bottomTableSpacer = new QLabel();
 	bottomTableSpacer->setFixedHeight(10);
@@ -59,62 +51,59 @@ Scripts::Scripts(QWidget *parent)
 
 	QLabel* bottomSpacer = new QLabel();
 
-	m_layout->addWidget(m_scriptsDesc);
-	m_layout->addWidget(descSpacer);
-	m_layout->addWidget(m_scriptsTable);
+	m_layout->addWidget(m_commandLineTable);
 	m_layout->addWidget(bottomTableSpacer);
 	m_layout->addWidget(bottomBtns);
 	m_layout->addWidget(bottomSpacer);
 
 	transparent = new WidgetTransparent();
-	m_addScriptDialog = new AddScriptDialog();
+	m_addCommandLineDialog = new AddCommandLineDialog();
 
 	setLayout(m_layout);
 	setStyle();
 
-	connect(m_removeBtn, &QPushButton::clicked, m_scriptsTable, &ScriptsTable::removeRows);
-	connect(m_removeBtn, &QPushButton::clicked, this, &Scripts::removeButtonClicked);
+	connect(m_removeBtn, &QPushButton::clicked, m_commandLineTable, &CommandLineTable::removeRows);
+	connect(m_removeBtn, &QPushButton::clicked, this, &CommandLine::removeButtonClicked);
 
-	connect(m_addBtn, &QPushButton::clicked, this, &Scripts::addButtonClicked);
+	connect(m_addBtn, &QPushButton::clicked, this, &CommandLine::addButtonClicked);
 
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, this, &Scripts::resetToDefaultClicked);
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, m_scriptsTable, &ScriptsTable::resetToDefault);
+	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, this, &CommandLine::resetToDefaultClicked);
+	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, m_commandLineTable, &CommandLineTable::resetToDefault);
 
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &Scripts::changeTheme);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &CommandLine::changeTheme);
 
-	connect(m_scriptsTable, &ScriptsTable::setRemoveBtnDisabled, this, &Scripts::setRemoveBtnDisabled);
-	connect(m_addScriptDialog, &AddScriptDialog::addScript, m_scriptsTable, &ScriptsTable::AddScriptsFromDialog);
+	connect(m_commandLineTable, &CommandLineTable::setRemoveBtnDisabled, this, &CommandLine::setRemoveBtnDisabled);
+	connect(m_addCommandLineDialog, &AddCommandLineDialog::addCommandLine, m_commandLineTable, &CommandLineTable::AddCommandLineFromDialog);
 
 }
 
-Scripts::~Scripts()
+CommandLine::~CommandLine()
 {
 }
 
-void Scripts::removeButtonClicked()
-{
-}
-
-void Scripts::addButtonClicked()
+void CommandLine::addButtonClicked()
 {
 	QRect geometry = AppSetting::getInstance()->getAppGeometry();
-
 	transparent->showWidget();
-	m_addScriptDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 290);
-	m_addScriptDialog->showDialog();
+	m_addCommandLineDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 300);
+	m_addCommandLineDialog->showDialog();
 	transparent->hide();
 }
 
-void Scripts::resetToDefaultClicked()
+void CommandLine::removeButtonClicked()
 {
 }
 
-void Scripts::changeTheme()
+void CommandLine::resetToDefaultClicked()
+{
+}
+
+void CommandLine::changeTheme()
 {
 	setStyle();
 }
 
-void Scripts::setStyle()
+void CommandLine::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -123,8 +112,6 @@ void Scripts::setStyle()
 		setRemoveBtnStyle();
 
 		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
-		
-		m_scriptsDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
 		m_addBtn->setStyleSheet("QPushButton {background-color:none;"
 			"color: " + TAB_CONTENT_DESC_TEXT_LT + ";"
@@ -135,8 +122,6 @@ void Scripts::setStyle()
 	case Theme_Type::Dark_Theme:
 
 		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
-
-		m_scriptsDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		setRemoveBtnStyle();
 
@@ -152,7 +137,7 @@ void Scripts::setStyle()
 	}
 }
 
-void Scripts::setRemoveBtnStyle()
+void CommandLine::setRemoveBtnStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -195,10 +180,9 @@ void Scripts::setRemoveBtnStyle()
 	default:
 		break;
 	}
-
 }
 
-void Scripts:: setRemoveBtnDisabled(bool disabled)
+void CommandLine::setRemoveBtnDisabled(bool disabled)
 {
 	m_removeBtn->setDisabled(disabled);
 	setRemoveBtnStyle();

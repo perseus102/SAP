@@ -1,23 +1,23 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_scripts.h"
+#include "ui_commandline.h"
 #include "define.h"
 #include "appsetting.h"
 #include "util.h"
 #include "clickablelabel.h"
-#include "scriptstable.h"
 #include <QPushButton>
 #include "widgettransparent.h"
-#include "addscriptdialog.h"
+#include "commandlinetable.h"
+#include "addcommandlinedialog.h"
 
-class Scripts : public QWidget
+class CommandLine : public QWidget
 {
 	Q_OBJECT
 
 public:
-	Scripts(QWidget *parent = Q_NULLPTR);
-	~Scripts();
+	CommandLine(QWidget *parent = Q_NULLPTR);
+	~CommandLine();
 
 private slots:
 	void removeButtonClicked();
@@ -29,20 +29,18 @@ public slots:
 	void changeTheme();
 
 private:
-	Ui::Scripts ui;
-
-	QLabel*	m_scriptsDesc;
+	Ui::CommandLine ui;
 
 	QVBoxLayout*	m_layout;
 	QPushButton*	m_removeBtn;
 	QPushButton*	m_addBtn;
 
-	ScriptsTable*	m_scriptsTable;
+	CommandLineTable*	m_commandLineTable;
 
 	ClickableLabel*		m_resetToDefaultBtn;
 
 	WidgetTransparent*	transparent;
-	AddScriptDialog*	m_addScriptDialog;
+	AddCommandLineDialog* m_addCommandLineDialog;
 
 	void setStyle();
 	void setRemoveBtnStyle();
