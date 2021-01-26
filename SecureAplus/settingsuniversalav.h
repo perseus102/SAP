@@ -11,13 +11,13 @@
 #include "sapcombobox.h"
 #include "sapslider.h"
 
-class UniversalAV : public QWidget
+class SettingsUniversalAV : public QWidget
 {
 	Q_OBJECT
 
 public:
-	UniversalAV(QWidget *parent = Q_NULLPTR);
-	~UniversalAV();
+	SettingsUniversalAV(QWidget *parent = Q_NULLPTR);
+	~SettingsUniversalAV();
 
 public slots:
 	void offRealTimeScan();

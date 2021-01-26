@@ -1,6 +1,6 @@
-#include "vulassessment.h"
+#include "settingsvulassessment.h"
 
-VulAssessment::VulAssessment(QWidget *parent)
+SettingsVulAssessment::SettingsVulAssessment(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -50,20 +50,20 @@ VulAssessment::VulAssessment(QWidget *parent)
 	setLayout(m_layout);
 	setLabelText();
 	setStyle();
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &VulAssessment::changeTheme);
-	connect(m_automaticToggle, &Switch::released, this, &VulAssessment::toggleClicked);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingsVulAssessment::changeTheme);
+	connect(m_automaticToggle, &Switch::released, this, &SettingsVulAssessment::toggleClicked);
 }
 
-VulAssessment::~VulAssessment()
+SettingsVulAssessment::~SettingsVulAssessment()
 {
 }
 
-void VulAssessment::toggleClicked()
+void SettingsVulAssessment::toggleClicked()
 {
 	//do something
 }
 
-void VulAssessment::setStyle()
+void SettingsVulAssessment::setStyle()
 {
 
 	switch (AppSetting::getInstance()->getTheme())
@@ -88,13 +88,13 @@ void VulAssessment::setStyle()
 
 }
 
-void VulAssessment::setLabelText()
+void SettingsVulAssessment::setLabelText()
 {
 	m_automaticCheck->setText("Automatic check for Vulnerability Assessment");
 	m_automaticCheckDecs->setText("Runs vulnerability Assessment on installed programs periodically");
 }
 
-void VulAssessment::changeTheme()
+void SettingsVulAssessment::changeTheme()
 {
 	setStyle();
 }

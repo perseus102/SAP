@@ -17,8 +17,8 @@
 #include "gridwidget.h"
 #include "flowlayout.h"
 #include "settinggridcontent.h"
-#include "languagepersonal.h"
-#include "protectionmodes.h"
+#include "settingslanguagepersonal.h"
+#include "settingsprotectionmodes.h"
 #include "scansettings.h"
 
 namespace Ui {
@@ -53,8 +53,8 @@ private:
 	QStackedWidget		*stackedWidget;
 	TopBar				*m_settingTopBar;
 	SettingGridContent	*m_SettingGridContent;
-	LanguagePersonal	*m_languagePersonal;
-	ProtectionModes		*m_protectionModes;
+	SettingsLanguagePersonal	*m_languagePersonal;
+	SettingsProtectionModes		*m_protectionModes;
 	ScanSettings		*m_scanSettings;
 	Directory			m_curSettingDir;
 };

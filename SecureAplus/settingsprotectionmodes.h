@@ -16,13 +16,13 @@
 #include "CircleProcess.h"
 #include "clickablelabel.h"
 
-class ProtectionModes : public QWidget
+class SettingsProtectionModes : public QWidget
 {
 	Q_OBJECT
 
 public:
-	ProtectionModes(QWidget *parent = Q_NULLPTR);
-	~ProtectionModes();
+	SettingsProtectionModes(QWidget *parent = Q_NULLPTR);
+	~SettingsProtectionModes();
 
 signals:
 	void changeMode(Protection_Modes, bool editMode = false);

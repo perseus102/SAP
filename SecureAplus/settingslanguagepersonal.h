@@ -9,13 +9,13 @@
 #include "appsetting.h"
 #include "clickablelabel.h"
 #include "sapradiobutton.h"
-class LanguagePersonal : public QWidget
+class SettingsLanguagePersonal : public QWidget
 {
 	Q_OBJECT
 
 public:
-	LanguagePersonal(QWidget *parent = Q_NULLPTR);
-	~LanguagePersonal();
+	SettingsLanguagePersonal(QWidget *parent = Q_NULLPTR);
+	~SettingsLanguagePersonal();
 	void setAppearanceText(QString text);
 	void setAppearLightThemeText(QString text);
 	void setAppearDarkThemeText(QString text);

@@ -164,7 +164,7 @@
     <ClCompile Include="addresappdialog.cpp" />
     <ClCompile Include="allowlist.cpp" />
     <ClCompile Include="allowliststatus.cpp" />
-    <ClCompile Include="anitivirus.cpp" />
+    <ClCompile Include="settingsanitivirus.cpp" />
     <ClCompile Include="apexrealtimedialog.cpp" />
     <ClCompile Include="applicationcontrol.cpp" />
     <ClCompile Include="appsetting.cpp" />
@@ -183,14 +183,14 @@
     <ClCompile Include="gridwidget.cpp" />
     <ClCompile Include="homecontent.cpp" />
     <ClCompile Include="homemaincontent.cpp" />
-    <ClCompile Include="languagepersonal.cpp" />
+    <ClCompile Include="settingslanguagepersonal.cpp" />
     <ClCompile Include="lockdowndialog.cpp" />
     <ClCompile Include="managecontent.cpp" />
     <ClCompile Include="managegridcontent.cpp" />
     <ClCompile Include="managewidget.cpp" />
     <ClCompile Include="processprotector.cpp" />
     <ClCompile Include="processprotectortable.cpp" />
-    <ClCompile Include="protectionmodes.cpp" />
+    <ClCompile Include="settingsprotectionmodes.cpp" />
     <ClCompile Include="restrictedapp.cpp" />
     <ClCompile Include="sapcheckbox.cpp" />
     <ClCompile Include="sapcombobox.cpp" />
@@ -211,10 +211,10 @@
     <ClCompile Include="topbar.cpp" />
     <ClCompile Include="trustalldialog.cpp" />
     <ClCompile Include="trustedcertificate.cpp" />
-    <ClCompile Include="universalav.cpp" />
+    <ClCompile Include="settingsuniversalav.cpp" />
     <ClCompile Include="upgradedialog.cpp" />
     <ClCompile Include="util.cpp" />
-    <ClCompile Include="vulassessment.cpp" />
+    <ClCompile Include="settingsvulassessment.cpp" />
     <ClCompile Include="widgettransparent.cpp" />
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
@@ -304,12 +304,12 @@
     <QtMoc Include="settingwidget.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="vulassessment.h" />
+    <QtMoc Include="settingsvulassessment.h" />
     <QtMoc Include="widgettransparent.h" />
     <QtMoc Include="appsetting.h" />
     <QtMoc Include="circleprocess.h" />
     <QtMoc Include="clickablelabel.h" />
-    <QtMoc Include="anitivirus.h" />
+    <QtMoc Include="settingsanitivirus.h" />
     <QtMoc Include="apexrealtimedialog.h" />
     <QtMoc Include="applicationcontrol.h" />
     <QtMoc Include="allowlist.h" />
@@ -333,8 +333,8 @@
     <QtMoc Include="digitalsignature.h" />
     <QtMoc Include="filenametable.h" />
     <ClInclude Include="flowlayout.h" />
-    <QtMoc Include="languagepersonal.h" />
-    <QtMoc Include="protectionmodes.h" />
+    <QtMoc Include="settingslanguagepersonal.h" />
+    <QtMoc Include="settingsprotectionmodes.h" />
     <QtMoc Include="lockdowndialog.h" />
     <QtMoc Include="managecontent.h" />
     <QtMoc Include="managegridcontent.h" />
@@ -359,7 +359,7 @@
     <QtMoc Include="topbar.h" />
     <QtMoc Include="trustalldialog.h" />
     <QtMoc Include="upgradedialog.h" />
-    <QtMoc Include="universalav.h" />
+    <QtMoc Include="settingsuniversalav.h" />
     <QtMoc Include="trustedcertificate.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>

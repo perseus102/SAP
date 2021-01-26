@@ -1,6 +1,6 @@
-#include "protectionmodes.h"
+#include "settingsprotectionmodes.h"
 
-ProtectionModes::ProtectionModes(QWidget *parent)
+SettingsProtectionModes::SettingsProtectionModes(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -103,26 +103,26 @@ ProtectionModes::ProtectionModes(QWidget *parent)
 	setStyle();
 }
 
-ProtectionModes::~ProtectionModes()
+SettingsProtectionModes::~SettingsProtectionModes()
 {
 }
 
-void ProtectionModes::setConnection()
+void SettingsProtectionModes::setConnection()
 {
-	connect(m_automatic, &SelectWidget::changeMode, this, &ProtectionModes::changeProtectMode);
-	connect(m_interactive, &SelectWidget::changeMode, this, &ProtectionModes::changeProtectMode);
-	connect(m_lockdown, &SelectWidget::changeMode, this, &ProtectionModes::changeProtectMode);
-	connect(m_trustall, &SelectWidget::changeMode, this, &ProtectionModes::changeProtectMode);
-	connect(m_observation, &SelectWidget::changeMode, this, &ProtectionModes::changeProtectMode);
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ProtectionModes::changeTheme);
-	connect(this, &ProtectionModes::changeMode, AppSetting::getInstance(), &AppSetting::changeProtectionMode);
-	connect(AppSetting::getInstance(), &AppSetting::signal_toggleChanged, this, &ProtectionModes::toogleChanged);
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeToPrevMode, this, &ProtectionModes::changeToPrevMode);
-	connect(AppSetting::getInstance(), &AppSetting::signal_ChangeModeByOtherSetting, this, &ProtectionModes::modeChangedByOtherSetting);
-	connect(m_editMode, &ClickableLabel::clicked, this, &ProtectionModes::editModeClicked);
+	connect(m_automatic, &SelectWidget::changeMode, this, &SettingsProtectionModes::changeProtectMode);
+	connect(m_interactive, &SelectWidget::changeMode, this, &SettingsProtectionModes::changeProtectMode);
+	connect(m_lockdown, &SelectWidget::changeMode, this, &SettingsProtectionModes::changeProtectMode);
+	connect(m_trustall, &SelectWidget::changeMode, this, &SettingsProtectionModes::changeProtectMode);
+	connect(m_observation, &SelectWidget::changeMode, this, &SettingsProtectionModes::changeProtectMode);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingsProtectionModes::changeTheme);
+	connect(this, &SettingsProtectionModes::changeMode, AppSetting::getInstance(), &AppSetting::changeProtectionMode);
+	connect(AppSetting::getInstance(), &AppSetting::signal_toggleChanged, this, &SettingsProtectionModes::toogleChanged);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeToPrevMode, this, &SettingsProtectionModes::changeToPrevMode);
+	connect(AppSetting::getInstance(), &AppSetting::signal_ChangeModeByOtherSetting, this, &SettingsProtectionModes::modeChangedByOtherSetting);
+	connect(m_editMode, &ClickableLabel::clicked, this, &SettingsProtectionModes::editModeClicked);
 }
 
-void ProtectionModes::setModeText()
+void SettingsProtectionModes::setModeText()
 {
 	//call function get text for multi language
 
@@ -155,7 +155,7 @@ void ProtectionModes::setModeText()
 	}
 }
 
-void ProtectionModes::setStyle()
+void SettingsProtectionModes::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -181,7 +181,7 @@ void ProtectionModes::setStyle()
 	}
 }
 
-void ProtectionModes::switchMode()
+void SettingsProtectionModes::switchMode()
 {
 	//Deactive previous mode
 	if (m_modeSelected == m_automatic)
@@ -209,7 +209,7 @@ void ProtectionModes::switchMode()
 
 }
 
-void ProtectionModes::changeProtectMode()
+void SettingsProtectionModes::changeProtectMode()
 {
 	Protection_Modes mode = Protection_Modes::None;
 	//Active changed mode
@@ -315,13 +315,13 @@ void ProtectionModes::changeProtectMode()
 	emit changeMode(mode);
 }
 
-void ProtectionModes::changeTheme()
+void SettingsProtectionModes::changeTheme()
 {
 	setModeText();
 	setStyle();
 }
 
-void ProtectionModes::toogleChanged(bool isChecked)
+void SettingsProtectionModes::toogleChanged(bool isChecked)
 {
 	//Change mode when toggle switch
 	switchMode();
@@ -342,7 +342,7 @@ void ProtectionModes::toogleChanged(bool isChecked)
 	m_editModeWidget->setVisible(false);
 }
 
-void ProtectionModes::changeToPrevMode()
+void SettingsProtectionModes::changeToPrevMode()
 {
 	switchMode();
 	Protection_Modes mode = AppSetting::getInstance()->getPrevMode();
@@ -410,7 +410,7 @@ void ProtectionModes::changeToPrevMode()
 	emit changeMode(mode);
 }
 
-void ProtectionModes::modeChangedByOtherSetting(Protection_Modes mode)
+void SettingsProtectionModes::modeChangedByOtherSetting(Protection_Modes mode)
 {
 	switchMode();
 	m_editModeWidget->setVisible(false);
@@ -460,7 +460,7 @@ void ProtectionModes::modeChangedByOtherSetting(Protection_Modes mode)
 	setModeText();
 }
 
-void ProtectionModes::editModeClicked()
+void SettingsProtectionModes::editModeClicked()
 {
 	Protection_Modes mode = Protection_Modes::None;
 	QRect geometry = AppSetting::getInstance()->getAppGeometry();

@@ -314,20 +314,11 @@
     <ClCompile Include="settingscontent.cpp">
       <Filter>Source Files\Settings Content</Filter>
     </ClCompile>
-    <ClCompile Include="universalav.cpp">
-      <Filter>Source Files\Settings Content\Scan Settings</Filter>
-    </ClCompile>
     <ClCompile Include="sapcombobox.cpp">
       <Filter>Source Files\Component\SAP Combobox</Filter>
     </ClCompile>
     <ClCompile Include="sapslider.cpp">
       <Filter>Source Files\Component\SAP Slider</Filter>
-    </ClCompile>
-    <ClCompile Include="anitivirus.cpp">
-      <Filter>Source Files\Settings Content\Scan Settings</Filter>
-    </ClCompile>
-    <ClCompile Include="vulassessment.cpp">
-      <Filter>Source Files\Settings Content\Scan Settings</Filter>
     </ClCompile>
     <ClCompile Include="sapscrollarea.cpp">
       <Filter>Source Files\Component\SAP ScrollBar</Filter>
@@ -371,12 +362,6 @@
     <ClCompile Include="trustedcertificate.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
-    <ClCompile Include="languagepersonal.cpp">
-      <Filter>Source Files\Settings Content\Language &amp; Persional</Filter>
-    </ClCompile>
-    <ClCompile Include="protectionmodes.cpp">
-      <Filter>Source Files\Settings Content\Protection Mode</Filter>
-    </ClCompile>
     <ClCompile Include="scansettings.cpp">
       <Filter>Source Files\Settings Content\Scan Settings</Filter>
     </ClCompile>
@@ -418,6 +403,21 @@
     </ClCompile>
     <ClCompile Include="addprocessprotectordialog.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settingslanguagepersonal.cpp">
+      <Filter>Source Files\Settings Content\Language &amp; Persional</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsprotectionmodes.cpp">
+      <Filter>Source Files\Settings Content\Protection Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsanitivirus.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsuniversalav.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsvulassessment.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -463,9 +463,6 @@
     <QtMoc Include="topbar.h">
       <Filter>Header Files\Component\Top Bar</Filter>
     </QtMoc>
-    <QtMoc Include="protectionmodes.h">
-      <Filter>Header Files\Settings Content</Filter>
-    </QtMoc>
     <QtMoc Include="selectwidget.h">
       <Filter>Header Files\Component\Select Widget</Filter>
     </QtMoc>
@@ -493,20 +490,11 @@
     <QtMoc Include="clickablelabel.h">
       <Filter>Header Files\Component\Clickable Label</Filter>
     </QtMoc>
-    <QtMoc Include="universalav.h">
-      <Filter>Header Files\Settings Content\Scan Settings</Filter>
-    </QtMoc>
     <QtMoc Include="sapcombobox.h">
       <Filter>Header Files\Component\SAP Combobox</Filter>
     </QtMoc>
     <QtMoc Include="sapslider.h">
       <Filter>Header Files\Component\SAP Slider</Filter>
-    </QtMoc>
-    <QtMoc Include="anitivirus.h">
-      <Filter>Header Files\Settings Content\Scan Settings</Filter>
-    </QtMoc>
-    <QtMoc Include="vulassessment.h">
-      <Filter>Header Files\Settings Content\Scan Settings</Filter>
     </QtMoc>
     <QtMoc Include="sapscrollarea.h">
       <Filter>Header Files\Component\SAP ScrollBar</Filter>
@@ -547,14 +535,8 @@
     <QtMoc Include="trustedcertificate.h">
       <Filter>Header Files\Manage Content\Application Control</Filter>
     </QtMoc>
-    <QtMoc Include="languagepersonal.h">
-      <Filter>Header Files\Settings Content\Language &amp; Persional</Filter>
-    </QtMoc>
     <QtMoc Include="scansettings.h">
       <Filter>Header Files\Settings Content\Scan Settings</Filter>
-    </QtMoc>
-    <QtMoc Include="settinggridcontent.h">
-      <Filter>Header Files\Settings Content\Protection Mode</Filter>
     </QtMoc>
     <QtMoc Include="restrictedapp.h">
       <Filter>Header Files\Manage Content\Application Control</Filter>
@@ -597,6 +579,24 @@
     </QtMoc>
     <QtMoc Include="addprocessprotectordialog.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="settingslanguagepersonal.h">
+      <Filter>Header Files\Settings Content\Language &amp; Persional</Filter>
+    </QtMoc>
+    <QtMoc Include="settinggridcontent.h">
+      <Filter>Header Files\Settings Content</Filter>
+    </QtMoc>
+    <QtMoc Include="settingsprotectionmodes.h">
+      <Filter>Header Files\Settings Content\Protection Mode</Filter>
+    </QtMoc>
+    <QtMoc Include="settingsanitivirus.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
+    <QtMoc Include="settingsuniversalav.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
+    <QtMoc Include="settingsvulassessment.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

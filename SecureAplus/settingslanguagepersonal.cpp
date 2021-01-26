@@ -1,6 +1,6 @@
-#include "languagepersonal.h"
+#include "settingslanguagepersonal.h"
 
-LanguagePersonal::LanguagePersonal(QWidget *parent)
+SettingsLanguagePersonal::SettingsLanguagePersonal(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -103,18 +103,18 @@ LanguagePersonal::LanguagePersonal(QWidget *parent)
 	setAppearDarkThemeText("Dark theme");
 
 	/* Connection */
-	connect(m_lightThemeBtn, &SAPRadioButton::clicked, this, &LanguagePersonal::radioButtonClicked);
-	connect(m_darkThemeBtn, &SAPRadioButton::clicked, this, &LanguagePersonal::radioButtonClicked);
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &LanguagePersonal::changeTheme);
-	connect(m_appearLightThemeText, &ClickableLabel::clicked, this, &LanguagePersonal::themeTextClicked);
-	connect(m_appearDarkThemeText, &ClickableLabel::clicked, this, &LanguagePersonal::themeTextClicked);
+	connect(m_lightThemeBtn, &SAPRadioButton::clicked, this, &SettingsLanguagePersonal::radioButtonClicked);
+	connect(m_darkThemeBtn, &SAPRadioButton::clicked, this, &SettingsLanguagePersonal::radioButtonClicked);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingsLanguagePersonal::changeTheme);
+	connect(m_appearLightThemeText, &ClickableLabel::clicked, this, &SettingsLanguagePersonal::themeTextClicked);
+	connect(m_appearDarkThemeText, &ClickableLabel::clicked, this, &SettingsLanguagePersonal::themeTextClicked);
 }
 
-LanguagePersonal::~LanguagePersonal()
+SettingsLanguagePersonal::~SettingsLanguagePersonal()
 {
 }
 
-void LanguagePersonal::setAppearanceText(QString text)
+void SettingsLanguagePersonal::setAppearanceText(QString text)
 {
 	/* Mearsuring text height */
 	QFontMetrics fm(FONT);
@@ -123,7 +123,7 @@ void LanguagePersonal::setAppearanceText(QString text)
 	m_appearance->setText(text);
 }
 
-void LanguagePersonal::setAppearLightThemeText(QString text)
+void SettingsLanguagePersonal::setAppearLightThemeText(QString text)
 {
 	QFontMetrics fm(FONT);
 	int pixelsHigh = fm.height();
@@ -135,7 +135,7 @@ void LanguagePersonal::setAppearLightThemeText(QString text)
 	spacerCenter->setFixedWidth(80 - width + 10);
 }
 
-void LanguagePersonal::setAppearDarkThemeText(QString text)
+void SettingsLanguagePersonal::setAppearDarkThemeText(QString text)
 {
 	QFontMetrics fm(FONT);
 	int pixelsHigh = fm.height();
@@ -146,14 +146,14 @@ void LanguagePersonal::setAppearDarkThemeText(QString text)
 
 }
 
-void LanguagePersonal::changeTheme()
+void SettingsLanguagePersonal::changeTheme()
 {
 	setTextStyle();
 	setAppearImage();
 	//setButtonStyle();
 }
 
-void LanguagePersonal::setTextStyle()
+void SettingsLanguagePersonal::setTextStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -176,7 +176,7 @@ void LanguagePersonal::setTextStyle()
 	}
 }
 
-void LanguagePersonal::setAppearImage()
+void SettingsLanguagePersonal::setAppearImage()
 {
 	QPixmap appearDarkImg;
 	QPixmap appearLightImg;
@@ -200,7 +200,7 @@ void LanguagePersonal::setAppearImage()
 	m_appearDarkTheme->setPixmap(appearDarkImg);
 }
 
-void LanguagePersonal::setButtonStyle()
+void SettingsLanguagePersonal::setButtonStyle()
 {
 
 	switch (AppSetting::getInstance()->getTheme())
@@ -222,7 +222,7 @@ void LanguagePersonal::setButtonStyle()
 
 }
 
-void LanguagePersonal::radioButtonClicked()
+void SettingsLanguagePersonal::radioButtonClicked()
 {
 	//switch theme
 	if (sender() == m_lightThemeBtn)
@@ -247,7 +247,7 @@ void LanguagePersonal::radioButtonClicked()
 }
 
 
-void LanguagePersonal::themeTextClicked()
+void SettingsLanguagePersonal::themeTextClicked()
 {
 	if (sender() == m_appearLightThemeText)
 	{

@@ -48,16 +48,16 @@ ScanSettings::ScanSettings(QWidget *parent)
 
 	m_tabStackedWidget	= new QStackedWidget();
 
-	m_universalAVTab = new UniversalAV();
+	m_universalAVTab = new SettingsUniversalAV();
 	m_universalAVTab->setObjectName("m_universalAVTab");
 	m_tabStackedWidget->addWidget(m_universalAVTab);
 	m_universalAVTab->setFixedHeight(880);
 
-	m_antivirusTab = new Anitivirus();
+	m_antivirusTab = new SettingsAnitivirus();
 	m_tabStackedWidget->addWidget(m_antivirusTab);
 	m_antivirusTab->setFixedHeight(450);
 
-	m_vulAssessmentTab = new VulAssessment();
+	m_vulAssessmentTab = new SettingsVulAssessment();
 	m_tabStackedWidget->addWidget(m_vulAssessmentTab);
 	m_vulAssessmentTab->setFixedHeight(100);
 
@@ -88,7 +88,7 @@ ScanSettings::ScanSettings(QWidget *parent)
 	connect(m_antivirus, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(m_VulAssessment, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ScanSettings::changeTheme);
-	connect(m_antivirusTab, &Anitivirus::offUniversalAVRealTimeScan, m_universalAVTab, &UniversalAV::offRealTimeScan);
+	connect(m_antivirusTab, &SettingsAnitivirus::offUniversalAVRealTimeScan, m_universalAVTab, &SettingsUniversalAV::offRealTimeScan);
 
 	emit m_scrollView->verticalScrollBar()->valueChanged(m_scrollView->verticalScrollBar()->value());
 }

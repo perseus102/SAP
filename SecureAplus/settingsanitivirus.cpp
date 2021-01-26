@@ -1,6 +1,6 @@
-#include "anitivirus.h"
+#include "settingsanitivirus.h"
 
-Anitivirus::Anitivirus(QWidget *parent)
+SettingsAnitivirus::SettingsAnitivirus(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -161,17 +161,17 @@ Anitivirus::Anitivirus(QWidget *parent)
 	setLayout(m_layout);
 	setStyle();
 	setLabelText();
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &Anitivirus::changeTheme);
-	connect(m_APEXRealtimeToggle, &Switch::pressed, this, &Anitivirus::toggleClicked);
-	connect(m_registerToggle, &Switch::released, this, &Anitivirus::toggleClicked);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingsAnitivirus::changeTheme);
+	connect(m_APEXRealtimeToggle, &Switch::pressed, this, &SettingsAnitivirus::toggleClicked);
+	connect(m_registerToggle, &Switch::released, this, &SettingsAnitivirus::toggleClicked);
 	connect(m_sensitivityCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(comboboxChangeIndex(int)));
 }
 
-Anitivirus::~Anitivirus()
+SettingsAnitivirus::~SettingsAnitivirus()
 {
 }
 
-void Anitivirus::toggleClicked()
+void SettingsAnitivirus::toggleClicked()
 {
 	if (sender() == m_APEXRealtimeToggle)
 	{
@@ -215,13 +215,13 @@ void Anitivirus::toggleClicked()
 	}
 }
 
-void Anitivirus::comboboxChangeIndex(int index)
+void SettingsAnitivirus::comboboxChangeIndex(int index)
 {
 	Q_UNUSED(index);
 	//do somthing
 }
 
-void Anitivirus::setStyle()
+void SettingsAnitivirus::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -262,7 +262,7 @@ void Anitivirus::setStyle()
 	}
 }
 
-void Anitivirus::setLabelText()
+void SettingsAnitivirus::setLabelText()
 {
 	m_APEX->setText("APEX");
 	m_APEXDesc->setText("Deep learning offline antivirus engine that scans executable files. Higher sensitivity may improve the detection rate, but it may cause higher false alarm");
@@ -273,7 +273,7 @@ void Anitivirus::setLabelText()
 	m_registerDesc->setText("By registering as antirivus, other third party antivirus may be disabled by itself. Sometimes you may need to disable this, to allow SecureAPlus to work together with other antivirus products.");
 }
 
-void Anitivirus::changeTheme()
+void SettingsAnitivirus::changeTheme()
 {
 	setStyle();
 }

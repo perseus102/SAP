@@ -20,8 +20,8 @@ SettingsContent::SettingsContent(QWidget *parent)
 	m_settingLayout->addWidget(stackedWidget);
 
 	m_SettingGridContent	= new SettingGridContent();
-	m_languagePersonal		= new LanguagePersonal();
-	m_protectionModes		= new ProtectionModes();
+	m_languagePersonal		= new SettingsLanguagePersonal();
+	m_protectionModes		= new SettingsProtectionModes();
 	m_scanSettings			= new ScanSettings();
 
 	stackedWidget->addWidget(m_SettingGridContent);

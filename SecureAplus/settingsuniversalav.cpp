@@ -1,6 +1,6 @@
-#include "universalav.h"
+#include "settingsuniversalav.h"
 
-UniversalAV::UniversalAV(QWidget *parent)
+SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -365,35 +365,35 @@ UniversalAV::UniversalAV(QWidget *parent)
 	setStyle();
 	setLabelText();
 
-	connect(m_dailyUpload10MB, &ClickableLabel::clicked, this, &UniversalAV::capacityClicked);
-	connect(m_dailyUpload100MB, &ClickableLabel::clicked, this, &UniversalAV::capacityClicked);
-	connect(m_dailyUpload1GB, &ClickableLabel::clicked, this, &UniversalAV::capacityClicked);
-	connect(m_dailyUploadUnlimited, &ClickableLabel::clicked, this, &UniversalAV::capacityClicked);
-	connect(m_slider, &QSlider::valueChanged, this, &UniversalAV::sliderChangeValue);
+	connect(m_dailyUpload10MB, &ClickableLabel::clicked, this, &SettingsUniversalAV::capacityClicked);
+	connect(m_dailyUpload100MB, &ClickableLabel::clicked, this, &SettingsUniversalAV::capacityClicked);
+	connect(m_dailyUpload1GB, &ClickableLabel::clicked, this, &SettingsUniversalAV::capacityClicked);
+	connect(m_dailyUploadUnlimited, &ClickableLabel::clicked, this, &SettingsUniversalAV::capacityClicked);
+	connect(m_slider, &QSlider::valueChanged, this, &SettingsUniversalAV::sliderChangeValue);
 	connect(m_fileTypeCbb, SIGNAL(currentIndexChanged(int)),this, SLOT(comboboxChangeIndex(int)));
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &UniversalAV::changeTheme);
-	connect(m_autoUploadToggle, &Switch::released, this, &UniversalAV::toggleClicked);
-	connect(m_goodNewToggle, &Switch::released, this, &UniversalAV::toggleClicked);
-	connect(m_fullScanToggle, &Switch::released, this, &UniversalAV::toggleClicked);
-	connect(m_autoFullScanToggle, &Switch::released, this, &UniversalAV::toggleClicked);
-	connect(m_onDemandToggle, &Switch::released, this, &UniversalAV::toggleClicked);
-	connect(m_realTimeToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingsUniversalAV::changeTheme);
+	connect(m_autoUploadToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
+	connect(m_goodNewToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
+	connect(m_fullScanToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
+	connect(m_autoFullScanToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
+	connect(m_onDemandToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
+	connect(m_realTimeToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
 
 
 }
 
-UniversalAV::~UniversalAV()
+SettingsUniversalAV::~SettingsUniversalAV()
 {
 }
 
 
 
-void UniversalAV::changeTheme()
+void SettingsUniversalAV::changeTheme()
 {
 	setStyle();
 }
 
-void UniversalAV::toggleClicked()
+void SettingsUniversalAV::toggleClicked()
 {
 	if (sender() == m_autoUploadToggle)
 	{
@@ -457,7 +457,7 @@ void UniversalAV::toggleClicked()
 
 }
 
-void UniversalAV::sliderChangeValue(int value)
+void SettingsUniversalAV::sliderChangeValue(int value)
 {
 	Q_UNUSED(value);
 
@@ -466,14 +466,14 @@ void UniversalAV::sliderChangeValue(int value)
 
 }
 
-void UniversalAV::comboboxChangeIndex(int index)
+void SettingsUniversalAV::comboboxChangeIndex(int index)
 {
 	Q_UNUSED(index);
 	//do something
 	//qDebug() << "comboboxChangeIndex " << index;
 }
 
-void UniversalAV::setStyle()
+void SettingsUniversalAV::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -547,7 +547,7 @@ void UniversalAV::setStyle()
 	}
 }
 
-void UniversalAV::setLabelText()
+void SettingsUniversalAV::setLabelText()
 {
 	m_autoUpload->setText("Auto Upload Sample File");
 	m_autoUploadDesc->setText("When it is enabled, Universal AV will automatically upload sample file if required.");
@@ -564,7 +564,7 @@ void UniversalAV::setLabelText()
 	m_dailyUpload->setText("Daily Upload Limit");
 }
 
-void UniversalAV::setDailyUpload10MBText(QString text)
+void SettingsUniversalAV::setDailyUpload10MBText(QString text)
 {
 	QFontMetrics fm(FONT);
 	int width = fm.width(text);
@@ -574,7 +574,7 @@ void UniversalAV::setDailyUpload10MBText(QString text)
 	spacer10MB->setFixedWidth(100 - width);
 }
 
-void UniversalAV::setDailyUpload100MBText(QString text)
+void SettingsUniversalAV::setDailyUpload100MBText(QString text)
 {
 	QFontMetrics fm(FONT);
 	int width = fm.width(text);
@@ -585,7 +585,7 @@ void UniversalAV::setDailyUpload100MBText(QString text)
 
 }
 
-void UniversalAV::setDailyUpload1GBText(QString text)
+void SettingsUniversalAV::setDailyUpload1GBText(QString text)
 {
 	QFontMetrics fm(FONT);
 	int width = fm.width(text);
@@ -596,7 +596,7 @@ void UniversalAV::setDailyUpload1GBText(QString text)
 
 }
 
-void UniversalAV::setDailyUploadUnlimitedText(QString text)
+void SettingsUniversalAV::setDailyUploadUnlimitedText(QString text)
 {
 	QFontMetrics fm(FONT);
 	int width = fm.width(text);
@@ -606,7 +606,7 @@ void UniversalAV::setDailyUploadUnlimitedText(QString text)
 
 }
 
-void UniversalAV::capacityClicked()
+void SettingsUniversalAV::capacityClicked()
 {
 	//10MB label Clicked
 	if (sender() == m_dailyUpload10MB)
@@ -642,7 +642,7 @@ void UniversalAV::capacityClicked()
 	}
 }
 
-void UniversalAV::offRealTimeScan()
+void SettingsUniversalAV::offRealTimeScan()
 {
 	//set unchecked and disabled toogle
 	m_realTimeToggle->disableToggleAndChecked(false);

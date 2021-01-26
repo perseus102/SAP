@@ -7,9 +7,9 @@
 #include "util.h"
 #include "appsetting.h"
 #include "clickablelabel.h"
-#include "universalav.h"
-#include "anitivirus.h"
-#include "vulassessment.h"
+#include "settingsuniversalav.h"
+#include "settingsanitivirus.h"
+#include "settingsvulassessment.h"
 #include "sapscrollarea.h"
 #include <QStackedWidget>
 
@@ -41,9 +41,9 @@ private:
 	QStackedWidget*		m_tabStackedWidget;
 	SAPSCrollArea*		m_scrollView;
 	QFrame*				m_tabContentWidget;
-	UniversalAV*		m_universalAVTab;
-	Anitivirus*			m_antivirusTab;
-	VulAssessment*		m_vulAssessmentTab;
+	SettingsUniversalAV*		m_universalAVTab;
+	SettingsAnitivirus*			m_antivirusTab;
+	SettingsVulAssessment*		m_vulAssessmentTab;
 	QObject*			m_activeTab;
 	void setStyle();
 	void setTabStyle();

@@ -11,13 +11,13 @@
 #include "widgettransparent.h"
 #include "apexrealtimedialog.h"
 
-class Anitivirus : public QWidget
+class SettingsAnitivirus : public QWidget
 {
 	Q_OBJECT
 
 public:
-	Anitivirus(QWidget *parent = Q_NULLPTR);
-	~Anitivirus();
+	SettingsAnitivirus(QWidget *parent = Q_NULLPTR);
+	~SettingsAnitivirus();
 signals:
 	void offUniversalAVRealTimeScan();
 

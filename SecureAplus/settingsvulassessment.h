@@ -8,13 +8,13 @@
 #include "appsetting.h"
 #include "switch.h"
 
-class VulAssessment : public QWidget
+class SettingsVulAssessment : public QWidget
 {
 	Q_OBJECT
 
 public:
-	VulAssessment(QWidget *parent = Q_NULLPTR);
-	~VulAssessment();
+	SettingsVulAssessment(QWidget *parent = Q_NULLPTR);
+	~SettingsVulAssessment();
 private slots:
 	void changeTheme();
 	void toggleClicked();
