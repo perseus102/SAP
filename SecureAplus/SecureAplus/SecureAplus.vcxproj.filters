@@ -1,0 +1,812 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Header Files\framelesswindow">
+      <UniqueIdentifier>{658ceab3-12e2-4307-a926-530b9981532d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\framelesswindow">
+      <UniqueIdentifier>{796905e3-93df-445c-a53e-1ea9e8dcbcf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files\navigation">
+      <UniqueIdentifier>{53a15818-37b5-4419-a885-af0bc4d2f9fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Home Content">
+      <UniqueIdentifier>{473f8e1c-1d51-4339-b6dd-c4eb698c186f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Home Content">
+      <UniqueIdentifier>{3f47c629-4e95-44e1-9a65-3890fa49a54b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files\Home Content">
+      <UniqueIdentifier>{e0f13a50-1908-44e7-873a-4448fdb4a99a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Settings Content">
+      <UniqueIdentifier>{1a6d43e2-4779-4fa8-930d-f89a7c4a59b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings Content">
+      <UniqueIdentifier>{5807d422-dbee-4856-b8a6-cbcad29b67a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component">
+      <UniqueIdentifier>{ddb5fdc9-dbb7-4301-b81c-f5806c917053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component">
+      <UniqueIdentifier>{81e4a406-ce71-4d93-bbc1-42abec565a3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Navigation">
+      <UniqueIdentifier>{3046344a-a67f-49c9-bc7e-b2a85b91d9da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Navigation">
+      <UniqueIdentifier>{6ab372cd-0eb9-4e63-b980-44158ad9aede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Toggle">
+      <UniqueIdentifier>{573043de-616a-4bfd-8655-f170dd9fdc78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Toggle">
+      <UniqueIdentifier>{10aa79f2-f050-4bce-8599-d484af3678e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Grid Widget">
+      <UniqueIdentifier>{0de20788-0fe8-415c-a36c-a59e23c18b3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Grid Widget">
+      <UniqueIdentifier>{58ec5ad9-c3d7-4150-869e-25f1ff93c5f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Top Bar">
+      <UniqueIdentifier>{021764f2-6fb6-468b-920f-3c3dd020ddf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Top Bar">
+      <UniqueIdentifier>{837fdfe7-773c-4455-87b2-c8bc2f3279d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Flow Layout">
+      <UniqueIdentifier>{7ec1c0d3-4bb0-4252-988c-e7b174052d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Flow Layout">
+      <UniqueIdentifier>{1746315e-c4ba-408e-8240-4ff8b5799143}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Select Widget">
+      <UniqueIdentifier>{155007cd-2333-46a8-a794-6b905f5bb39f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dialog">
+      <UniqueIdentifier>{8c0a2584-7878-4514-bde8-3f37f83f4d48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialog">
+      <UniqueIdentifier>{7a6b29d2-b110-4419-a90d-15a939533548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Widget Transparent">
+      <UniqueIdentifier>{8bf14e76-a578-4e21-aeb8-29baf0d5ec76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Widget Transparent">
+      <UniqueIdentifier>{3597117d-0a2c-4c2c-b843-4ddb8d407c02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Circle Process">
+      <UniqueIdentifier>{d5c93898-dc9b-45f5-a5df-36ed159e5abb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Circle Process">
+      <UniqueIdentifier>{5d568633-95be-4850-af46-e6ccf2762388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Feature Status">
+      <UniqueIdentifier>{280ac053-6011-4ddd-ad7f-a36601a77f63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Feature Status">
+      <UniqueIdentifier>{cd694b41-7f49-45d7-9903-ae257edd10c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Clickable Label">
+      <UniqueIdentifier>{142266d3-2251-45ec-886e-e402ca73d157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Clickable Label">
+      <UniqueIdentifier>{aaca2d04-69ab-4252-aea8-7a40d2d44134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Settings Content\Scan Settings">
+      <UniqueIdentifier>{72e7c0a8-ed82-4f75-a7d2-eab9adfcff89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings Content\Scan Settings">
+      <UniqueIdentifier>{b6147e4f-66d5-4d12-a54d-28fd076779e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\SAP Combobox">
+      <UniqueIdentifier>{69e76e1b-fbf5-479b-9df0-c1c8dc978474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\SAP Combobox">
+      <UniqueIdentifier>{4a70bc6f-20fe-42c9-ac6e-b48bf856ddac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\SAP Slider">
+      <UniqueIdentifier>{c8d63f00-7557-4420-a6ab-9cdb7bbb9fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\SAP Slider">
+      <UniqueIdentifier>{6b762ed7-1a27-4436-a843-8cfb80225ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\SAP ScrollBar">
+      <UniqueIdentifier>{ba167dc8-8b04-4fc5-ad9a-94d6c72682e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\SAP ScrollBar">
+      <UniqueIdentifier>{799865c1-abd8-44f2-b854-840c339576de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Manage content">
+      <UniqueIdentifier>{367196c6-2b50-4fbd-9e65-1e2de5dd4683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Manage Content">
+      <UniqueIdentifier>{9217952e-e836-4939-990c-4077bef02584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\SAP RadioButton">
+      <UniqueIdentifier>{321a067c-7d30-4c4b-8c24-2750ccd428ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\SAP RadioButton">
+      <UniqueIdentifier>{e3a7f905-b0e5-4536-9aff-5d03cacb2843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Manage content\Application Control">
+      <UniqueIdentifier>{ec3afd99-1a33-49ed-9261-3d933d8bf587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Manage Content\Application Control">
+      <UniqueIdentifier>{2e090bb6-bcec-4db8-8957-641c59565c8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Allowlist Status">
+      <UniqueIdentifier>{08c08a73-3f37-47d4-96d7-753a3de444f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Allowlist Status">
+      <UniqueIdentifier>{573a1766-9f1a-4eec-91f7-9f81e8c0c5bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\File Name Table">
+      <UniqueIdentifier>{d7e24488-b6ed-475f-b314-b08f497db88a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\File Name Table">
+      <UniqueIdentifier>{7386863b-03ab-4b48-acd1-16e7b1f9801c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Search">
+      <UniqueIdentifier>{f08d28c9-98a1-4a77-ad1c-79492fa18455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\SAP CheckBox">
+      <UniqueIdentifier>{6991c985-ad92-4989-a3e4-f1f778d8afa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Search">
+      <UniqueIdentifier>{05b7b099-6f7c-4e5a-8886-3c40024ca637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\SAP CheckBox">
+      <UniqueIdentifier>{0211eebd-c693-4bae-985e-b8a6b0cf6ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Select Widget">
+      <UniqueIdentifier>{8a3d4049-c943-4cc9-a405-a1adafe5186f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Certificate Table">
+      <UniqueIdentifier>{3c7458bd-0432-4cd6-bb13-4f6d489ba4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Certificate Table">
+      <UniqueIdentifier>{5ab330f1-7ea6-411e-9d89-d74c7e08f868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings Content\Language &amp; Persional">
+      <UniqueIdentifier>{4805477e-9bcc-4d18-aefe-50947ee1a13e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Settings Content\Language &amp; Persional">
+      <UniqueIdentifier>{71cc2908-3158-4b3e-a018-970dbe7fca9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Settings Content\Protection Mode">
+      <UniqueIdentifier>{a1c6e1b2-fd14-482d-b31b-174441bfe111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings Content\Protection Mode">
+      <UniqueIdentifier>{9bbdc50a-34bd-480a-8e29-3b65d4bf465a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Script Table">
+      <UniqueIdentifier>{cbec300e-7b54-47db-bde7-ab2c02abcda2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Script Table">
+      <UniqueIdentifier>{8531c8df-8cf9-4f58-b9e3-fde188d7eee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Command Line Rule">
+      <UniqueIdentifier>{c5ba8a3f-799c-4432-aae5-fba069963155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Command Line Table">
+      <UniqueIdentifier>{ba0dd16d-6788-411c-8904-43942dca0332}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="mainwindow.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtMoc Include="mainwindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClCompile Include="mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <QtRcc Include="framelesswindow.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="framelesswindow\framelesswindow.cpp">
+      <Filter>Source Files\framelesswindow</Filter>
+    </ClCompile>
+    <ClCompile Include="framelesswindow\windowdragger.cpp">
+      <Filter>Source Files\framelesswindow</Filter>
+    </ClCompile>
+    <ClCompile Include="statuswidget.cpp">
+      <Filter>Source Files\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="homewidget.cpp">
+      <Filter>Source Files\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="scanwidget.cpp">
+      <Filter>Source Files\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="managewidget.cpp">
+      <Filter>Source Files\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="settingwidget.cpp">
+      <Filter>Source Files\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="appsetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="switch.cpp">
+      <Filter>Source Files\Component\Toggle</Filter>
+    </ClCompile>
+    <ClCompile Include="homecontent.cpp">
+      <Filter>Source Files\Home Content</Filter>
+    </ClCompile>
+    <ClCompile Include="homemaincontent.cpp">
+      <Filter>Source Files\Home Content</Filter>
+    </ClCompile>
+    <ClCompile Include="gridwidget.cpp">
+      <Filter>Source Files\Component\Grid Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="topbar.cpp">
+      <Filter>Source Files\Component\Top Bar</Filter>
+    </ClCompile>
+    <ClCompile Include="flowlayout.cpp">
+      <Filter>Source Files\Component\Flow Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="settinggridcontent.cpp">
+      <Filter>Source Files\Settings Content</Filter>
+    </ClCompile>
+    <ClCompile Include="selectwidget.cpp">
+      <Filter>Source Files\Component\Select Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="lockdowndialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="trustalldialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="upgradedialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="widgettransparent.cpp">
+      <Filter>Source Files\Component\Widget Transparent</Filter>
+    </ClCompile>
+    <ClCompile Include="circleprocess.cpp">
+      <Filter>Source Files\Component\Circle Process</Filter>
+    </ClCompile>
+    <ClCompile Include="featuredetails.cpp">
+      <Filter>Source Files\Home Content</Filter>
+    </ClCompile>
+    <ClCompile Include="featurestatus.cpp">
+      <Filter>Source Files\Component\Feature Status</Filter>
+    </ClCompile>
+    <ClCompile Include="clickablelabel.cpp">
+      <Filter>Source Files\Component\Clickable Label</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settingscontent.cpp">
+      <Filter>Source Files\Settings Content</Filter>
+    </ClCompile>
+    <ClCompile Include="sapcombobox.cpp">
+      <Filter>Source Files\Component\SAP Combobox</Filter>
+    </ClCompile>
+    <ClCompile Include="sapslider.cpp">
+      <Filter>Source Files\Component\SAP Slider</Filter>
+    </ClCompile>
+    <ClCompile Include="sapscrollarea.cpp">
+      <Filter>Source Files\Component\SAP ScrollBar</Filter>
+    </ClCompile>
+    <ClCompile Include="apexrealtimedialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="managecontent.cpp">
+      <Filter>Source Files\Manage content</Filter>
+    </ClCompile>
+    <ClCompile Include="managegridcontent.cpp">
+      <Filter>Source Files\Manage content</Filter>
+    </ClCompile>
+    <ClCompile Include="sapradiobutton.cpp">
+      <Filter>Source Files\Component\SAP RadioButton</Filter>
+    </ClCompile>
+    <ClCompile Include="digitalsignature.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="allowlist.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="restrictedapp.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="allowliststatus.cpp">
+      <Filter>Source Files\Component\Allowlist Status</Filter>
+    </ClCompile>
+    <ClCompile Include="filenametable.cpp">
+      <Filter>Source Files\Component\File Name Table</Filter>
+    </ClCompile>
+    <ClCompile Include="sapcheckbox.cpp">
+      <Filter>Source Files\Component\SAP CheckBox</Filter>
+    </ClCompile>
+    <ClCompile Include="search.cpp">
+      <Filter>Source Files\Component\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="certificatetable.cpp">
+      <Filter>Source Files\Component\Certificate Table</Filter>
+    </ClCompile>
+    <ClCompile Include="trustedcertificate.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="scansettings.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="applicationcontrol.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="addresappdialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="addtrustedcertdialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SecurityFeaturesNoOfflineAV.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ServiceStatusString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scripts.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="addscriptdialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="scriptstable.cpp">
+      <Filter>Source Files\Component\Script Table</Filter>
+    </ClCompile>
+    <ClCompile Include="commandline.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="addcommandlinedialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="commandlinerule.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="commandlinetable.cpp">
+      <Filter>Source Files\Component\Command Line Rule</Filter>
+    </ClCompile>
+    <ClCompile Include="processprotector.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="processprotectortable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="addprocessprotectordialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settingslanguagepersonal.cpp">
+      <Filter>Source Files\Settings Content\Language &amp; Persional</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsprotectionmodes.cpp">
+      <Filter>Source Files\Settings Content\Protection Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsanitivirus.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsuniversalav.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsvulassessment.cpp">
+      <Filter>Source Files\Settings Content\Scan Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QTTrustedAccount.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="framelesswindow\framelesswindow.h">
+      <Filter>Header Files\framelesswindow</Filter>
+    </QtMoc>
+    <QtMoc Include="framelesswindow\windowdragger.h">
+      <Filter>Header Files\framelesswindow</Filter>
+    </QtMoc>
+    <QtMoc Include="statuswidget.h">
+      <Filter>Header Files\Navigation</Filter>
+    </QtMoc>
+    <QtMoc Include="scanwidget.h">
+      <Filter>Header Files\Navigation</Filter>
+    </QtMoc>
+    <QtMoc Include="homewidget.h">
+      <Filter>Header Files\Navigation</Filter>
+    </QtMoc>
+    <QtMoc Include="managewidget.h">
+      <Filter>Header Files\Navigation</Filter>
+    </QtMoc>
+    <QtMoc Include="settingwidget.h">
+      <Filter>Header Files\Navigation</Filter>
+    </QtMoc>
+    <QtMoc Include="appsetting.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="switch.h">
+      <Filter>Header Files\Component\Toggle</Filter>
+    </QtMoc>
+    <QtMoc Include="homecontent.h">
+      <Filter>Header Files\Home Content</Filter>
+    </QtMoc>
+    <QtMoc Include="homemaincontent.h">
+      <Filter>Header Files\Home Content</Filter>
+    </QtMoc>
+    <QtMoc Include="settingscontent.h">
+      <Filter>Header Files\Settings Content</Filter>
+    </QtMoc>
+    <QtMoc Include="gridwidget.h">
+      <Filter>Header Files\Component\Grid Widget</Filter>
+    </QtMoc>
+    <QtMoc Include="topbar.h">
+      <Filter>Header Files\Component\Top Bar</Filter>
+    </QtMoc>
+    <QtMoc Include="selectwidget.h">
+      <Filter>Header Files\Component\Select Widget</Filter>
+    </QtMoc>
+    <QtMoc Include="lockdowndialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="upgradedialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="trustalldialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="widgettransparent.h">
+      <Filter>Header Files\Component\Widget Transparent</Filter>
+    </QtMoc>
+    <QtMoc Include="circleprocess.h">
+      <Filter>Header Files\Component\Circle Process</Filter>
+    </QtMoc>
+    <QtMoc Include="featuredetails.h">
+      <Filter>Header Files\Home Content</Filter>
+    </QtMoc>
+    <QtMoc Include="featurestatus.h">
+      <Filter>Header Files\Component\Feature Status</Filter>
+    </QtMoc>
+    <QtMoc Include="clickablelabel.h">
+      <Filter>Header Files\Component\Clickable Label</Filter>
+    </QtMoc>
+    <QtMoc Include="sapcombobox.h">
+      <Filter>Header Files\Component\SAP Combobox</Filter>
+    </QtMoc>
+    <QtMoc Include="sapslider.h">
+      <Filter>Header Files\Component\SAP Slider</Filter>
+    </QtMoc>
+    <QtMoc Include="sapscrollarea.h">
+      <Filter>Header Files\Component\SAP ScrollBar</Filter>
+    </QtMoc>
+    <QtMoc Include="managecontent.h">
+      <Filter>Header Files\Manage Content</Filter>
+    </QtMoc>
+    <QtMoc Include="applicationcontrol.h">
+      <Filter>Header Files\Manage Content</Filter>
+    </QtMoc>
+    <QtMoc Include="managegridcontent.h">
+      <Filter>Header Files\Manage Content</Filter>
+    </QtMoc>
+    <QtMoc Include="sapradiobutton.h">
+      <Filter>Header Files\Component\SAP RadioButton</Filter>
+    </QtMoc>
+    <QtMoc Include="digitalsignature.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="allowlist.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="allowliststatus.h">
+      <Filter>Header Files\Component\Allowlist Status</Filter>
+    </QtMoc>
+    <QtMoc Include="filenametable.h">
+      <Filter>Header Files\Component\File Name Table</Filter>
+    </QtMoc>
+    <QtMoc Include="search.h">
+      <Filter>Header Files\Component\Search</Filter>
+    </QtMoc>
+    <QtMoc Include="sapcheckbox.h">
+      <Filter>Header Files\Component\SAP CheckBox</Filter>
+    </QtMoc>
+    <QtMoc Include="certificatetable.h">
+      <Filter>Header Files\Component\Certificate Table</Filter>
+    </QtMoc>
+    <QtMoc Include="trustedcertificate.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="scansettings.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
+    <QtMoc Include="restrictedapp.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="addresappdialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="apexrealtimedialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="scriptstable.h">
+      <Filter>Header Files\Component\Script Table</Filter>
+    </QtMoc>
+    <QtMoc Include="scripts.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="addtrustedcertdialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="addscriptdialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="commandline.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="commandlinerule.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="addcommandlinedialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="processprotector.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="commandlinetable.h">
+      <Filter>Header Files\Component\Command Line Table</Filter>
+    </QtMoc>
+    <QtMoc Include="processprotectortable.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="addprocessprotectordialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="settingslanguagepersonal.h">
+      <Filter>Header Files\Settings Content\Language &amp; Persional</Filter>
+    </QtMoc>
+    <QtMoc Include="settinggridcontent.h">
+      <Filter>Header Files\Settings Content</Filter>
+    </QtMoc>
+    <QtMoc Include="settingsprotectionmodes.h">
+      <Filter>Header Files\Settings Content\Protection Mode</Filter>
+    </QtMoc>
+    <QtMoc Include="settingsanitivirus.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
+    <QtMoc Include="settingsuniversalav.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
+    <QtMoc Include="settingsvulassessment.h">
+      <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="framelesswindow\framelesswindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="statuswidget.ui">
+      <Filter>Form Files\navigation</Filter>
+    </QtUic>
+    <QtUic Include="scanwidget.ui">
+      <Filter>Form Files\navigation</Filter>
+    </QtUic>
+    <QtUic Include="managewidget.ui">
+      <Filter>Form Files\navigation</Filter>
+    </QtUic>
+    <QtUic Include="homewidget.ui">
+      <Filter>Form Files\navigation</Filter>
+    </QtUic>
+    <QtUic Include="settingwidget.ui">
+      <Filter>Form Files\navigation</Filter>
+    </QtUic>
+    <QtUic Include="homecontent.ui">
+      <Filter>Form Files\Home Content</Filter>
+    </QtUic>
+    <QtUic Include="homemaincontent.ui">
+      <Filter>Form Files\Home Content</Filter>
+    </QtUic>
+    <QtUic Include="settingscontent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="gridwidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="topbar.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="settinggridcontent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="languagepersonal.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="protectionmodes.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="selectwidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="lockdowndialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="trustalldialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="upgradedialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="widgettransparent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="circleprocess.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="featuredetails.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="featurestatus.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="clickablelabel.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="scansettings.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="universalav.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sapcombobox.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sapslider.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="anitivirus.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="vulassessment.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sapscrollarea.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="apexrealtimedialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="managecontent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="managegridcontent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="applicationcontrol.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sapradiobutton.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="digitalsignature.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="allowlist.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="allowliststatus.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="rectrictedapp.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="search.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="filenametable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sapcheckbox.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="addresappdialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="trustedcertificate.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="certificatetable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="adddtrustedcertdialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="scripts.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="scriptstable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="addscriptdialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="commandline.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="commandlinetable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="addcommandlinedialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="commandlinerule.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="processprotector.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="processprotectortable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="addprocessprotectordialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="style.h">
+      <Filter>Header Files\Component\Toggle</Filter>
+    </ClInclude>
+    <ClInclude Include="flowlayout.h">
+      <Filter>Header Files\Component\Flow Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QTTrustedAccount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SecureAplus.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
