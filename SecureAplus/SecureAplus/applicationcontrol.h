@@ -8,7 +8,7 @@
 #include "digitalsignature.h"
 #include "allowlist.h"
 #include "restrictedapp.h"
-#include "trustedcertificate.h"
+#include "managetrustedcertificate.h"
 #include "scripts.h"
 #include "commandline.h"
 #include "processprotector.h"

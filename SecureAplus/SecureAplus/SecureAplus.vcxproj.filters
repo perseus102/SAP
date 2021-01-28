@@ -359,9 +359,6 @@
     <ClCompile Include="certificatetable.cpp">
       <Filter>Source Files\Component\Certificate Table</Filter>
     </ClCompile>
-    <ClCompile Include="trustedcertificate.cpp">
-      <Filter>Source Files\Manage content\Application Control</Filter>
-    </ClCompile>
     <ClCompile Include="scansettings.cpp">
       <Filter>Source Files\Settings Content\Scan Settings</Filter>
     </ClCompile>
@@ -427,6 +424,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\QTTrustedAccount.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="managetrustedcertificate.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -541,9 +541,6 @@
     <QtMoc Include="certificatetable.h">
       <Filter>Header Files\Component\Certificate Table</Filter>
     </QtMoc>
-    <QtMoc Include="trustedcertificate.h">
-      <Filter>Header Files\Manage Content\Application Control</Filter>
-    </QtMoc>
     <QtMoc Include="scansettings.h">
       <Filter>Header Files\Settings Content\Scan Settings</Filter>
     </QtMoc>
@@ -606,6 +603,9 @@
     </QtMoc>
     <QtMoc Include="settingsvulassessment.h">
       <Filter>Header Files\Settings Content\Scan Settings</Filter>
+    </QtMoc>
+    <QtMoc Include="managetrustedcertificate.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -799,9 +799,6 @@
     </ClInclude>
     <ClInclude Include="flowlayout.h">
       <Filter>Header Files\Component\Flow Layout</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\QTTrustedAccount.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

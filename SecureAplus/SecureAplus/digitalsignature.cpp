@@ -1,5 +1,10 @@
 #include "digitalsignature.h"
-
+#include "QTTrustedAccount.h"
+#include "SecureAPlusLicenseType.h"
+#include "NamedPipeSecureAPlusAdminSettings.h"
+#include "Expiry.h"
+#include "SecureaPlusLite.h"
+#include "TrustedCertificate.h"
 DigitalSignature::DigitalSignature(QWidget *parent)
 	: QWidget(parent)
 {
@@ -18,6 +23,7 @@ DigitalSignature::DigitalSignature(QWidget *parent)
 
 	m_trustBasedToggle = new Switch(QMargins(0, 8, 16, 8), true);
 	m_trustBasedToggle->setFixedSize(50, 30);
+	m_trustBasedToggle->setChecked(true);
 
 	QLabel* toggleSpacer = new QLabel();
 	toggleSpacer->setFixedHeight(15);
@@ -202,11 +208,33 @@ DigitalSignature::DigitalSignature(QWidget *parent)
 	setLabelText();
 	setStyle();
 
-	m_nameInTrustedBtn->setButtonChecked(Qt::Checked);
-	m_trustedByOSBtn->setButtonChecked(Qt::Unchecked);
-	m_nameAndThumbprintBtn->setButtonChecked(Qt::Unchecked);
+	setAllowAppListVisible(true);
 
-	setAllowAppListVisible(false);
+	DWORD dwTrustDigitalSignature = GetTrustByDigitalSignatureMode();
+
+	switch (GetTrustByDigitalSignatureMode())
+	{
+	case Not_Trusted:
+		setTrustedByDigitalSignature(TrustedBy_DigitalSignaature::Not_Trusted);
+		break;
+
+	case Trusted_By_Os:
+		setTrustedByDigitalSignature(TrustedBy_DigitalSignaature::Trusted_By_Os);
+		break;
+
+	case Trusted_By_Name:
+		setTrustedByDigitalSignature(TrustedBy_DigitalSignaature::Trusted_By_Name);
+		break;
+
+	case Trusted_By_Thumbprint:
+		setTrustedByDigitalSignature(TrustedBy_DigitalSignaature::Trusted_By_Thumbprint);
+		break;
+
+	case Trusted_By_Signature_Invalid_Mode:
+		break;
+	default:
+		break;
+	}
 
 	connect(m_trustBasedToggle, &Switch::released, this, &DigitalSignature::trustBasedToggleClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &DigitalSignature::changeTheme);
@@ -228,23 +256,23 @@ void DigitalSignature::changeTheme()
 
 void DigitalSignature::radioButtonClicked()
 {
-	if (sender() == m_nameInTrustedBtn)
+	if (!IsRunByTrustedAccount())
 	{
-		m_nameInTrustedBtn->setButtonChecked(Qt::Checked);
-		m_trustedByOSBtn->setButtonChecked(Qt::Unchecked);
-		m_nameAndThumbprintBtn->setButtonChecked(Qt::Unchecked);
+		//show dialog
+		return;
 	}
-	else if (sender() == m_trustedByOSBtn)
+
+	if (sender() == m_trustedByOSBtn)
 	{
-		m_nameInTrustedBtn->setButtonChecked(Qt::Unchecked);
-		m_trustedByOSBtn->setButtonChecked(Qt::Checked);
-		m_nameAndThumbprintBtn->setButtonChecked(Qt::Unchecked);
+		setTrustedByDigitalSignature(TrustedBy_DigitalSignaature::Trusted_By_Os);
+	}
+	else if (sender() == m_nameInTrustedBtn)
+	{
+		setTrustedByDigitalSignature(TrustedBy_DigitalSignaature::Trusted_By_Name);
 	}
 	else if (sender() == m_nameAndThumbprintBtn)
 	{
-		m_nameInTrustedBtn->setButtonChecked(Qt::Unchecked);
-		m_trustedByOSBtn->setButtonChecked(Qt::Unchecked);
-		m_nameAndThumbprintBtn->setButtonChecked(Qt::Checked);
+		setTrustedByDigitalSignature(TrustedBy_DigitalSignaature::Trusted_By_Thumbprint);
 	}
 }
 
@@ -316,11 +344,114 @@ void DigitalSignature::trustBasedToggleClicked()
 	{
 		//do somthing
 		setAllowAppListVisible(true);
+		onTrustByCertificateChanged(1); //1 is turn on toggle and set trusted by name is default
+		m_nameInTrustedBtn->setButtonChecked(Qt::Checked);
+		m_trustedByOSBtn->setButtonChecked(Qt::Unchecked);
+		m_nameAndThumbprintBtn->setButtonChecked(Qt::Unchecked);
 	}
 	else
 	{
 		//do somthing
 		setAllowAppListVisible(false);
+		onTrustByCertificateChanged(0);
 
+	}
+}
+void DigitalSignature::radioBtnClicked(DWORD n) {
+	
+	if (!IsRunByTrustedAccount())
+	{
+		return;
+	}
+
+	if (IsSoftwareExpired() && IsEligibleForSecureAPlusLite())
+	{
+		//refresh();
+		//QTMessageBox(this, tr("To be able to change this setting, please upgrade your license.\r\nYou can't set this setting because your current license does not support this."), TITLE, QMessageBox::Ok, QMessageBox::Critical); // display error msg
+		return;
+	}
+
+	m_dwLastError = SecureaplusAdminSettingsSetTrustByCertificate(n);
+	if (m_dwLastError != 0)
+	{
+		//SecureAPlusDisplayError(this, dwLastError);
+		qDebug() << "m_dwLastError";
+	}
+	//refresh();
+}
+
+void DigitalSignature::onTrustByCertificateChanged(int value) {
+	if (!IsRunByTrustedAccount())
+	{
+		return;
+	}
+
+	if (SecureAPlus_GetRegLicenceType() != SECUREAPLUS_LICENSE_TYPE_PRO) {
+		//refresh();
+		//QTMessageBox(this, tr("To be able to change this setting, please upgrade your license to Pro.\r\nYou can't set this setting because your current license does not support this."), TITLE, QMessageBox::Ok, QMessageBox::Critical);
+		return;
+	}
+	switch (value)
+	{
+	case 0:
+		// turn off
+		m_dwLastError = SecureaplusAdminSettingsSetTrustByCertificate(0);
+		if (m_dwLastError != 0)
+		{
+			//SecureAPlusDisplayError(this, dwLastError);
+			qDebug() << "m_dwLastError";
+		}
+		//refresh();
+		break;
+
+	case 1:
+		// if turn on Trust By Certificate trusted by name is default
+		m_dwLastError = SecureaplusAdminSettingsSetTrustByCertificate(2);
+		if (m_dwLastError != 0)
+		{
+			//SecureAPlusDisplayError(this, dwLastError);
+			qDebug() << "m_dwLastError";
+		}
+		//refresh();
+		break;
+	}
+}
+
+void DigitalSignature::setTrustedByDigitalSignature(TrustedBy_DigitalSignaature mode)
+{
+	switch (mode)
+	{
+	case Not_Trusted:
+		m_trustBasedToggle->setChecked(false);
+		setAllowAppListVisible(false);
+		radioBtnClicked(0);
+		break;
+
+	case Trusted_By_Os:
+		m_nameInTrustedBtn->setButtonChecked(Qt::Unchecked);
+		m_trustedByOSBtn->setButtonChecked(Qt::Checked);
+		m_nameAndThumbprintBtn->setButtonChecked(Qt::Unchecked);
+		radioBtnClicked(1);
+		break;
+
+	case Trusted_By_Name:
+		m_nameInTrustedBtn->setButtonChecked(Qt::Checked);
+		m_trustedByOSBtn->setButtonChecked(Qt::Unchecked);
+		m_nameAndThumbprintBtn->setButtonChecked(Qt::Unchecked);
+		radioBtnClicked(2);
+		break;
+
+	case Trusted_By_Thumbprint:
+		m_nameInTrustedBtn->setButtonChecked(Qt::Unchecked);
+		m_trustedByOSBtn->setButtonChecked(Qt::Unchecked);
+		m_nameAndThumbprintBtn->setButtonChecked(Qt::Checked);
+		radioBtnClicked(3);
+		break;
+
+	case Trusted_By_Signature_Invalid_Mode:
+	default:
+		setAllowAppListVisible(false);
+		radioBtnClicked(0);
+		break;
 	}
 }

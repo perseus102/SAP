@@ -84,6 +84,7 @@ public:
 
 	QSize sizeHint() const override final;
 	void disableToggleAndChecked(bool isChecked);
+	void disableToggle(bool isChecked);
 
 public slots:
 	void changeTheme();

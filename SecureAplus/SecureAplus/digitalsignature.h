@@ -13,10 +13,12 @@ class DigitalSignature : public QWidget
 public:
 	DigitalSignature(QWidget *parent = Q_NULLPTR);
 	~DigitalSignature();
+
 private slots:
 	void trustBasedToggleClicked();
 	void changeTheme();
 	void radioButtonClicked();
+
 private:
 	Ui::DigitalSignature ui;
 	QVBoxLayout* m_layout;
@@ -43,7 +45,13 @@ private:
 	QWidget* trustedByOSDescWg;
 	QWidget* nameAndThumbprintDescWg;
 
+	DWORD m_dwLastError;
+
 	void setLabelText();
 	void setStyle();
 	void setAllowAppListVisible(bool isVisible);
+	void radioBtnClicked(DWORD n);
+	void onTrustByCertificateChanged(int value);
+	void setTrustedByDigitalSignature(TrustedBy_DigitalSignaature mode);
+
 };

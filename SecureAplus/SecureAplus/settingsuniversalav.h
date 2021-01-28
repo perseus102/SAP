@@ -79,4 +79,5 @@ private:
 	void setDailyUpload100MBText(QString text);
 	void setDailyUpload1GBText(QString text);
 	void setDailyUploadUnlimitedText(QString text);
+	int getSliderUploadLimit();
 };

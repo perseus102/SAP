@@ -604,6 +604,16 @@ enum Button_Check_State
 	Button_All_Checked,
 };
 
+enum TrustedBy_DigitalSignaature
+{
+	Not_Trusted = 0,
+	Trusted_By_Os,
+	Trusted_By_Name,
+	Trusted_By_Thumbprint,
+	Trusted_By_Signature_Invalid_Mode,
+
+};
+
 struct CertificateRowString
 {
 	QString	CertificateNameText;

@@ -170,10 +170,15 @@ QSize Switch::sizeHint() const {
 
 void Switch::disableToggleAndChecked(bool isChecked)
 {
-	setCheckable(false);
+	setCheckable(isChecked);
 	setColorStyle();
 	setChecked(isChecked);
-	m_disabled = true;
+	m_disabled = !isChecked;
+}
+
+void Switch::disableToggle(bool isChecked)
+{
+
 }
 
 void Switch::paintEvent(QPaintEvent*) {
@@ -319,12 +324,13 @@ void Switch::setColorStyle()
 			break;
 
 		case Theme_Type::Dark_Theme:
+
 			style.trackOnBrush = QColor(TOGGLE_ACTIVE_TRACK_DT);
 			style.trackOffBrush = QColor(TRACK_UNCHECKED_DARK_THEME_COLOR);
 			style.thumbOnBrush = QColor(TOGGLE_ACTIVE_THUMB_DT);
 			style.thumbOffBrush = QColor(TOGGLE_INACTIVE_THUMB_DT);
 			style.textColor = QColor(TEXT_DARK_THEME_COLOR);
-
+			
 			if (!isCheckable())
 			{
 				style.trackOnBrush = QColor(TOGGLE_ACTIVE_TRACK_DT);

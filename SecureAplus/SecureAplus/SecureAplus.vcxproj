@@ -239,7 +239,7 @@
     <ClCompile Include="switch.cpp" />
     <ClCompile Include="topbar.cpp" />
     <ClCompile Include="trustalldialog.cpp" />
-    <ClCompile Include="trustedcertificate.cpp" />
+    <ClCompile Include="managetrustedcertificate.cpp" />
     <ClCompile Include="settingsuniversalav.cpp" />
     <ClCompile Include="upgradedialog.cpp" />
     <ClCompile Include="util.cpp" />
@@ -352,7 +352,6 @@
     <QtMoc Include="addcommandlinedialog.h" />
     <QtMoc Include="commandlinerule.h" />
     <QtMoc Include="addprocessprotectordialog.h" />
-    <ClInclude Include="..\..\src\QTTrustedAccount.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />
@@ -390,7 +389,7 @@
     <QtMoc Include="trustalldialog.h" />
     <QtMoc Include="upgradedialog.h" />
     <QtMoc Include="settingsuniversalav.h" />
-    <QtMoc Include="trustedcertificate.h" />
+    <QtMoc Include="managetrustedcertificate.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
