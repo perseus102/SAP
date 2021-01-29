@@ -88,7 +88,7 @@ ScanSettings::ScanSettings(QWidget *parent)
 	connect(m_antivirus, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(m_VulAssessment, &ClickableLabel::clicked, this, &ScanSettings::TabClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ScanSettings::changeTheme);
-	connect(m_antivirusTab, &SettingsAnitivirus::offUniversalAVRealTimeScan, m_universalAVTab, &SettingsUniversalAV::offRealTimeScan);
+	connect(m_antivirusTab, &SettingsAnitivirus::setDisableRealTimeScan, m_universalAVTab, &SettingsUniversalAV::disableRealTimeScan);
 
 	emit m_scrollView->verticalScrollBar()->valueChanged(m_scrollView->verticalScrollBar()->value());
 }

@@ -168,17 +168,31 @@ QSize Switch::sizeHint() const {
 	return QSize(w, h);
 }
 
-void Switch::disableToggleAndChecked(bool isChecked)
+void Switch::disableToggleAndChecked(bool bdisabled, bool bChecked)
 {
-	setCheckable(isChecked);
+	m_disabledColor = bdisabled;
 	setColorStyle();
-	setChecked(isChecked);
-	m_disabled = !isChecked;
+	if (!bdisabled)
+	{
+		m_disabled = bdisabled;
+		setChecked(bChecked);
+
+	}
+	else
+	{
+		setChecked(bChecked);
+		m_disabled = bdisabled;
+	}
 }
 
 void Switch::disableToggle(bool isChecked)
 {
 
+}
+
+bool Switch::isDisabled()
+{
+	return m_disabled;
 }
 
 void Switch::paintEvent(QPaintEvent*) {
@@ -293,9 +307,19 @@ void Switch::toggle(Qt::CheckState state) {
 			trackBrushAnimation->setCurrentValue(trackEnd);
 		}
 		else {
-			thumbPosAniamtion->interpolate(thumbPosAniamtion->currentValue().toInt(), posEnd);
-			thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity), thumbEnd);
-			trackBrushAnimation->interpolate(colorFromOpacity(style.trackOnBrush, style.trackOnOpacity), trackEnd);
+			if (this->isChecked())
+			{
+				thumbPosAniamtion->interpolate(thumbPosAniamtion->currentValue().toInt(), posEnd);
+				thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity), thumbEnd);
+				trackBrushAnimation->interpolate(colorFromOpacity(style.trackOnBrush, style.trackOnOpacity), trackEnd);
+			}
+			else
+			{
+				thumbPosAniamtion->interpolate(thumbPosAniamtion->currentValue().toInt(), posEnd);
+				thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity), thumbEnd);
+				trackBrushAnimation->interpolate(colorFromOpacity(style.trackOffBrush, style.trackOffOpacity), trackEnd);
+			}
+
 		}
 	}
 }
@@ -313,7 +337,7 @@ void Switch::setColorStyle()
 			style.thumbOnBrush = QColor(TOGGLE_ACTIVE_THUMB_LT);
 			style.thumbOffBrush = QColor(TOGGLE_INACTIVE_THUMB_LT);
 			style.textColor = QColor(TEXT_LIGHT_THEME_COLOR);
-			if (!isCheckable())
+			if (m_disabledColor)
 			{
 				style.trackOnBrush = QColor(TOGGLE_ACTIVE_TRACK_DT);
 				style.trackOffBrush = QColor("#CECECE");
@@ -331,12 +355,12 @@ void Switch::setColorStyle()
 			style.thumbOffBrush = QColor(TOGGLE_INACTIVE_THUMB_DT);
 			style.textColor = QColor(TEXT_DARK_THEME_COLOR);
 			
-			if (!isCheckable())
+			if (m_disabledColor)
 			{
-				style.trackOnBrush = QColor(TOGGLE_ACTIVE_TRACK_DT);
-				style.trackOffBrush = QColor(TRACK_UNCHECKED_DARK_THEME_COLOR);
-				style.thumbOnBrush = QColor(TOGGLE_ACTIVE_THUMB_DT);
-				style.thumbOffBrush = QColor("#1A2B4A");
+				style.trackOnBrush = QColor("#253653");
+				style.trackOffBrush = QColor("#253653");
+				style.thumbOnBrush = QColor("#929AA9");
+				style.thumbOffBrush = QColor("#929AA9");
 				style.textColor = QColor(TEXT_DARK_THEME_COLOR);
 			}
 			break;

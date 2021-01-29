@@ -83,8 +83,9 @@ public:
 	~Switch() override;
 
 	QSize sizeHint() const override final;
-	void disableToggleAndChecked(bool isChecked);
+	void disableToggleAndChecked(bool bdisabled,bool bChecked);
 	void disableToggle(bool isChecked);
+	bool isDisabled();
 
 public slots:
 	void changeTheme();
@@ -117,5 +118,6 @@ private:
 	void setColorStyle();
 	bool m_inContentView = false;
 	bool m_disabled = false;
+	bool m_disabledColor = false;
 };
 #endif // SWITCH_H

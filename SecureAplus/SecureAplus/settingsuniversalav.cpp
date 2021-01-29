@@ -169,18 +169,12 @@ SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 	m_autoFullScan->setFont(SMALL_FONT);
 	m_autoFullScan->setFixedHeight(15);
 	m_autoFullScan->setWordWrap(true);
-	m_autoFullScan->setVisible(bIsUniversalAVEnabled);
 
 	m_autoFullScanToggle	= new Switch(QMargins(0, 8, 16, 8), true);
 	m_autoFullScanToggle->setFixedSize(50, 30);
-	
 
-	if (!bIsUniversalAVEnabled)
-	{
-
-		m_autoFullScanToggle->disableToggle(true);
-	}
-	m_autoFullScanToggle->setChecked(IsUniversalAVEnabledForAutoFullSystemScan());
+	m_autoFullScanToggle->disableToggleAndChecked(!bIsUniversalAVEnabled, IsUniversalAVEnabledForAutoFullSystemScan());
+	//m_autoFullScanToggle->setChecked(IsUniversalAVEnabledForAutoFullSystemScan());
 
 
 	QLabel* FullScanBottomSpacer = new QLabel();
@@ -464,7 +458,7 @@ void SettingsUniversalAV::toggleClicked()
 		BOOLEAN bIsUploadEnabled;
 		dwLastError = SecureaplusAdminEnableUAVAutoUpload(m_autoUploadToggle->isChecked());
 		bIsUploadEnabled = IsUniversalAVAutoUploadEnabled();
-		if (bIsUploadEnabled != m_autoUploadToggle->isChecked())
+		if (bool(bIsUploadEnabled) != m_autoUploadToggle->isChecked())
 		{
 			//ui.sliderUpload->blockSignals(true);
 			//ui.sliderUpload->setValue(IsUniversalAVAutoUploadEnabled());
@@ -490,15 +484,13 @@ void SettingsUniversalAV::toggleClicked()
 		if (m_fullScanToggle->isChecked())
 		{
 			//do somthing
-			m_autoFullScanToggle->disableToggle(false);
+			m_autoFullScanToggle->disableToggleAndChecked(false,false);
 
-			m_autoFullScanToggle->setChecked(IsUniversalAVEnabledForAutoFullSystemScan());
 		}
 		else
 		{
 			//do somthing
-			m_autoFullScanToggle->disableToggle(true);
-			m_autoFullScanToggle->setChecked(IsUniversalAVEnabledForAutoFullSystemScan());
+			m_autoFullScanToggle->disableToggleAndChecked(true, false);
 		}
 
 		dwLastError = SecureaplusSettingsEnableUAV(m_fullScanToggle->isChecked());
@@ -506,7 +498,9 @@ void SettingsUniversalAV::toggleClicked()
 	}	
 	else if (sender() == m_autoFullScanToggle)
 	{
-		if (m_fullScanToggle->isChecked())
+		if (m_autoFullScanToggle->isDisabled()) return;
+
+		if (m_autoFullScanToggle->isChecked())
 		{
 			//do somthing
 
@@ -516,7 +510,8 @@ void SettingsUniversalAV::toggleClicked()
 			//do somthing
 		}
 
-		dwLastError = SecureaplusAdminEnableUAVAutoFullSystemScan(m_fullScanToggle->isChecked());
+		bool ischeck = m_autoFullScanToggle->isChecked();
+		dwLastError = SecureaplusAdminEnableUAVAutoFullSystemScan(m_autoFullScanToggle->isChecked());
 
 	}
 	else if (sender() == m_onDemandToggle)
@@ -536,6 +531,8 @@ void SettingsUniversalAV::toggleClicked()
 	}
 	else if (sender() == m_realTimeToggle)
 	{
+		if (m_realTimeToggle->isDisabled()) return;
+
 		if (m_realTimeToggle->isChecked())
 		{
 			//do somthing
@@ -553,21 +550,21 @@ void SettingsUniversalAV::toggleClicked()
 
 		if (dwLastError == 0)
 		{
-			//bRealTimeEnabled = !IsSAScanDisabled(&status);
-			//if (IsDeepAVEnabled() == FALSE && IsOfflineAVEnabled() == FALSE && IsUniversalAVEnabledForRealTimeScanning() == FALSE)
-			//{
-			//	if (status == 0 && bRealTimeEnabled)
-			//	{
-			//		SecureaplusSettingsEnableRealTime(FALSE);
-			//	}
-			//}
-			//else
-			//{
-			//	if (status == 0 && !bRealTimeEnabled)
-			//	{
-			//		SecureaplusSettingsEnableRealTime(TRUE);
-			//	}
-			//}
+			bRealTimeEnabled = !IsSAScanDisabled(&status);
+			if (IsDeepAVEnabled() == FALSE && IsOfflineAVEnabled() == FALSE && IsUniversalAVEnabledForRealTimeScanning() == FALSE)
+			{
+				if (status == 0 && bRealTimeEnabled)
+				{
+					SecureaplusSettingsEnableRealTime(FALSE);
+				}
+			}
+			else
+			{
+				if (status == 0 && !bRealTimeEnabled)
+				{
+					SecureaplusSettingsEnableRealTime(TRUE);
+				}
+			}
 		}
 		else 
 		{
@@ -807,10 +804,10 @@ void SettingsUniversalAV::capacityClicked()
 	}
 }
 
-void SettingsUniversalAV::offRealTimeScan()
+void SettingsUniversalAV::disableRealTimeScan(bool bDisable)
 {
 	//set unchecked and disabled toogle
-	m_realTimeToggle->disableToggleAndChecked(false);
+	m_realTimeToggle->disableToggleAndChecked(bDisable,false);
 	//do something
 	SecureaplusAdminEnableUAVForRealTimeScanning(false);
 }

@@ -19,7 +19,7 @@ public:
 	SettingsAnitivirus(QWidget *parent = Q_NULLPTR);
 	~SettingsAnitivirus();
 signals:
-	void offUniversalAVRealTimeScan();
+	void setDisableRealTimeScan(bool bDisable);
 
 private slots:
 	void changeTheme();

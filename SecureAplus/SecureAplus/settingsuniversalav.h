@@ -20,7 +20,7 @@ public:
 	~SettingsUniversalAV();
 
 public slots:
-	void offRealTimeScan();
+	void disableRealTimeScan(bool bDisable);
 
 private slots:
 	void capacityClicked();

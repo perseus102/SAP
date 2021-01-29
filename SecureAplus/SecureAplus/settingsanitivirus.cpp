@@ -1,9 +1,26 @@
 #include "settingsanitivirus.h"
-
+#include "UniversalAV_Enable.h"
+#include "DeepAVEnabled.h"
+#include "OfflineAV.h"
+#include "NamedPipeSecureAPlusAdminSettings.h"
+#include "NamedPipeSecureAPlusServiceSettings.h"
+#include "DriverCommand.h"
+#include "QTTrustedAccount.h"
+#include "DeepAVAvailable.h"
+#include "DisableRegisterAsAntiVirus.h"
 SettingsAnitivirus::SettingsAnitivirus(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+
+	NTSTATUS status;
+	BOOLEAN bRealTimeEnabled = !IsSAScanDisabled(&status);;
+	BOOLEAN bRegisterAsAntivirus;
+	bRegisterAsAntivirus = !IsDisableRegisterAsAntiVirus();
+	if (!IsDeepAVAvailable())
+	{
+		//hideAPEX(); // TO DO: implement this function, hide APEX-related settings
+	}
 
 	m_layout = new QVBoxLayout();
 	m_layout->setContentsMargins(0, 0, 0, 0);
@@ -30,7 +47,7 @@ SettingsAnitivirus::SettingsAnitivirus(QWidget *parent)
 	m_APEXDesc->setWordWrap(true);
 
 	QLabel* sensitivitySpacer = new QLabel();
-	sensitivitySpacer->setFixedHeight(25);
+	sensitivitySpacer->setFixedHeight(15);
 
 	m_sensitivity = new QLabel();
 	m_sensitivity->setFont(SMALL_FONT);
@@ -92,6 +109,7 @@ SettingsAnitivirus::SettingsAnitivirus(QWidget *parent)
 
 	m_APEXRealtimeToggle = new Switch(QMargins(0, 8, 16, 8), true);
 	m_APEXRealtimeToggle->setFixedSize(50, 30);
+	m_APEXRealtimeToggle->setChecked(bRealTimeEnabled);
 
 	QLabel* APEXRealTimeBottomSpacer = new QLabel();
 
@@ -134,6 +152,7 @@ SettingsAnitivirus::SettingsAnitivirus(QWidget *parent)
 
 	m_registerToggle = new Switch(QMargins(0, 8, 16, 8), true);
 	m_registerToggle->setFixedSize(50, 30);
+	m_registerToggle->setChecked(bRegisterAsAntivirus);
 
 	QLabel* registerBottomSpacer = new QLabel();
 
@@ -163,7 +182,7 @@ SettingsAnitivirus::SettingsAnitivirus(QWidget *parent)
 	setLabelText();
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingsAnitivirus::changeTheme);
 	connect(m_APEXRealtimeToggle, &Switch::pressed, this, &SettingsAnitivirus::toggleClicked);
-	connect(m_registerToggle, &Switch::released, this, &SettingsAnitivirus::toggleClicked);
+	connect(m_registerToggle, &Switch::clicked, this, &SettingsAnitivirus::toggleClicked);
 	connect(m_sensitivityCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(comboboxChangeIndex(int)));
 }
 
@@ -173,6 +192,13 @@ SettingsAnitivirus::~SettingsAnitivirus()
 
 void SettingsAnitivirus::toggleClicked()
 {
+	if (!IsRunByTrustedAccount())
+	{
+		return;
+	}
+
+	DWORD dwLastError = 0;
+
 	if (sender() == m_APEXRealtimeToggle)
 	{
 		if (m_APEXRealtimeToggle->isChecked())
@@ -187,7 +213,7 @@ void SettingsAnitivirus::toggleClicked()
 			{
 				m_APEXRealtimeToggle->setChecked(false);
 				AppSetting::getInstance()->changeProtectModeByOtherSetting(Protection_Modes::Lockdown_Default);
-				emit offUniversalAVRealTimeScan();
+				emit setDisableRealTimeScan(true);
 			}
 			else
 			{
@@ -199,6 +225,26 @@ void SettingsAnitivirus::toggleClicked()
 		{
 			//do somthing
 			AppSetting::getInstance()->changeProtectModeByOtherSetting(Protection_Modes::Automatic_Mode);
+			emit setDisableRealTimeScan(false);
+		}
+		bool ischecked = m_APEXRealtimeToggle->isChecked();
+
+		dwLastError = SecureaplusSettingsEnableRealTime(m_APEXRealtimeToggle->isChecked());
+
+		if (dwLastError == 0)
+		{
+			//When real-time is ON, there has to be at least 1 active engine.
+			if (!m_APEXRealtimeToggle->isChecked() == TRUE && IsDeepAVEnabled() == FALSE && IsOfflineAVEnabled() == FALSE && IsUniversalAVEnabledForRealTimeScanning() == FALSE)
+			{
+				if (IsDeepAVAvailable()) //IsOfflineAVAvailable()
+				{
+					SecureaplusAdminEnableUAVForRealTimeScanning(TRUE);
+				}
+				if (IsUniversalAVAvailable())
+				{
+					SecureaplusAdminEnableUAVForRealTimeScanning(FALSE);
+				}
+			}
 		}
 	}
 	else if (sender() == m_registerToggle)
@@ -206,12 +252,17 @@ void SettingsAnitivirus::toggleClicked()
 		if (m_registerToggle->isChecked())
 		{
 			//do somthing
+			qDebug() << m_registerToggle->isChecked();
+
 		}
 		else
 		{
 			
 			//do somthing
+			qDebug() << m_registerToggle->isChecked();
 		}
+
+		dwLastError = SecureaplusSettingsEnableRegisterAsAntivirus(m_registerToggle->isChecked());
 	}
 }
 
