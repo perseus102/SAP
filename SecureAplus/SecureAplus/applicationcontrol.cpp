@@ -84,8 +84,6 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_tabContentWidget->setLayout(tabLayout);
 
 	m_digitalSignatureTab	= new DigitalSignature();
-
-
 	m_allowListTab			= new AllowList();
 	m_restrictedAppTab		= new RestrictedApp();
 	m_trustedCertificateTab = new TrustedCertificate();
@@ -98,7 +96,7 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_digitalSignatureTab->setFixedHeight(450);
 
 	m_tabStackedWidget->addWidget(m_allowListTab);
-	m_allowListTab->setFixedHeight(600);
+	m_allowListTab->setFixedHeight(530);
 
 	m_tabStackedWidget->addWidget(m_restrictedAppTab);
 	m_restrictedAppTab->setFixedHeight(450);

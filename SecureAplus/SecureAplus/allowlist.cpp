@@ -13,7 +13,7 @@ AllowList::AllowList(QWidget *parent)
 	statusWg->setFixedHeight(220);
 
 	QVBoxLayout* statusLayout = new QVBoxLayout();
-	statusLayout->setContentsMargins(30, 0, 30, 0);
+	statusLayout->setContentsMargins(30, 0, 40, 0);
 	statusLayout->setSpacing(0);
 	statusWg->setLayout(statusLayout);
 
@@ -117,7 +117,7 @@ AllowList::AllowList(QWidget *parent)
 
 
 	QWidget* compactWg = new QWidget();
-	compactWg->setFixedHeight(100);
+	compactWg->setFixedHeight(180);
 	QVBoxLayout* compactLayout = new QVBoxLayout();
 	compactLayout->setSpacing(0);
 	compactLayout->setContentsMargins(30, 0, 0, 0);
@@ -140,6 +140,56 @@ AllowList::AllowList(QWidget *parent)
 	QLabel* compactDescSpacer = new QLabel();
 	compactDescSpacer->setFixedHeight(10);
 
+	QWidget *slowWg = new QWidget();
+	slowWg->setFixedHeight(20);
+	QHBoxLayout* slowLayout = new QHBoxLayout();
+	slowLayout->setSpacing(8);
+	slowLayout->setContentsMargins(0, 0, 0, 0);
+	slowWg->setLayout(slowLayout);
+
+	m_slowBtn = new SAPRadioButton();
+	m_slowBtn->setFixedSize(20, 20);
+	m_slowBtn->setButtonChecked(Qt::Checked);
+
+	m_slowText = new ClickableLabel();
+	m_slowText->setFont(FONT);
+	m_slowText->setAlignment(Qt::AlignCenter);
+	setSlowText("Slow");
+	QLabel* slowLeft = new QLabel();
+
+	slowLayout->addWidget(m_slowBtn);
+	slowLayout->addWidget(m_slowText);
+	slowLayout->addWidget(slowLeft);
+
+	QLabel* centerBtn = new QLabel();
+	centerBtn->setFixedHeight(10);
+
+	QWidget *fastWg = new QWidget();
+	fastWg->setFixedHeight(20);
+
+	QHBoxLayout* fastLayout = new QHBoxLayout();
+	fastLayout->setSpacing(8);
+	fastLayout->setContentsMargins(0, 0, 0, 0);
+	fastWg->setLayout(fastLayout);
+
+	m_fastBtn = new SAPRadioButton();
+	m_fastBtn->setFixedSize(20, 20);
+	m_fastBtn->setButtonChecked(Qt::Unchecked);
+
+	m_fastText = new ClickableLabel();
+	m_fastText->setFont(FONT);
+	m_fastText->setAlignment(Qt::AlignCenter);
+	setFastText("Fast");
+
+	QLabel* fastLeft = new QLabel();
+
+	fastLayout->addWidget(m_fastBtn);
+	fastLayout->addWidget(m_fastText);
+	fastLayout->addWidget(fastLeft);
+
+	QLabel* compactAllistSpacer = new QLabel();
+	compactAllistSpacer->setFixedHeight(15);
+
 	m_compactAllistBtn = new QPushButton();
 	m_compactAllistBtn->setFixedSize(120, 28);
 
@@ -148,6 +198,10 @@ AllowList::AllowList(QWidget *parent)
 	compactLayout->addWidget(compactSpacer);
 	compactLayout->addWidget(m_compactAllowListDesc);
 	compactLayout->addWidget(compactDescSpacer);
+	compactLayout->addWidget(slowWg);
+	compactLayout->addWidget(centerBtn);
+	compactLayout->addWidget(fastWg);
+	compactLayout->addWidget(compactAllistSpacer);
 	compactLayout->addWidget(m_compactAllistBtn);
 
 	QLabel* spacerBottom = new QLabel();
@@ -165,10 +219,65 @@ AllowList::AllowList(QWidget *parent)
 	setStyle();
 	setLabelText();
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &AllowList::changeTheme);
+	connect(m_slowBtn, &SAPRadioButton::clicked, this, &AllowList::radioButtonClicked);
+	connect(m_fastBtn, &SAPRadioButton::clicked, this, &AllowList::radioButtonClicked);
+	connect(m_slowText, &ClickableLabel::clicked, this, &AllowList::textClicked);
+	connect(m_fastText, &ClickableLabel::clicked, this, &AllowList::textClicked);
 }
 
 AllowList::~AllowList()
 {
+}
+
+void AllowList::radioButtonClicked()
+{
+	//switch theme
+	if (sender() == m_slowBtn)
+	{
+		m_slowBtn->setButtonChecked(Qt::Checked);
+		m_fastBtn->setButtonChecked(Qt::Unchecked);
+
+	}
+	else if (sender() == m_fastBtn)
+	{
+		m_slowBtn->setButtonChecked(Qt::Unchecked);
+		m_fastBtn->setButtonChecked(Qt::Checked);
+	}
+}
+
+void AllowList::textClicked()
+{
+	if (sender() == m_slowText)
+	{
+		m_slowBtn->setButtonChecked(Qt::Checked);
+		m_fastBtn->setButtonChecked(Qt::Unchecked);
+
+	}
+	else if (sender() == m_fastText)
+	{
+		m_slowBtn->setButtonChecked(Qt::Unchecked);
+		m_fastBtn->setButtonChecked(Qt::Checked);
+	}
+}
+
+void AllowList::setSlowText(QString text)
+{
+	QFontMetrics fm(FONT);
+	int pixelsHigh = fm.height();
+	int width = fm.width(text);
+	m_slowText->setFixedWidth(width);
+	m_slowText->setFixedHeight(pixelsHigh);
+	m_slowText->setText(text);
+}
+
+void AllowList::setFastText(QString text)
+{
+	QFontMetrics fm(FONT);
+	int pixelsHigh = fm.height();
+	int width = fm.width(text);
+	m_fastText->setFixedWidth(width);
+	m_fastText->setFixedHeight(pixelsHigh);
+	m_fastText->setText(text);
 }
 
 void AllowList::setStyle()
@@ -187,6 +296,10 @@ void AllowList::setStyle()
 
 		m_statusLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_LT + ";}");
 		m_imExportLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_LT + ";}");
+
+		m_slowText->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
+
+		m_fastText->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
 		m_exportAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + TAB_CONTENT_DESC_TEXT_LT + ";"
 			"border-radius:2px;"
@@ -214,6 +327,10 @@ void AllowList::setStyle()
 		m_statusLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_DT + ";}");
 
 		m_imExportLine->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_DT + ";}");
+
+		m_slowText->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
+
+		m_fastText->setStyleSheet("QLabel{ color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		m_exportAllistBtn->setStyleSheet("QPushButton {background-color:none; color: " + TAB_CONTENT_DESC_TEXT_DT + ";"
 			"border-radius:2px;"
@@ -245,6 +362,11 @@ void AllowList::setLabelText()
 	m_exportAllistBtn->setText("Export Allowlist");
 	m_importAllistBtn->setText("Import Allowlist");
 	m_compactAllistBtn->setText("Compact Allowlist");
+
+}
+
+void AllowList::setButtonStyle()
+{
 
 }
 

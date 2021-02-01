@@ -14,6 +14,7 @@ SAPRadioButton::~SAPRadioButton()
 
 void SAPRadioButton::setButtonChecked(Qt::CheckState state)
 {
+	this->setChecked(state);
 	m_state = state;
 	setButtonStyle(state);
 }

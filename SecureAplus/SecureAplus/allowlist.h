@@ -8,6 +8,8 @@
 #include "appsetting.h"
 #include <QPushButton>
 #include "allowliststatus.h"
+#include "sapradiobutton.h"
+#include "clickablelabel.h"
 class AllowList : public QWidget
 {
 	Q_OBJECT
@@ -17,6 +19,9 @@ public:
 	~AllowList();
 private slots:
 	void changeTheme();
+	void radioButtonClicked();
+	void textClicked();
+
 private:
 	Ui::AllowList ui;
 
@@ -38,9 +43,17 @@ private:
 	AllowListStatus* m_allistService;
 	AllowListStatus* m_allistDriver;
 
+	SAPRadioButton *m_slowBtn;
+	SAPRadioButton *m_fastBtn;
+	ClickableLabel* m_slowText;
+	ClickableLabel* m_fastText;
+
+	void setSlowText(QString text);
+	void setFastText(QString text);
+
 	void setStyle();
 	void setLabelText();
-
+	void setButtonStyle();
 	
 
 };
