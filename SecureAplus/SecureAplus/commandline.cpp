@@ -6,7 +6,7 @@ CommandLine::CommandLine(QWidget *parent)
 	ui.setupUi(this);
 
 	m_layout = new QVBoxLayout();
-	m_layout->setContentsMargins(30, 0, 30, 30);
+	m_layout->setContentsMargins(30, 0, 30, 10);
 	m_layout->setSpacing(0);
 
 	m_commandLineTable = new CommandLineTable();

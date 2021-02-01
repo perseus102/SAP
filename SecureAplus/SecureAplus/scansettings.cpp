@@ -243,6 +243,7 @@ void ScanSettings::resizeTab()
 	qDebug() << size;
 	if (size.width() < 450) size = QSize(489, 800);
 
+	//100 is ClickableLabel width
 	if (m_activeTab == m_universalAV)
 	{
 		if (size.height() <= m_universalAVTab->height())

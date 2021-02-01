@@ -25,7 +25,8 @@ public:
 private slots:
 	void TabClicked();
 	void changeTheme();
-
+protected:
+	void resizeEvent(QResizeEvent *event) override;
 private:
 	Ui::ApplicationControl ui;
 	QHBoxLayout*		m_contentLayout;
@@ -59,4 +60,5 @@ private:
 	void setTabStyle();
 	void setTabActiveStyle(ClickableLabel* tab);
 	void setTabInActiveStyle(ClickableLabel* tab);
+	void resizeTab();
 };
