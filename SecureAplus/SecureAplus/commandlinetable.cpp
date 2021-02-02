@@ -31,11 +31,18 @@ CommandLineTable::CommandLineTable(QWidget *parent)
 	m_commandLine->setFixedHeight(36);
 	m_commandLine->setFont(FONT);
 	m_commandLine->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	m_commandLine->setText("COMMAND LINE");
+	m_commandLine->setText("COMMAND LINE");	
+	
+	m_action = new QLabel();
+	m_action->setFixedSize(90,36);
+	m_action->setFont(FONT);
+	m_action->setAlignment(Qt::AlignCenter);
+	m_action->setText("ACTION");
 
 	titleLayout->addWidget(m_checkAllBox);
 	titleLayout->addWidget(checkboxSpacer);
 	titleLayout->addWidget(m_commandLine);
+	titleLayout->addWidget(m_action);
 
 	m_layout->addWidget(m_titleWg);
 
@@ -71,7 +78,7 @@ CommandLineTable::CommandLineTable(QWidget *parent)
 
 	for (int a = 1; a <= 10; a++)
 	{
-		rowString += "Command Line" + QString::number(a) + " ";
+		rowString = "c:\\windows\\system32\\windowspowercell\\v1.0\\powercell.exe - execution policy unrestricted - noninteractive - noprofile" + QString::number(a) + " ";
 		AddCommandLine(rowString);
 		m_defaultList.append(rowString);
 	}
@@ -144,7 +151,7 @@ void CommandLineTable::AddCommandLine(QString commandLine)
 	CommandLineRow* row = new CommandLineRow();
 
 	row->rowWg = new QWidget();
-	row->rowWg->setFixedHeight(36);
+	row->rowWg->setFixedHeight(50);
 
 	QHBoxLayout* rowLayout = new QHBoxLayout();
 	rowLayout->setContentsMargins(20, 0, 0, 0);
@@ -160,12 +167,24 @@ void CommandLineTable::AddCommandLine(QString commandLine)
 	centerSpacer->setFixedWidth(12);
 
 	row->commandLine = new QLabel();
-	row->commandLine->setFixedHeight(36);
+	row->commandLine->setFixedHeight(30);
 	row->commandLine->setFont(FONT);
 	row->commandLine->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	row->commandLine->setText(commandLine);
+	row->commandLine->setWordWrap(true);
 	row->commandLine->setToolTip(commandLine);
 
+	QWidget* btnWg = new QWidget();
+	btnWg->setFixedSize(90, 50);
+
+	QHBoxLayout*  btnLayout = new QHBoxLayout();
+	btnLayout->setContentsMargins(0, 0, 0, 0);
+	btnLayout->setSpacing(0);
+	btnWg->setLayout(btnLayout);
+
+	row->copyBtn = new QPushButton();
+	row->copyBtn->setFixedSize(18, 18);
+	btnLayout->addWidget(row->copyBtn);
 
 	row->line = new QLabel();
 	row->line->setFixedHeight(2);
@@ -173,6 +192,8 @@ void CommandLineTable::AddCommandLine(QString commandLine)
 	rowLayout->addWidget(row->checkBox);
 	rowLayout->addWidget(centerSpacer);
 	rowLayout->addWidget(row->commandLine);
+	rowLayout->addWidget(btnWg);
+
 	setRowStyle(row);
 
 	m_rowLayout->addWidget(row->rowWg);
@@ -182,7 +203,7 @@ void CommandLineTable::AddCommandLine(QString commandLine)
 
 	m_commandLineRowMap.append(row);
 
-	m_rowWg->resize(this->width(), (38 * m_rowCount));
+	m_rowWg->resize(this->width(), (52 * m_rowCount));
 
 	int labelWidth, commandLineWidth;
 	QFontMetrics fm(FONT);
@@ -235,7 +256,7 @@ void CommandLineTable::removeRows()
 			m_rowCount--;
 
 			QSize size = m_rowWg->size();
-			m_rowWg->resize(this->width(), size.height() - 38 /* row height */);
+			m_rowWg->resize(this->width(), size.height() - 52 /* row height */);
 		}
 	}
 
@@ -301,6 +322,8 @@ void CommandLineTable::setStyle()
 		m_titleWg->setStyleSheet("background-color:#C9C9C9;"
 			"border-top-left-radius:2px; border-top-right-radius:2px;");
 		m_commandLine->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
+		
+		m_action->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
 
 		break;
 
@@ -309,6 +332,8 @@ void CommandLineTable::setStyle()
 			"border-top-left-radius:2px; border-top-right-radius:2px;");
 
 		m_commandLine->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
+		
+		m_action->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
 
 		break;
 
@@ -408,42 +433,85 @@ void CommandLineTable::resizeLabel()
 
 	int fullTextWidth, labelWidth, defaultCharsNum, threeDotSize, textWidth, nextCharWidth, remainSpace;
 	QFontMetrics fm(FONT);
-	QString commandLine;
+
+	QString commandLine, commandLineRow1, commandLineRow2;
+	bool isRow1 = true;
 
 	for (auto& row : m_commandLineRowMap)
 	{
 
 		fullTextWidth = fm.width(row->commandLine->toolTip());
-		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/);
+		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/ - 90);
 		defaultCharsNum = 55;  
 		threeDotSize = fm.width("..."); // ... => 12px
 
 		do
 		{
-			commandLine = row->commandLine->toolTip();
+			if(isRow1) commandLine = row->commandLine->toolTip();
 
-			if ((fullTextWidth <= labelWidth))
+			if (!isRow1)
 			{
-				row->commandLine->setText(commandLine);
-				break;
+				fullTextWidth = fm.width(commandLine);
+			}
+
+			if (isRow1)
+			{
+				if ((fullTextWidth <= labelWidth))
+				{
+					row->commandLine->setText(commandLine);
+					break;
+				}
+			}
+			else
+			{
+				if ((fullTextWidth <= labelWidth))
+				{
+					row->commandLine->setText(commandLineRow1 + commandLine);
+					break;
+				}
 			}
 
 			textWidth = fm.width(commandLine.mid(0, defaultCharsNum));
-
 			nextCharWidth = fm.width(commandLine.mid(defaultCharsNum, 1));
 
-			remainSpace = (labelWidth - (textWidth + threeDotSize));
+			if (isRow1)
+			{
+				remainSpace = (labelWidth - textWidth);
+			}
+			else
+			{
+				remainSpace = (labelWidth - (textWidth + threeDotSize));
+
+			}
 
 			if (remainSpace > nextCharWidth)
 			{
 				defaultCharsNum++;
 				continue;
 			}
-			if ((textWidth + threeDotSize) <= labelWidth)
+
+			if (isRow1)
 			{
-				commandLine = commandLine.mid(0, defaultCharsNum) + "...";
-				row->commandLine->setText(commandLine);
-				break;
+				if (textWidth <= labelWidth)
+				{
+
+					commandLineRow1 = commandLine.mid(0, defaultCharsNum) + "\n";
+					commandLine = commandLine.mid(defaultCharsNum, commandLine.length() - 1);
+					isRow1 = false;
+					defaultCharsNum = 55;
+					//commandLine = commandLine.mid(0, defaultCharsNum) + "...";
+					//row->commandLine->setText(commandLine);
+					//break;
+				}
+			}
+			else
+			{
+				if ((textWidth + threeDotSize) <= labelWidth)
+				{
+					commandLineRow2 = commandLine.mid(0, defaultCharsNum) + "...";
+					row->commandLine->setText(commandLineRow1 + commandLineRow2);
+					break;
+				}
 			}
 
 			defaultCharsNum--;

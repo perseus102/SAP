@@ -16,7 +16,7 @@ SettingsAnitivirus::SettingsAnitivirus(QWidget *parent)
 	NTSTATUS status;
 	BOOLEAN bRealTimeEnabled = !IsSAScanDisabled(&status);;
 	BOOLEAN bRegisterAsAntivirus;
-	bRegisterAsAntivirus = !IsDisableRegisterAsAntiVirus();
+	//bRegisterAsAntivirus = !IsDisableRegisterAsAntiVirus();
 	if (!IsDeepAVAvailable())
 	{
 		//hideAPEX(); // TO DO: implement this function, hide APEX-related settings

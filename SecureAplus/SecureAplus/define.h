@@ -198,6 +198,9 @@
 /* Define for choose file label icon */
 #define CHOOSE_FILE_ICON					QString(":/images/choose file/choose_file_icon.svg")
 
+/* Define for reset button icon */
+#define RESET_BUTTON_ICON					QString(":/images/reset button/reset_button_icon.svg")
+
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
 

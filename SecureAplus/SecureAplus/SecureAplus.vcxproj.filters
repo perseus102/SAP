@@ -214,6 +214,18 @@
     <Filter Include="Header Files\Component\Command Line Table">
       <UniqueIdentifier>{ba0dd16d-6788-411c-8904-43942dca0332}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Process Protector Table">
+      <UniqueIdentifier>{e89afb9c-f23d-4233-afdc-02870b4334e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Process Protector Table">
+      <UniqueIdentifier>{b7a77fed-83c2-44ed-b895-696716fed71b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Reset Button">
+      <UniqueIdentifier>{9833a3a5-98d8-41cb-a7dd-ed9b4fd21eeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Reset Button">
+      <UniqueIdentifier>{bdac9576-7fa2-4f99-99bc-3134546bae0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -389,9 +401,6 @@
     <ClCompile Include="commandline.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
-    <ClCompile Include="addcommandlinedialog.cpp">
-      <Filter>Source Files\Dialog</Filter>
-    </ClCompile>
     <ClCompile Include="commandlinerule.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
@@ -400,12 +409,6 @@
     </ClCompile>
     <ClCompile Include="processprotector.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
-    </ClCompile>
-    <ClCompile Include="processprotectortable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="addprocessprotectordialog.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="settingslanguagepersonal.cpp">
       <Filter>Source Files\Settings Content\Language &amp; Persional</Filter>
@@ -427,6 +430,24 @@
     </ClCompile>
     <ClCompile Include="managetrustedcertificate.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="addprocessprotectordialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="compactdialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="processprotectortable.cpp">
+      <Filter>Source Files\Component\Process Protector Table</Filter>
+    </ClCompile>
+    <ClCompile Include="addcommandlinedialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="resetbutton.cpp">
+      <Filter>Source Files\Component\Reset Button</Filter>
+    </ClCompile>
+    <ClCompile Include="resetdialog.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -580,12 +601,6 @@
     <QtMoc Include="commandlinetable.h">
       <Filter>Header Files\Component\Command Line Table</Filter>
     </QtMoc>
-    <QtMoc Include="processprotectortable.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="addprocessprotectordialog.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="settingslanguagepersonal.h">
       <Filter>Header Files\Settings Content\Language &amp; Persional</Filter>
     </QtMoc>
@@ -606,6 +621,21 @@
     </QtMoc>
     <QtMoc Include="managetrustedcertificate.h">
       <Filter>Header Files\Manage Content\Application Control</Filter>
+    </QtMoc>
+    <QtMoc Include="addprocessprotectordialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="compactdialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="processprotectortable.h">
+      <Filter>Header Files\Component\Process Protector Table</Filter>
+    </QtMoc>
+    <QtMoc Include="resetbutton.h">
+      <Filter>Header Files\Component\Reset Button</Filter>
+    </QtMoc>
+    <QtMoc Include="resetdialog.h">
+      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -778,6 +808,15 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="addprocessprotectordialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="compactdialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="resetbutton.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="resetdialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

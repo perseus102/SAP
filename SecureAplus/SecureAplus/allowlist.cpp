@@ -215,6 +215,9 @@ AllowList::AllowList(QWidget *parent)
 	m_layout->addWidget(compactWg);
 	m_layout->addWidget(spacerBottom);
 
+	transparent = new WidgetTransparent();
+	m_compactDialog = new CompactDialog();
+
 	setLayout(m_layout);
 	setStyle();
 	setLabelText();
@@ -223,6 +226,8 @@ AllowList::AllowList(QWidget *parent)
 	connect(m_fastBtn, &SAPRadioButton::clicked, this, &AllowList::radioButtonClicked);
 	connect(m_slowText, &ClickableLabel::clicked, this, &AllowList::textClicked);
 	connect(m_fastText, &ClickableLabel::clicked, this, &AllowList::textClicked);
+	connect(m_compactAllistBtn, &QPushButton::clicked, this, &AllowList::compactBtnClicked);
+	connect(m_compactDialog, &CompactDialog::startCompactAllowList, this, &AllowList::runCompactAllowList);
 }
 
 AllowList::~AllowList()
@@ -258,6 +263,15 @@ void AllowList::textClicked()
 		m_slowBtn->setButtonChecked(Qt::Unchecked);
 		m_fastBtn->setButtonChecked(Qt::Checked);
 	}
+}
+
+void AllowList::compactBtnClicked()
+{
+	QRect geometry = AppSetting::getInstance()->getAppGeometry();
+	transparent->showWidget();
+	m_compactDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 160);
+	m_compactDialog->showDialog();
+	transparent->hide();
 }
 
 void AllowList::setSlowText(QString text)
@@ -373,4 +387,9 @@ void AllowList::setButtonStyle()
 void AllowList::changeTheme()
 {
 	setStyle();
+}
+
+void AllowList::runCompactAllowList()
+{
+	qDebug() << "runCompactAllowList";
 }

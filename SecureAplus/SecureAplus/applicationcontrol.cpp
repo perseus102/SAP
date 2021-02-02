@@ -99,19 +99,19 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_allowListTab->setFixedHeight(530);
 
 	m_tabStackedWidget->addWidget(m_restrictedAppTab);
-	m_restrictedAppTab->setFixedHeight(450);
+	//m_restrictedAppTab->setFixedHeight(450);
 
 	m_tabStackedWidget->addWidget(m_trustedCertificateTab);
-	m_trustedCertificateTab->setFixedHeight(450);
+	//m_trustedCertificateTab->setFixedHeight(450);
 
 	m_tabStackedWidget->addWidget(m_scriptsTab);
-	m_scriptsTab->setFixedHeight(450);
+	//m_scriptsTab->setFixedHeight(450);
 
 	m_tabStackedWidget->addWidget(m_commandLineTab);
-	m_commandLineTab->setFixedHeight(450);
+	//m_commandLineTab->setFixedHeight(450);
 
 	m_tabStackedWidget->addWidget(m_processProtectorTab);
-	m_processProtectorTab->setFixedHeight(450);
+	//m_processProtectorTab->setFixedHeight(450);
 
 
 	m_scrollView = new SAPSCrollArea(QMargins(0, 0, 5, 30));
@@ -399,73 +399,91 @@ void ApplicationControl::resizeTab()
 {
 	QSize size = this->size();
 	qDebug() << size;
-	if (size.width() < 450) size = QSize(489, 500);
+	//if (size.width() < 450) size = QSize(489, 500);
+	size.setHeight(size.height() - 50);
 
 	//100 is ClickableLabel width
 	if (m_activeTab == m_digitalSignature)
 	{
-		if (size.height() <= m_digitalSignatureTab->height())
-		{
-			m_digitalSignatureTab->resize(size.width() - 100, m_digitalSignatureTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_digitalSignatureTab->height());
-		}
-		else
-		{
-			m_digitalSignatureTab->resize(size.width() - 100, m_digitalSignatureTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_digitalSignatureTab->height());
-		}
+		//if (size.height() <= m_digitalSignatureTab->height())
+		//{
+		//	m_digitalSignatureTab->resize(size.width() - 100, m_digitalSignatureTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_digitalSignatureTab->height());
+		//}
+		//else
+		//{
+		//	m_digitalSignatureTab->resize(size.width() - 100, m_digitalSignatureTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_digitalSignatureTab->height());
+		//}
+
+		m_digitalSignatureTab->resize(size.width() - 100, m_digitalSignatureTab->height());
+		m_tabStackedWidget->resize(size.width() - 100, m_digitalSignatureTab->height());
 	}
 	else if (m_activeTab == m_allowList)
 	{
-		if (size.height() <= m_allowListTab->height())
-		{
-			m_allowListTab->resize(size.width() - 100, m_allowListTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_allowListTab->height());
-		}
-		else
-		{
-			m_allowListTab->resize(size.width() - 100, m_allowListTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_allowListTab->height());
-		}
+		//if (size.height() <= m_allowListTab->height())
+		//{
+		//	m_allowListTab->resize(size.width() - 100, m_allowListTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_allowListTab->height());
+		//}
+		//else
+		//{
+		//	m_allowListTab->resize(size.width() - 100, m_allowListTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_allowListTab->height());
+		//}
+
+		m_allowListTab->resize(size.width() - 100, m_allowListTab->height());
+		m_tabStackedWidget->resize(size.width() - 100, m_allowListTab->height());
 	}
 	else if (m_activeTab == m_restrictApp)
 	{
-		if (size.height() <= m_restrictedAppTab->height())
-		{
-			m_restrictedAppTab->resize(size.width() - 100, m_restrictedAppTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_restrictedAppTab->height());
-		}
-		else
-		{
-			m_restrictedAppTab->resize(size.width() - 100, m_restrictedAppTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_restrictedAppTab->height());
-		}
+		//if (size.height() <= m_restrictedAppTab->height())
+		//{
+		//	m_restrictedAppTab->resize(size.width() - 100, m_restrictedAppTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_restrictedAppTab->height());
+		//}
+		//else
+		//{
+		//	m_restrictedAppTab->resize(size.width() - 100, m_restrictedAppTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_restrictedAppTab->height());
+		//}
+		//m_restrictedAppTab->setFixedHeight(size.height());
+		m_restrictedAppTab->resize(size.width() - 100, size.height());
+		m_tabStackedWidget->resize(size.width() - 100, size.height());
 	}
 	else if (m_activeTab == m_trustedCertificate)
 	{
-		if (size.height() <= m_trustedCertificateTab->height())
-		{
-			m_trustedCertificateTab->resize(size.width() - 100, m_trustedCertificateTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_trustedCertificateTab->height());
-		}
-		else
-		{
-			m_trustedCertificateTab->resize(size.width() - 100, m_trustedCertificateTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_trustedCertificateTab->height());
-		}
+		//m_trustedCertificateTab->setFixedHeight(size.height());
+
+		//if (size.height() <= m_trustedCertificateTab->height())
+		//{
+		//	m_trustedCertificateTab->resize(size.width() - 100, m_trustedCertificateTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_trustedCertificateTab->height());
+		//}
+		//else
+		//{
+		//	m_trustedCertificateTab->resize(size.width() - 100, m_trustedCertificateTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_trustedCertificateTab->height());
+		//}
+
+		m_trustedCertificateTab->resize(size.width() - 100, size.height());
+		m_tabStackedWidget->resize(size.width() - 100, size.height());
 	}
 	else if (m_activeTab == m_scripts)
 	{
-		if (size.height() <= m_scriptsTab->height())
-		{
-			m_scriptsTab->resize(size.width() - 100, m_scriptsTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_scriptsTab->height());
-		}
-		else
-		{
-			m_scriptsTab->resize(size.width() - 100, m_scriptsTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_scriptsTab->height());
-		}
+		//if (size.height() <= m_scriptsTab->height())
+		//{
+		//	m_scriptsTab->resize(size.width() - 100, m_scriptsTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_scriptsTab->height());
+		//}
+		//else
+		//{
+		//	m_scriptsTab->resize(size.width() - 100, m_scriptsTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_scriptsTab->height());
+		//}
+		//m_scriptsTab->setFixedHeight(size.height());
+		m_scriptsTab->resize(size.width() - 100, size.height());
+		m_tabStackedWidget->resize(size.width() - 100, size.height());
 	}
 	else if (m_activeTab == m_cmdRules)
 	{
@@ -482,28 +500,34 @@ void ApplicationControl::resizeTab()
 	}
 	else if (m_activeTab == m_allowedListCmd)
 	{
-		if (size.height() <= m_commandLineTab->height())
-		{
-			m_commandLineTab->resize(size.width() - 100, m_commandLineTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_commandLineTab->height());
-		}
-		else
-		{
-			m_commandLineTab->resize(size.width() - 100, m_commandLineTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_commandLineTab->height());
-		}
+		//if (size.height() <= m_commandLineTab->height())
+		//{
+		//	m_commandLineTab->resize(size.width() - 100, m_commandLineTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_commandLineTab->height());
+		//}
+		//else
+		//{
+		//	m_commandLineTab->resize(size.width() - 100, m_commandLineTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_commandLineTab->height());
+		//}
+		//m_commandLineTab->setFixedHeight(size.height());
+		m_commandLineTab->resize(size.width() - 100, size.height());
+		m_tabStackedWidget->resize(size.width() - 100, size.height());
 	}
 	else if (m_activeTab == m_processProtector)
 	{
-		if (size.height() <= m_processProtectorTab->height())
-		{
-			m_processProtectorTab->resize(size.width() - 100, m_processProtectorTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_processProtectorTab->height());
-		}
-		else
-		{
-			m_processProtectorTab->resize(size.width() - 100, m_processProtectorTab->height());
-			m_tabStackedWidget->resize(size.width() - 100, m_processProtectorTab->height());
-		}
+		//if (size.height() <= m_processProtectorTab->height())
+		//{
+		//	m_processProtectorTab->resize(size.width() - 100, m_processProtectorTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_processProtectorTab->height());
+		//}
+		//else
+		//{
+		//	m_processProtectorTab->resize(size.width() - 100, m_processProtectorTab->height());
+		//	m_tabStackedWidget->resize(size.width() - 100, m_processProtectorTab->height());
+		//}
+		//m_processProtectorTab->setFixedHeight(size.height());
+		m_processProtectorTab->resize(size.width() - 100, size.height());
+		m_tabStackedWidget->resize(size.width() - 100, size.height());
 	}
 }

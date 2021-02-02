@@ -25,16 +25,20 @@ TrustedCertificate::TrustedCertificate(QWidget *parent)
 
 	QWidget* bottomBtns = new QWidget();
 	bottomBtns->setFixedHeight(30);
+
 	QHBoxLayout* btnsLayout = new QHBoxLayout();
 	btnsLayout->setContentsMargins(0, 0, 0, 0);
 	btnsLayout->setSpacing(0);
 	bottomBtns->setLayout(btnsLayout);
 
-	m_resetToDefaultBtn = new ClickableLabel();
-	m_resetToDefaultBtn->setFixedSize(100, 30);
-	m_resetToDefaultBtn->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	m_resetToDefaultBtn->setFont(FONT);
-	m_resetToDefaultBtn->setText("Reset to Defaults");
+	//m_resetToDefaultBtn = new ClickableLabel();
+	//m_resetToDefaultBtn->setFixedSize(100, 30);
+	//m_resetToDefaultBtn->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+	//m_resetToDefaultBtn->setFont(FONT);
+	//m_resetToDefaultBtn->setText("Reset to Defaults");
+
+	m_resetBtn = new ResetButton();
+	m_resetBtn->setFixedSize(16, 16);
 
 	QLabel* centerBtnsSpacer = new QLabel();
 
@@ -52,7 +56,7 @@ TrustedCertificate::TrustedCertificate(QWidget *parent)
 	m_addBtn->setFont(FONT);
 	m_addBtn->setText("Add");
 
-	btnsLayout->addWidget(m_resetToDefaultBtn);
+	btnsLayout->addWidget(m_resetBtn);
 	btnsLayout->addWidget(centerBtnsSpacer);
 	btnsLayout->addWidget(m_removeBtn);
 	btnsLayout->addWidget(btnsSpacer);
@@ -78,8 +82,8 @@ TrustedCertificate::TrustedCertificate(QWidget *parent)
 
 	connect(m_addBtn, &QPushButton::clicked, this, &TrustedCertificate::addButtonClicked);
 
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, this, &TrustedCertificate::resetToDefaultClicked);
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, m_certificateTable, &CertificateTable::resetToDefault);
+	connect(m_resetBtn, &ResetButton::clicked, this, &TrustedCertificate::resetToDefaultClicked);
+	connect(m_resetBtn, &ResetButton::signalResetToDefault, m_certificateTable, &CertificateTable::resetToDefault);
 	
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &TrustedCertificate::changeTheme);
 
@@ -121,7 +125,7 @@ void TrustedCertificate::setStyle()
 
 		m_certificateDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
-		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
+		//m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
 		m_addBtn->setStyleSheet("QPushButton {background-color:none;"
 			"color: " + TAB_CONTENT_DESC_TEXT_LT + ";"
@@ -133,7 +137,7 @@ void TrustedCertificate::setStyle()
 
 		m_certificateDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
-		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
+		//m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		setRemoveBtnStyle();
 

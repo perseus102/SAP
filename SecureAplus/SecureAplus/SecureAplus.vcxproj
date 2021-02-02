@@ -193,6 +193,9 @@
     <ClCompile Include="addresappdialog.cpp" />
     <ClCompile Include="allowlist.cpp" />
     <ClCompile Include="allowliststatus.cpp" />
+    <ClCompile Include="compactdialog.cpp" />
+    <ClCompile Include="resetbutton.cpp" />
+    <ClCompile Include="resetdialog.cpp" />
     <ClCompile Include="settingsanitivirus.cpp" />
     <ClCompile Include="apexrealtimedialog.cpp" />
     <ClCompile Include="applicationcontrol.cpp" />
@@ -263,6 +266,7 @@
     <QtUic Include="commandline.ui" />
     <QtUic Include="commandlinerule.ui" />
     <QtUic Include="commandlinetable.ui" />
+    <QtUic Include="compactdialog.ui" />
     <QtUic Include="digitalsignature.ui" />
     <QtUic Include="featuredetails.ui" />
     <QtUic Include="featurestatus.ui" />
@@ -288,6 +292,8 @@
     <QtUic Include="processprotectortable.ui" />
     <QtUic Include="protectionmodes.ui" />
     <QtUic Include="rectrictedapp.ui" />
+    <QtUic Include="resetbutton.ui" />
+    <QtUic Include="resetdialog.ui" />
     <QtUic Include="sapcheckbox.ui" />
     <QtUic Include="sapcombobox.ui" />
     <QtUic Include="sapradiobutton.ui" />
@@ -352,6 +358,7 @@
     <QtMoc Include="addcommandlinedialog.h" />
     <QtMoc Include="commandlinerule.h" />
     <QtMoc Include="addprocessprotectordialog.h" />
+    <QtMoc Include="compactdialog.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />
@@ -370,6 +377,8 @@
     <QtMoc Include="restrictedapp.h" />
     <QtMoc Include="processprotector.h" />
     <QtMoc Include="processprotectortable.h" />
+    <QtMoc Include="resetbutton.h" />
+    <QtMoc Include="resetdialog.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="settingscontent.h" />
     <QtMoc Include="settinggridcontent.h" />

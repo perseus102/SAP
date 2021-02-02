@@ -21,11 +21,8 @@ CommandLine::CommandLine(QWidget *parent)
 	btnsLayout->setSpacing(0);
 	bottomBtns->setLayout(btnsLayout);
 
-	m_resetToDefaultBtn = new ClickableLabel();
-	m_resetToDefaultBtn->setFixedSize(100, 30);
-	m_resetToDefaultBtn->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	m_resetToDefaultBtn->setFont(FONT);
-	m_resetToDefaultBtn->setText("Reset to Defaults");
+	m_resetBtn = new ResetButton();
+	m_resetBtn->setFixedSize(16, 16);
 
 	QLabel* centerBtnsSpacer = new QLabel();
 
@@ -43,7 +40,7 @@ CommandLine::CommandLine(QWidget *parent)
 	m_addBtn->setFont(FONT);
 	m_addBtn->setText("Add");
 
-	btnsLayout->addWidget(m_resetToDefaultBtn);
+	btnsLayout->addWidget(m_resetBtn);
 	btnsLayout->addWidget(centerBtnsSpacer);
 	btnsLayout->addWidget(m_removeBtn);
 	btnsLayout->addWidget(btnsSpacer);
@@ -67,8 +64,8 @@ CommandLine::CommandLine(QWidget *parent)
 
 	connect(m_addBtn, &QPushButton::clicked, this, &CommandLine::addButtonClicked);
 
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, this, &CommandLine::resetToDefaultClicked);
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, m_commandLineTable, &CommandLineTable::resetToDefault);
+	connect(m_resetBtn, &ResetButton::clicked, this, &CommandLine::resetToDefaultClicked);
+	connect(m_resetBtn, &ResetButton::signalResetToDefault, m_commandLineTable, &CommandLineTable::resetToDefault);
 
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &CommandLine::changeTheme);
 
@@ -111,8 +108,6 @@ void CommandLine::setStyle()
 
 		setRemoveBtnStyle();
 
-		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
-
 		m_addBtn->setStyleSheet("QPushButton {background-color:none;"
 			"color: " + TAB_CONTENT_DESC_TEXT_LT + ";"
 			"border-radius:2px;"
@@ -120,8 +115,6 @@ void CommandLine::setStyle()
 		break;
 
 	case Theme_Type::Dark_Theme:
-
-		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		setRemoveBtnStyle();
 

@@ -5,7 +5,6 @@ SAPRadioButton::SAPRadioButton(QWidget *parent)
 {
 	ui.setupUi(this);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SAPRadioButton::changeTheme);
-
 }
 
 SAPRadioButton::~SAPRadioButton()

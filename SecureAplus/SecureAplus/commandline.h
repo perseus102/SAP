@@ -10,7 +10,7 @@
 #include "widgettransparent.h"
 #include "commandlinetable.h"
 #include "addcommandlinedialog.h"
-
+#include "resetbutton.h"
 class CommandLine : public QWidget
 {
 	Q_OBJECT
@@ -37,7 +37,7 @@ private:
 
 	CommandLineTable*	m_commandLineTable;
 
-	ClickableLabel*		m_resetToDefaultBtn;
+	ResetButton*		m_resetBtn;
 
 	WidgetTransparent*	transparent;
 	AddCommandLineDialog* m_addCommandLineDialog;

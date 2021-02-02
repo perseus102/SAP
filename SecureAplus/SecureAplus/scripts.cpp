@@ -29,11 +29,8 @@ Scripts::Scripts(QWidget *parent)
 	btnsLayout->setSpacing(0);
 	bottomBtns->setLayout(btnsLayout);
 
-	m_resetToDefaultBtn = new ClickableLabel();
-	m_resetToDefaultBtn->setFixedSize(100, 30);
-	m_resetToDefaultBtn->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	m_resetToDefaultBtn->setFont(FONT);
-	m_resetToDefaultBtn->setText("Reset to Defaults");
+	m_resetBtn = new ResetButton();
+	m_resetBtn->setFixedSize(16, 16);
 
 	QLabel* centerBtnsSpacer = new QLabel();
 
@@ -51,7 +48,7 @@ Scripts::Scripts(QWidget *parent)
 	m_addBtn->setFont(FONT);
 	m_addBtn->setText("Add");
 
-	btnsLayout->addWidget(m_resetToDefaultBtn);
+	btnsLayout->addWidget(m_resetBtn);
 	btnsLayout->addWidget(centerBtnsSpacer);
 	btnsLayout->addWidget(m_removeBtn);
 	btnsLayout->addWidget(btnsSpacer);
@@ -77,8 +74,8 @@ Scripts::Scripts(QWidget *parent)
 
 	connect(m_addBtn, &QPushButton::clicked, this, &Scripts::addButtonClicked);
 
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, this, &Scripts::resetToDefaultClicked);
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, m_scriptsTable, &ScriptsTable::resetToDefault);
+	connect(m_resetBtn, &ResetButton::clicked, this, &Scripts::resetToDefaultClicked);
+	connect(m_resetBtn, &ResetButton::signalResetToDefault, m_scriptsTable, &ScriptsTable::resetToDefault);
 
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &Scripts::changeTheme);
 
@@ -122,8 +119,6 @@ void Scripts::setStyle()
 
 		setRemoveBtnStyle();
 
-		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
-		
 		m_scriptsDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
 		m_addBtn->setStyleSheet("QPushButton {background-color:none;"
@@ -133,8 +128,6 @@ void Scripts::setStyle()
 		break;
 
 	case Theme_Type::Dark_Theme:
-
-		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		m_scriptsDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 

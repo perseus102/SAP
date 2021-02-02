@@ -10,6 +10,8 @@
 #include "allowliststatus.h"
 #include "sapradiobutton.h"
 #include "clickablelabel.h"
+#include "compactdialog.h"
+#include "widgettransparent.h"
 class AllowList : public QWidget
 {
 	Q_OBJECT
@@ -21,6 +23,10 @@ private slots:
 	void changeTheme();
 	void radioButtonClicked();
 	void textClicked();
+	void compactBtnClicked();
+
+public slots:
+	void runCompactAllowList();
 
 private:
 	Ui::AllowList ui;
@@ -55,5 +61,6 @@ private:
 	void setLabelText();
 	void setButtonStyle();
 	
-
+	WidgetTransparent*	transparent;
+	CompactDialog* m_compactDialog;
 };

@@ -10,7 +10,7 @@
 #include <QPushButton>
 #include "widgettransparent.h"
 #include "addscriptdialog.h"
-
+#include "resetbutton.h"
 class Scripts : public QWidget
 {
 	Q_OBJECT
@@ -39,7 +39,7 @@ private:
 
 	ScriptsTable*	m_scriptsTable;
 
-	ClickableLabel*		m_resetToDefaultBtn;
+	ResetButton*		m_resetBtn;
 
 	WidgetTransparent*	transparent;
 	AddScriptDialog*	m_addScriptDialog;

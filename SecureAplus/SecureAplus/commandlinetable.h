@@ -15,6 +15,7 @@ struct CommandLineRow
 	SAPCheckBox* checkBox;
 	QLabel*	commandLine;
 	QLabel* line;
+	QPushButton* copyBtn;
 };
 class CommandLineTable : public QWidget
 {
@@ -49,6 +50,7 @@ private:
 	QWidget*		m_titleWg;
 	SAPCheckBox*	m_checkAllBox;
 	QLabel*			m_commandLine;
+	QLabel*			m_action;
 
 	QVBoxLayout*	m_layout;
 	SAPSCrollArea*	m_scrollView;

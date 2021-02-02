@@ -37,11 +37,8 @@ RestrictedApp::RestrictedApp(QWidget *parent)
 	btnsLayout->setSpacing(0);
 	bottomBtns->setLayout(btnsLayout);
 
-	m_resetToDefaultBtn = new ClickableLabel();
-	m_resetToDefaultBtn->setFixedSize(100, 30);
-	m_resetToDefaultBtn->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	m_resetToDefaultBtn->setFont(FONT);
-	m_resetToDefaultBtn->setText("Reset to Defaults");
+	m_resetBtn = new ResetButton();
+	m_resetBtn->setFixedSize(16, 16);
 
 	QLabel* centerBtnsSpacer = new QLabel();
 	
@@ -59,7 +56,7 @@ RestrictedApp::RestrictedApp(QWidget *parent)
 	m_addBtn->setFont(FONT);
 	m_addBtn->setText("Add");
 
-	btnsLayout->addWidget(m_resetToDefaultBtn);
+	btnsLayout->addWidget(m_resetBtn);
 	btnsLayout->addWidget(centerBtnsSpacer);
 	btnsLayout->addWidget(m_removeBtn);
 	btnsLayout->addWidget(btnsSpacer);
@@ -87,8 +84,8 @@ RestrictedApp::RestrictedApp(QWidget *parent)
 
 	connect(m_addBtn, &QPushButton::clicked, this, &RestrictedApp::addButtonClicked);
 
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, this, &RestrictedApp::resetToDefaultClicked);
-	connect(m_resetToDefaultBtn, &ClickableLabel::clicked, m_fileNameTable, &FileNameTable::resetToDefault);
+	connect(m_resetBtn, &ResetButton::clicked, this, &RestrictedApp::resetToDefaultClicked);
+	connect(m_resetBtn, &ResetButton::signalResetToDefault, m_fileNameTable, &FileNameTable::resetToDefault);
 
 	connect(m_fileNameTable, &FileNameTable::addWord, m_searchWg, &Search::addWordList);
 	connect(m_fileNameTable, &FileNameTable::removeWord, m_searchWg, &Search::removeWordList);
@@ -169,8 +166,6 @@ void RestrictedApp::setStyle()
 	case Theme_Type::Light_Theme:
 		m_description->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 		
-		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
-		
 		setRemoveBtnStyle();
 
 		m_addBtn->setStyleSheet("QPushButton {background-color:none;"
@@ -181,8 +176,6 @@ void RestrictedApp::setStyle()
 
 	case Theme_Type::Dark_Theme:
 		m_description->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
-		
-		m_resetToDefaultBtn->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 		
 		setRemoveBtnStyle();
 

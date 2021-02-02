@@ -11,6 +11,7 @@
 #include "addresappdialog.h"
 #include "widgettransparent.h"
 #include "clickablelabel.h"
+#include "resetbutton.h"
 
 class RestrictedApp : public QWidget
 {
@@ -40,7 +41,7 @@ private:
 	QPushButton*	m_removeBtn;
 	QPushButton*	m_addBtn;
 
-	ClickableLabel*			m_resetToDefaultBtn;
+	ResetButton*		m_resetBtn;
 
 	FileNameTable*		m_fileNameTable;
 	AddResAppDialog*	m_addResAppDialog;

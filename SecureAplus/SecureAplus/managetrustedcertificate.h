@@ -10,6 +10,7 @@
 #include "widgettransparent.h"
 #include "clickablelabel.h"
 #include "addtrustedcertdialog.h"
+#include "resetbutton.h"
 
 class TrustedCertificate : public QWidget
 {
@@ -37,7 +38,7 @@ private:
 
 	QLabel*	m_certificateDesc;
 
-	ClickableLabel*		m_resetToDefaultBtn;
+	ResetButton*		m_resetBtn;
 
 	CertificateTable*	m_certificateTable;
 

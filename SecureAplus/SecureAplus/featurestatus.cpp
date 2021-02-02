@@ -780,8 +780,6 @@ void FeatureStatus::refresh()
 
 	getSecurityFeatureString(str, m_featureName);
 
-
-
 	QStringList splitStr = str.split(":");
 
 	qDebug()<< m_featureName << str << splitStr[1];
