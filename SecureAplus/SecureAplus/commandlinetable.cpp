@@ -21,7 +21,6 @@ CommandLineTable::CommandLineTable(QWidget *parent)
 
 	m_checkAllBox = new SAPCheckBox(true);
 	m_checkAllBox->setFixedSize(18, 36);
-
 	m_checkAllBox->setButtonChecked(Qt::Unchecked);
 
 	QLabel* checkboxSpacer = new QLabel();
@@ -64,6 +63,9 @@ CommandLineTable::CommandLineTable(QWidget *parent)
 
 	m_layout->addWidget(bottomSpacer);
 
+	transparent = new WidgetTransparent();
+	m_copyCommandLineDlg = new CopyCommandLineDialog();
+
 	setLayout(m_layout);
 	setStyle();
 
@@ -74,6 +76,8 @@ CommandLineTable::CommandLineTable(QWidget *parent)
 	//connect(m_scrollView->verticalScrollBar(), &QScrollBar::valueChanged, this, &CommandLineTable::scrollbarChangeValue);
 	//connect(m_scrollView->verticalScrollBar(), &QScrollBar::rangeChanged, this, &CommandLineTable::scrollBarRangeChanged);
 	
+	connect(m_copyCommandLineDlg, &CopyCommandLineDialog::copyToClipBoard, this, &CommandLineTable::copyCmdLineToClipBoard);
+
 	QString rowString;
 
 	for (int a = 1; a <= 10; a++)
@@ -146,6 +150,28 @@ void CommandLineTable::scrollbarChangeValue(int value)
 	//resizeLabel();
 }
 
+void CommandLineTable::copyBtnClicked()
+{
+	auto sender = this->sender();
+	QString commandLine;
+	for (auto& row : m_commandLineRowMap)
+		if (sender == row->copyBtn)
+		{
+			commandLine = row->commandLine->toolTip();
+			break;
+		}
+	QRect geometry = AppSetting::getInstance()->getAppGeometry();
+	transparent->showWidget();
+	m_copyCommandLineDlg->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 244);
+	m_copyCommandLineDlg->showDialog(commandLine);
+	transparent->hide();
+}
+
+void CommandLineTable::copyCmdLineToClipBoard(QString commandLine)
+{
+	QApplication::clipboard()->setText(commandLine);
+}
+
 void CommandLineTable::AddCommandLine(QString commandLine)
 {
 	CommandLineRow* row = new CommandLineRow();
@@ -182,9 +208,10 @@ void CommandLineTable::AddCommandLine(QString commandLine)
 	btnLayout->setSpacing(0);
 	btnWg->setLayout(btnLayout);
 
-	row->copyBtn = new QPushButton();
+	row->copyBtn = new CopyButton();
 	row->copyBtn->setFixedSize(18, 18);
 	btnLayout->addWidget(row->copyBtn);
+	row->copyBtn->setObjectName(QString::number(m_rowCount));
 
 	row->line = new QLabel();
 	row->line->setFixedHeight(2);
@@ -217,6 +244,7 @@ void CommandLineTable::AddCommandLine(QString commandLine)
 	}
 
 	connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &CommandLineTable::rowCheckBoxSetCheck);
+	connect(row->copyBtn, &CopyButton::clicked, this, &CommandLineTable::copyBtnClicked);
 }
 
 void CommandLineTable::AddCommandLineFromDialog(QString commandLine)
@@ -435,11 +463,10 @@ void CommandLineTable::resizeLabel()
 	QFontMetrics fm(FONT);
 
 	QString commandLine, commandLineRow1, commandLineRow2;
-	bool isRow1 = true;
 
 	for (auto& row : m_commandLineRowMap)
 	{
-
+		bool isRow1 = true;
 		fullTextWidth = fm.width(row->commandLine->toolTip());
 		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/ - 90);
 		defaultCharsNum = 55;  
@@ -447,7 +474,10 @@ void CommandLineTable::resizeLabel()
 
 		do
 		{
-			if(isRow1) commandLine = row->commandLine->toolTip();
+			if (isRow1)
+			{
+				commandLine = row->commandLine->toolTip();
+			}
 
 			if (!isRow1)
 			{

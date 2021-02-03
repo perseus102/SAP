@@ -204,6 +204,9 @@ void SettingsAnitivirus::toggleClicked()
 		if (m_APEXRealtimeToggle->isChecked())
 		{
 			//do somthing
+			//AppSetting::getInstance()->changeProtectModeByOtherSetting(Protection_Modes::Automatic_Mode);
+			//emit setDisableRealTimeScan(false);
+			//do somthing
 			QRect geometry = AppSetting::getInstance()->getAppGeometry();
 			transparent->showWidget();
 			m_APEXRealtimeScanDlg->setGeometry(geometry.x() + (geometry.width() / 2) - 220, geometry.y() + 16, 440, 170);
@@ -211,30 +214,46 @@ void SettingsAnitivirus::toggleClicked()
 			transparent->hide();
 			if (m_APEXRealtimeScanDlg->getBtnClicked() == QDialog::Accepted)
 			{
-				m_APEXRealtimeToggle->setChecked(false);
 				AppSetting::getInstance()->changeProtectModeByOtherSetting(Protection_Modes::Lockdown_Default);
 				emit setDisableRealTimeScan(true);
 			}
 			else
 			{
 				//do somthing
-				
+				return;
 			}
 		}
 		else
 		{
-			//do somthing
+			////do somthing
+			//QRect geometry = AppSetting::getInstance()->getAppGeometry();
+			//transparent->showWidget();
+			//m_APEXRealtimeScanDlg->setGeometry(geometry.x() + (geometry.width() / 2) - 220, geometry.y() + 16, 440, 170);
+			//m_APEXRealtimeScanDlg->showDialog();
+			//transparent->hide();
+			//if (m_APEXRealtimeScanDlg->getBtnClicked() == QDialog::Accepted)
+			//{
+			//	AppSetting::getInstance()->changeProtectModeByOtherSetting(Protection_Modes::Lockdown_Default);
+			//	emit setDisableRealTimeScan(true);
+			//}
+			//else
+			//{
+			//	//do somthing
+			//	m_APEXRealtimeToggle->setChecked(true);
+			//	return;
+			//}
 			AppSetting::getInstance()->changeProtectModeByOtherSetting(Protection_Modes::Automatic_Mode);
 			emit setDisableRealTimeScan(false);
-		}
-		bool ischecked = m_APEXRealtimeToggle->isChecked();
 
-		dwLastError = SecureaplusSettingsEnableRealTime(m_APEXRealtimeToggle->isChecked());
+		}
+		bool ischecked = !m_APEXRealtimeToggle->isChecked();
+
+		dwLastError = SecureaplusSettingsEnableRealTime(ischecked);
 
 		if (dwLastError == 0)
 		{
 			//When real-time is ON, there has to be at least 1 active engine.
-			if (!m_APEXRealtimeToggle->isChecked() == TRUE && IsDeepAVEnabled() == FALSE && IsOfflineAVEnabled() == FALSE && IsUniversalAVEnabledForRealTimeScanning() == FALSE)
+			if (ischecked == TRUE && IsDeepAVEnabled() == FALSE && IsOfflineAVEnabled() == FALSE && IsUniversalAVEnabledForRealTimeScanning() == FALSE)
 			{
 				if (IsDeepAVAvailable()) //IsOfflineAVAvailable()
 				{
@@ -245,6 +264,10 @@ void SettingsAnitivirus::toggleClicked()
 					SecureaplusAdminEnableUAVForRealTimeScanning(FALSE);
 				}
 			}
+		}
+		if (m_APEXRealtimeToggle->isChecked())
+		{
+			m_APEXRealtimeToggle->setChecked(false);
 		}
 	}
 	else if (sender() == m_registerToggle)

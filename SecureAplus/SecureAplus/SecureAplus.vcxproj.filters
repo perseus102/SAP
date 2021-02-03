@@ -449,6 +449,12 @@
     <ClCompile Include="resetdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="copybutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="copycommandlinedialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="framelesswindow\framelesswindow.h">
@@ -637,6 +643,12 @@
     <QtMoc Include="resetdialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="copybutton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="copycommandlinedialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -817,6 +829,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="resetdialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="copybutton.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="copycommandlinedialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

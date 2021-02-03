@@ -82,7 +82,7 @@ void CommandLine::addButtonClicked()
 {
 	QRect geometry = AppSetting::getInstance()->getAppGeometry();
 	transparent->showWidget();
-	m_addCommandLineDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 300);
+	m_addCommandLineDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 244);
 	m_addCommandLineDialog->showDialog();
 	transparent->hide();
 }

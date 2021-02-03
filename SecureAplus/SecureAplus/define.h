@@ -201,6 +201,9 @@
 /* Define for reset button icon */
 #define RESET_BUTTON_ICON					QString(":/images/reset button/reset_button_icon.svg")
 
+/* Define for copy button icon */
+#define COPY_BUTTON_ICON					QString(":/images/copy button/copy_button_icon.svg")
+
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
 

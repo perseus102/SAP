@@ -39,7 +39,7 @@ CompactDialog::CompactDialog(QDialog *parent)
 	m_startBtn = new QPushButton();
 	m_startBtn->setFixedSize(80, 30);
 	m_startBtn->setFont(FONT);
-	m_startBtn->setText("Add File");
+	m_startBtn->setText("Start");
 
 	buttonLayout->addWidget(btnLeftSpacer);
 	buttonLayout->addWidget(m_cancelBtn);

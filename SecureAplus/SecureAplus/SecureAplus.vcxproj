@@ -194,6 +194,8 @@
     <ClCompile Include="allowlist.cpp" />
     <ClCompile Include="allowliststatus.cpp" />
     <ClCompile Include="compactdialog.cpp" />
+    <ClCompile Include="copybutton.cpp" />
+    <ClCompile Include="copycommandlinedialog.cpp" />
     <ClCompile Include="resetbutton.cpp" />
     <ClCompile Include="resetdialog.cpp" />
     <ClCompile Include="settingsanitivirus.cpp" />
@@ -267,6 +269,8 @@
     <QtUic Include="commandlinerule.ui" />
     <QtUic Include="commandlinetable.ui" />
     <QtUic Include="compactdialog.ui" />
+    <QtUic Include="copybutton.ui" />
+    <QtUic Include="copycommandlinedialog.ui" />
     <QtUic Include="digitalsignature.ui" />
     <QtUic Include="featuredetails.ui" />
     <QtUic Include="featurestatus.ui" />
@@ -360,6 +364,8 @@
     <QtMoc Include="addprocessprotectordialog.h" />
     <QtMoc Include="compactdialog.h" />
     <ClInclude Include="Config.h" />
+    <QtMoc Include="copybutton.h" />
+    <QtMoc Include="copycommandlinedialog.h" />
     <ClInclude Include="define.h" />
     <QtMoc Include="homecontent.h" />
     <QtMoc Include="homemaincontent.h" />

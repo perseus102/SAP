@@ -8,6 +8,10 @@
 #include "appsetting.h"
 #include "sapcheckbox.h"
 #include "sapscrollarea.h"
+#include "copybutton.h"
+#include "copycommandlinedialog.h"
+#include "widgettransparent.h"
+#include <QClipboard>
 
 struct CommandLineRow
 {
@@ -15,7 +19,7 @@ struct CommandLineRow
 	SAPCheckBox* checkBox;
 	QLabel*	commandLine;
 	QLabel* line;
-	QPushButton* copyBtn;
+	CopyButton* copyBtn;
 };
 class CommandLineTable : public QWidget
 {
@@ -31,6 +35,8 @@ private slots:
 	void scrollBarRangeChanged(int min, int max);
 	void rowCheckBoxSetCheck(Qt::CheckState);
 	void scrollbarChangeValue(int value);
+	void copyBtnClicked();
+	void copyCmdLineToClipBoard(QString commandLine);
 
 public slots:
 	void AddCommandLine(QString commandLine);
@@ -57,6 +63,8 @@ private:
 	QWidget*		m_rowWg;
 	QVBoxLayout*	m_rowLayout;
 
+	WidgetTransparent*	transparent;
+	CopyCommandLineDialog*	m_copyCommandLineDlg;
 
 	QList<QString> m_defaultList;
 	QList<CommandLineRow*> m_commandLineRowMap;

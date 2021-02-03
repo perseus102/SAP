@@ -1,6 +1,6 @@
-#include "addcommandlinedialog.h"
+#include "copycommandlinedialog.h"
 
-AddCommandLineDialog::AddCommandLineDialog(QDialog *parent)
+CopyCommandLineDialog::CopyCommandLineDialog(QDialog *parent)
 	: QDialog(parent, Qt::FramelessWindowHint)
 {
 	ui.setupUi(this);
@@ -15,16 +15,17 @@ AddCommandLineDialog::AddCommandLineDialog(QDialog *parent)
 	m_titleText->setFixedHeight(20);
 	m_titleText->setWordWrap(true);
 	m_titleText->setFont(LARGE_FONT);
-	m_titleText->setText("Add Command Line");
+	m_titleText->setText("Copy Command Line");
 
 	QLabel* titleSpacer = new QLabel();
 	titleSpacer->setFixedHeight(20);
 
 	m_commandLine = new QTextEdit();
 	m_commandLine->setFont(FONT);
-	m_commandLine->setFixedHeight(100);
+	m_commandLine->setFixedHeight(120);
 	m_commandLine->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	m_commandLine->setPlaceholderText("Input Command Line");
+	m_commandLine->setPlaceholderText(m_commandLineStr);
+	m_commandLine->setReadOnly(true);
 
 	QLabel *buttonSpacer = new QLabel();
 	buttonSpacer->setFixedHeight(20);
@@ -47,16 +48,15 @@ AddCommandLineDialog::AddCommandLineDialog(QDialog *parent)
 	QLabel* centerBtnSpacer = new QLabel();
 	centerBtnSpacer->setFixedWidth(8);
 
-	m_addFileBtn = new QPushButton();
-	m_addFileBtn->setFixedSize(80, 30);
-	m_addFileBtn->setFont(FONT);
-	m_addFileBtn->setText("Add File");
-	m_addFileBtn->setEnabled(false);
+	m_copyBtn = new QPushButton();
+	m_copyBtn->setFixedSize(80, 30);
+	m_copyBtn->setFont(FONT);
+	m_copyBtn->setText("Copy");
 
 	buttonLayout->addWidget(btnLeftSpacer);
 	buttonLayout->addWidget(m_cancelBtn);
 	buttonLayout->addWidget(centerBtnSpacer);
-	buttonLayout->addWidget(m_addFileBtn);
+	buttonLayout->addWidget(m_copyBtn);
 
 	QLabel* bottomSpacer = new QLabel();
 
@@ -69,60 +69,47 @@ AddCommandLineDialog::AddCommandLineDialog(QDialog *parent)
 
 	setLayout(m_cmdLayout);
 	setStyle();
-	setAddBtnStyle();
-
-	connect(m_cancelBtn, &QPushButton::clicked, this, &AddCommandLineDialog::cancelClicked);
-	connect(m_addFileBtn, &QPushButton::clicked, this, &AddCommandLineDialog::addFileClicked);
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &AddCommandLineDialog::changeTheme);
-	connect(m_commandLine, &QTextEdit::textChanged, this, &AddCommandLineDialog::cmdTextChange);
+	connect(m_cancelBtn, &QPushButton::clicked, this, &CopyCommandLineDialog::cancelClicked);
+	connect(m_copyBtn, &QPushButton::clicked, this, &CopyCommandLineDialog::copyClicked);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &CopyCommandLineDialog::changeTheme);
+	connect(m_commandLine, &QTextEdit::textChanged, this, &CopyCommandLineDialog::cmdTextChange);
 }
 
-AddCommandLineDialog::~AddCommandLineDialog()
+CopyCommandLineDialog::~CopyCommandLineDialog()
 {
 }
 
-void AddCommandLineDialog::showDialog()
+void CopyCommandLineDialog::showDialog(QString commandLine)
 {
-	m_commandLine->clear();
-	m_addFileBtn->setEnabled(false);
-	setAddBtnStyle();
+	m_commandLine->setText(commandLine);
+	m_commandLineStr = commandLine;
 	activateWindow();
 	raise();
 	exec();
 }
 
-void AddCommandLineDialog::cancelClicked()
+void CopyCommandLineDialog::cancelClicked()
 {
 	this->close();
 }
 
-void AddCommandLineDialog::addFileClicked()
+void CopyCommandLineDialog::copyClicked()
 {
-	emit addCommandLine(m_commandLine->toPlainText());
 	this->close();
+	emit copyToClipBoard(m_commandLineStr);
 }
 
-void AddCommandLineDialog::changeTheme()
+void CopyCommandLineDialog::changeTheme()
 {
 	setStyle();
 }
 
-void AddCommandLineDialog::cmdTextChange()
+void CopyCommandLineDialog::cmdTextChange()
 {
-	if (m_commandLine->toPlainText().isEmpty())
-	{
-		m_addFileBtn->setEnabled(false);
-	}
-	else
-	{
-		m_addFileBtn->setEnabled(true);
-
-	}
-
-	setAddBtnStyle();
+	m_commandLineStr = m_commandLine->toPlainText();
 }
 
-void AddCommandLineDialog::setStyle()
+void CopyCommandLineDialog::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -134,13 +121,15 @@ void AddCommandLineDialog::setStyle()
 
 		m_commandLine->setStyleSheet("background-color: " + DIALOG_TEXBOX_DT + "; border-radius:2px;"
 			"color: " + TAB_CONTENT_DESC_TEXT_DT + ";"
-		"padding-left:18px; padding-top:14px; padding-right:18px; padding-bottom:14px;");
+			"padding-left:18px; padding-top:14px; padding-right:18px; padding-bottom:14px;");
 
 		m_cancelBtn->setStyleSheet("QPushButton {color: " + DIALOG_CANCEL_TEXT_BORDER_DT + ";"
 			"border: 1px solid" + DIALOG_CANCEL_TEXT_BORDER_DT + "; border-radius:4px;}"
 			"QPushButton:hover{border: 2px solid " + DIALOG_CANCEL_TEXT_BORDER_DT + ";}");
 
-
+		m_copyBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_LT + ";"
+			"color: " + DIALOG_BUTTON_TEXT_LT + ";"
+			"border-radius:4px;}");
 		break;
 
 	case Theme_Type::Light_Theme:
@@ -155,52 +144,13 @@ void AddCommandLineDialog::setStyle()
 		m_cancelBtn->setStyleSheet("QPushButton {color: " + DIALOG_CANCEL_TEXT_BORDER_LT + ";"
 			"border: 1px solid" + DIALOG_CANCEL_TEXT_BORDER_LT + "; border-radius:4px;}"
 			"QPushButton:hover{border: 2px solid " + DIALOG_CANCEL_TEXT_BORDER_LT + ";}");
+
+		m_copyBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_LT + ";"
+			"color: " + DIALOG_BUTTON_TEXT_LT + ";"
+			"border-radius:4px;}");
 		break;
 
 		/* MORE THEME */
-	default:
-		break;
-	}
-}
-
-void AddCommandLineDialog::setAddBtnStyle()
-{
-	switch (AppSetting::getInstance()->getTheme())
-	{
-	case Theme_Type::Light_Theme:
-		if (m_addFileBtn->isEnabled())
-		{
-			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_LT + ";"
-				"color: " + DIALOG_BUTTON_TEXT_LT + ";"
-				"border-radius:4px;}");
-		}
-		else
-		{
-			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BACKGROUND_DISABLE_LT + ";"
-				"color: " + DIALOG_BUTTON_TEXT_DISABLE_LT + ";"
-				"border-radius:4px;"
-				"border:none;}");
-		}
-		break;
-
-	case Theme_Type::Dark_Theme:
-
-		if (m_addFileBtn->isEnabled())
-		{
-			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BGROUND_DT + ";"
-				"color: " + DIALOG_BUTTON_TEXT_DT + ";"
-				"border-radius:4px;}");
-		}
-		else
-		{
-			m_addFileBtn->setStyleSheet("QPushButton {background-color: " + DIALOG_BUTTON_BACKGROUND_DISABLE_DT + ";"
-				"color: " + DIALOG_BUTTON_TEXT_DISABLE_DT + ";"
-				"border-radius:4px;"
-				"border:none;}");
-		}
-		break;
-
-		//MORE THEME
 	default:
 		break;
 	}
