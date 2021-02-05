@@ -193,11 +193,13 @@
     <ClCompile Include="addresappdialog.cpp" />
     <ClCompile Include="allowlist.cpp" />
     <ClCompile Include="allowliststatus.cpp" />
+    <ClCompile Include="commandlineruletable.cpp" />
     <ClCompile Include="compactdialog.cpp" />
     <ClCompile Include="copybutton.cpp" />
     <ClCompile Include="copycommandlinedialog.cpp" />
     <ClCompile Include="resetbutton.cpp" />
     <ClCompile Include="resetdialog.cpp" />
+    <ClCompile Include="saptablecombobox.cpp" />
     <ClCompile Include="settingsanitivirus.cpp" />
     <ClCompile Include="apexrealtimedialog.cpp" />
     <ClCompile Include="applicationcontrol.cpp" />
@@ -267,6 +269,7 @@
     <QtUic Include="clickablelabel.ui" />
     <QtUic Include="commandline.ui" />
     <QtUic Include="commandlinerule.ui" />
+    <QtUic Include="commandlineruletable.ui" />
     <QtUic Include="commandlinetable.ui" />
     <QtUic Include="compactdialog.ui" />
     <QtUic Include="copybutton.ui" />
@@ -303,6 +306,7 @@
     <QtUic Include="sapradiobutton.ui" />
     <QtUic Include="sapscrollarea.ui" />
     <QtUic Include="sapslider.ui" />
+    <QtUic Include="saptablecombobox.ui" />
     <QtUic Include="scansettings.ui" />
     <QtUic Include="scanwidget.ui" />
     <QtUic Include="scripts.ui" />
@@ -363,6 +367,7 @@
     <QtMoc Include="commandlinerule.h" />
     <QtMoc Include="addprocessprotectordialog.h" />
     <QtMoc Include="compactdialog.h" />
+    <QtMoc Include="commandlineruletable.h" />
     <ClInclude Include="Config.h" />
     <QtMoc Include="copybutton.h" />
     <QtMoc Include="copycommandlinedialog.h" />
@@ -398,6 +403,7 @@
     <QtMoc Include="sapcheckbox.h" />
     <QtMoc Include="scripts.h" />
     <QtMoc Include="scriptstable.h" />
+    <QtMoc Include="saptablecombobox.h" />
     <ClInclude Include="style.h" />
     <QtMoc Include="switch.h" />
     <QtMoc Include="topbar.h" />

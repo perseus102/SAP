@@ -1,18 +1,19 @@
-#include "sapcombobox.h"
+#include "saptablecombobox.h"
 
-SAPCombobox::SAPCombobox(QWidget *parent)
-	: QComboBox(parent)
+SAPTableCombobox::SAPTableCombobox(int arrowPadding, QWidget *parent)
+	: QComboBox(parent),
+	m_arrowPadding(arrowPadding)
 {
 	ui.setupUi(this);
 	setStyle();
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SAPCombobox::changeTheme);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SAPTableCombobox::changeTheme);
 }
 
-SAPCombobox::~SAPCombobox()
+SAPTableCombobox::~SAPTableCombobox()
 {
 }
 
-void SAPCombobox::setStyle()
+void SAPTableCombobox::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -20,7 +21,7 @@ void SAPCombobox::setStyle()
 
 		this->setStyleSheet(
 			"QComboBox{"
-			"background-color:" + COMBOBOX_BACKGROUND_LT + ";"
+			"background-color: none;"
 			"color: " + COMBOBOX_TEXT_ICON_LT + ";"
 			"padding-left:10px;"
 			"}"
@@ -51,32 +52,33 @@ void SAPCombobox::setStyle()
 
 		this->setStyleSheet(
 			"QComboBox{"
-			"background-color:" + COMBOBOX_BACKGROUND_DT + ";"
-			"color: " + COMBOBOX_TEXT_ICON_DT + ";"
-			"padding-left:10px;"
+			"background-color: #48556E;"
+			"color: " + TAB_CONTENT_TITLE_TEXT_DT + ";"
+			//"padding-left:10px;"
 			"}"
 
 			"QComboBox::drop-down{"
 			"border: 2px;"
 			//"padding-left:10px"
+			"width:" + QString::number(m_arrowPadding - 5 /* spacer */) + ";"
 			"}"
 
 			"QComboBox::down-arrow {"
-			"image: url(" + DOWN_ARROW_DT + ");"
-			"width:12px;"
-			"height:12px;"
-			"padding-right:30px;"
+			"image: url(" + TALBE_COMBOBOX_ICON_DT + ");"
+			"width:6px;"
+			"height:4px;"
+			"padding-right:" + QString::number(m_arrowPadding - 6/*icon width*/ - 5 /* spacer */) +";"
 			"}"
 
 			"QComboBox QAbstractItemView {"
 			"selection-background-color: " + COMBOBOX_SELECTION_BACKGROUND_DT + ";"
-			"color: " + COMBOBOX_TEXT_ICON_DT + ";"
+			"color: " + TAB_CONTENT_TITLE_TEXT_DT + ";"
 			"outline: 1px solid " + COMBOBOX_SELECTION_BACKGROUND_DT + ";"
 			"padding-left:10px;"
 			"selection-color: " + COMBOBOX_TEXT_ICON_DT + ";"
 			"}");
 
-		
+
 		break;
 
 		//MORE THEME
@@ -84,8 +86,7 @@ void SAPCombobox::setStyle()
 		break;
 	}
 }
-
-void SAPCombobox::changeTheme()
+void SAPTableCombobox::changeTheme()
 {
 	setStyle();
 }

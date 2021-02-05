@@ -208,9 +208,6 @@
     <Filter Include="Header Files\Component\Script Table">
       <UniqueIdentifier>{8531c8df-8cf9-4f58-b9e3-fde188d7eee8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Component\Command Line Rule">
-      <UniqueIdentifier>{c5ba8a3f-799c-4432-aae5-fba069963155}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Component\Command Line Table">
       <UniqueIdentifier>{ba0dd16d-6788-411c-8904-43942dca0332}</UniqueIdentifier>
     </Filter>
@@ -225,6 +222,15 @@
     </Filter>
     <Filter Include="Header Files\Component\Reset Button">
       <UniqueIdentifier>{bdac9576-7fa2-4f99-99bc-3134546bae0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Copy Button">
+      <UniqueIdentifier>{9e370f71-df6a-4829-b8a2-2ad43d05782e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Copy Button">
+      <UniqueIdentifier>{bcf76834-06bc-4b8b-ba1e-8d4af5dc5d9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Command Line Table">
+      <UniqueIdentifier>{c5ba8a3f-799c-4432-aae5-fba069963155}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -405,7 +411,7 @@
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
     <ClCompile Include="commandlinetable.cpp">
-      <Filter>Source Files\Component\Command Line Rule</Filter>
+      <Filter>Source Files\Component\Command Line Table</Filter>
     </ClCompile>
     <ClCompile Include="processprotector.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
@@ -446,13 +452,19 @@
     <ClCompile Include="resetbutton.cpp">
       <Filter>Source Files\Component\Reset Button</Filter>
     </ClCompile>
+    <ClCompile Include="copycommandlinedialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
     <ClCompile Include="resetdialog.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Dialog</Filter>
     </ClCompile>
     <ClCompile Include="copybutton.cpp">
+      <Filter>Source Files\Component\Copy Button</Filter>
+    </ClCompile>
+    <ClCompile Include="commandlineruletable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="copycommandlinedialog.cpp">
+    <ClCompile Include="saptablecombobox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -640,13 +652,19 @@
     <QtMoc Include="resetbutton.h">
       <Filter>Header Files\Component\Reset Button</Filter>
     </QtMoc>
-    <QtMoc Include="resetdialog.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="copybutton.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Component\Reset Button</Filter>
     </QtMoc>
     <QtMoc Include="copycommandlinedialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="resetdialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="commandlineruletable.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="saptablecombobox.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -835,6 +853,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="copycommandlinedialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="commandlineruletable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="saptablecombobox.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

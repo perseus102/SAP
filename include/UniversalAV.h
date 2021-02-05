@@ -4,31 +4,9 @@
 
 #include "AppControl.h"
 #include "av_engine_and_virus.h"
+#include "UniversalAV_Classified.h"
 
 #define UNIVERSALAV_FTP_PORT INTERNET_DEFAULT_FTP_PORT
-//#define UNIVERSALAV_FTP_PORT 21000
-//#define UNIVERSALAV_SERVER L"192.168.0.97"
-//#define UNIVERSALAV_SERVER L"192.168.0.240"
-
-#define UNIVERSALAV_SERVER_IP "129.126.220.5"
-#define UNIVERSALAV_SERVER L"uav.secureaplus.com"
-#define HTTP_UNIVERSALAV_SERVER L"http://uav.secureaplus.com"
-
-#define UAV_NAMED_PIPE_NAME _T("\\\\.\\pipe\\SecureAgeUniversalAV")
-#define UAV_UI_NAMED_PIPE_NAME _T("\\\\.\\pipe\\SecureAgeUniversalAVUI")
-
-/*
-#ifdef _DEBUG
-#define UNIVERSALAV_SERVER L"192.168.0.240"
-//#define UNIVERSALAV_SERVER L"192.168.0.101"
-//#define UNIVERSALAV_SERVER L"192.168.0.97"
-#endif
-*/
-#define FTP_WHITELIST_TABLE_USER L"sampleftp"
-#define FTP_WHITELIST_TABLE_PASSWORD L"welcome"
-
-#define UNIVERSALAV_REGISTRY_SUBKEY L"SOFTWARE\\SecureAge Technology\\SecureAge\\Applications\\UniversalAV"
-#define UNIVERSALAV_REGISTRY_SUBKEY_A "SOFTWARE\\SecureAge Technology\\SecureAge\\Applications\\UniversalAV"
 
 enum {UAV_ON_DEMAND_STATUS_CLEAN, UAV_ON_DEMAND_STATUS_VIRUS, UAV_ON_DEMAND_STATUS_UNKNOWN, UAV_ON_DEMAND_STATUS_UNKNOWN_BUT_SAMPLE_EXISTS};
 

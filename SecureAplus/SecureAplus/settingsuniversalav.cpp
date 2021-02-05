@@ -5,11 +5,11 @@
 #include "OfflineAV.h"
 #include "NamedPipeSecureAPlusServiceSettings.h"
 #include "GoodNews.h"
-#include "UniversalAV.h"
 #include "NamedPipeUniversalAVUI.h"
 #include "UniversalAV_UploadLimit.h"
 #include "DriverCommand.h"
 #include "QTTrustedAccount.h"
+//#include <UniversalAV.h>
 SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 	: QWidget(parent)
 {

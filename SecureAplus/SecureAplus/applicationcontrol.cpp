@@ -90,6 +90,7 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_scriptsTab			= new Scripts();
 	m_commandLineTab		= new CommandLine();
 	m_processProtectorTab	= new ProcessProtector();
+	m_commandLineRuleTab	= new CommandLineRule();
 
 	m_tabStackedWidget = new QStackedWidget();
 	m_tabStackedWidget->addWidget(m_digitalSignatureTab);
@@ -113,6 +114,7 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	m_tabStackedWidget->addWidget(m_processProtectorTab);
 	//m_processProtectorTab->setFixedHeight(450);
 
+	m_tabStackedWidget->addWidget(m_commandLineRuleTab);
 
 	m_scrollView = new SAPSCrollArea(QMargins(0, 0, 5, 30));
 	m_scrollView->setObjectName("m_scrollView");
@@ -331,6 +333,7 @@ void ApplicationControl::TabClicked()
 	}
 	else if (sender() == m_cmdRules)
 	{
+		m_tabStackedWidget->setCurrentWidget(m_commandLineRuleTab);
 		m_activeTab = m_cmdRules;
 	}
 	else if (sender() == m_allowedListCmd)
@@ -497,6 +500,8 @@ void ApplicationControl::resizeTab()
 		//	m_scriptsTab->resize(size.width() - 100, m_scriptsTab->height());
 		//	m_tabStackedWidget->resize(size.width() - 100, m_scriptsTab->height());
 		//}
+		m_commandLineRuleTab->resize(size.width() - 100, size.height());
+		m_tabStackedWidget->resize(size.width() - 100, size.height());
 	}
 	else if (m_activeTab == m_allowedListCmd)
 	{

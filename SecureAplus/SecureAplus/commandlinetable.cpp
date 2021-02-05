@@ -240,7 +240,7 @@ void CommandLineTable::AddCommandLine(QString commandLine)
 
 	if (commandLineWidth > labelWidth)
 	{
-		resizeRow.append(row);
+		//resizeRow.append(row);
 	}
 
 	connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &CommandLineTable::rowCheckBoxSetCheck);
@@ -529,9 +529,6 @@ void CommandLineTable::resizeLabel()
 					commandLine = commandLine.mid(defaultCharsNum, commandLine.length() - 1);
 					isRow1 = false;
 					defaultCharsNum = 55;
-					//commandLine = commandLine.mid(0, defaultCharsNum) + "...";
-					//row->commandLine->setText(commandLine);
-					//break;
 				}
 			}
 			else

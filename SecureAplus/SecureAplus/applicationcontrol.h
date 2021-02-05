@@ -11,6 +11,7 @@
 #include "managetrustedcertificate.h"
 #include "scripts.h"
 #include "commandline.h"
+#include "commandlinerule.h"
 #include "processprotector.h"
 
 class ApplicationControl : public QWidget
@@ -55,6 +56,7 @@ private:
 	Scripts*				m_scriptsTab;
 	CommandLine*			m_commandLineTab;
 	ProcessProtector*		m_processProtectorTab;
+	CommandLineRule*		m_commandLineRuleTab;
 
 	void setStyle();
 	void setTabStyle();

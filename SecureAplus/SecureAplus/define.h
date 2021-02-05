@@ -204,6 +204,9 @@
 /* Define for copy button icon */
 #define COPY_BUTTON_ICON					QString(":/images/copy button/copy_button_icon.svg")
 
+/* Define for table commbobox icon */
+#define TALBE_COMBOBOX_ICON_DT				QString(":/images/table combobx/tableCbb_arrow_down_dt.svg")
+
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
 

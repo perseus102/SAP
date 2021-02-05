@@ -56,5 +56,6 @@
         <file>images/choose file/choose_file_icon.svg</file>
         <file>images/reset button/reset_button_icon.svg</file>
         <file>images/copy button/copy_button_icon.svg</file>
+        <file>images/table combobx/tableCbb_arrow_down_dt.svg</file>
     </qresource>
 </RCC>
