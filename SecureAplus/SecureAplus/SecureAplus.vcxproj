@@ -187,6 +187,7 @@
     <ClCompile Include="..\..\src\SecurityFeaturesNoOfflineAV.cpp" />
     <ClCompile Include="..\..\src\ServiceStatusString.cpp" />
     <ClCompile Include="addcommandlinedialog.cpp" />
+    <ClCompile Include="addcommandlineruledialog.cpp" />
     <ClCompile Include="addprocessprotectordialog.cpp" />
     <ClCompile Include="addscriptdialog.cpp" />
     <ClCompile Include="addtrustedcertdialog.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="compactdialog.cpp" />
     <ClCompile Include="copybutton.cpp" />
     <ClCompile Include="copycommandlinedialog.cpp" />
+    <ClCompile Include="refeshbutton.cpp" />
     <ClCompile Include="resetbutton.cpp" />
     <ClCompile Include="resetdialog.cpp" />
     <ClCompile Include="saptablecombobox.cpp" />
@@ -255,6 +257,7 @@
     <QtRcc Include="framelesswindow.qrc" />
     <QtRcc Include="mainwindow.qrc" />
     <QtUic Include="addcommandlinedialog.ui" />
+    <QtUic Include="addcommandlineruledialog.ui" />
     <QtUic Include="adddtrustedcertdialog.ui" />
     <QtUic Include="addprocessprotectordialog.ui" />
     <QtUic Include="addresappdialog.ui" />
@@ -299,6 +302,7 @@
     <QtUic Include="processprotectortable.ui" />
     <QtUic Include="protectionmodes.ui" />
     <QtUic Include="rectrictedapp.ui" />
+    <QtUic Include="refeshbutton.ui" />
     <QtUic Include="resetbutton.ui" />
     <QtUic Include="resetdialog.ui" />
     <QtUic Include="sapcheckbox.ui" />
@@ -368,6 +372,7 @@
     <QtMoc Include="addprocessprotectordialog.h" />
     <QtMoc Include="compactdialog.h" />
     <QtMoc Include="commandlineruletable.h" />
+    <QtMoc Include="addcommandlineruledialog.h" />
     <ClInclude Include="Config.h" />
     <QtMoc Include="copybutton.h" />
     <QtMoc Include="copycommandlinedialog.h" />
@@ -390,6 +395,7 @@
     <QtMoc Include="processprotectortable.h" />
     <QtMoc Include="resetbutton.h" />
     <QtMoc Include="resetdialog.h" />
+    <QtMoc Include="refeshbutton.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="settingscontent.h" />
     <QtMoc Include="settinggridcontent.h" />

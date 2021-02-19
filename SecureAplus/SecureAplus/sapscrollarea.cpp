@@ -82,6 +82,45 @@ void SAPSCrollArea::setStyle()
 			"}"
 		);
 
+		this->horizontalScrollBar()->setStyleSheet(
+			"QScrollBar:horizontal {"
+			//"border: 0px solid " + VER_SCROLLBAR_TRACK_DT + ";"
+			"background: " + VER_SCROLLBAR_TRACK_LT + ";"
+			"height:10px;"
+			//"margin: " + QString::number(m_margins.top()) + "px " + QString::number(m_margins.right()) + "px " + QString::number(m_margins.bottom()) + "px " + QString::number(m_margins.left()) + "px;"
+			"margin: 0px 10px 5px 10px;"
+			"border-radius: 2px;"
+			"}"
+
+			"QScrollBar::handle:horizontal {"
+			"min-height: 0px;"
+			"background-color: " + VER_SCROLLBAR_THUMB_LT + ";"
+			"border: 0px solid none;"
+			"height:10px;"
+			"border-radius: 2px;"
+			"}"
+
+			"QScrollBar::add-line:horizontal {"
+			"height: 0px;"
+			"subcontrol-position: right;"
+			"subcontrol-origin: margin;"
+			"}"
+
+			"QScrollBar::sub-line:horizontal {"
+			"height: 0px;"
+			"subcontrol-position: left;"
+			"subcontrol-origin: margin;"
+			"}"
+
+			"QScrollBar::sub-page:horizontal {"
+			"background: none;"
+			"}"
+
+			"QScrollBar::add-page:horizontal {"
+			"background: none;"
+			"}"
+		);
+
 		break;
 
 	case Theme_Type::Dark_Theme:

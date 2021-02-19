@@ -10,6 +10,8 @@
 #include "widgettransparent.h"
 #include "commandlineruletable.h"
 #include "resetbutton.h"
+#include "refeshbutton.h"
+#include "addcommandlineruledialog.h"
 class CommandLineRule : public QWidget
 {
 	Q_OBJECT
@@ -21,10 +23,12 @@ public:
 private slots:
 	void removeButtonClicked();
 	void addButtonClicked();
+	void editButtonClicked();
 	void resetToDefaultClicked();
 
 public slots:
 	void setRemoveBtnDisabled(bool disabled);
+	void setEditBtnDisabled(bool disabled);
 	void changeTheme();
 
 private:
@@ -34,14 +38,19 @@ private:
 
 	QVBoxLayout*	m_layout;
 	QPushButton*	m_removeBtn;
+	QPushButton*	m_editBtn;
 	QPushButton*	m_addBtn;
 
 	CommandLineRuleTable*	m_commandLineRuleTable;
 
 	ResetButton*		m_resetBtn;
 
+	RefreshButton*		m_refreshBtn;
+
 	WidgetTransparent*	transparent;
+	AddnEditCmdLineRuleDialog* m_addnEditcmdLineRuleDlg;
 
 	void setStyle();
 	void setRemoveBtnStyle();
+	void setEditBtnStyle();
 };

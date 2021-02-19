@@ -232,6 +232,15 @@
     <Filter Include="Source Files\Component\Command Line Table">
       <UniqueIdentifier>{c5ba8a3f-799c-4432-aae5-fba069963155}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Refresh Button">
+      <UniqueIdentifier>{4d029cc4-e75a-4580-868d-72cb28c79933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Table Combobox">
+      <UniqueIdentifier>{b6cc8d0c-e3ec-45fc-bb6c-9b3bdedea97a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\CommandLineRule Table">
+      <UniqueIdentifier>{d29f3809-b783-41da-a5c5-8a4b12b32cdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mainwindow.qrc">
@@ -461,11 +470,17 @@
     <ClCompile Include="copybutton.cpp">
       <Filter>Source Files\Component\Copy Button</Filter>
     </ClCompile>
-    <ClCompile Include="commandlineruletable.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="refeshbutton.cpp">
+      <Filter>Source Files\Component\Refresh Button</Filter>
     </ClCompile>
     <ClCompile Include="saptablecombobox.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Component\Table Combobox</Filter>
+    </ClCompile>
+    <ClCompile Include="commandlineruletable.cpp">
+      <Filter>Source Files\Component\CommandLineRule Table</Filter>
+    </ClCompile>
+    <ClCompile Include="addcommandlineruledialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -667,6 +682,12 @@
     <QtMoc Include="saptablecombobox.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="refeshbutton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="addcommandlineruledialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="framelesswindow\framelesswindow.ui">
@@ -859,6 +880,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="saptablecombobox.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="refeshbutton.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="addcommandlineruledialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

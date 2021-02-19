@@ -4,6 +4,8 @@ SAPCombobox::SAPCombobox(QWidget *parent)
 	: QComboBox(parent)
 {
 	ui.setupUi(this);
+	m_backgroundColorDarkTheme = COMBOBOX_BACKGROUND_DT;
+	m_backgroundColorLightTheme = COMBOBOX_BACKGROUND_LT;
 	setStyle();
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SAPCombobox::changeTheme);
 }
@@ -20,14 +22,14 @@ void SAPCombobox::setStyle()
 
 		this->setStyleSheet(
 			"QComboBox{"
-			"background-color:" + COMBOBOX_BACKGROUND_LT + ";"
+			"background-color:" + m_backgroundColorLightTheme + ";"
 			"color: " + COMBOBOX_TEXT_ICON_LT + ";"
 			"padding-left:10px;"
+			"border: none;"
 			"}"
 
 			"QComboBox::drop-down{"
-			"border: 2px;"
-			"padding-left:10px"
+			"border: none;"
 			"}"
 
 			"QComboBox::down-arrow {"
@@ -38,6 +40,7 @@ void SAPCombobox::setStyle()
 			"}"
 
 			"QComboBox QAbstractItemView {"
+			"background-color:" + m_backgroundColorLightTheme + ";"
 			"selection-background-color: " + COMBOBOX_SELECTION_BACKGROUND_LT + ";"
 			"color:" + COMBOBOX_TEXT_ICON_LT + ";"
 			"outline: 1px solid " + COMBOBOX_SELECTION_BACKGROUND_LT + ";"
@@ -51,13 +54,14 @@ void SAPCombobox::setStyle()
 
 		this->setStyleSheet(
 			"QComboBox{"
-			"background-color:" + COMBOBOX_BACKGROUND_DT + ";"
+			"background-color:" + m_backgroundColorDarkTheme + ";"
 			"color: " + COMBOBOX_TEXT_ICON_DT + ";"
 			"padding-left:10px;"
+			"border: none;"
 			"}"
 
 			"QComboBox::drop-down{"
-			"border: 2px;"
+			"border: none;"
 			//"padding-left:10px"
 			"}"
 
@@ -69,6 +73,7 @@ void SAPCombobox::setStyle()
 			"}"
 
 			"QComboBox QAbstractItemView {"
+			"background-color:" + m_backgroundColorDarkTheme + ";"
 			"selection-background-color: " + COMBOBOX_SELECTION_BACKGROUND_DT + ";"
 			"color: " + COMBOBOX_TEXT_ICON_DT + ";"
 			"outline: 1px solid " + COMBOBOX_SELECTION_BACKGROUND_DT + ";"
@@ -83,6 +88,13 @@ void SAPCombobox::setStyle()
 	default:
 		break;
 	}
+}
+
+void SAPCombobox::setBackroungColor(QString backgroundDT, QString backgroundLT)
+{
+	m_backgroundColorDarkTheme = backgroundDT;
+	m_backgroundColorLightTheme = backgroundLT;
+	setStyle();
 }
 
 void SAPCombobox::changeTheme()

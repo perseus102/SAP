@@ -201,11 +201,18 @@
 /* Define for reset button icon */
 #define RESET_BUTTON_ICON					QString(":/images/reset button/reset_button_icon.svg")
 
+/* Define for refresh button icon */
+#define REFRESH_BUTTON_ICON					QString(":/images/refresh button/refresh_button_icon.svg")
+
 /* Define for copy button icon */
 #define COPY_BUTTON_ICON					QString(":/images/copy button/copy_button_icon.svg")
 
 /* Define for table commbobox icon */
 #define TALBE_COMBOBOX_ICON_DT				QString(":/images/table combobx/tableCbb_arrow_down_dt.svg")
+
+/* Define for table sort icon */
+#define TALBE_SORT_UP_ICON_DT				QString(":/images/sort/sort-up.svg")
+#define TALBE_SORT_DOWN_ICON_DT				QString(":/images/sort/sort-down.svg")
 
 /* Define for help link */
 #define HELP_LINK							QString("https://support.secureaplus.com/")
@@ -629,4 +636,13 @@ struct CertificateRowString
 	QString	validFromText;
 	QString	validToText;
 	QString	thumprintText;
+};
+
+struct CommandLineRuleString
+{
+	QString	processStr;
+	QString caseSensitiveStr;
+	QString string;
+	QString ruleStr;
+	QString actionStr;
 };
