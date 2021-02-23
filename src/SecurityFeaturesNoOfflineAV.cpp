@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <atlstr.h>
 #include <qstring.h>
 #include <QObject>
@@ -14,6 +15,7 @@
 // #include "OfflineAVAvailable.h" // UNCOMMENT TO ENABLE AVIRA CHECK
 #include "DeepAVAvailable.h"
 #include "SecureAPlusLite.h"
+
 #ifdef INCLUDE_SEARCH_SERVICE
 const wchar_t *secureaplus_status_service_name[MAX_STATUS_ITEM]={L"License", L"SAAppCtl", L"SAAppSvc", L"SecureAPlusService", L"SAEverythingServer", L"SAUAVSvc", L"SAScan", L"SAScanSvc", L"ClamAV"};
 #else
