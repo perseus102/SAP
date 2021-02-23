@@ -54,14 +54,17 @@ DWORD SecureaplusAdminSettingsSetObservationMode(DWORD mode);
 // Restricted Applications
 DWORD SecureaplusAdminSettingsAddRestrictedApp(LPCWSTR filename, LPCWSTR signer);
 DWORD SecureaplusAdminSettingsDeleteRestrictedApp(LPCWSTR filename);
+DWORD SecureaplusAdminSettingsRestoreDefaultRestrictedApp();
 
 // Trusted Certificate
 DWORD SecureaplusAdminSettingsAddTrustedCertificate(LPCWSTR certificateName, LPCWSTR thumbprint, FILETIME ftValidFrom, FILETIME ftValidTo);
 DWORD SecureaplusAdminSettingsDeleteTrustedCertificate(LPCWSTR certificateName, LPCWSTR thumbprint);
+DWORD SecureaplusAdminSettingsRestoreDefaultTrustedCertificate();
 
 // Script
 DWORD SecureaplusAdminSettingsAddScript(LPCWSTR interpreter, LPCWSTR script);
 DWORD SecureaplusAdminSettingsDeleteScript(LPCWSTR interpreter);
+DWORD SecureaplusAdminSettingsRestoreDefaultScript();
 
 // Command Line
 DWORD SecureaplusAdminSettingsAddCmdLineRule(const wchar_t *command, int rule, BOOLEAN bCaseInsensitive, const wchar_t *parameter, int action);

@@ -1,4 +1,5 @@
 #pragma once
+
 //#define INCLUDE_SEARCH_SERVICE
 #include "stdafx.h"
 #ifdef INCLUDE_SEARCH_SERVICE

@@ -1,7 +1,6 @@
 #ifndef _UNIVERSAL_AV_H_
 
 #define _UNIVERSAL_AV_H_
-
 #include "AppControl.h"
 #include "av_engine_and_virus.h"
 #include "UniversalAV_Classified.h"

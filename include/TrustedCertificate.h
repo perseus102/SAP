@@ -20,7 +20,6 @@ BOOLEAN IsTrustedCertificate(wchar_t *certCommonName, BYTE *thumbprint, DWORD th
 DWORD SetTrustByDigitalSignatureMode(DWORD mode);
 DWORD GetTrustByDigitalSignatureMode();
 #endif
-
 //////////////////////////////////////////////////////////////////////////////////
 
 BOOLEAN IsFileSignedByTrustedCertificate(LPCWSTR filename);
