@@ -87,7 +87,7 @@ void HomeWidget::changeBackground(ColorType type)
 
 void HomeWidget::setIcon()
 {
-	Status status = AppSetting::getInstance()->getStatus();
+	Status status = AppSetting::getInstance()->refreshStatus();
 
 	if (status == Status::Protected_Status)
 	{

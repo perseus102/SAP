@@ -1,4 +1,51 @@
 #include "commandlinetable.h"
+#include "threadpopulateallowedcommandline.h"
+#include "AppControl.h"
+#include "hash.h"
+#include "utf8.h"
+#include "log.h"
+#include "CmdLineRules.h"
+#include "WhitelistCmdLine.h"
+
+BOOLEAN callback_add_allowed_cmdline(LPVOID lpContext, PWHITELIST_KEY pKey, PWHITELIST_DATA pData, ULONGLONG pos, ULONGLONG max)
+{
+	PPARAM_THREAD_POPULATE_ALLOWED_COMMAND_LINE param = (PPARAM_THREAD_POPULATE_ALLOWED_COMMAND_LINE)lpContext;
+	CommandLineTable* t = (CommandLineTable*)param->callback_parent_obj;
+	char* keyword = "|cmd|";
+	int keyword_length = strlen(keyword);
+	LPWSTR cmdlineW;
+	BOOLEAN bContinue = WaitForSingleObject(param->hStopEvent, 0) != 0;
+
+	if (bContinue && pData->trust_level != 0 && strncmp(pKey->filename, keyword, keyword_length) == 0)
+	{
+		BYTE hash_whole_file[APPWHITELISTING_HASH_SIZE];
+		size_t length;
+
+		length = strlen(pKey->filename + strlen(keyword));
+		if (pKey->filesize == length)
+		{
+			HashMemoryV2(pKey->filename + strlen(keyword), length, hash_whole_file);
+			if (memcmp(hash_whole_file, pKey->hash_whole_file, APPWHITELISTING_HASH_SIZE) == 0)
+			{
+				cmdlineW = utf8_to_wchar(pKey->filename + keyword_length);
+				if (cmdlineW)
+				{
+					t->AddCertificateGUIOnly(cmdlineW);
+					free(cmdlineW);
+				}
+			}
+			else
+			{
+				write_log(L"### Wrong hash command line: %S", pKey->filename);
+			}
+		}
+		else
+		{
+			write_log(L"### Wrong length command line: %S", pKey->filename);
+		}
+	}
+	return bContinue;
+}
 
 CommandLineTable::CommandLineTable(QWidget *parent)
 	: QWidget(parent)
@@ -21,6 +68,7 @@ CommandLineTable::CommandLineTable(QWidget *parent)
 
 	m_checkAllBox = new SAPCheckBox(true);
 	m_checkAllBox->setFixedSize(18, 36);
+
 	m_checkAllBox->setButtonChecked(Qt::Unchecked);
 
 	QLabel* checkboxSpacer = new QLabel();
@@ -78,20 +126,55 @@ CommandLineTable::CommandLineTable(QWidget *parent)
 	
 	connect(m_copyCommandLineDlg, &CopyCommandLineDialog::copyToClipBoard, this, &CommandLineTable::copyCmdLineToClipBoard);
 
-	QString rowString;
+	/*QString rowString;
 
 	for (int a = 1; a <= 10; a++)
 	{
-		rowString = "c:\\windows\\system32\\windowspowercell\\v1.0\\powercell.exe - execution policy unrestricted - noninteractive - noprofile" + QString::number(a) + " ";
+		rowString += "Command Line" + QString::number(a) + " ";
 		AddCommandLine(rowString);
 		m_defaultList.append(rowString);
+	}*/
+	m_timerRefresh = new QTimer(this);
+	if (m_timerRefresh)
+	{
+		connect(m_timerRefresh, SIGNAL(timeout()), this, SLOT(refresh()));
 	}
+	hStopEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+	hCompletedEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+	hThread = NULL;
+	InitializeCriticalSection(&m_cs);
 
 	emit m_scrollView->verticalScrollBar()->valueChanged(m_scrollView->verticalScrollBar()->value());
 }
 
 CommandLineTable::~CommandLineTable()
 {
+	if (hThread)
+	{
+		if (hStopEvent) SetEvent(hStopEvent);
+		WaitForSingleObject(hThread, INFINITE);
+		CloseHandle(hThread);
+		hThread = NULL;
+	}
+	if (m_timerRefresh) delete m_timerRefresh;
+	DeleteCriticalSection(&m_cs);
+}
+
+void CommandLineTable::loadData(BOOLEAN force)
+{
+	if (force && hThread && WaitForSingleObject(hCompletedEvent, 0) == 0)
+	{
+		// previously loaded data successfully
+		// reset all state-tracking objects involved in loadData()
+		if (hCompletedEvent) ResetEvent(hCompletedEvent);
+		CloseHandle(hThread);
+		hThread = NULL;
+	}
+	if (!hThread)
+	{
+		hThread = CreateThreadPopulateAllowedCommandLine(this, callback_add_allowed_cmdline, hStopEvent, hCompletedEvent);
+		m_timerRefresh->start(500);
+	}
 }
 
 void CommandLineTable::changeTheme()
@@ -150,104 +233,38 @@ void CommandLineTable::scrollbarChangeValue(int value)
 	//resizeLabel();
 }
 
-void CommandLineTable::copyBtnClicked()
+void CommandLineTable::AddCertificateGUIOnly(LPCWSTR cmdline)
 {
-	auto sender = this->sender();
-	QString commandLine;
-	for (auto& row : m_commandLineRowMap)
-		if (sender == row->copyBtn)
-		{
-			commandLine = row->commandLine->toolTip();
-			break;
-		}
-	QRect geometry = AppSetting::getInstance()->getAppGeometry();
-	transparent->showWidget();
-	m_copyCommandLineDlg->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 244);
-	m_copyCommandLineDlg->showDialog(commandLine);
-	transparent->hide();
+	EnterCriticalSection(&m_cs);
+	m_incomingData.push_back(QString::fromWCharArray(cmdline));
+	LeaveCriticalSection(&m_cs);
 }
 
-void CommandLineTable::copyCmdLineToClipBoard(QString commandLine)
+void CommandLineTable::AddCommandLine(QString& commandLine)
 {
-	QApplication::clipboard()->setText(commandLine);
-}
+	DWORD dwLastError = 0;
+	BOOLEAN bCaseInsensitive = FALSE;
 
-void CommandLineTable::AddCommandLine(QString commandLine)
-{
-	CommandLineRow* row = new CommandLineRow();
-
-	row->rowWg = new QWidget();
-	row->rowWg->setFixedHeight(50);
-
-	QHBoxLayout* rowLayout = new QHBoxLayout();
-	rowLayout->setContentsMargins(20, 0, 0, 0);
-	rowLayout->setSpacing(0);
-
-	row->rowWg->setLayout(rowLayout);
-
-	row->checkBox = new SAPCheckBox();
-	row->checkBox->setFixedSize(18, 36);
-	row->checkBox->setButtonChecked(Qt::Unchecked);
-
-	QLabel* centerSpacer = new QLabel();
-	centerSpacer->setFixedWidth(12);
-
-	row->commandLine = new QLabel();
-	row->commandLine->setFixedHeight(30);
-	row->commandLine->setFont(FONT);
-	row->commandLine->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	row->commandLine->setText(commandLine);
-	row->commandLine->setWordWrap(true);
-	row->commandLine->setToolTip(commandLine);
-
-	QWidget* btnWg = new QWidget();
-	btnWg->setFixedSize(90, 50);
-
-	QHBoxLayout*  btnLayout = new QHBoxLayout();
-	btnLayout->setContentsMargins(0, 0, 0, 0);
-	btnLayout->setSpacing(0);
-	btnWg->setLayout(btnLayout);
-
-	row->copyBtn = new CopyButton();
-	row->copyBtn->setFixedSize(18, 18);
-	btnLayout->addWidget(row->copyBtn);
-	row->copyBtn->setObjectName(QString::number(m_rowCount));
-
-	row->line = new QLabel();
-	row->line->setFixedHeight(2);
-
-	rowLayout->addWidget(row->checkBox);
-	rowLayout->addWidget(centerSpacer);
-	rowLayout->addWidget(row->commandLine);
-	rowLayout->addWidget(btnWg);
-
-	setRowStyle(row);
-
-	m_rowLayout->addWidget(row->rowWg);
-	m_rowLayout->addWidget(row->line);
-
-	m_rowCount++;
-
-	m_commandLineRowMap.append(row);
-
-	m_rowWg->resize(this->width(), (52 * m_rowCount));
-
-	int labelWidth, commandLineWidth;
-	QFontMetrics fm(FONT);
-
-	labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/);
-	commandLineWidth = fm.width(commandLine);
-
-	if (commandLineWidth > labelWidth)
+	if (is_parameter_match_command_line_rules(commandLine.toStdWString().c_str(), &bCaseInsensitive))
 	{
-		//resizeRow.append(row);
+		if (bCaseInsensitive)
+		{
+			commandLine = commandLine.toLower();
+		}
+	}
+	dwLastError = set_cmd_line_trust_level(commandLine.toStdWString().c_str(), 1);
+	if (dwLastError != 0)
+	{
+		// TODO: display error, when add fails
+		return;
 	}
 
-	connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &CommandLineTable::rowCheckBoxSetCheck);
-	connect(row->copyBtn, &CopyButton::clicked, this, &CommandLineTable::copyBtnClicked);
+	EnterCriticalSection(&m_cs);
+	m_incomingData.push_back(commandLine);
+	LeaveCriticalSection(&m_cs);
 }
 
-void CommandLineTable::AddCommandLineFromDialog(QString commandLine)
+void CommandLineTable::AddCommandLineFromDialog(QString& commandLine)
 {
 	int cout = -1;
 
@@ -264,16 +281,26 @@ void CommandLineTable::AddCommandLineFromDialog(QString commandLine)
 	}
 
 	AddCommandLine(commandLine);
-
+	refresh();
 }
 
 void CommandLineTable::removeRows()
 {
+	DWORD dwLastError = 0;
 	QList<CommandLineRow*> keyList;
+	std::wstring cmdline;
 	for (auto& row : m_commandLineRowMap)
 	{
 		if (row->checkBox->getCheckState() == Qt::Checked && row->rowWg->isVisible())
 		{
+			cmdline = row->commandLine->text().toStdWString();
+			dwLastError = set_cmd_line_trust_level(cmdline.c_str(), 0);
+			if (dwLastError != 0)
+			{
+				// TODO: display error when remove() fails
+				break;
+			}
+
 			keyList.append(row);
 			m_rowLayout->removeWidget(row->rowWg);
 			m_rowLayout->removeWidget(row->line);
@@ -284,7 +311,7 @@ void CommandLineTable::removeRows()
 			m_rowCount--;
 
 			QSize size = m_rowWg->size();
-			m_rowWg->resize(this->width(), size.height() - 52 /* row height */);
+			m_rowWg->resize(this->width(), size.height() - 38 /* row height */);
 		}
 	}
 
@@ -352,7 +379,7 @@ void CommandLineTable::setStyle()
 		m_commandLine->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
 		
 		m_action->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_LT + ";}");
-
+		
 		break;
 
 	case Theme_Type::Dark_Theme:
@@ -360,7 +387,7 @@ void CommandLineTable::setStyle()
 			"border-top-left-radius:2px; border-top-right-radius:2px;");
 
 		m_commandLine->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
-		
+
 		m_action->setStyleSheet("QLabel{color:" + TAB_CONTENT_TITLE_TEXT_DT + ";}");
 
 		break;
@@ -457,8 +484,6 @@ void CommandLineTable::setCheckBoxsState()
 
 void CommandLineTable::resizeLabel()
 {
-
-
 	int fullTextWidth, labelWidth, defaultCharsNum, threeDotSize, textWidth, nextCharWidth, remainSpace;
 	QFontMetrics fm(FONT);
 
@@ -469,7 +494,7 @@ void CommandLineTable::resizeLabel()
 		bool isRow1 = true;
 		fullTextWidth = fm.width(row->commandLine->toolTip());
 		labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/ - 90);
-		defaultCharsNum = 55;  
+		defaultCharsNum = 55;
 		threeDotSize = fm.width("..."); // ... => 12px
 
 		do
@@ -545,4 +570,122 @@ void CommandLineTable::resizeLabel()
 
 		} while (true);
 	}
+}
+
+void CommandLineTable::refresh()
+{
+
+	if (TryEnterCriticalSection(&m_cs))
+	{
+		for (auto commandLine : m_incomingData)
+		{
+			CommandLineRow* row = new CommandLineRow();
+
+			row->rowWg = new QWidget();
+			row->rowWg->setFixedHeight(50);
+
+			QHBoxLayout* rowLayout = new QHBoxLayout();
+			rowLayout->setContentsMargins(20, 0, 0, 0);
+			rowLayout->setSpacing(0);
+
+			row->rowWg->setLayout(rowLayout);
+
+			row->checkBox = new SAPCheckBox();
+			row->checkBox->setFixedSize(18, 36);
+			row->checkBox->setButtonChecked(Qt::Unchecked);
+
+			QLabel* centerSpacer = new QLabel();
+			centerSpacer->setFixedWidth(12);
+
+			row->commandLine = new QLabel();
+			row->commandLine->setFixedHeight(30);
+			row->commandLine->setFont(FONT);
+			row->commandLine->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+			row->commandLine->setText(commandLine);
+			row->commandLine->setWordWrap(true);
+			row->commandLine->setToolTip(commandLine);
+
+			QWidget* btnWg = new QWidget();
+			btnWg->setFixedSize(90, 50);
+
+			QHBoxLayout*  btnLayout = new QHBoxLayout();
+			btnLayout->setContentsMargins(0, 0, 0, 0);
+			btnLayout->setSpacing(0);
+			btnWg->setLayout(btnLayout);
+
+			row->copyBtn = new CopyButton();
+			row->copyBtn->setFixedSize(18, 18);
+			btnLayout->addWidget(row->copyBtn);
+			row->copyBtn->setObjectName(QString::number(m_rowCount));
+
+			row->line = new QLabel();
+			row->line->setFixedHeight(2);
+
+			rowLayout->addWidget(row->checkBox);
+			rowLayout->addWidget(centerSpacer);
+			rowLayout->addWidget(row->commandLine);
+			rowLayout->addWidget(btnWg);
+
+			setRowStyle(row);
+
+			m_rowLayout->addWidget(row->rowWg);
+			m_rowLayout->addWidget(row->line);
+
+			m_rowCount++;
+
+			m_commandLineRowMap.append(row);
+
+			m_rowWg->resize(this->width(), (52 * m_rowCount));
+
+			int labelWidth, commandLineWidth;
+			QFontMetrics fm(FONT);
+
+			labelWidth = (m_rowWg->width() - 20/*margin*/ - 18/*checkbox*/ - 12/*spacer*/);
+			commandLineWidth = fm.width(commandLine);
+
+			if (commandLineWidth > labelWidth)
+			{
+				//resizeRow.append(row);
+			}
+
+			connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &CommandLineTable::rowCheckBoxSetCheck);
+			connect(row->copyBtn, &CopyButton::clicked, this, &CommandLineTable::copyBtnClicked);
+		}
+
+		if (hCompletedEvent)
+		{
+			if (WaitForSingleObject(hCompletedEvent, 0) == 0)
+			{
+				//Completed
+				if (m_timerRefresh) m_timerRefresh->stop();
+
+				// TODO: enable/activate "Reset to default" label here
+			}
+		}
+
+		m_incomingData.clear();
+		LeaveCriticalSection(&m_cs);
+	}
+}
+
+void CommandLineTable::copyBtnClicked()
+{
+	auto sender = this->sender();
+	QString commandLine;
+	for (auto& row : m_commandLineRowMap)
+		if (sender == row->copyBtn)
+		{
+			commandLine = row->commandLine->toolTip();
+			break;
+		}
+	QRect geometry = AppSetting::getInstance()->getAppGeometry();
+	transparent->showWidget();
+	m_copyCommandLineDlg->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 244);
+	m_copyCommandLineDlg->showDialog(commandLine);
+	transparent->hide();
+}
+
+void CommandLineTable::copyCmdLineToClipBoard(QString commandLine)
+{
+	QApplication::clipboard()->setText(commandLine);
 }

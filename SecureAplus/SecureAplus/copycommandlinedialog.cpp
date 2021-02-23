@@ -26,6 +26,8 @@ CopyCommandLineDialog::CopyCommandLineDialog(QDialog *parent)
 	m_commandLine->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	m_commandLine->setPlaceholderText(m_commandLineStr);
 	m_commandLine->setReadOnly(true);
+	m_commandLine->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
+	m_commandLine->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
 
 	QLabel *buttonSpacer = new QLabel();
 	buttonSpacer->setFixedHeight(20);

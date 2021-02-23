@@ -120,7 +120,7 @@ HomeMainContent::HomeMainContent(QWidget *parent)
 	setStyle();
 
 	//test
-	switch (AppSetting::getInstance()->getStatus())
+	switch (AppSetting::getInstance()->refreshStatus())
 	{
 	case Status::Protected_Status:
 		setStatusText(QString("All's Good. Your PC is Protected"));
@@ -192,7 +192,7 @@ void HomeMainContent::setIcon()
 {
 	QIcon icon;
 
-	switch (AppSetting::getInstance()->getStatus())
+	switch (AppSetting::getInstance()->refreshStatus())
 	{
 	case Status::Protected_Status:
 		icon.addFile(HOME_CONTENT_PROTECTED_PATH);
@@ -221,7 +221,7 @@ void HomeMainContent::setStyle()
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Dark_Theme:
-		switch (AppSetting::getInstance()->getStatus())
+		switch (AppSetting::getInstance()->refreshStatus())
 		{
 		case Status::Protected_Status:
 			m_statusText->setStyleSheet("QLabel {color:" + HOME_PROTECTED_TEXT_COLOR + ";}");
@@ -247,7 +247,7 @@ void HomeMainContent::setStyle()
 
 	case Theme_Type::Light_Theme:
 
-		switch (AppSetting::getInstance()->getStatus())
+		switch (AppSetting::getInstance()->refreshStatus())
 		{
 		case Status::Protected_Status:
 			m_statusText->setStyleSheet("QLabel {color:" + HOME_PROTECTED_TEXT_COLOR + ";}");
@@ -296,7 +296,7 @@ void HomeMainContent::changeStatus()
 {
 	setStyle();
 	setIcon();
-	switch (AppSetting::getInstance()->getStatus())
+	switch (AppSetting::getInstance()->refreshStatus())
 	{
 	case Status::Protected_Status:
 		setStatusText(QString("All's Good. Your PC is Protected"));

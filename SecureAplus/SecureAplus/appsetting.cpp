@@ -1,4 +1,7 @@
+#include "stdafx.h"
 #include "appsetting.h"
+#include "CatchPulseUserSettings.h"
+#include "SecurityFeaturesNoOfflineAV.h"
 AppSetting* AppSetting::m_instance = nullptr;
 
 AppSetting * AppSetting::getInstance()
@@ -13,17 +16,38 @@ AppSetting * AppSetting::getInstance()
 
 AppSetting::AppSetting()
 {
+	DWORD dwLastError = 0;
+
 	m_currentStatus = Status::Protected_Status;
-	m_themeType = Theme_Type::Dark_Theme;
 	m_protectionMode = Protection_Modes::Automatic_Mode; //can save and get from ini file
-	m_isFullScreen = false;
 	m_appLicense = License::License_Expire_Soon;
 	m_prevProtectionMode = Protection_Modes::Automatic_Mode;
 	m_appManagedByServer = false; //call api for init
+	dwLastError = getCurrentThemeCP((DWORD&)m_themeType);
+	if (dwLastError) m_themeType = Theme_Type::Dark_Theme;
+	dwLastError = getFullScreenCP((DWORD&)m_isFullScreen);
+	if (dwLastError) m_isFullScreen = false;
 }
 
 AppSetting::~AppSetting()
 {
+}
+
+// queries backend for current status
+Status AppSetting::refreshStatus()
+{
+	BOOLEAN bProtected = GetCachedSecurityFeaturesStatus();
+
+	if (bProtected)
+	{
+		m_currentStatus = Protected_Status;
+		return Protected_Status;
+	}
+	else
+	{
+		m_currentStatus = Warning_Status;
+		return Warning_Status;
+	}
 }
 
 void AppSetting::setStatus(Status status)
@@ -39,6 +63,8 @@ Status AppSetting::getStatus()
 
 void AppSetting::setTheme(Theme_Type theme)
 {
+	DWORD dwLastError;
+	dwLastError = setCurrentThemeCP((DWORD)theme);
 	m_themeType = theme;
 	emit signal_changeTheme();
 }
@@ -73,6 +99,8 @@ void AppSetting::setAppGeometry(QRect geometry)
 
 void AppSetting::setFullScreen(bool fullScreen)
 {
+	DWORD dwLastError;
+	dwLastError = setFullScreenCP((DWORD)fullScreen);
 	m_isFullScreen = fullScreen;
 }
 

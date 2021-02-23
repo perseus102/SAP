@@ -1,23 +1,24 @@
-#include "scripts.h"
+#include "trustedcertificate.h"
 
-Scripts::Scripts(QWidget *parent)
+TrustedCertificate::TrustedCertificate(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+
 	m_layout = new QVBoxLayout();
-	m_layout->setContentsMargins(30, 0, 40, 10);
+	m_layout->setContentsMargins(30, 0, 30, 30);
 	m_layout->setSpacing(0);
 
-	m_scriptsDesc = new QLabel();
-	m_scriptsDesc->setFont(FONT);
-	m_scriptsDesc->setFixedHeight(45);
-	m_scriptsDesc->setWordWrap(true);
-	m_scriptsDesc->setText("Executing a script requires both the script interpreter (which executes the script) and the script file itself to be trusted. The script interpreter will refuse to open any non-trusted file.");
+	m_certificateDesc = new QLabel();
+	m_certificateDesc->setFont(FONT);
+	m_certificateDesc->setFixedHeight(45);
+	m_certificateDesc->setWordWrap(true);
+	m_certificateDesc->setText("Manage the list of trusted certificates which are being used by the applications. Applications with their certificate listed under the Trusted Certificates list will be trusted.");
 
 	QLabel* descSpacer = new QLabel();
 	descSpacer->setFixedHeight(15);
 
-	m_scriptsTable = new ScriptsTable();
+	m_certificateTable = new CertificateTable();
 
 	QLabel* bottomTableSpacer = new QLabel();
 	bottomTableSpacer->setFixedHeight(10);
@@ -56,67 +57,63 @@ Scripts::Scripts(QWidget *parent)
 
 	QLabel* bottomSpacer = new QLabel();
 
-	m_layout->addWidget(m_scriptsDesc);
+	m_layout->addWidget(m_certificateDesc);
 	m_layout->addWidget(descSpacer);
-	m_layout->addWidget(m_scriptsTable);
+	m_layout->addWidget(m_certificateTable);
 	m_layout->addWidget(bottomTableSpacer);
 	m_layout->addWidget(bottomBtns);
 	m_layout->addWidget(bottomSpacer);
 
+	m_addTrustedCertDialog = new AddTrustedCertDialog();
 	transparent = new WidgetTransparent();
-	m_addScriptDialog = new AddScriptDialog();
 
 	setLayout(m_layout);
 	setStyle();
 
-	connect(m_removeBtn, &QPushButton::clicked, m_scriptsTable, &ScriptsTable::removeRows);
-	connect(m_removeBtn, &QPushButton::clicked, this, &Scripts::removeButtonClicked);
+	connect(m_removeBtn, &QPushButton::clicked, m_certificateTable, &CertificateTable::removeRows);
+	connect(m_removeBtn, &QPushButton::clicked, this, &TrustedCertificate::removeButtonClicked);
 
-	connect(m_addBtn, &QPushButton::clicked, this, &Scripts::addButtonClicked);
+	connect(m_addBtn, &QPushButton::clicked, this, &TrustedCertificate::addButtonClicked);
 
-	connect(m_resetBtn, &ResetButton::clicked, this, &Scripts::resetToDefaultClicked);
-	connect(m_resetBtn, &ResetButton::signalResetToDefault, m_scriptsTable, &ScriptsTable::resetToDefault);
+	connect(m_resetBtn, &ResetButton::clicked, this, &TrustedCertificate::resetToDefaultClicked);
+	connect(m_resetBtn, &ResetButton::signalResetToDefault, m_certificateTable, &CertificateTable::resetToDefault);
+	
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &TrustedCertificate::changeTheme);
 
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &Scripts::changeTheme);
-
-	connect(m_scriptsTable, &ScriptsTable::setRemoveBtnDisabled, this, &Scripts::setRemoveBtnDisabled);
-	connect(m_addScriptDialog, &AddScriptDialog::addScript, m_scriptsTable, &ScriptsTable::AddScriptsFromDialog);
-
+	connect(m_certificateTable, &CertificateTable::setRemoveBtnDisabled, this, &TrustedCertificate::setRemoveBtnDisabled);
+	connect(m_addTrustedCertDialog, &AddTrustedCertDialog::addTrustedCert, m_certificateTable, &CertificateTable::AddCertificateFromDialog);
 }
 
-Scripts::~Scripts()
+TrustedCertificate::~TrustedCertificate()
 {
 }
 
-void Scripts::loadData()
+void TrustedCertificate::loadData()
 {
-	if (m_scriptsTable) m_scriptsTable->loadData();
+	if (m_certificateTable) m_certificateTable->loadData();
 }
 
-void Scripts::removeButtonClicked()
-{
-}
-
-void Scripts::addButtonClicked()
+void TrustedCertificate::addButtonClicked()
 {
 	QRect geometry = AppSetting::getInstance()->getAppGeometry();
 
 	transparent->showWidget();
-	m_addScriptDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 290);
-	m_addScriptDialog->showDialog();
+	m_addTrustedCertDialog->setGeometry(geometry.x() + (geometry.width() / 2) - 190 /*190 is half width*/, geometry.y() + 16, 380, 360);
+	m_addTrustedCertDialog->showDialog();
 	transparent->hide();
+
 }
 
-void Scripts::resetToDefaultClicked()
+void TrustedCertificate::resetToDefaultClicked()
 {
 }
 
-void Scripts::changeTheme()
+void TrustedCertificate::changeTheme()
 {
 	setStyle();
 }
 
-void Scripts::setStyle()
+void TrustedCertificate::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -124,7 +121,7 @@ void Scripts::setStyle()
 
 		setRemoveBtnStyle();
 
-		m_scriptsDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
+		m_certificateDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
 		m_addBtn->setStyleSheet("QPushButton {background-color:none;"
 			"color: " + TAB_CONTENT_DESC_TEXT_LT + ";"
@@ -134,7 +131,7 @@ void Scripts::setStyle()
 
 	case Theme_Type::Dark_Theme:
 
-		m_scriptsDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
+		m_certificateDesc->setStyleSheet("QLabel{color: " + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
 		setRemoveBtnStyle();
 
@@ -150,8 +147,9 @@ void Scripts::setStyle()
 	}
 }
 
-void Scripts::setRemoveBtnStyle()
+void TrustedCertificate::setRemoveBtnStyle()
 {
+
 	switch (AppSetting::getInstance()->getTheme())
 	{
 	case Theme_Type::Light_Theme:
@@ -193,10 +191,13 @@ void Scripts::setRemoveBtnStyle()
 	default:
 		break;
 	}
-
 }
 
-void Scripts:: setRemoveBtnDisabled(bool disabled)
+void TrustedCertificate::removeButtonClicked()
+{
+}
+
+void TrustedCertificate::setRemoveBtnDisabled(bool disabled)
 {
 	m_removeBtn->setDisabled(disabled);
 	setRemoveBtnStyle();

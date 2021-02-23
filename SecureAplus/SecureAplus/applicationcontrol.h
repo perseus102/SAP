@@ -5,10 +5,10 @@
 #include "clickablelabel.h"
 #include "sapscrollarea.h"
 #include <QStackedWidget>
-#include "digitalsignature.h"
+#include "managedigitalsignature.h"
 #include "allowlist.h"
 #include "restrictedapp.h"
-#include "managetrustedcertificate.h"
+#include "trustedcertificate.h"
 #include "scripts.h"
 #include "commandline.h"
 #include "commandlinerule.h"
@@ -22,6 +22,7 @@ public:
 	ApplicationControl(QWidget *parent = Q_NULLPTR);
 	~ApplicationControl();
 	void setTabText();
+	void loadData();
 
 private slots:
 	void TabClicked();
@@ -49,7 +50,7 @@ private:
 
 	QObject*			m_activeTab;
 
-	DigitalSignature*		m_digitalSignatureTab;
+	ManageDigitalSignature*		m_digitalSignatureTab;
 	AllowList*				m_allowListTab;
 	RestrictedApp*			m_restrictedAppTab;
 	TrustedCertificate*		m_trustedCertificateTab;

@@ -39,5 +39,7 @@ private:
 	void setTextStyle();
 	void setAppearImage();
 	void setButtonStyle();
+	void getAndRefreshTheme();
+	void setAndRefreshTheme(Theme_Type theme);
 
 };

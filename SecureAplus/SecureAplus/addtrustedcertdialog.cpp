@@ -1,4 +1,6 @@
 #include "addtrustedcertdialog.h"
+#include "digitalsignature.h"
+#include "hex.h"
 
 ChooseFile::ChooseFile(QWidget* parent)
 	: QFrame(parent)
@@ -290,6 +292,11 @@ AddTrustedCertDialog::AddTrustedCertDialog(QDialog *parent)
 	connect(m_cancelBtn, &QPushButton::clicked, this, &AddTrustedCertDialog::cancelClicked);
 	connect(m_addFileBtn, &QPushButton::clicked, this, &AddTrustedCertDialog::addClicked);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &AddTrustedCertDialog::changeTheme);
+
+	///////////
+
+	m_ftValidFrom = { 0 };
+	m_ftValidTo = { 0 };
 }
 
 AddTrustedCertDialog::~AddTrustedCertDialog()
@@ -315,11 +322,11 @@ void AddTrustedCertDialog::addClicked()
 	if (m_curFileName != "")
 	{
 		CertificateRowString certInfor;
-		certInfor.CertificateNameText = m_commonName->text();
+		/*certInfor.CertificateNameText = m_commonName->text();
 		certInfor.validFromText = m_validFrom->text();
 		certInfor.validToText = m_validTo->text();
-		certInfor.thumprintText = m_thumbprint->text();
-		emit addTrustedCert(certInfor);
+		certInfor.thumprintText = m_thumbprint->text();*/
+		emit addTrustedCert(m_commonName->text(), m_thumbprint->text(), m_ftValidFrom, m_ftValidTo);
 	}
 
 	this->close();
@@ -331,6 +338,17 @@ void AddTrustedCertDialog::changeTheme()
 }
 void AddTrustedCertDialog::getFileName(QString fileName)
 {
+	std::wstring filenameW;
+	PCRYPT_PROVIDER_CERT psProvCert;
+	wchar_t* cert_signer = NULL;
+	SYSTEMTIME ValidFrom, ValidTo;
+	BYTE* thumbprint = NULL;
+	DWORD thumbprint_size = 0;
+	TCHAR* strThumbprint = NULL;
+	WINTRUST_DATA sWintrustData = { 0 };
+	QDate qValidFrom, qValidTo;
+	QString strDate;
+
 	setFixedSize(380, 322);
 	m_certificateInforWg->setVisible(true);
 	topSpacer->setVisible(true);
@@ -340,21 +358,79 @@ void AddTrustedCertDialog::getFileName(QString fileName)
 	m_curFileName = fileName;
 	if (fileName != "")
 	{
-		m_addFileBtn->setEnabled(true);
-		setAddBtnStyle();
-
 		setFilePathText(fileName);
+		filenameW = fileName.toStdWString();
 
-		//do something to get common name, valid from, valid to, thumprint
+		if (VerifyDigitalSignature(filenameW.c_str(), &psProvCert, &sWintrustData) == 0)
+		{
+			//valid certificate
+			cert_signer = GetCertNameW(psProvCert, CERT_NAME_ATTR_TYPE, szOID_COMMON_NAME);
 
-		/* set text after get infor */
-		m_commonName->setText("demo test");
-		m_validFrom->setText("01/01/2021");
-		m_validTo->setText("01/01/2023");
-		setThumprintText("2bb95f164c168bfe64340802000b54e3f3460dd7");
-		qDebug() << m_thumbprint->size();
+			GetCertValidityDate(psProvCert, &ValidFrom, &ValidTo);
+			SystemTimeToFileTime(&ValidFrom, &m_ftValidFrom);
+			SystemTimeToFileTime(&ValidTo, &m_ftValidTo);
+
+			strDate = QString("%1-%2-%3").arg(ValidFrom.wDay).arg(ValidFrom.wMonth).arg(ValidFrom.wYear, 4, 10, QLatin1Char('0'));
+			qValidFrom = QDate::fromString(strDate, "d-M-yyyy");
+
+			strDate = QString("%1-%2-%3").arg(ValidTo.wDay).arg(ValidTo.wMonth).arg(ValidTo.wYear, 4, 10, QLatin1Char('0'));
+			qValidTo = QDate::fromString(strDate, "d-M-yyyy");
+
+			//m_date_valid_from.SetTime(&ValidFrom);
+			//m_date_valid_to.SetTime(&ValidTo);
+			thumbprint = GetCertThumbPrint(psProvCert, &thumbprint_size);
+
+			if (thumbprint)
+			{
+				strThumbprint = toHex(thumbprint, thumbprint_size);
+				/*if (strThumbprint)
+				{
+					ui.lineEditThumbprint->setText(QString::fromWCharArray(strThumbprint));
+					thumbprintW = strThumbprint; //thumbprintW is taking over the responsibility to free the allocated memory
+					strThumbprint = NULL;
+				}*/
+			}
+
+			/* set text after get infor */
+			m_commonName->setText(QString::fromWCharArray(cert_signer));
+			m_validFrom->setText(qValidFrom.toString(Qt::SystemLocaleShortDate));
+			m_validTo->setText(qValidTo.toString(Qt::SystemLocaleShortDate));
+			setThumprintText(QString::fromWCharArray(strThumbprint));
+			qDebug() << m_thumbprint->size();
+
+			m_addFileBtn->setEnabled(true);
+			setAddBtnStyle();
+		}
+		else
+		{
+			// set text if no digicert
+			m_commonName->setText("");
+			m_validFrom->setText("");
+			m_validTo->setText("");
+			setThumprintText("");
+			qDebug() << m_thumbprint->size();
+			m_ftValidFrom = { 0 };
+			m_ftValidTo = { 0 };
+
+			m_addFileBtn->setEnabled(false);
+			setAddBtnStyle();
+		}
+
+		if (sWintrustData.cbStruct) CloseWintrustData(&sWintrustData);
+		if (thumbprint) free(thumbprint);
+		if (cert_signer)
+		{
+			LocalFree(cert_signer);
+			cert_signer = NULL;
+		}
+		if (strThumbprint)
+		{
+			free(strThumbprint);
+			strThumbprint = NULL;
+		}
 	}
 }
+
 void AddTrustedCertDialog::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
@@ -456,7 +532,7 @@ void AddTrustedCertDialog::setText()
 	m_commonNameTitle->setText("Certificate Name");
 	m_validFromTitle->setText("Valid From");
 	m_validToTitle->setText("Valid to");
-	m_thumbprintTitle->setText("Thumpbprint");
+	m_thumbprintTitle->setText("Thumbprint");
 	m_cancelBtn->setText("Cancel");
 	m_addFileBtn->setText("Add");
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stdafx.h"
 #include <QWidget>
 #include "ui_filenametable.h"
 #include "Config.h"
@@ -24,8 +25,10 @@ class FileNameTable : public QWidget
 public:
 	FileNameTable(QWidget *parent = Q_NULLPTR);
 	~FileNameTable();
+	void loadData(BOOLEAN force = FALSE);
 
 private slots:
+	void refresh();
 	void changeTheme();
 	void allCheckBoxSetCheck(Qt::CheckState);
 	void scrollBarRangeChanged(int min, int max);
@@ -33,7 +36,8 @@ private slots:
 
 public slots:
 	void removeRows();
-	void AddFileName(QString fileName);
+	void AddRestrictedApp(QString& fileName, QString& certCN);
+	void AddRestrictedAppGUIOnly(LPCWSTR filename, LPCWSTR certCN);
 	void updateFilterRow(QStringList list);
 	void setFilterRow(bool isFilter);
 	void resetToDefault();
@@ -65,6 +69,13 @@ private:
 	bool m_isFilter = false;
 	int m_rowChecked = 0;
 	int m_filterCount;
+
+	HANDLE hStopEvent;
+	HANDLE hCompletedEvent;
+	HANDLE hThread;
+	QTimer* m_timerRefresh;
+	CRITICAL_SECTION m_cs;
+	std::vector<std::pair<QString, QString>> m_incomingData;
 
 	void setStyle();
 	void setRowStyle(FileNameRow* row);

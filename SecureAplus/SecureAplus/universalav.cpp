@@ -1,27 +1,12 @@
-#include "settingsuniversalav.h"
-#include "UniversalAV_Enable.h"
-#include "NamedPipeSecureAPlusAdminSettings.h"
-#include "DeepAVEnabled.h"
-#include "OfflineAV.h"
-#include "NamedPipeSecureAPlusServiceSettings.h"
-#include "GoodNews.h"
-#include "NamedPipeUniversalAVUI.h"
-#include "UniversalAV_UploadLimit.h"
-#include "DriverCommand.h"
-#include "QTTrustedAccount.h"
-#include <UniversalAV.h>
-SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
+#include "universalav.h"
+
+UniversalAV::UniversalAV(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
 	m_layout = new QVBoxLayout();
 	m_layout->setContentsMargins(0, 0, 0, 0);
 	m_layout->setSpacing(0);
-
-	NTSTATUS status;
-	BOOLEAN bIsUniversalAVEnabled = IsUniversalAVEnabled();
-	BOOLEAN bRealTimeEnabled = !IsSAScanDisabled(&status);
-	BOOLEAN bIsUploadEnabled = IsUniversalAVAutoUploadEnabled();
 
 	QWidget* autoUploadWg = new QWidget();
 	autoUploadWg->setFixedHeight(180);
@@ -48,7 +33,6 @@ SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 
 	m_autoUploadToggle = new Switch(QMargins(0, 8, 16, 8), true);
 	m_autoUploadToggle->setFixedSize(50,30);
-	m_autoUploadToggle->setChecked(bIsUploadEnabled);
 
 	QLabel* selectFileSpacer = new QLabel();
 	selectFileSpacer->setFixedHeight(20);
@@ -64,17 +48,18 @@ SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 	m_fileTypeCbb = new SAPCombobox();
 	m_fileTypeCbb->setFixedSize(240, 32);
 	m_fileTypeCbb->setObjectName("m_fileTypeCbb");
+
 	QLabel* uploadSpacer = new QLabel();
 	//uploadSpacer->setFixedHeight(20);
 
+	m_fileTypeCbb->addItem("Executable and script files");
 	m_fileTypeCbb->addItem("Executable files");
 	m_fileTypeCbb->addItem("Any type of files");
 	m_fileTypeCbb->addItem("Executable and script files");
-	//m_fileTypeCbb->setCurrentIndex(getUAVUploadFileType());
-	m_fileTypeCbb->setCurrentIndex(1);
 
 	m_autoUploadLine = new QLabel();
 	m_autoUploadLine->setFixedHeight(2);
+
 	autoUploadLayout->addWidget(m_autoUpload);
 	autoUploadLayout->addWidget(uploadTitleSpacer);
 	autoUploadLayout->addWidget(m_autoUploadDesc);
@@ -115,7 +100,6 @@ SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 
 	m_goodNewToggle = new Switch(QMargins(0,8,16,8), true);
 	m_goodNewToggle->setFixedSize(50, 30);
-	m_goodNewToggle->setChecked(IsGoodNewsEnabled());
 
 	m_goodNewLine = new QLabel();
 	m_goodNewLine->setFixedHeight(2);
@@ -159,7 +143,6 @@ SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 
 	m_fullScanToggle = new Switch(QMargins(0, 8, 16, 8), true);
 	m_fullScanToggle->setFixedSize(50, 30);
-	m_fullScanToggle->setChecked(bIsUniversalAVEnabled);
 
 	QLabel* autoFullScanSpacer = new QLabel();
 	autoFullScanSpacer->setFixedHeight(16);
@@ -170,11 +153,7 @@ SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 	m_autoFullScan->setWordWrap(true);
 
 	m_autoFullScanToggle	= new Switch(QMargins(0, 8, 16, 8), true);
-	m_autoFullScanToggle->setFixedSize(50, 30);
-
-	m_autoFullScanToggle->disableToggleAndChecked(!bIsUniversalAVEnabled, IsUniversalAVEnabledForAutoFullSystemScan());
-	//m_autoFullScanToggle->setChecked(IsUniversalAVEnabledForAutoFullSystemScan());
-
+	m_fullScanToggle->setFixedSize(50, 30);
 
 	QLabel* FullScanBottomSpacer = new QLabel();
 
@@ -221,7 +200,6 @@ SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 
 	m_onDemandToggle = new Switch(QMargins(0, 8, 16, 8), true);
 	m_onDemandToggle->setFixedSize(50, 30);
-	m_onDemandToggle->setChecked(IsUniversalAVEnabledForManualScanning());
 
 	QLabel* demandBottomSpacer = new QLabel();
 
@@ -265,7 +243,6 @@ SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 
 	m_realTimeToggle = new Switch(QMargins(0, 8, 16, 8), true);
 	m_realTimeToggle->setFixedSize(50, 30);
-	m_realTimeToggle->setChecked(IsUniversalAVEnabledForRealTimeScanning() && bRealTimeEnabled);
 
 	QLabel* realTimeBottomSpacer = new QLabel();
 
@@ -300,10 +277,10 @@ SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 	sliderSpacer->setFixedHeight(28);
 
 	m_slider	= new SAPSlider();
-	m_slider->setRange(0, 3);
+	m_slider->setRange(1, 4);
+
 	m_slider->setFixedWidth(330);
 	m_slider->setFixedHeight(24);
-	m_slider->setSliderPosition(getSliderUploadLimit());
 
 	QLabel* capacitySpacer = new QLabel();
 	capacitySpacer->setFixedHeight(17);
@@ -390,60 +367,36 @@ SettingsUniversalAV::SettingsUniversalAV(QWidget *parent)
 	setStyle();
 	setLabelText();
 
-	connect(m_dailyUpload10MB, &ClickableLabel::clicked, this, &SettingsUniversalAV::capacityClicked);
-	connect(m_dailyUpload100MB, &ClickableLabel::clicked, this, &SettingsUniversalAV::capacityClicked);
-	connect(m_dailyUpload1GB, &ClickableLabel::clicked, this, &SettingsUniversalAV::capacityClicked);
-	connect(m_dailyUploadUnlimited, &ClickableLabel::clicked, this, &SettingsUniversalAV::capacityClicked);
-	connect(m_slider, &QSlider::valueChanged, this, &SettingsUniversalAV::sliderChangeValue);
+	connect(m_dailyUpload10MB, &ClickableLabel::clicked, this, &UniversalAV::capacityClicked);
+	connect(m_dailyUpload100MB, &ClickableLabel::clicked, this, &UniversalAV::capacityClicked);
+	connect(m_dailyUpload1GB, &ClickableLabel::clicked, this, &UniversalAV::capacityClicked);
+	connect(m_dailyUploadUnlimited, &ClickableLabel::clicked, this, &UniversalAV::capacityClicked);
+	connect(m_slider, &QSlider::valueChanged, this, &UniversalAV::sliderChangeValue);
 	connect(m_fileTypeCbb, SIGNAL(currentIndexChanged(int)),this, SLOT(comboboxChangeIndex(int)));
-	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &SettingsUniversalAV::changeTheme);
-	connect(m_autoUploadToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
-	connect(m_goodNewToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
-	connect(m_fullScanToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
-	connect(m_autoFullScanToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
-	connect(m_onDemandToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
-	connect(m_realTimeToggle, &Switch::released, this, &SettingsUniversalAV::toggleClicked);
+	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &UniversalAV::changeTheme);
+	connect(m_autoUploadToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(m_goodNewToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(m_fullScanToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(m_autoFullScanToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(m_onDemandToggle, &Switch::released, this, &UniversalAV::toggleClicked);
+	connect(m_realTimeToggle, &Switch::released, this, &UniversalAV::toggleClicked);
 
 
 }
 
-SettingsUniversalAV::~SettingsUniversalAV()
+UniversalAV::~UniversalAV()
 {
 }
 
-int SettingsUniversalAV::getSliderUploadLimit()
-{
-	int result = 3;
-	switch (uav_get_daily_upload_limit())
-	{
-	case UPLOAD_LIMIT_1GB:
-		result = 2;
-		break;
-	case UPLOAD_LIMIT_100MB:
-		result = 1;
-		break;
-	case UPLOAD_LIMIT_10MB:
-		result = 0;
-		break;
-	}
 
-	return result;
-}
 
-void SettingsUniversalAV::changeTheme()
+void UniversalAV::changeTheme()
 {
 	setStyle();
 }
 
-void SettingsUniversalAV::toggleClicked()
+void UniversalAV::toggleClicked()
 {
-	if (!IsRunByTrustedAccount())
-	{
-		return;
-	}
-
-	DWORD dwLastError = 0;
-
 	if (sender() == m_autoUploadToggle)
 	{
 		if(m_autoUploadToggle->isChecked())
@@ -453,15 +406,6 @@ void SettingsUniversalAV::toggleClicked()
 		else
 		{
 			//do somthing
-		}
-		BOOLEAN bIsUploadEnabled;
-		dwLastError = SecureaplusAdminEnableUAVAutoUpload(m_autoUploadToggle->isChecked());
-		bIsUploadEnabled = IsUniversalAVAutoUploadEnabled();
-		if (bool(bIsUploadEnabled) != m_autoUploadToggle->isChecked())
-		{
-			//ui.sliderUpload->blockSignals(true);
-			//ui.sliderUpload->setValue(IsUniversalAVAutoUploadEnabled());
-			//ui.sliderUpload->blockSignals(false);
 		}
 	}
 	else if (sender() == m_goodNewToggle)
@@ -475,43 +419,18 @@ void SettingsUniversalAV::toggleClicked()
 		{
 			//do somthing
 		}
-
-		dwLastError = NamedPipeUniversalAVUI_EnableGoodNews(m_goodNewToggle->isChecked());
 	}
 	else if (sender() == m_fullScanToggle)
 	{
 		if (m_fullScanToggle->isChecked())
 		{
 			//do somthing
-			m_autoFullScanToggle->disableToggleAndChecked(false,false);
-
-		}
-		else
-		{
-			//do somthing
-			m_autoFullScanToggle->disableToggleAndChecked(true, false);
-		}
-
-		dwLastError = SecureaplusSettingsEnableUAV(m_fullScanToggle->isChecked());
-
-	}	
-	else if (sender() == m_autoFullScanToggle)
-	{
-		if (m_autoFullScanToggle->isDisabled()) return;
-
-		if (m_autoFullScanToggle->isChecked())
-		{
-			//do somthing
 
 		}
 		else
 		{
 			//do somthing
 		}
-
-		bool ischeck = m_autoFullScanToggle->isChecked();
-		dwLastError = SecureaplusAdminEnableUAVAutoFullSystemScan(m_autoFullScanToggle->isChecked());
-
 	}
 	else if (sender() == m_onDemandToggle)
 	{
@@ -524,14 +443,9 @@ void SettingsUniversalAV::toggleClicked()
 		{
 			//do somthing
 		}
-
-		dwLastError = SecureaplusAdminEnableUAVForOnDemandScanning(m_onDemandToggle->isChecked());
-
 	}
 	else if (sender() == m_realTimeToggle)
 	{
-		if (m_realTimeToggle->isDisabled()) return;
-
 		if (m_realTimeToggle->isChecked())
 		{
 			//do somthing
@@ -541,91 +455,27 @@ void SettingsUniversalAV::toggleClicked()
 		{
 			//do somthing
 		}
-
-		BOOLEAN bRealTimeEnabled;
-		NTSTATUS status;
-
-		dwLastError = SecureaplusAdminEnableUAVForRealTimeScanning(m_realTimeToggle->isChecked());
-
-		if (dwLastError == 0)
-		{
-			bRealTimeEnabled = !IsSAScanDisabled(&status);
-			if (IsDeepAVEnabled() == FALSE && IsOfflineAVEnabled() == FALSE && IsUniversalAVEnabledForRealTimeScanning() == FALSE)
-			{
-				if (status == 0 && bRealTimeEnabled)
-				{
-					SecureaplusSettingsEnableRealTime(FALSE);
-				}
-			}
-			else
-			{
-				if (status == 0 && !bRealTimeEnabled)
-				{
-					SecureaplusSettingsEnableRealTime(TRUE);
-				}
-			}
-		}
-		else 
-		{
-		}
 	}
 
 }
 
-void SettingsUniversalAV::sliderChangeValue(int value)
+void UniversalAV::sliderChangeValue(int value)
 {
 	Q_UNUSED(value);
 
-	DWORD dwLastError;
-	ULONGLONG daily_upload_limit_in_bytes = 0xffffffffffffffff; //unlimited
+	//do something
+	//qDebug() << "sliderChangeValue " << value;
 
-	switch (value)
-	{
-	case 0:
-		daily_upload_limit_in_bytes = UPLOAD_LIMIT_10MB;
-		break;
-
-	case 1:
-		daily_upload_limit_in_bytes = UPLOAD_LIMIT_100MB;
-		break;
-
-	case 2:
-		daily_upload_limit_in_bytes = UPLOAD_LIMIT_1GB;
-		break;
-
-	default:
-		daily_upload_limit_in_bytes = UPLOAD_LIMIT_UNLIMITED; //unlimited
-		break;
-	}
-
-	//dwLastError = NamedPipeUniversalAVUI_SetDailyUploadLimit(daily_upload_limit_in_bytes);
-	dwLastError = SecureaplusSettingsSetDailyUploadLimit(daily_upload_limit_in_bytes);
-	//displayError(dwLastError, ui.labelErrorDailyUploadLimit);
-
-	//current_value = get_slider_upload_limit();
-	//if (value != current_value)
-	//{
-	//	ui.sliderUploadLimit->blockSignals(true);
-	//	ui.sliderUploadLimit->setValue(current_value);
-	//	ui.sliderUploadLimit->blockSignals(false);
-	//}
 }
 
-void SettingsUniversalAV::comboboxChangeIndex(int index)
+void UniversalAV::comboboxChangeIndex(int index)
 {
 	Q_UNUSED(index);
 	//do something
 	//qDebug() << "comboboxChangeIndex " << index;
-	DWORD dwLastError;
-
-	dwLastError = SecureaplusAdminSetUAVUploadFileType(index);
-	//if (dwLastError != 0 && index != getUAVUploadFileType())
-	//{
-		//displayError(dwLastError, ui.labelAutoUploadError);
-	//}
 }
 
-void SettingsUniversalAV::setStyle()
+void UniversalAV::setStyle()
 {
 	switch (AppSetting::getInstance()->getTheme())
 	{
@@ -699,7 +549,7 @@ void SettingsUniversalAV::setStyle()
 	}
 }
 
-void SettingsUniversalAV::setLabelText()
+void UniversalAV::setLabelText()
 {
 	m_autoUpload->setText("Auto Upload Sample File");
 	m_autoUploadDesc->setText("When it is enabled, Universal AV will automatically upload sample file if required.");
@@ -716,7 +566,7 @@ void SettingsUniversalAV::setLabelText()
 	m_dailyUpload->setText("Daily Upload Limit");
 }
 
-void SettingsUniversalAV::setDailyUpload10MBText(QString text)
+void UniversalAV::setDailyUpload10MBText(QString text)
 {
 	QFontMetrics fm(FONT);
 	int width = fm.width(text);
@@ -726,7 +576,7 @@ void SettingsUniversalAV::setDailyUpload10MBText(QString text)
 	spacer10MB->setFixedWidth(100 - width);
 }
 
-void SettingsUniversalAV::setDailyUpload100MBText(QString text)
+void UniversalAV::setDailyUpload100MBText(QString text)
 {
 	QFontMetrics fm(FONT);
 	int width = fm.width(text);
@@ -737,7 +587,7 @@ void SettingsUniversalAV::setDailyUpload100MBText(QString text)
 
 }
 
-void SettingsUniversalAV::setDailyUpload1GBText(QString text)
+void UniversalAV::setDailyUpload1GBText(QString text)
 {
 	QFontMetrics fm(FONT);
 	int width = fm.width(text);
@@ -748,7 +598,7 @@ void SettingsUniversalAV::setDailyUpload1GBText(QString text)
 
 }
 
-void SettingsUniversalAV::setDailyUploadUnlimitedText(QString text)
+void UniversalAV::setDailyUploadUnlimitedText(QString text)
 {
 	QFontMetrics fm(FONT);
 	int width = fm.width(text);
@@ -758,55 +608,45 @@ void SettingsUniversalAV::setDailyUploadUnlimitedText(QString text)
 
 }
 
-void SettingsUniversalAV::capacityClicked()
+void UniversalAV::capacityClicked()
 {
-	DWORD dwLastError;
 	//10MB label Clicked
 	if (sender() == m_dailyUpload10MB)
-	{
-		if (m_slider->value() != 0)
-		{
-			m_slider->setValue(0);
-		}
-		dwLastError = SecureaplusSettingsSetDailyUploadLimit(UPLOAD_LIMIT_10MB);
-
-	}
-	//100MB label Clicked
-	else if (sender() == m_dailyUpload100MB)
 	{
 		if (m_slider->value() != 1)
 		{
 			m_slider->setValue(1);
 		}
-		dwLastError = SecureaplusSettingsSetDailyUploadLimit(UPLOAD_LIMIT_100MB);
-
 	}
-	//1GB label Clicked
-	else if (sender() == m_dailyUpload1GB)
+	//100MB label Clicked
+	else if (sender() == m_dailyUpload100MB)
 	{
 		if (m_slider->value() != 2)
 		{
 			m_slider->setValue(2);
 		}
-		dwLastError = SecureaplusSettingsSetDailyUploadLimit(UPLOAD_LIMIT_1GB);
-
 	}
-	//Unlimited label Clicked
-	else if (sender() == m_dailyUploadUnlimited)
+	//1GB label Clicked
+	else if (sender() == m_dailyUpload1GB)
 	{
 		if (m_slider->value() != 3)
 		{
 			m_slider->setValue(3);
 		}
-		dwLastError = SecureaplusSettingsSetDailyUploadLimit(UPLOAD_LIMIT_UNLIMITED);
-
+	}
+	//Unlimited label Clicked
+	else if (sender() == m_dailyUploadUnlimited)
+	{
+		if (m_slider->value() != 4)
+		{
+			m_slider->setValue(4);
+		}
 	}
 }
 
-void SettingsUniversalAV::disableRealTimeScan(bool bDisable)
+void UniversalAV::offRealTimeScan()
 {
 	//set unchecked and disabled toogle
-	m_realTimeToggle->disableToggleAndChecked(bDisable,false);
+	m_realTimeToggle->disableToggleAndChecked(false);
 	//do something
-	SecureaplusAdminEnableUAVForRealTimeScanning(false);
 }

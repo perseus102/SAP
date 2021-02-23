@@ -23,9 +23,9 @@ private slots:
 	void cancelClicked();
 	void addFileClicked();
 	void changeTheme();
-	void textChange(QString text);
+	void textChange(const QString &text);
 signals:
-	void addScript(QString interpreter, QString extensions);
+	void addScript(QString &interpreter, QString &extensions);
 private:
 	Ui::AddScriptDialog ui;
 

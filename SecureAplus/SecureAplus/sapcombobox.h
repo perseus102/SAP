@@ -15,7 +15,7 @@ class SAPCombobox : public QComboBox
 public:
 	SAPCombobox(QWidget *parent = Q_NULLPTR);
 	~SAPCombobox();
-	void setBackroungColor(QString background, QString backgroundLT);
+	void setBackgroundColor(QString background, QString backgroundLT);
 
 private slots:
 	void changeTheme();

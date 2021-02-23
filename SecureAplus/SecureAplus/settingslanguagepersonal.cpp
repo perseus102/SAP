@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "settingslanguagepersonal.h"
 
 SettingsLanguagePersonal::SettingsLanguagePersonal(QWidget *parent)
@@ -227,22 +228,12 @@ void SettingsLanguagePersonal::radioButtonClicked()
 	//switch theme
 	if (sender() == m_lightThemeBtn)
 	{
-		if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
-		{
-			AppSetting::getInstance()->setTheme(Theme_Type::Light_Theme);
-		}
-		m_lightThemeBtn->setButtonChecked(Qt::Checked);
-		m_darkThemeBtn->setButtonChecked(Qt::Unchecked);
+		setAndRefreshTheme(Light_Theme);
 
 	}
 	else if (sender() == m_darkThemeBtn)
 	{
-		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
-		{
-			AppSetting::getInstance()->setTheme(Theme_Type::Dark_Theme);
-		}
-		m_lightThemeBtn->setButtonChecked(Qt::Unchecked);
-		m_darkThemeBtn->setButtonChecked(Qt::Checked);
+		setAndRefreshTheme(Dark_Theme);
 	}
 }
 
@@ -251,21 +242,31 @@ void SettingsLanguagePersonal::themeTextClicked()
 {
 	if (sender() == m_appearLightThemeText)
 	{
-		m_lightThemeBtn->setButtonChecked(Qt::Checked);
-		m_darkThemeBtn->setButtonChecked(Qt::Unchecked);
-		if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
-		{
-			AppSetting::getInstance()->setTheme(Theme_Type::Light_Theme);
-		}
+		setAndRefreshTheme(Light_Theme);
 
 	}
 	else if (sender() == m_appearDarkThemeText)
 	{
-		m_lightThemeBtn->setButtonChecked(Qt::Unchecked);
-		m_darkThemeBtn->setButtonChecked(Qt::Checked);
+		setAndRefreshTheme(Dark_Theme);
+	}
+}
+
+// 0 = light mode, 1 = dark mode
+void SettingsLanguagePersonal::setAndRefreshTheme(Theme_Type theme)
+{
+	if (theme == Light_Theme)
+	{
+		if (AppSetting::getInstance()->getTheme() == Theme_Type::Dark_Theme)
+		{
+			AppSetting::getInstance()->setTheme(Theme_Type::Light_Theme);
+		}
+	}
+	else if (theme == Dark_Theme)
+	{
 		if (AppSetting::getInstance()->getTheme() == Theme_Type::Light_Theme)
 		{
 			AppSetting::getInstance()->setTheme(Theme_Type::Dark_Theme);
 		}
 	}
+	setButtonStyle();
 }

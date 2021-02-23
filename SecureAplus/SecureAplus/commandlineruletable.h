@@ -9,7 +9,6 @@
 #include "sapscrollarea.h"
 #include "copybutton.h"
 #include "widgettransparent.h"
-#include "saptablecombobox.h"
 #include <QLineEdit>
 
 struct CommandLineRuleRow
@@ -69,9 +68,6 @@ private:
 	bool			m_processSortUp;
 	bool			m_paramSortUp;
 
-	SAPTableCombobox*			m_caseSensitiveCbb;
-	SAPTableCombobox*			m_rulesCbb;
-	SAPTableCombobox*			m_actionsCbb;
 
 	QLineEdit*					m_caseSensitiveEdt;
 	QLineEdit*					m_rulesEdt;

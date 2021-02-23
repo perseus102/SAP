@@ -20,6 +20,7 @@ public:
 
 	void setStatus(Status status);
 	Status getStatus();
+	Status refreshStatus();
 
 	void setTheme(Theme_Type theme);
 	Theme_Type getTheme();

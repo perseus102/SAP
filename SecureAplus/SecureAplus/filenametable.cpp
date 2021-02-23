@@ -1,4 +1,13 @@
 #include "filenametable.h"
+#include "threadpopulaterestrictedapp.h"
+#include "NamedPipeSecureAPlusAdminSettings.h"
+
+BOOLEAN callback_add_restricted_app(void* lpContext, LPCWSTR filename, LPCWSTR certCN)
+{
+	FileNameTable* t = (FileNameTable*)lpContext;
+	t->AddRestrictedAppGUIOnly(filename, certCN);
+	return TRUE;
+}
 
 FileNameTable::FileNameTable(QWidget *parent)
 	: QWidget(parent)
@@ -69,7 +78,7 @@ FileNameTable::FileNameTable(QWidget *parent)
 	m_rowCount = 0;
 
 	//Init default list here
-	m_defaultList.append("7z.exe");
+	/*m_defaultList.append("7z.exe");
 	m_defaultList.append("7zfm.exe");
 	m_defaultList.append("7zg.exe");
 	m_defaultList.append("ace32loader.exe");
@@ -82,71 +91,72 @@ FileNameTable::FileNameTable(QWidget *parent)
 	m_defaultList.append("microsoftedgecp.exe");
 	m_defaultList.append("notepad++.exe");
 	m_defaultList.append("onedrive.exe");
-	m_defaultList.append("outlook.exe");
-
+	m_defaultList.append("outlook.exe");*/
+	m_timerRefresh = new QTimer(this);
+	if (m_timerRefresh)
+	{
+		connect(m_timerRefresh, SIGNAL(timeout()), this, SLOT(refresh()));
+	}
+	hStopEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+	hCompletedEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+	hThread = NULL;
+	InitializeCriticalSection(&m_cs);
 }
 
 FileNameTable::~FileNameTable()
 {
-
+	if (hThread)
+	{
+		if (hStopEvent) SetEvent(hStopEvent);
+		WaitForSingleObject(hThread, INFINITE);
+		CloseHandle(hThread);
+		hThread = NULL;
+	}
+	if (m_timerRefresh) delete m_timerRefresh;
+	DeleteCriticalSection(&m_cs);
 }
 
-void FileNameTable::AddFileName(QString fileName)
+void FileNameTable::loadData(BOOLEAN force)
 {
-	FileNameRow* row = new FileNameRow();
-
-	row->rowWg = new QWidget();
-	row->rowWg->setFixedHeight(36);
-
-	QHBoxLayout* rowLayout = new QHBoxLayout();
-	rowLayout->setContentsMargins(20, 0, 0, 0);
-	rowLayout->setSpacing(0);
-	row->rowWg->setLayout(rowLayout);
-
-	row->checkBox = new SAPCheckBox();
-	row->checkBox->setFixedSize(18, 36);
-	row->checkBox->setButtonChecked(Qt::Unchecked);
-
-	QLabel* centerSpacer = new QLabel();
-	centerSpacer->setFixedWidth(12);
-
-	row->fileNameText = new QLabel();
-	row->fileNameText->setFixedHeight(36);
-	row->fileNameText->setFont(FONT);
-	row->fileNameText->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	row->fileNameText->setText(fileName);
-
-	QLabel* titleRightSpacer = new QLabel();
-
-	row->line = new QLabel();
-	row->line->setFixedHeight(2);
-
-	rowLayout->addWidget(row->checkBox);
-	rowLayout->addWidget(centerSpacer);
-	rowLayout->addWidget(row->fileNameText);
-	rowLayout->addWidget(titleRightSpacer);
-	setRowStyle(row);
-
-	m_rowLayout->addWidget(row->rowWg);
-	m_rowLayout->addWidget(row->line);
-
-	m_fileNameRowMap.insert(fileName, row);
-	m_fileNameList.append(fileName);
-	m_rowCount++;
-	
-	if (m_isFilter)
+	if (force && hThread && WaitForSingleObject(hCompletedEvent, 0) == 0)
 	{
-		QSize size = m_rowWg->size();
-		m_rowWg->resize(this->width(), size.height() + 38);
+		// previously loaded data successfully
+		// reset all state-tracking objects involved in loadData()
+		if (hCompletedEvent) ResetEvent(hCompletedEvent);
+		CloseHandle(hThread);
+		hThread = NULL;
 	}
-	else
+	if (!hThread)
 	{
-		m_rowWg->resize(this->width(), (38 * m_rowCount));
+		hThread = CreateThreadPopulateRestrictedApp(this, callback_add_restricted_app, hStopEvent, hCompletedEvent);
+		m_timerRefresh->start(500);
+	}
+}
+
+void FileNameTable::AddRestrictedAppGUIOnly(LPCWSTR filename, LPCWSTR certCN)
+{
+	EnterCriticalSection(&m_cs);
+	m_incomingData.push_back(std::make_pair(QString::fromWCharArray(filename), QString::fromWCharArray(certCN)));
+	LeaveCriticalSection(&m_cs);
+}
+
+void FileNameTable::AddRestrictedApp(QString& fileName, QString& certCN)
+{
+	DWORD dwLastError = 0;
+	std::wstring fileNameW, certCNW;
+
+	fileNameW = fileName.toStdWString();
+	certCNW = certCN.toStdWString();
+	dwLastError = SecureaplusAdminSettingsAddRestrictedApp(fileNameW.c_str(), certCNW.c_str());
+	if (dwLastError != 0)
+	{
+		// TODO: display error, when add fails
+		return;
 	}
 
-	connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &FileNameTable::rowCheckBoxSetCheck);
-
-	emit addWord(fileName);
+	EnterCriticalSection(&m_cs);
+	m_incomingData.push_back(std::make_pair(fileName, certCN));
+	LeaveCriticalSection(&m_cs);
 }
 
 void FileNameTable::updateFilterRow(QStringList list)
@@ -177,7 +187,19 @@ void FileNameTable::setFilterRow(bool isFilter)
 
 void FileNameTable::resetToDefault()
 {
+	DWORD dwLastError = 0;
 	QStringList keyList;
+
+	// TODO: disable/deactivate "Reset to default" label here
+
+	// restore defaults in backend
+	dwLastError = SecureaplusAdminSettingsRestoreDefaultRestrictedApp();
+	if (dwLastError)
+	{
+		// TODO: display error, when reset to default fails 
+		return;
+	}
+
 	for (auto& row : m_fileNameRowMap)
 	{
 		keyList.append(m_fileNameRowMap.key(row));
@@ -197,13 +219,10 @@ void FileNameTable::resetToDefault()
 		m_fileNameRowMap.remove(key);
 		emit removeWord(key);
 	}
-
-	for (auto& key : m_defaultList)
-	{
-		AddFileName(key);
-	}
-
 	setCheckBoxsState();
+
+	// re-populate all rows in GUI
+	loadData(TRUE);
 }
 
 
@@ -267,16 +286,25 @@ void FileNameTable::AddFileNameFromDialog(QString fileName)
 		}
 	}
 
-	AddFileName(fileName);
+	AddRestrictedApp(fileName, QString("")); // [Ben] TODO: dive into Browse button in addResAppDialog to define cert
+	refresh();
 }
 
 void FileNameTable::removeRows()
 {
+	DWORD dwLastError = 0;
 	QStringList keyList;
 	for (auto& row : m_fileNameRowMap)
 	{
 		if (row->checkBox->getCheckState() == Qt::Checked && row->rowWg->isVisible())
 		{
+			dwLastError = SecureaplusAdminSettingsDeleteRestrictedApp(row->fileNameText->text().toStdWString().c_str());
+			if (dwLastError != 0)
+			{
+				// TODO: display error, when remove fails
+				break;
+			}
+
 			keyList.append(m_fileNameRowMap.key(row));
 			m_rowLayout->removeWidget(row->rowWg);
 			m_rowLayout->removeWidget(row->line);
@@ -477,6 +505,85 @@ void FileNameTable::setCheckBoxsState()
 		break;
 	default:
 		break;
+	}
+}
+
+void FileNameTable::refresh()
+{
+	QString fileName;
+	if (TryEnterCriticalSection(&m_cs))
+	{
+		for (auto it : m_incomingData)
+		{
+			fileName = it.first;
+
+			FileNameRow* row = new FileNameRow();
+
+			row->rowWg = new QWidget();
+			row->rowWg->setFixedHeight(36);
+
+			QHBoxLayout* rowLayout = new QHBoxLayout();
+			rowLayout->setContentsMargins(20, 0, 0, 0);
+			rowLayout->setSpacing(0);
+			row->rowWg->setLayout(rowLayout);
+
+			row->checkBox = new SAPCheckBox();
+			row->checkBox->setFixedSize(18, 36);
+			row->checkBox->setButtonChecked(Qt::Unchecked);
+
+			QLabel* centerSpacer = new QLabel();
+			centerSpacer->setFixedWidth(12);
+
+			row->fileNameText = new QLabel();
+			row->fileNameText->setFixedHeight(36);
+			row->fileNameText->setFont(FONT);
+			row->fileNameText->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+			row->fileNameText->setText(fileName);
+
+			QLabel* titleRightSpacer = new QLabel();
+
+			row->line = new QLabel();
+			row->line->setFixedHeight(2);
+
+			rowLayout->addWidget(row->checkBox);
+			rowLayout->addWidget(centerSpacer);
+			rowLayout->addWidget(row->fileNameText);
+			rowLayout->addWidget(titleRightSpacer);
+			setRowStyle(row);
+
+			m_rowLayout->addWidget(row->rowWg);
+			m_rowLayout->addWidget(row->line);
+
+			m_fileNameRowMap.insert(fileName, row);
+			m_fileNameList.append(fileName);
+			m_rowCount++;
+
+			if (m_isFilter)
+			{
+				QSize size = m_rowWg->size();
+				m_rowWg->resize(this->width(), size.height() + 38);
+			}
+			else
+			{
+				m_rowWg->resize(this->width(), (38 * m_rowCount));
+			}
+
+			connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &FileNameTable::rowCheckBoxSetCheck);
+
+			emit addWord(fileName);
+		}
+
+		if (hCompletedEvent)
+		{
+			if (WaitForSingleObject(hCompletedEvent, 0) == 0)
+			{
+				//Completed
+				if (m_timerRefresh) m_timerRefresh->stop();
+			}
+		}
+
+		m_incomingData.clear();
+		LeaveCriticalSection(&m_cs);
 	}
 }
 

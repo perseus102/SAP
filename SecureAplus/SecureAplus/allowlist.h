@@ -8,6 +8,8 @@
 #include "appsetting.h"
 #include <QPushButton>
 #include "allowliststatus.h"
+#include "SafeParamThreadExportWhitelist.h"
+
 #include "sapradiobutton.h"
 #include "clickablelabel.h"
 #include "compactdialog.h"
@@ -21,6 +23,7 @@ public:
 	~AllowList();
 private slots:
 	void changeTheme();
+	void onRefresh();
 	void radioButtonClicked();
 	void textClicked();
 	void compactBtnClicked();
@@ -49,6 +52,10 @@ private:
 	AllowListStatus* m_allistService;
 	AllowListStatus* m_allistDriver;
 
+	QTimer* m_timerRefresh;
+	HANDLE hProcessImportWhitelist;
+	HANDLE hThreadExportWhitelist;
+	SafeParamThreadExportWhitelist* paramThreadExportWhitelist;
 	SAPRadioButton *m_slowBtn;
 	SAPRadioButton *m_fastBtn;
 	ClickableLabel* m_slowText;
@@ -59,7 +66,15 @@ private:
 
 	void setStyle();
 	void setLabelText();
-	void setButtonStyle();
+
+	void refreshInitialWhitelistStatus();
+	void refreshAllowlistServiceAndDriverStatus();
+	void refreshServiceStatus(const wchar_t* service_name);
+
+	void freeParamThreadExportWhitelist();
+	void onImportWhitelist();
+	void onExportWhitelist();
+
 	
 	WidgetTransparent*	transparent;
 	CompactDialog* m_compactDialog;

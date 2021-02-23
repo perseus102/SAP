@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stdafx.h"
 #include <QWidget>
 #include "ui_adddtrustedcertdialog.h"
 #include "Config.h"
@@ -53,7 +54,7 @@ private slots:
 	void getFileName(QString fileName);
 
 signals:
-	void addTrustedCert(CertificateRowString);
+	void addTrustedCert(QString&, QString&, FILETIME, FILETIME);
 
 private:
 	Ui::AdddTrustedCertDialog ui;
@@ -85,9 +86,11 @@ private:
 
 	QWidget*		m_certificateInforWg;
 
+	QString			m_curFileName;
+	QString			m_thumbprintText;
 
-	QString m_curFileName;
-	QString m_thumbprintText;
+	FILETIME		m_ftValidFrom;
+	FILETIME		m_ftValidTo;
 
 	void setStyle();
 	void setText();

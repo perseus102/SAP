@@ -81,6 +81,9 @@ void ManageContent::changeManageView(QString widgetName)
 		m_manageTopBar->addDir("Application Control", Directory::AppControl);
 		m_curManageDir = Directory::AppControl;
 		m_manageTopBar->setVisibleNaviButton(true);
+
+		// load lists in tables
+		if (m_appControl) m_appControl->loadData();
 	}
 	else if (widgetName == "removableDevices")
 	{

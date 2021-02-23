@@ -78,6 +78,11 @@ CommandLine::~CommandLine()
 {
 }
 
+void CommandLine::loadData()
+{
+	if (m_commandLineTable) m_commandLineTable->loadData();
+}
+
 void CommandLine::addButtonClicked()
 {
 	QRect geometry = AppSetting::getInstance()->getAppGeometry();

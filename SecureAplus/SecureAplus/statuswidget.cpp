@@ -90,7 +90,7 @@ void StatusWidget::changeTheme()
 
 void StatusWidget::countDownFinished()
 {
-	AppSetting::getInstance()->setStatus(Status::Protected_Status);
+	//AppSetting::getInstance()->setStatus(Status::Protected_Status);
 	AppSetting::getInstance()->changePrevMode();
 }
 
@@ -265,7 +265,7 @@ void StatusWidget::setTrustAllMode()
 	default:
 		break;
 	}
-	AppSetting::getInstance()->setStatus(Status::Warning_Status);
+	//AppSetting::getInstance()->setStatus(Status::Warning_Status);
 
 }
 

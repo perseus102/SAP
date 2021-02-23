@@ -199,7 +199,7 @@ void SettingsProtectionModes::switchMode()
 	}
 	else if (m_modeSelected == m_trustall)
 	{
-		AppSetting::getInstance()->setStatus(Status::Protected_Status);
+		//AppSetting::getInstance()->setStatus(Status::Protected_Status);
 		m_trustall->setSelected(false);
 	}
 	else if (m_modeSelected == m_observation)

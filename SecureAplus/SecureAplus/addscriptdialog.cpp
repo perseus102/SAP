@@ -173,7 +173,7 @@ void AddScriptDialog::changeTheme()
 	setStyle();
 }
 
-void AddScriptDialog::textChange(QString text)
+void AddScriptDialog::textChange(const QString &text)
 {
 	if (m_filePath->text() == "" || m_fileExtensionEdit->text() == "")
 	{

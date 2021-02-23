@@ -78,5 +78,5 @@ private:
 	void setAntivDrivereStyle();
 	void setOffAntivServiceStyle();
 	void setSettingBtnStyle();
-	
+
 };

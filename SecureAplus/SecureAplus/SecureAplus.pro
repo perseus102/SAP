@@ -7,6 +7,7 @@ TARGET = SecureAplus
 DESTDIR = ../x64/Debug
 CONFIG += debug
 LIBS += -L"."
+LIBS += -L"WS2_32.lib"
 DEPENDPATH += .
 MOC_DIR += .
 OBJECTS_DIR += debug

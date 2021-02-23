@@ -348,7 +348,6 @@ void Switch::setColorStyle()
 			break;
 
 		case Theme_Type::Dark_Theme:
-
 			style.trackOnBrush = QColor(TOGGLE_ACTIVE_TRACK_DT);
 			style.trackOffBrush = QColor(TRACK_UNCHECKED_DARK_THEME_COLOR);
 			style.thumbOnBrush = QColor(TOGGLE_ACTIVE_THUMB_DT);

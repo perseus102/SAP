@@ -21,6 +21,7 @@ public:
 	RestrictedApp(QWidget *parent = Q_NULLPTR);
 	~RestrictedApp();
 	void setDescText(QString text);
+	void loadData();
 
 private slots:
 	void removeButtonClicked();

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "stdafx.h"
 #include <QWidget>
 #include "ui_scriptstable.h"
 #include "Config.h"
@@ -31,16 +31,19 @@ class ScriptsTable : public QWidget
 public:
 	ScriptsTable(QWidget *parent = Q_NULLPTR);
 	~ScriptsTable();
+	void loadData(BOOLEAN force = FALSE);
 
 private slots:
+	void refresh();
 	void changeTheme();
 	void allCheckBoxSetCheck(Qt::CheckState);
 	void scrollBarRangeChanged(int min, int max);
 	void rowCheckBoxSetCheck(Qt::CheckState);
 
 public slots:
-	void AddScripts(QString interpreter, QString extensions);
-	void AddScriptsFromDialog(QString interpreter, QString extensions);
+	void AddScripts(QString &interpreter, QString &extensions);
+	void AddScriptsGUIOnly(LPCWSTR interpreter, LPCWSTR extensions);
+	void AddScriptsFromDialog(QString &interpreter, QString &extensions);
 	void removeRows();
 	void resetToDefault();
 
@@ -68,6 +71,12 @@ private:
 	QList<ScriptsRow*> m_scriptsRowMap;
 	QStringList m_fileNameList;
 
+	HANDLE hStopEvent;
+	HANDLE hCompletedEvent;
+	HANDLE hThread;
+	QTimer* m_timerRefresh;
+	CRITICAL_SECTION m_cs;
+	std::vector<std::pair<QString, QString>> m_incomingData;
 
 	int m_rowCount;
 	void setStyle();

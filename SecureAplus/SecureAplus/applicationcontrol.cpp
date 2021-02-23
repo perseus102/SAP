@@ -83,7 +83,7 @@ ApplicationControl::ApplicationControl(QWidget *parent)
 	tabLayout->setContentsMargins(0, 25, 0, 0);
 	m_tabContentWidget->setLayout(tabLayout);
 
-	m_digitalSignatureTab	= new DigitalSignature();
+	m_digitalSignatureTab	= new ManageDigitalSignature();
 	m_allowListTab			= new AllowList();
 	m_restrictedAppTab		= new RestrictedApp();
 	m_trustedCertificateTab = new TrustedCertificate();
@@ -165,6 +165,14 @@ void ApplicationControl::setTabText()
 	m_cmdRules->setText("Command Line Rules");
 	m_allowedListCmd->setText("Allowed List Command Line");
 	m_processProtector->setText("Process Protector");
+}
+
+void ApplicationControl::loadData()
+{
+	if (m_scriptsTab) m_scriptsTab->loadData();
+	if (m_restrictedAppTab) m_restrictedAppTab->loadData();
+	if (m_trustedCertificateTab) m_trustedCertificateTab->loadData();
+	if (m_commandLineTab) m_commandLineTab->loadData();
 }
 
 void ApplicationControl::changeTheme()

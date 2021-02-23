@@ -1,4 +1,14 @@
 #include "certificatetable.h"
+#include "threadpopulatecertificate.h"
+#include "NamedPipeSecureAPlusAdminSettings.h"
+
+BOOLEAN callback_add_certificate(LPVOID lpContext, LPCWSTR name, LPCWSTR thumbprint, FILETIME valid_from, FILETIME valid_to)
+{
+	CertificateTable* t = (CertificateTable*)lpContext;
+	t->AddCertificateGUIOnly(name, thumbprint, valid_from, valid_to);
+	return TRUE;
+}
+
 CertificateTable::CertificateTable(QWidget *parent)
 	: QWidget(parent)
 {
@@ -78,8 +88,16 @@ CertificateTable::CertificateTable(QWidget *parent)
 	connect(m_checkAllBox, &SAPCheckBox::boxSetChecked, this, &CertificateTable::allCheckBoxSetCheck);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &CertificateTable::changeTheme);
 
-
-	for (int a = 1; a <= 50; a++)
+	m_timerRefresh = new QTimer(this);
+	if (m_timerRefresh)
+	{
+		connect(m_timerRefresh, SIGNAL(timeout()), this, SLOT(refresh()));
+	}
+	hStopEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+	hCompletedEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+	hThread = NULL;
+	InitializeCriticalSection(&m_cs);
+	/*for (int a = 1; a <= 50; a++)
 	{
 		CertificateRowString rowString;
 		rowString.CertificateNameText = "Uninstall_Service_Deviceeeee.cmd" + QString::number(a);;
@@ -88,12 +106,85 @@ CertificateTable::CertificateTable(QWidget *parent)
 		rowString.thumprintText = "IAJDVIWEORFIOJE2748729HFOI3NDJ2EF2IUHF" + QString::number(a);
 		AddCertificate(rowString);
 		m_defaultList.append(rowString);
-	}
+	}*/
 	//init m_defaultList here
 }
 
 CertificateTable::~CertificateTable()
 {
+	if (hThread)
+	{
+		if (hStopEvent) SetEvent(hStopEvent);
+		WaitForSingleObject(hThread, INFINITE);
+		CloseHandle(hThread);
+		hThread = NULL;
+	}
+	if (m_timerRefresh) delete m_timerRefresh;
+	DeleteCriticalSection(&m_cs);
+}
+
+void CertificateTable::loadData(BOOLEAN force)
+{
+	if (force && hThread && WaitForSingleObject(hCompletedEvent, 0) == 0)
+	{
+		// previously loaded data successfully
+		// reset all state-tracking objects involved in loadData()
+		if (hCompletedEvent) ResetEvent(hCompletedEvent);
+		CloseHandle(hThread);
+		hThread = NULL;
+	}
+	if (!hThread)
+	{
+		hThread = CreateThreadPopulateCertificate(this, callback_add_certificate, hStopEvent, hCompletedEvent);
+		m_timerRefresh->start(500);
+	}
+}
+
+void CertificateTable::AddCertificateGUIOnly(LPCWSTR name, LPCWSTR thumbprint, FILETIME valid_from, FILETIME valid_to)
+{
+	CertificateRowString rowString;
+	SYSTEMTIME valid_from_st, valid_to_st;
+
+	FileTimeToSystemTime(&valid_from, &valid_from_st);
+	FileTimeToSystemTime(&valid_to, &valid_to_st);
+
+	rowString.CertificateNameText = QString::fromWCharArray(name);
+	rowString.thumprintText = QString::fromWCharArray(thumbprint);
+	rowString.validFromText = QString("%3-%2-%1").arg(valid_from_st.wDay, 2, 10, QChar('0')).arg(valid_from_st.wMonth, 2, 10, QChar('0')).arg(valid_from_st.wYear, 4, 10, QLatin1Char('0'));
+	rowString.validToText = QString("%3-%2-%1").arg(valid_to_st.wDay, 2, 10, QChar('0')).arg(valid_to_st.wMonth, 2, 10, QChar('0')).arg(valid_to_st.wYear, 4, 10, QLatin1Char('0'));
+
+	EnterCriticalSection(&m_cs);
+	m_incomingData.push_back(rowString);
+	LeaveCriticalSection(&m_cs);
+}
+
+void CertificateTable::AddCertificate(QString& name, QString& thumbprint, FILETIME valid_from, FILETIME valid_to)
+{
+	CertificateRowString rowString;
+	SYSTEMTIME valid_from_st, valid_to_st;
+	DWORD dwLastError = 0;
+	std::wstring nameW, thumbprintW;
+
+	nameW = name.toStdWString();
+	thumbprintW = thumbprint.toStdWString();
+	dwLastError = SecureaplusAdminSettingsAddTrustedCertificate(nameW.c_str(), thumbprintW.c_str(), valid_from, valid_to);
+	if (dwLastError != 0)
+	{
+		// TODO: display error, when add fails
+		return;
+	}
+
+	FileTimeToSystemTime(&valid_from, &valid_from_st);
+	FileTimeToSystemTime(&valid_to, &valid_to_st);
+
+	rowString.CertificateNameText = name;
+	rowString.thumprintText = thumbprint;
+	rowString.validFromText = QString("%3-%2-%1").arg(valid_from_st.wDay, 2, 10, QChar('0')).arg(valid_from_st.wMonth, 2, 10, QChar('0')).arg(valid_from_st.wYear, 4, 10, QLatin1Char('0'));
+	rowString.validToText = QString("%3-%2-%1").arg(valid_to_st.wDay, 2, 10, QChar('0')).arg(valid_to_st.wMonth, 2, 10, QChar('0')).arg(valid_to_st.wYear, 4, 10, QLatin1Char('0'));
+
+	EnterCriticalSection(&m_cs);
+	m_incomingData.push_back(rowString);
+	LeaveCriticalSection(&m_cs);
 }
 
 void CertificateTable::allCheckBoxSetCheck(Qt::CheckState state)
@@ -139,7 +230,20 @@ void CertificateTable::rowCheckBoxSetCheck(Qt::CheckState)
 
 void CertificateTable::resetToDefault()
 {
+	DWORD dwLastError = 0;
 	QList<CertificateRow*> keyList;
+
+	// TODO: disable/deactivate "Reset to default" label here
+
+	// restore defaults in backend
+	dwLastError = SecureaplusAdminSettingsRestoreDefaultTrustedCertificate();
+	if (dwLastError)
+	{
+		// TODO: display error, when reset to default fails 
+		return;
+	}
+
+	// de-populate all rows in GUI
 	for (auto& row : m_CertificateRowMap)
 	{
 		keyList.append(row);
@@ -153,23 +257,19 @@ void CertificateTable::resetToDefault()
 		QSize size = m_rowWg->size();
 		m_rowWg->resize(this->width(), size.height() - 52 /* row height */);
 	}
-
 	for (auto& key : keyList)
 	{
 		m_CertificateRowMap.removeOne(key);
 	}
 
-	for (auto& key : m_defaultList)
-	{
-		AddCertificate(key);
-	}
-
 	setCheckBoxsState();
-
 	resizeLabel();
+
+	// re-populate all rows in GUI
+	loadData(TRUE);
 }
 
-void CertificateTable::AddCertificateFromDialog(CertificateRowString rowString)
+void CertificateTable::AddCertificateFromDialog(QString &name, QString &thumbprint, FILETIME valid_from, FILETIME valid_to)
 {
 	int cout = -1;
 
@@ -177,7 +277,7 @@ void CertificateTable::AddCertificateFromDialog(CertificateRowString rowString)
 	{
 		cout++;
 
-		if (row->thumprint->text() == rowString.thumprintText)
+		if (row->thumbprint->text() == thumbprint)
 		{
 			QWidget* wg = m_rowLayout->itemAt(cout * 2)->widget();
 			m_scrollView->ensureWidgetVisible(wg,150,150);
@@ -185,16 +285,32 @@ void CertificateTable::AddCertificateFromDialog(CertificateRowString rowString)
 		}
 	}
 
-	AddCertificate(rowString);
+	AddCertificate(name, thumbprint, valid_from, valid_to);
+	refresh();
 }
 
 void CertificateTable::removeRows()
 {
+	DWORD dwLastError = 0;
+	std::wstring certnameW, thumbprintW;
 	QList<CertificateRow*> keyList;
 	for (auto& row : m_CertificateRowMap)
 	{
 		if (row->checkBox->getCheckState() == Qt::Checked && row->rowWg->isVisible())
 		{
+			certnameW = row->CertificateName->text().toStdWString();
+			thumbprintW = row->thumbprint->text().toStdWString();
+			dwLastError = SecureaplusAdminSettingsDeleteTrustedCertificate(certnameW.c_str(), thumbprintW.c_str());
+			if (dwLastError == ERROR_FILE_NOT_FOUND) dwLastError = 0; //this is ok, the entry has been deleted.
+			if (dwLastError != 0)
+			{
+				// TODO: display error when remove() fails
+				/**pbDeleteThis = false;
+				bContinue = false;
+				SecureAPlusDisplayError(this, dwLastError);*/
+				break;
+			}
+
 			keyList.append(row);
 			m_rowLayout->removeWidget(row->rowWg);
 			m_rowLayout->removeWidget(row->line);
@@ -273,7 +389,7 @@ void CertificateTable::setRowStyle(CertificateRow * row)
 											"padding-left:5px;}");
 		row->validTo->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
 
-		row->thumprint->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
+		row->thumbprint->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_LT + ";}");
 		row->line->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_LT + ";}");
 
 		break;
@@ -285,7 +401,7 @@ void CertificateTable::setRowStyle(CertificateRow * row)
 											"padding-left:5px;}");
 		row->validTo->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
 
-		row->thumprint->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
+		row->thumbprint->setStyleSheet("QLabel{color:" + TAB_CONTENT_DESC_TEXT_DT + ";}");
 		row->line->setStyleSheet("QLabel{ background-color:" + LINE_COLOR_DT + ";}");
 
 		break;
@@ -426,108 +542,128 @@ void CertificateTable::resizeLabel()
 	}
 }
 
-void CertificateTable::AddCertificate(CertificateRowString rowString)
+void CertificateTable::refresh()
 {
 
-	CertificateRow* row = new CertificateRow();
-
-	row->rowWg = new QWidget();
-	row->rowWg->setFixedHeight(50);
-
-	QVBoxLayout* rowLayout = new QVBoxLayout();
-	rowLayout->setContentsMargins(0, 0, 0, 0);
-	rowLayout->setSpacing(0);
-
-	row->rowWg->setLayout(rowLayout);
-
-	QWidget* HRowWg = new QWidget();
-	HRowWg->setFixedHeight(36);
-
-	QHBoxLayout* HRowLayout = new QHBoxLayout();
-	HRowLayout->setContentsMargins(20, 0, 0, 0);
-	HRowLayout->setSpacing(0);
-	HRowWg->setLayout(HRowLayout);
-
-
-	row->rowWg->setLayout(rowLayout);
-	row->checkBox = new SAPCheckBox();
-	row->checkBox->setFixedSize(18, 36);
-	row->checkBox->setButtonChecked(Qt::Unchecked);
-
-	QLabel* centerSpacer = new QLabel();
-	centerSpacer->setFixedWidth(12);
-
-	row->CertificateName = new QLabel();
-	row->CertificateName->setFixedHeight(36);
-	row->CertificateName->setFont(FONT);
-	row->CertificateName->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	row->CertificateName->setText(rowString.CertificateNameText);
-	row->CertificateName->setToolTip(rowString.CertificateNameText);
-
-	row->validFrom = new QLabel();
-	row->validFrom->setFixedSize(130,36);
-
-	row->validFrom->setFont(FONT);
-	row->validFrom->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	row->validFrom->setText(rowString.validFromText);
-
-	row->validTo = new QLabel();
-	row->validTo->setFixedSize(130, 36);
-
-	row->validTo->setFont(FONT);
-	row->validTo->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	row->validTo->setText(rowString.validToText);
-
-	HRowLayout->addWidget(row->checkBox);
-	HRowLayout->addWidget(centerSpacer);
-	HRowLayout->addWidget(row->CertificateName);
-	HRowLayout->addWidget(row->validFrom);
-	HRowLayout->addWidget(row->validTo);
-
-	QWidget* thumprintWg = new QWidget();
-	thumprintWg->setFixedHeight(14);
-
-	QHBoxLayout* thumprintLayout = new QHBoxLayout();
-	thumprintLayout->setContentsMargins(50, 0, 0, 0);
-	thumprintLayout->setSpacing(0);
-	thumprintWg->setLayout(thumprintLayout);
-
-	row->thumprint = new QLabel();
-	row->thumprint->setFixedHeight(14);
-	row->thumprint->setFont(FONT);
-	row->thumprint->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	row->thumprint->setText(rowString.thumprintText);
-
-	thumprintLayout->addWidget(row->thumprint);
-
-	row->line = new QLabel();
-	row->line->setFixedHeight(2);
-
-	QLabel* bottomSpacer = new QLabel();
-	bottomSpacer->setFixedHeight(6);
-
-	rowLayout->addWidget(HRowWg);
-	rowLayout->addWidget(thumprintWg);
-	rowLayout->addWidget(bottomSpacer);
-
-	m_rowLayout->addWidget(row->rowWg);
-	m_rowLayout->addWidget(row->line);
-	setRowStyle(row);
-	m_rowCount++;
-
-	m_CertificateRowMap.append(row);
-	if (m_isFilter)
+	if (TryEnterCriticalSection(&m_cs))
 	{
-		QSize size = m_scrollView->size();
-		m_rowWg->resize(this->width(), size.height() + 52);
-	}
-	else
-	{
-		
-		m_rowWg->resize(this->width(), (52 * m_rowCount));
-	}
+		for (auto rowString : m_incomingData)
+		{
+			CertificateRow* row = new CertificateRow();
 
-	connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &CertificateTable::rowCheckBoxSetCheck);
+			row->rowWg = new QWidget();
+			row->rowWg->setFixedHeight(50);
+
+			QVBoxLayout* rowLayout = new QVBoxLayout();
+			rowLayout->setContentsMargins(0, 0, 0, 0);
+			rowLayout->setSpacing(0);
+
+			row->rowWg->setLayout(rowLayout);
+
+			QWidget* HRowWg = new QWidget();
+			HRowWg->setFixedHeight(36);
+
+			QHBoxLayout* HRowLayout = new QHBoxLayout();
+			HRowLayout->setContentsMargins(20, 0, 0, 0);
+			HRowLayout->setSpacing(0);
+			HRowWg->setLayout(HRowLayout);
+
+
+			row->rowWg->setLayout(rowLayout);
+			row->checkBox = new SAPCheckBox();
+			row->checkBox->setFixedSize(18, 36);
+			row->checkBox->setButtonChecked(Qt::Unchecked);
+
+			QLabel* centerSpacer = new QLabel();
+			centerSpacer->setFixedWidth(12);
+
+			row->CertificateName = new QLabel();
+			row->CertificateName->setFixedHeight(36);
+			row->CertificateName->setFont(FONT);
+			row->CertificateName->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+			row->CertificateName->setText(rowString.CertificateNameText);
+			row->CertificateName->setToolTip(rowString.CertificateNameText);
+
+			row->validFrom = new QLabel();
+			row->validFrom->setFixedSize(130, 36);
+
+			row->validFrom->setFont(FONT);
+			row->validFrom->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+			row->validFrom->setText(rowString.validFromText);
+
+			row->validTo = new QLabel();
+			row->validTo->setFixedSize(130, 36);
+
+			row->validTo->setFont(FONT);
+			row->validTo->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+			row->validTo->setText(rowString.validToText);
+
+			HRowLayout->addWidget(row->checkBox);
+			HRowLayout->addWidget(centerSpacer);
+			HRowLayout->addWidget(row->CertificateName);
+			HRowLayout->addWidget(row->validFrom);
+			HRowLayout->addWidget(row->validTo);
+
+			QWidget* thumprintWg = new QWidget();
+			thumprintWg->setFixedHeight(14);
+
+			QHBoxLayout* thumprintLayout = new QHBoxLayout();
+			thumprintLayout->setContentsMargins(50, 0, 0, 0);
+			thumprintLayout->setSpacing(0);
+			thumprintWg->setLayout(thumprintLayout);
+
+			row->thumbprint = new QLabel();
+			row->thumbprint->setFixedHeight(14);
+			row->thumbprint->setFont(FONT);
+			row->thumbprint->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+			row->thumbprint->setText(rowString.thumprintText);
+
+			thumprintLayout->addWidget(row->thumbprint);
+
+			row->line = new QLabel();
+			row->line->setFixedHeight(2);
+
+			QLabel* bottomSpacer = new QLabel();
+			bottomSpacer->setFixedHeight(6);
+
+			rowLayout->addWidget(HRowWg);
+			rowLayout->addWidget(thumprintWg);
+			rowLayout->addWidget(bottomSpacer);
+
+			m_rowLayout->addWidget(row->rowWg);
+			m_rowLayout->addWidget(row->line);
+			setRowStyle(row);
+			m_rowCount++;
+
+			m_CertificateRowMap.append(row);
+			if (m_isFilter)
+			{
+				QSize size = m_scrollView->size();
+				m_rowWg->resize(this->width(), size.height() + 52);
+			}
+			else
+			{
+
+				m_rowWg->resize(this->width(), (52 * m_rowCount));
+			}
+
+			connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &CertificateTable::rowCheckBoxSetCheck);
+		}
+
+		if (hCompletedEvent)
+		{
+			if (WaitForSingleObject(hCompletedEvent, 0) == 0)
+			{
+				//Completed
+				if (m_timerRefresh) m_timerRefresh->stop();
+
+				// TODO: enable/activate "Reset to default" label here
+			}
+		}
+
+		m_incomingData.clear();
+		LeaveCriticalSection(&m_cs);
+	}
 }
 
 void CertificateTable::changeTheme()

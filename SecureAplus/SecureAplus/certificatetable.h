@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stdafx.h"
 #include <QWidget>
 #include "ui_certificatetable.h"
 #include "Config.h"
@@ -16,7 +17,7 @@ struct CertificateRow
 	QLabel*	CertificateName;
 	QLabel*	validFrom;
 	QLabel*	validTo;
-	QLabel*	thumprint;
+	QLabel*	thumbprint;
 	QLabel* line;
 };
 
@@ -27,16 +28,20 @@ class CertificateTable : public QWidget
 public:
 	CertificateTable(QWidget *parent = Q_NULLPTR);
 	~CertificateTable();
+	void loadData(BOOLEAN force = FALSE);
 
 private slots:
+	void refresh();
 	void changeTheme();
 	void allCheckBoxSetCheck(Qt::CheckState);
 	void scrollBarRangeChanged(int min, int max);
 	void rowCheckBoxSetCheck(Qt::CheckState);
 
 public slots:
-	void AddCertificate(CertificateRowString rowString);
-	void AddCertificateFromDialog(CertificateRowString rowString);
+	void AddCertificateGUIOnly(LPCWSTR name, LPCWSTR thumbprint, FILETIME valid_from, FILETIME valid_to);
+	void AddCertificate(QString& certCN, QString& certThumbprint, FILETIME ftValidFrom, FILETIME ftValidTo);
+	//void AddCertificate(CertificateRowString rowString);
+	void AddCertificateFromDialog(QString& name, QString& thumbprint, FILETIME valid_from, FILETIME valid_to);	
 	void removeRows();
 	void resetToDefault();
 
@@ -66,6 +71,13 @@ private:
 	bool m_isFilter = false;
 	int m_rowChecked = 0;
 	int m_filterCount;
+
+	HANDLE hStopEvent;
+	HANDLE hCompletedEvent;
+	HANDLE hThread;
+	QTimer* m_timerRefresh;
+	CRITICAL_SECTION m_cs;
+	std::vector<CertificateRowString> m_incomingData;
 
 	void setStyle();
 	void setRowStyle(CertificateRow* row);

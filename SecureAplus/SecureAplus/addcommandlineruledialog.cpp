@@ -39,7 +39,7 @@ AddnEditCmdLineRuleDialog::AddnEditCmdLineRuleDialog(QDialog *parent)
 
 	m_ruleCbb = new SAPCombobox();
 	m_ruleCbb->setFixedHeight(30);
-	m_ruleCbb->setBackroungColor(DIALOG_TEXBOX_DT, DIALOG_TEXBOX_LT);
+	m_ruleCbb->setBackgroundColor(DIALOG_TEXBOX_DT, DIALOG_TEXBOX_LT);
 
 	m_cmdRuleList.append("Exactly match");
 	m_cmdRuleList.append("Starts with");
@@ -50,7 +50,7 @@ AddnEditCmdLineRuleDialog::AddnEditCmdLineRuleDialog(QDialog *parent)
 
 	m_caseSensCbb = new SAPCombobox();
 	m_caseSensCbb->setFixedHeight(30);
-	m_caseSensCbb->setBackroungColor(DIALOG_TEXBOX_DT, DIALOG_TEXBOX_LT);
+	m_caseSensCbb->setBackgroundColor(DIALOG_TEXBOX_DT, DIALOG_TEXBOX_LT);
 
 	m_sensitiveList.append("Case sensitive");
 	m_sensitiveList.append("Case insensitive");
@@ -73,7 +73,7 @@ AddnEditCmdLineRuleDialog::AddnEditCmdLineRuleDialog(QDialog *parent)
 
 	m_actionCbb = new SAPCombobox();
 	m_actionCbb->setFixedHeight(30);
-	m_actionCbb->setBackroungColor(DIALOG_TEXBOX_DT, DIALOG_TEXBOX_LT);
+	m_actionCbb->setBackgroundColor(DIALOG_TEXBOX_DT, DIALOG_TEXBOX_LT);
 
 	m_actionList.append("Always block.");
 	m_actionList.append("Let trusted userdecide.");

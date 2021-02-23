@@ -1,4 +1,14 @@
+#include "stdafx.h"
 #include "allowlist.h"
+#include <QFileDialog>
+#include "LaunchAtHighestPriv.h"
+#include "WhitelistExportImport.h"
+#include "SAWLTag.h"
+#include "registry.h"
+#include "ServiceStatusString.h"
+#include "Rewhitelist.h"
+#include "InitialWhitelist.h"
+#include "Registry_Classified.h"
 
 AllowList::AllowList(QWidget *parent)
 	: QWidget(parent)
@@ -13,7 +23,7 @@ AllowList::AllowList(QWidget *parent)
 	statusWg->setFixedHeight(220);
 
 	QVBoxLayout* statusLayout = new QVBoxLayout();
-	statusLayout->setContentsMargins(30, 0, 40, 0);
+	statusLayout->setContentsMargins(30, 0, 30, 0);
 	statusLayout->setSpacing(0);
 	statusWg->setLayout(statusLayout);
 
@@ -221,6 +231,20 @@ AllowList::AllowList(QWidget *parent)
 	setLayout(m_layout);
 	setStyle();
 	setLabelText();
+
+
+	hProcessImportWhitelist = NULL;
+	hThreadExportWhitelist = NULL;
+	paramThreadExportWhitelist = NULL;
+
+	m_timerRefresh = new QTimer(this);
+	if (m_timerRefresh)
+	{
+		connect(m_timerRefresh, SIGNAL(timeout()), this, SLOT(onRefresh()));
+	}
+	m_timerRefresh->start(1000);
+	connect(m_importAllistBtn, &QPushButton::clicked, this, &AllowList::onImportWhitelist);
+	connect(m_exportAllistBtn, &QPushButton::clicked, this, &AllowList::onExportWhitelist);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &AllowList::changeTheme);
 	connect(m_slowBtn, &SAPRadioButton::clicked, this, &AllowList::radioButtonClicked);
 	connect(m_fastBtn, &SAPRadioButton::clicked, this, &AllowList::radioButtonClicked);
@@ -379,14 +403,271 @@ void AllowList::setLabelText()
 
 }
 
-void AllowList::setButtonStyle()
-{
-
-}
-
 void AllowList::changeTheme()
 {
 	setStyle();
+}
+
+//////////////////////////////////
+// Whitelist status
+//////////////////////////////////
+
+void AllowList::refreshInitialWhitelistStatus()
+{
+	bool bCompleted;
+	bool bRewhitelist;
+
+	bCompleted = IsInitialWhitelistCompleted() ? 1 : 0;
+	bRewhitelist = IsRewhitelisting();
+
+	if (bCompleted && !bRewhitelist)
+	{
+		// TODO: set label text "Completed" + healthy light (green)
+		//ui.labelInitialWhitelistStatus->setText(tr("Completed"));
+	}
+	else
+	{
+		// TODO: set label text "In Progress" + warning light (orange)
+		//ui.labelInitialWhitelistStatus->setText(tr("In Progress"));
+	}
+}
+
+void AllowList::refreshAllowlistServiceAndDriverStatus()
+{
+	refreshServiceStatus(L"saappsvc");
+	refreshServiceStatus(L"saappctl");
+}
+
+void AllowList::refreshServiceStatus(const wchar_t* service_name)
+{
+	CStringW sub_key;
+	DWORD dwValue;
+	DWORD dwLastError;
+	DWORD dwStatus;
+	QString msg;
+
+	GetServiceSubkey(sub_key, service_name);
+	dwLastError = RegQueryDwordValueW(HKEY_LOCAL_MACHINE, sub_key, L"Start", &dwValue);
+	if (dwLastError != 0)
+	{
+		// TODO: set status label to "Not Installed" + healthy light (green)
+		//msg = tr("Not installed");
+		//labelLogo->setIndex(0);
+	}
+	else
+	{
+		msg = GetServiceStateString(service_name, &dwStatus);
+		switch (dwStatus)
+		{
+		case SERVICE_RUNNING:
+			// TODO: healthy light (green)
+			//labelLogo->setIndex(1);
+			break;
+		default:
+			// TODO: unhealthy light (red)
+			//labelLogo->setIndex(0);
+			break;
+		}
+	}
+
+	// TODO: set status label to msg
+	//if (msg.compare(label->text()) != 0)
+	//{
+	//	label->setText(msg);
+	//}
+}
+
+//////////////////////////////////
+// Import/Export Whitelist
+//////////////////////////////////
+
+void AllowList::onRefresh()
+{
+	// update status bars
+	if (this->isVisible())
+	{
+		refreshAllowlistServiceAndDriverStatus();
+		refreshInitialWhitelistStatus();
+	}
+
+	// refresh progress for export whitelist
+	if (paramThreadExportWhitelist)
+	{
+		paramThreadExportWhitelist->lock();
+		if (paramThreadExportWhitelist->max > 0)
+		{
+			// TODO: progress bar
+			// ui.progressBar->setValue(paramThreadExportWhitelist->pos * SECUREAPLUS_PROGRESS_BAR_MAX / paramThreadExportWhitelist->max);
+		}
+		if (paramThreadExportWhitelist->isCompleted())
+		{
+			if (paramThreadExportWhitelist->dwLastError == 0)
+			{
+				// TODO: clear any existing error msgs
+				// ui.labelMsg->setText("");
+			}
+			else
+			{
+				// TODO: display error msg
+				// ui.labelMsg->setText(QTError(paramThreadExportWhitelist->dwLastError));
+			}
+			// TODO: hide progress bar
+			// ui.progressBar->hide();
+
+			// TODO: enable export button
+			//ui.pushButtonExportWhitelist->setEnabled(true);
+		}
+		paramThreadExportWhitelist->unlock();
+	}
+}
+
+DWORD WINAPI ThreadExportWhitelist(LPVOID lpParam)
+{
+	DWORD dwLastError;
+	SafeParamThreadExportWhitelist* param = (SafeParamThreadExportWhitelist*)lpParam;
+	wchar_t* filenameW;
+	BOOLEAN bFree = FALSE;
+
+	filenameW = param->filename;
+
+	ClearExcludedExportWhitelist();
+	SetExcludedExportWhitelist(TAG_SMS_OVERWRITE_SCAN_SETTINGS);
+	dwLastError = ExportWhitelistDb(filenameW, FALSE, param->hStopEvent, callback_progress_thread_export_whitelist, param);
+
+	param->dwLastError = dwLastError;
+
+	param->setCompleted(&bFree);
+
+	if (param->hStopEvent && WaitForSingleObject(param->hStopEvent, 0) == 0)
+	{
+		DeleteFileW(filenameW);
+	}
+
+	if (bFree)
+	{
+		delete param;
+		param = NULL;
+	}
+	return dwLastError;
+}
+
+void AllowList::freeParamThreadExportWhitelist()
+{
+	BOOLEAN bFree = FALSE;
+
+	if (paramThreadExportWhitelist)
+	{
+		paramThreadExportWhitelist->stop();
+		if (hThreadExportWhitelist)
+		{
+			WaitForSingleObject(hThreadExportWhitelist, INFINITE);
+		}
+
+		paramThreadExportWhitelist->lock();
+		if (paramThreadExportWhitelist->isCompleted())
+		{
+			bFree = TRUE;
+		}
+		paramThreadExportWhitelist->unlock();
+	}
+
+	if (bFree)
+	{
+		delete paramThreadExportWhitelist;
+		paramThreadExportWhitelist = NULL;
+	}
+}
+
+void AllowList::onImportWhitelist()
+{
+	DWORD dwLastError = 0;
+	std::wstring filenameW;
+	CStringW param;
+	wchar_t thisApp[MAX_PATH + 1];
+
+	QString filename = QFileDialog::getOpenFileName(this, tr("Select File"), "", tr("Application whitelisting database (*.dat);;All Files (*.*)"));
+	if (filename.size() != 0)
+	{
+		filename.replace(QString("/"), QString("\\"));
+		filenameW = filename.toStdWString();
+
+		{
+			// [Ben] TODO: old code runs "SAPUI.exe /import" to launch a dialog with progress bar. Implement this here.
+			param.Format(L"/import \"%s\"", filenameW);
+			GetModuleFileName(NULL, thisApp, sizeof(thisApp) / sizeof(wchar_t));
+			dwLastError = LaunchAtHighestPriv(thisApp, param, FALSE, NULL, &hProcessImportWhitelist);
+		}
+
+		if (dwLastError != 0)
+		{
+			// TODO: display error msg
+			// SecureAPlusDisplayError(this, dwLastError);
+		}
+	}
+}
+
+void AllowList::onExportWhitelist()
+{
+	DWORD dwLastError = 0;
+	std::wstring filenameW;
+	QString filename = QFileDialog::getSaveFileName(this, tr("Save File"),
+		"sawhitelist.dat",
+		tr("Application whitelisting database (*.dat)"));
+
+	if (filename.size() != 0)
+	{
+		filename.replace(QString("/"), QString("\\"));
+		filenameW = filename.toStdWString();
+		BOOLEAN bFree = FALSE;
+
+		if (paramThreadExportWhitelist)
+		{
+			if (paramThreadExportWhitelist->setLeftByCallerIfNotCompleted())
+			{
+				bFree = FALSE;
+			}
+			else
+			{
+				bFree = TRUE;
+			}
+			if (bFree) freeParamThreadExportWhitelist();
+		}
+
+		paramThreadExportWhitelist = new SafeParamThreadExportWhitelist();
+		if (paramThreadExportWhitelist == NULL)
+		{
+			dwLastError = ERROR_NOT_ENOUGH_MEMORY;
+		}
+		else
+		{
+			paramThreadExportWhitelist->filename = _wcsdup(filenameW.c_str());
+			hThreadExportWhitelist = CreateThread(NULL, 0, ThreadExportWhitelist, paramThreadExportWhitelist, 0, NULL);
+			if (hThreadExportWhitelist)
+			{
+				if (m_timerRefresh)
+				{
+					// TODO: disable export button
+					//ui.pushButtonExportWhitelist->setEnabled(false);
+					
+					// TODO: display progress bar that shows export progress
+					//ui.labelMsg->setText(tr("Exporting..."));
+					//ui.progressBar->setValue(0);
+					//ui.progressBar->show();
+				}
+				else
+				{
+					// TODO: clear error msg, if any
+					//ui.labelMsg->setText(tr(""));
+				}
+			}
+
+		}
+		if (dwLastError != 0)
+		{
+			// TODO: display error msg
+			//ui.labelMsg->setText(QTError(dwLastError));
+		}
+	}
 }
 
 void AllowList::runCompactAllowList()

@@ -11,6 +11,7 @@
 #include "commandlinetable.h"
 #include "addcommandlinedialog.h"
 #include "resetbutton.h"
+
 class CommandLine : public QWidget
 {
 	Q_OBJECT
@@ -18,6 +19,7 @@ class CommandLine : public QWidget
 public:
 	CommandLine(QWidget *parent = Q_NULLPTR);
 	~CommandLine();
+	void loadData();
 
 private slots:
 	void removeButtonClicked();

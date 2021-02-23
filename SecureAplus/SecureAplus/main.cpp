@@ -1,11 +1,11 @@
-#include <QApplication>
-#include "mainwindow.h"
+#include "stdafx.h"
 #include <QApplication>
 #include "mainwindow.h"
 #include "framelesswindow/framelesswindow.h"
 #include "framelesswindow/windowdragger.h"
 #include <iostream>
 
+using namespace std;
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
 

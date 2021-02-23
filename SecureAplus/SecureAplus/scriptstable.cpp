@@ -1,4 +1,14 @@
 #include "scriptstable.h"
+#include "threadpopulatescript.h"
+#include "NamedPipeSecureAPlusAdminSettings.h"
+#include "scripts.h"
+
+BOOLEAN callback_add_scripts(void* lpContext, LPCWSTR interpreter, LPCWSTR extensions)
+{
+	ScriptsTable* t = (ScriptsTable*)lpContext;
+	t->AddScriptsGUIOnly(interpreter, extensions);
+	return TRUE;
+}
 
 ScriptsTable::ScriptsTable(QWidget *parent)
 	: QWidget(parent)
@@ -73,18 +83,52 @@ ScriptsTable::ScriptsTable(QWidget *parent)
 	connect(m_checkAllBox, &SAPCheckBox::boxSetChecked, this, &ScriptsTable::allCheckBoxSetCheck);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &ScriptsTable::changeTheme);
 	ScriptsString rowString;
-	for (int a = 1; a <= 10; a++)
+	/*for (int a = 1; a <= 10; a++)
 	{
 		rowString.interpreter += "Scripts.exe" + QString::number(a) + " ";
 		rowString.extensions = ".js|.jse|.vbe|.vbs|.wsc|.wsf|.wsh";
 		AddScripts(rowString.interpreter, rowString.extensions);
 		m_defaultList.append(rowString);
+	}*/
+	m_timerRefresh = new QTimer(this);
+	if (m_timerRefresh)
+	{
+		connect(m_timerRefresh, SIGNAL(timeout()), this, SLOT(refresh()));
 	}
-
+	hStopEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+	hCompletedEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+	hThread = NULL;
+	InitializeCriticalSection(&m_cs);
 }
 
 ScriptsTable::~ScriptsTable()
 {
+	if (hThread)
+	{
+		if (hStopEvent) SetEvent(hStopEvent);
+		WaitForSingleObject(hThread, INFINITE);
+		CloseHandle(hThread);
+		hThread = NULL;
+	}
+	if (m_timerRefresh) delete m_timerRefresh;
+	DeleteCriticalSection(&m_cs);
+}
+
+void ScriptsTable::loadData(BOOLEAN force)
+{
+	if (force && hThread && WaitForSingleObject(hCompletedEvent, 0) == 0)
+	{
+		// previously loaded data successfully
+		// reset all state-tracking objects involved in loadData()
+		if (hCompletedEvent) SetEvent(hCompletedEvent);
+		CloseHandle(hThread);
+		hThread = NULL;
+	}
+	if (!hThread)
+	{
+		hThread = CreateThreadPopulateScript(this, callback_add_scripts, hStopEvent, hCompletedEvent);
+		m_timerRefresh->start(500);
+	}
 }
 
 void ScriptsTable::allCheckBoxSetCheck(Qt::CheckState state)
@@ -128,7 +172,7 @@ void ScriptsTable::rowCheckBoxSetCheck(Qt::CheckState)
 	setCheckBoxsState();
 }
 
-void ScriptsTable::AddScriptsFromDialog(QString interpreter, QString extensions)
+void ScriptsTable::AddScriptsFromDialog(QString &interpreter, QString &extensions)
 {
 	int cout = -1;
 
@@ -145,70 +189,51 @@ void ScriptsTable::AddScriptsFromDialog(QString interpreter, QString extensions)
 	}
 
 	AddScripts(interpreter, extensions);
+	refresh();
 }
 
-void ScriptsTable::AddScripts(QString interpreter, QString extensions)
+void ScriptsTable::AddScriptsGUIOnly(LPCWSTR interpreter, LPCWSTR extensions)
 {
-	ScriptsRow* row = new ScriptsRow();
-
-	row->rowWg = new QWidget();
-	row->rowWg->setFixedHeight(36);
-
-	QHBoxLayout* rowLayout = new QHBoxLayout();
-	rowLayout->setContentsMargins(20, 0, 0, 0);
-	rowLayout->setSpacing(0);
-
-	row->rowWg->setLayout(rowLayout);
-
-	row->checkBox = new SAPCheckBox();
-	row->checkBox->setFixedSize(18, 36);
-	row->checkBox->setButtonChecked(Qt::Unchecked);
-
-	QLabel* centerSpacer = new QLabel();
-	centerSpacer->setFixedWidth(12);
-
-	row->interpreter = new QLabel();
-	row->interpreter->setFixedHeight(36);
-	row->interpreter->setFont(FONT);
-	row->interpreter->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	row->interpreter->setText(interpreter);
-	row->interpreter->setToolTip(interpreter);
-
-	row->extensions = new QLabel();
-	row->extensions->setFixedSize(250, 36);
-	row->extensions->setFont(FONT);
-	row->extensions->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	row->extensions->setText(extensions);
-
-	row->line = new QLabel();
-	row->line->setFixedHeight(2);
-
-	rowLayout->addWidget(row->checkBox);
-	rowLayout->addWidget(centerSpacer);
-	rowLayout->addWidget(row->interpreter);
-	rowLayout->addWidget(row->extensions);
-	setRowStyle(row);
-
-	m_rowLayout->addWidget(row->rowWg);
-	m_rowLayout->addWidget(row->line);
-
-	m_rowCount++;
-
-	m_scriptsRowMap.append(row);
-
-	m_rowWg->resize(this->width(), (38 * m_rowCount));
-
-	connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &ScriptsTable::rowCheckBoxSetCheck);
-
-
+	EnterCriticalSection(&m_cs);
+	m_incomingData.push_back(std::make_pair(QString::fromWCharArray(interpreter), QString::fromWCharArray(extensions)));
+	LeaveCriticalSection(&m_cs);
 }
+
+void ScriptsTable::AddScripts(QString &interpreter, QString &extensions)
+{
+	DWORD dwLastError = 0;
+	std::wstring interpreterW, extensionsW;
+
+	interpreterW = interpreter.toStdWString();
+	extensionsW = extensions.toStdWString();
+	dwLastError = SecureaplusAdminSettingsAddScript(interpreterW.c_str(), extensionsW.c_str());
+	if (dwLastError != 0)
+	{
+		// TODO: display error, when add fails
+		return;
+	}
+
+	EnterCriticalSection(&m_cs);
+	m_incomingData.push_back(std::make_pair(interpreter, extensions));
+	LeaveCriticalSection(&m_cs);
+}
+
 void ScriptsTable::removeRows()
 {
+	DWORD dwLastError = 0;
 	QList<ScriptsRow*> keyList;
 	for (auto& row : m_scriptsRowMap)
 	{
 		if (row->checkBox->getCheckState() == Qt::Checked && row->rowWg->isVisible())
 		{
+			dwLastError = SecureaplusAdminSettingsDeleteScript(row->interpreter->text().toStdWString().c_str());
+			if (dwLastError != 0)
+			{
+				// TODO: display error, when remove fails
+				// Beware that this error display code can be called multiple times in this for loop!
+				break;
+			}
+
 			keyList.append(row);
 			m_rowLayout->removeWidget(row->rowWg);
 			m_rowLayout->removeWidget(row->line);
@@ -233,13 +258,27 @@ void ScriptsTable::removeRows()
 		m_checkAllBox->setButtonChecked(Qt::Unchecked);
 		emit setRemoveBtnDisabled(true);
 		return;
+
 	}
 
 	setCheckBoxsState();
 }
 void ScriptsTable::resetToDefault()
 {
+	DWORD dwLastError = 0;
 	QList<ScriptsRow*> keyList;
+
+	// TODO: disable/deactivate "Reset to default" label here
+
+	// restore defaults in backend
+	dwLastError = SecureaplusAdminSettingsRestoreDefaultScript();
+	if (dwLastError)
+	{
+		// TODO: display error, when reset to default fails 
+		return;
+	}
+
+	// de-populate all rows in GUI
 	for (auto& row : m_scriptsRowMap)
 	{
 		keyList.append(row);
@@ -253,19 +292,15 @@ void ScriptsTable::resetToDefault()
 		QSize size = m_rowWg->size();
 		m_rowWg->resize(this->width(), size.height() - 38 /* row height */);
 	}
-
 	for (auto& key : keyList)
 	{
 		m_scriptsRowMap.removeOne(key);
 	}
-	for (auto& key : m_defaultList)
-	{
-		AddScripts(key.interpreter, key.extensions);
-	}
-
 	setCheckBoxsState();
-
 	resizeLabel();
+
+	// re-populate all rows in GUI
+	loadData(TRUE);
 }
 
 void ScriptsTable::resizeEvent(QResizeEvent * event)
@@ -439,6 +474,85 @@ void ScriptsTable::resizeLabel()
 	}
 
 }
+
+void ScriptsTable::refresh()
+{
+	QString interpreter, extensions;
+	if (TryEnterCriticalSection(&m_cs))
+	{
+		for (auto it : m_incomingData)
+		{
+			interpreter = it.first;
+			extensions = it.second;
+
+			ScriptsRow* row = new ScriptsRow();
+
+			row->rowWg = new QWidget();
+			row->rowWg->setFixedHeight(36);
+
+			QHBoxLayout* rowLayout = new QHBoxLayout();
+			rowLayout->setContentsMargins(20, 0, 0, 0);
+			rowLayout->setSpacing(0);
+
+			row->rowWg->setLayout(rowLayout);
+
+			row->checkBox = new SAPCheckBox();
+			row->checkBox->setFixedSize(18, 36);
+			row->checkBox->setButtonChecked(Qt::Unchecked);
+
+			QLabel* centerSpacer = new QLabel();
+			centerSpacer->setFixedWidth(12);
+
+			row->interpreter = new QLabel();
+			row->interpreter->setFixedHeight(36);
+			row->interpreter->setFont(FONT);
+			row->interpreter->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+			row->interpreter->setText(interpreter);
+			row->interpreter->setToolTip(interpreter);
+
+			row->extensions = new QLabel();
+			row->extensions->setFixedSize(250, 36);
+			row->extensions->setFont(FONT);
+			row->extensions->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+			row->extensions->setText(extensions);
+
+			row->line = new QLabel();
+			row->line->setFixedHeight(2);
+
+			rowLayout->addWidget(row->checkBox);
+			rowLayout->addWidget(centerSpacer);
+			rowLayout->addWidget(row->interpreter);
+			rowLayout->addWidget(row->extensions);
+			setRowStyle(row);
+
+			m_rowLayout->addWidget(row->rowWg);
+			m_rowLayout->addWidget(row->line);
+
+			m_rowCount++;
+
+			m_scriptsRowMap.append(row);
+
+			m_rowWg->resize(this->width(), (38 * m_rowCount));
+
+			connect(row->checkBox, &SAPCheckBox::boxSetChecked, this, &ScriptsTable::rowCheckBoxSetCheck);
+		}
+
+		if (hCompletedEvent)
+		{
+			if (WaitForSingleObject(hCompletedEvent, 0) == 0)
+			{
+				//Completed
+				if (m_timerRefresh) m_timerRefresh->stop();
+
+				// TODO: enable/activate "Reset to default" label here
+			}
+		}
+
+		m_incomingData.clear();
+		LeaveCriticalSection(&m_cs);
+	}
+}
+
 void ScriptsTable::changeTheme()
 {
 	setStyle();

@@ -98,25 +98,31 @@ RestrictedApp::RestrictedApp(QWidget *parent)
 	connect(m_fileNameTable, &FileNameTable::setRemoveBtnDisabled, this, &RestrictedApp::setRemoveBtnDisabled);
 	connect(AppSetting::getInstance(), &AppSetting::signal_changeTheme, this, &RestrictedApp::changeTheme);
 
-	m_fileNameTable->AddFileName("7z.exe");
-	m_fileNameTable->AddFileName("7zfm.exe");
-	m_fileNameTable->AddFileName("7zg.exe");
-	m_fileNameTable->AddFileName("ace32loader.exe");
-	m_fileNameTable->AddFileName("browser.exe");
-	m_fileNameTable->AddFileName("Chrome.exe");
-	m_fileNameTable->AddFileName("explorer.exe");
-	m_fileNameTable->AddFileName("firefox.exe");
-	m_fileNameTable->AddFileName("goodsync.exe");
-	m_fileNameTable->AddFileName("microsoftedge.exe");
-	m_fileNameTable->AddFileName("microsoftedgecp.exe");
-	m_fileNameTable->AddFileName("notepad++.exe");
-	m_fileNameTable->AddFileName("onedrive.exe");
-	m_fileNameTable->AddFileName("outlook.exe");
+	/*m_fileNameTable->AddRestrictedApp("7z.exe");
+	m_fileNameTable->AddRestrictedApp("7zfm.exe");
+	m_fileNameTable->AddRestrictedApp("7zg.exe");
+	m_fileNameTable->AddRestrictedApp("ace32loader.exe");
+	m_fileNameTable->AddRestrictedApp("browser.exe");
+	m_fileNameTable->AddRestrictedApp("Chrome.exe");
+	m_fileNameTable->AddRestrictedApp("explorer.exe");
+	m_fileNameTable->AddRestrictedApp("firefox.exe");
+	m_fileNameTable->AddRestrictedApp("goodsync.exe");
+	m_fileNameTable->AddRestrictedApp("microsoftedge.exe");
+	m_fileNameTable->AddRestrictedApp("microsoftedgecp.exe");
+	m_fileNameTable->AddRestrictedApp("notepad++.exe");
+	m_fileNameTable->AddRestrictedApp("onedrive.exe");
+	m_fileNameTable->AddRestrictedApp("outlook.exe");*/
 }
 
 RestrictedApp::~RestrictedApp()
 {
 }
+
+void RestrictedApp::loadData()
+{
+	if (m_fileNameTable) m_fileNameTable->loadData();
+}
+
 void RestrictedApp::removeButtonClicked()
 {
 	//qDebug() << "clicked";

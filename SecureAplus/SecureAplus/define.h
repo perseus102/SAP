@@ -198,6 +198,9 @@
 /* Define for choose file label icon */
 #define CHOOSE_FILE_ICON					QString(":/images/choose file/choose_file_icon.svg")
 
+/* Define for choose file label icon */
+#define CHOOSE_FILE_ICON					QString(":/images/choose file/choose_file_icon.svg")
+
 /* Define for reset button icon */
 #define RESET_BUTTON_ICON					QString(":/images/reset button/reset_button_icon.svg")
 
@@ -620,7 +623,7 @@ enum Button_Check_State
 	Button_All_Checked,
 };
 
-enum TrustedBy_DigitalSignaature
+enum TrustedBy_DigitalSignature
 {
 	Not_Trusted = 0,
 	Trusted_By_Os,

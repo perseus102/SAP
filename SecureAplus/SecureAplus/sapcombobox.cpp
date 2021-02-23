@@ -90,7 +90,7 @@ void SAPCombobox::setStyle()
 	}
 }
 
-void SAPCombobox::setBackroungColor(QString backgroundDT, QString backgroundLT)
+void SAPCombobox::setBackgroundColor(QString backgroundDT, QString backgroundLT)
 {
 	m_backgroundColorDarkTheme = backgroundDT;
 	m_backgroundColorLightTheme = backgroundLT;

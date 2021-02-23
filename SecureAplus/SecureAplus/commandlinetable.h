@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stdafx.h"
 #include <QWidget>
 #include "ui_commandlinetable.h"
 #include "Config.h"
@@ -28,8 +29,10 @@ class CommandLineTable : public QWidget
 public:
 	CommandLineTable(QWidget *parent = Q_NULLPTR);
 	~CommandLineTable();
+	void loadData(BOOLEAN force = FALSE);
 
 private slots:
+	void refresh();
 	void changeTheme();
 	void allCheckBoxSetCheck(Qt::CheckState);
 	void scrollBarRangeChanged(int min, int max);
@@ -39,8 +42,9 @@ private slots:
 	void copyCmdLineToClipBoard(QString commandLine);
 
 public slots:
-	void AddCommandLine(QString commandLine);
-	void AddCommandLineFromDialog(QString commandLine);
+	void AddCertificateGUIOnly(LPCWSTR cmdline);
+	void AddCommandLine(QString& commandLine);
+	void AddCommandLineFromDialog(QString& commandLine);
 	void removeRows();
 	void resetToDefault();
 
@@ -71,6 +75,13 @@ private:
 	QList<CommandLineRow*> resizeRow;
 
 	int m_rowCount;
+
+	HANDLE hStopEvent;
+	HANDLE hCompletedEvent;
+	HANDLE hThread;
+	QTimer* m_timerRefresh;
+	CRITICAL_SECTION m_cs;
+	std::vector<QString> m_incomingData;
 
 	void setStyle();
 	void setRowStyle(CommandLineRow* row);

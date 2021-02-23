@@ -27,7 +27,7 @@ private slots:
 	void cmdTextChange();
 
 signals:
-	void addCommandLine(QString commandLine);
+	void addCommandLine(QString& commandLine);
 
 private:
 	Ui::AddCommandLineDialog ui;

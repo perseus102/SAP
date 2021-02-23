@@ -163,12 +163,6 @@
     <Filter Include="Header Files\Component\Allowlist Status">
       <UniqueIdentifier>{573a1766-9f1a-4eec-91f7-9f81e8c0c5bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Component\File Name Table">
-      <UniqueIdentifier>{d7e24488-b6ed-475f-b314-b08f497db88a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Component\File Name Table">
-      <UniqueIdentifier>{7386863b-03ab-4b48-acd1-16e7b1f9801c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Component\Search">
       <UniqueIdentifier>{f08d28c9-98a1-4a77-ad1c-79492fa18455}</UniqueIdentifier>
     </Filter>
@@ -208,38 +202,17 @@
     <Filter Include="Header Files\Component\Script Table">
       <UniqueIdentifier>{8531c8df-8cf9-4f58-b9e3-fde188d7eee8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Command Line Rule">
+      <UniqueIdentifier>{c5ba8a3f-799c-4432-aae5-fba069963155}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Component\Command Line Table">
       <UniqueIdentifier>{ba0dd16d-6788-411c-8904-43942dca0332}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Component\Process Protector Table">
-      <UniqueIdentifier>{e89afb9c-f23d-4233-afdc-02870b4334e7}</UniqueIdentifier>
+    <Filter Include="Header Files\Component\File Name Table %28Restricted App%29">
+      <UniqueIdentifier>{d7e24488-b6ed-475f-b314-b08f497db88a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Component\Process Protector Table">
-      <UniqueIdentifier>{b7a77fed-83c2-44ed-b895-696716fed71b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Component\Reset Button">
-      <UniqueIdentifier>{9833a3a5-98d8-41cb-a7dd-ed9b4fd21eeb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Component\Reset Button">
-      <UniqueIdentifier>{bdac9576-7fa2-4f99-99bc-3134546bae0b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Component\Copy Button">
-      <UniqueIdentifier>{9e370f71-df6a-4829-b8a2-2ad43d05782e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Component\Copy Button">
-      <UniqueIdentifier>{bcf76834-06bc-4b8b-ba1e-8d4af5dc5d9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Component\Command Line Table">
-      <UniqueIdentifier>{c5ba8a3f-799c-4432-aae5-fba069963155}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Component\Refresh Button">
-      <UniqueIdentifier>{4d029cc4-e75a-4580-868d-72cb28c79933}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Component\Table Combobox">
-      <UniqueIdentifier>{b6cc8d0c-e3ec-45fc-bb6c-9b3bdedea97a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Component\CommandLineRule Table">
-      <UniqueIdentifier>{d29f3809-b783-41da-a5c5-8a4b12b32cdd}</UniqueIdentifier>
+    <Filter Include="Source Files\Component\File Name Table %28Restricted App%29">
+      <UniqueIdentifier>{7386863b-03ab-4b48-acd1-16e7b1f9801c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -362,9 +335,6 @@
     <ClCompile Include="sapradiobutton.cpp">
       <Filter>Source Files\Component\SAP RadioButton</Filter>
     </ClCompile>
-    <ClCompile Include="digitalsignature.cpp">
-      <Filter>Source Files\Manage content\Application Control</Filter>
-    </ClCompile>
     <ClCompile Include="allowlist.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
@@ -375,7 +345,7 @@
       <Filter>Source Files\Component\Allowlist Status</Filter>
     </ClCompile>
     <ClCompile Include="filenametable.cpp">
-      <Filter>Source Files\Component\File Name Table</Filter>
+      <Filter>Source Files\Component\File Name Table %28Restricted App%29</Filter>
     </ClCompile>
     <ClCompile Include="sapcheckbox.cpp">
       <Filter>Source Files\Component\SAP CheckBox</Filter>
@@ -385,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="certificatetable.cpp">
       <Filter>Source Files\Component\Certificate Table</Filter>
+    </ClCompile>
+    <ClCompile Include="trustedcertificate.cpp">
+      <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
     <ClCompile Include="scansettings.cpp">
       <Filter>Source Files\Settings Content\Scan Settings</Filter>
@@ -416,14 +389,23 @@
     <ClCompile Include="commandline.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
+    <ClCompile Include="addcommandlinedialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
     <ClCompile Include="commandlinerule.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
     <ClCompile Include="commandlinetable.cpp">
-      <Filter>Source Files\Component\Command Line Table</Filter>
+      <Filter>Source Files\Component\Command Line Rule</Filter>
     </ClCompile>
     <ClCompile Include="processprotector.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
+    </ClCompile>
+    <ClCompile Include="processprotectortable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="addprocessprotectordialog.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="settingslanguagepersonal.cpp">
       <Filter>Source Files\Settings Content\Language &amp; Persional</Filter>
@@ -440,47 +422,53 @@
     <ClCompile Include="settingsvulassessment.cpp">
       <Filter>Source Files\Settings Content\Scan Settings</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\QTTrustedAccount.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="threadpopulatescript.cpp">
+      <Filter>Source Files\Component\Script Table</Filter>
     </ClCompile>
-    <ClCompile Include="managetrustedcertificate.cpp">
+    <ClCompile Include="threadpopulaterestrictedapp.cpp">
+      <Filter>Source Files\Component\File Name Table %28Restricted App%29</Filter>
+    </ClCompile>
+    <ClCompile Include="threadpopulatecertificate.cpp">
+      <Filter>Source Files\Component\Certificate Table</Filter>
+    </ClCompile>
+    <ClCompile Include="managedigitalsignature.cpp">
       <Filter>Source Files\Manage content\Application Control</Filter>
     </ClCompile>
-    <ClCompile Include="addprocessprotectordialog.cpp">
-      <Filter>Source Files\Dialog</Filter>
+    <ClCompile Include="threadpopulateallowedcommandline.cpp">
+      <Filter>Source Files\Component\Command Line Rule</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SafeParamThreadExportWhitelist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SafeParam.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="compactdialog.cpp">
       <Filter>Source Files\Dialog</Filter>
     </ClCompile>
-    <ClCompile Include="processprotectortable.cpp">
-      <Filter>Source Files\Component\Process Protector Table</Filter>
-    </ClCompile>
-    <ClCompile Include="addcommandlinedialog.cpp">
-      <Filter>Source Files\Dialog</Filter>
-    </ClCompile>
-    <ClCompile Include="resetbutton.cpp">
-      <Filter>Source Files\Component\Reset Button</Filter>
-    </ClCompile>
-    <ClCompile Include="copycommandlinedialog.cpp">
-      <Filter>Source Files\Dialog</Filter>
-    </ClCompile>
-    <ClCompile Include="resetdialog.cpp">
-      <Filter>Source Files\Dialog</Filter>
-    </ClCompile>
-    <ClCompile Include="copybutton.cpp">
-      <Filter>Source Files\Component\Copy Button</Filter>
-    </ClCompile>
-    <ClCompile Include="refeshbutton.cpp">
-      <Filter>Source Files\Component\Refresh Button</Filter>
-    </ClCompile>
-    <ClCompile Include="saptablecombobox.cpp">
-      <Filter>Source Files\Component\Table Combobox</Filter>
-    </ClCompile>
-    <ClCompile Include="commandlineruletable.cpp">
-      <Filter>Source Files\Component\CommandLineRule Table</Filter>
+    <ClCompile Include="..\..\src\QTTrustedAccount.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="addcommandlineruledialog.cpp">
-      <Filter>Source Files\Dialog</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="commandlineruletable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="refeshbutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="resetbutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="resetdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="copybutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="copycommandlinedialog.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -574,9 +562,6 @@
     <QtMoc Include="sapradiobutton.h">
       <Filter>Header Files\Component\SAP RadioButton</Filter>
     </QtMoc>
-    <QtMoc Include="digitalsignature.h">
-      <Filter>Header Files\Manage Content\Application Control</Filter>
-    </QtMoc>
     <QtMoc Include="allowlist.h">
       <Filter>Header Files\Manage Content\Application Control</Filter>
     </QtMoc>
@@ -584,7 +569,7 @@
       <Filter>Header Files\Component\Allowlist Status</Filter>
     </QtMoc>
     <QtMoc Include="filenametable.h">
-      <Filter>Header Files\Component\File Name Table</Filter>
+      <Filter>Header Files\Component\File Name Table %28Restricted App%29</Filter>
     </QtMoc>
     <QtMoc Include="search.h">
       <Filter>Header Files\Component\Search</Filter>
@@ -594,6 +579,9 @@
     </QtMoc>
     <QtMoc Include="certificatetable.h">
       <Filter>Header Files\Component\Certificate Table</Filter>
+    </QtMoc>
+    <QtMoc Include="trustedcertificate.h">
+      <Filter>Header Files\Manage Content\Application Control</Filter>
     </QtMoc>
     <QtMoc Include="scansettings.h">
       <Filter>Header Files\Settings Content\Scan Settings</Filter>
@@ -634,6 +622,9 @@
     <QtMoc Include="commandlinetable.h">
       <Filter>Header Files\Component\Command Line Table</Filter>
     </QtMoc>
+    <QtMoc Include="processprotectortable.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <QtMoc Include="settingslanguagepersonal.h">
       <Filter>Header Files\Settings Content\Language &amp; Persional</Filter>
     </QtMoc>
@@ -652,40 +643,34 @@
     <QtMoc Include="settingsvulassessment.h">
       <Filter>Header Files\Settings Content\Scan Settings</Filter>
     </QtMoc>
-    <QtMoc Include="managetrustedcertificate.h">
+    <QtMoc Include="managedigitalsignature.h">
       <Filter>Header Files\Manage Content\Application Control</Filter>
-    </QtMoc>
-    <QtMoc Include="addprocessprotectordialog.h">
-      <Filter>Header Files\Dialog</Filter>
     </QtMoc>
     <QtMoc Include="compactdialog.h">
       <Filter>Header Files\Dialog</Filter>
     </QtMoc>
-    <QtMoc Include="processprotectortable.h">
-      <Filter>Header Files\Component\Process Protector Table</Filter>
-    </QtMoc>
-    <QtMoc Include="resetbutton.h">
-      <Filter>Header Files\Component\Reset Button</Filter>
-    </QtMoc>
-    <QtMoc Include="copybutton.h">
-      <Filter>Header Files\Component\Reset Button</Filter>
-    </QtMoc>
-    <QtMoc Include="copycommandlinedialog.h">
+    <QtMoc Include="addprocessprotectordialog.h">
       <Filter>Header Files\Dialog</Filter>
     </QtMoc>
-    <QtMoc Include="resetdialog.h">
-      <Filter>Header Files\Dialog</Filter>
-    </QtMoc>
-    <QtMoc Include="commandlineruletable.h">
+    <QtMoc Include="addcommandlineruledialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="saptablecombobox.h">
+    <QtMoc Include="commandlineruletable.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="refeshbutton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="addcommandlineruledialog.h">
+    <QtMoc Include="resetbutton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="resetdialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="copybutton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="copycommandlinedialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -864,6 +849,15 @@
     <QtUic Include="compactdialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="addcommandlineruledialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="commandlineruletable.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="refeshbutton.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
     <QtUic Include="resetbutton.ui">
       <Filter>Form Files</Filter>
     </QtUic>
@@ -874,18 +868,6 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="copycommandlinedialog.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="commandlineruletable.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="saptablecombobox.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="refeshbutton.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="addcommandlineruledialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -907,6 +889,18 @@
     </ClInclude>
     <ClInclude Include="flowlayout.h">
       <Filter>Header Files\Component\Flow Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="threadpopulatescript.h">
+      <Filter>Header Files\Component\Script Table</Filter>
+    </ClInclude>
+    <ClInclude Include="threadpopulaterestrictedapp.h">
+      <Filter>Header Files\Component\File Name Table %28Restricted App%29</Filter>
+    </ClInclude>
+    <ClInclude Include="threadpopulatecertificate.h">
+      <Filter>Header Files\Component\Certificate Table</Filter>
+    </ClInclude>
+    <ClInclude Include="threadpopulateallowedcommandline.h">
+      <Filter>Header Files\Component\Command Line Table</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
